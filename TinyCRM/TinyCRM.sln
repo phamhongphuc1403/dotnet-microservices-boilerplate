@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.API", "TinyCRM.API\TinyCRM.API.csproj", "{79AD331B-A337-4EF3-AA23-4BE7FE9BC32D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Domain", "TinyCRM.Domain\TinyCRM.Domain.csproj", "{11D3596E-9856-4351-9073-9631211439BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Infrastructure", "TinyCRM.Infrastructure\TinyCRM.Infrastructure.csproj", "{548F9708-4A32-4484-ABBF-F600BBC714A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{79AD331B-A337-4EF3-AA23-4BE7FE9BC32D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79AD331B-A337-4EF3-AA23-4BE7FE9BC32D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79AD331B-A337-4EF3-AA23-4BE7FE9BC32D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79AD331B-A337-4EF3-AA23-4BE7FE9BC32D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D3596E-9856-4351-9073-9631211439BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D3596E-9856-4351-9073-9631211439BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D3596E-9856-4351-9073-9631211439BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D3596E-9856-4351-9073-9631211439BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD7BE055-5997-458D-BEE0-619101DD6E4F}
+	EndGlobalSection
+EndGlobal
