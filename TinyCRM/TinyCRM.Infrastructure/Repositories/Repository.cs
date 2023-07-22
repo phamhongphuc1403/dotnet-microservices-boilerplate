@@ -4,9 +4,6 @@ using TinyCRM.Infrastructure.Repositories.Interfaces;
 using TinyCRM.Infrastructure.Database;
 using System.Linq.Expressions;
 using System.Linq.Dynamic.Core;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using System.Reflection;
 
 namespace TinyCRM.Infrastructure.Repositories
 {
@@ -41,11 +38,6 @@ namespace TinyCRM.Infrastructure.Repositories
             {
                 DbSet.Remove(entity);
             }
-        }
-
-        public IQueryable<Entity> GetAll()
-        {
-            return DbSet;
         }
 
         public Task<List<Entity>> GetPaginationAsync(int? skip, int? take, Expression<Func<Entity, bool>>? expression, string? sortBy, bool? descending, params string[] includes)
@@ -103,5 +95,18 @@ namespace TinyCRM.Infrastructure.Repositories
             return await GetAnyAsync(entity => entity.Id == id, includes);
         }
 
+        public Task<List<Entity>> GetAllAsync(Expression<Func<Entity, bool>> expression, params string[] includes)
+        {
+            var query = DbSet.AsNoTracking();
+
+            query.Where(expression);
+
+            foreach (string include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.ToListAsync();
+        }
     }
 }

@@ -73,7 +73,7 @@ namespace TinyCRM.API.Controllers
         [HttpPut("{dealId}/products/{id}")]
         public async Task<ActionResult<GetDealDTO>> UpdateProductAsync(Guid dealId, Guid id, [FromBody] AddOrUpdateProductToDealDTO dto)
         {
-            return Ok(await _dealProductService.UpdateAsync(dto, id));
+            return Ok(await _dealProductService.UpdateAsync(dto, dealId, id));
         }
     }
 }

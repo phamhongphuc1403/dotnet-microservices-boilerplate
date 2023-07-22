@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.DealProduct.DTOs;
-using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Utilities;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Entities.Enums;
@@ -45,9 +44,9 @@ namespace TinyCRM.API.Modules.DealProduct.Services
             return _mapper.Map<GetDealProductDTO>(dealProduct);
         }
 
-        private async Task CkeckValidOnAdd(AddOrUpdateProductToDealDTO dto, Guid id)
+        private async Task CkeckValidOnAdd(AddOrUpdateProductToDealDTO dto, Guid dealId)
         {
-            var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(id))
+            var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealId))
                 .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
 
             if (deal.Status != DealStatusEnum.Open)
@@ -58,7 +57,7 @@ namespace TinyCRM.API.Modules.DealProduct.Services
             Optional<ProductEntity>.Of(await _productRepository.GetAnyAsync(product => product.Id == dto.ProductId))
                 .ThrowIfNotPresent(new NotFoundException("Product not found"));
 
-            Optional<DealProductEntity>.Of(await _repository.GetAnyAsync(entity => entity.ProductId == dto.ProductId))
+            Optional<DealProductEntity>.Of(await _repository.GetAnyAsync(entity => entity.ProductId == dto.ProductId && dealId == entity.DealId))
                 .ThrowIfPresent(new BadRequestException("Product already added to this deal"));
         }
 
@@ -69,12 +68,12 @@ namespace TinyCRM.API.Modules.DealProduct.Services
             return _mapper.Map<IList<GetDealProductDTO>>(leads);
         }
 
-        public async Task<GetDealProductDTO> UpdateAsync(AddOrUpdateProductToDealDTO dto, Guid id)
+        public async Task<GetDealProductDTO> UpdateAsync(AddOrUpdateProductToDealDTO dto, Guid DealId, Guid id)
         {
             var dealProduct = Optional<DealProductEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Deal product not found")).Get();
 
-            await CheckValidOnUpdate(dto, dealProduct);
+            await CheckValidOnUpdate(DealId, dto, dealProduct);
 
             _mapper.Map(dto, dealProduct);
 
@@ -85,9 +84,9 @@ namespace TinyCRM.API.Modules.DealProduct.Services
             return _mapper.Map<GetDealProductDTO>(dealProduct);
         }
 
-        private async Task CheckValidOnUpdate(AddOrUpdateProductToDealDTO dto, DealProductEntity dealProduct)
+        private async Task CheckValidOnUpdate(Guid DealId, AddOrUpdateProductToDealDTO dto, DealProductEntity dealProduct)
         {
-            var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealProduct.DealId))
+            var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(DealId))
                 .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
 
             if (deal.Status != DealStatusEnum.Open)
@@ -95,25 +94,22 @@ namespace TinyCRM.API.Modules.DealProduct.Services
                 throw new BadRequestException("Cannot update product in won or lost deal");
             }
 
-            Optional<ProductEntity>.Of(await _productRepository.GetAnyAsync(product => product.Id == dto.ProductId))
+            Optional<ProductEntity>.Of(await _productRepository.GetByIdAsync(dto.ProductId))
                 .ThrowIfNotPresent(new NotFoundException("Product not found"));
 
-            Optional<DealProductEntity>.Of(await _repository.GetAnyAsync(entity => entity.ProductId == dto.ProductId))
-                .ThrowIfNotPresent(new NotFoundException("Product not found in this deal"));
+            Optional<DealProductEntity>.Of(await _repository.GetAnyAsync(entity => entity.DealId == DealId && entity.ProductId == dto.ProductId))
+                .ThrowIfNotPresent(new NotFoundException("Product not found in this deal")).Get();
         }
 
         public async Task<GetDealProductDTO> GetByIdAsync(Guid dealId, Guid id)
         {
-            var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealId))
-                .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
+            Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealId))
+                .ThrowIfNotPresent(new NotFoundException("Deal not found"));
 
-            var dealProduct = Optional<DealProductEntity>.Of(await _repository.GetByIdAsync(id))
-                .ThrowIfNotPresent(new NotFoundException("Deal product not found"));
+            var dealProduct = Optional<DealProductEntity>.Of(await _repository.GetAnyAsync(entity => entity.Id == id && entity.DealId == dealId))
+                .ThrowIfNotPresent(new NotFoundException("Product not found in this deal")).Get();
 
-            if (deal.Id != dealProduct.DealId)
-            {
-                throw new BadRequestException("Deal product not found in this deal");
-            })
+            return _mapper.Map<GetDealProductDTO>(dealProduct);
         }
     }
 }
