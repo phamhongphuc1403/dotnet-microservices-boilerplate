@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.Account.DTOs;
-using TinyCRM.API.Modules.Account.Model;
 using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.DealProduct.DTOs;
@@ -14,38 +13,37 @@ namespace TinyCRM.API.Utilities
     {
         public Mapper()
         {
-            CreateMap<AddOrUpdateAccountDTO, AccountEntity>();
-            CreateMap<AccountEntity, GetAccountDTO>();
+            CreateMap<AddOrUpdateAccountDto, AccountEntity>();
+            CreateMap<AccountEntity, GetAccountDto>();
 
-            CreateMap<ContactEntity, GetContactDTO>();
-            CreateMap<AddOrUpdateContactDTO, ContactEntity>();
+            CreateMap<ContactEntity, GetContactDto>();
+            CreateMap<AddOrUpdateContactDto, ContactEntity>();
 
-            CreateMap<AddLeadDTO, LeadEntity>();
-            CreateMap<UpdateLeadDTO, LeadEntity>();
-            CreateMap<LeadEntity, GetLeadDTO>();
-            CreateMap<DisqualifyLeadDTO, LeadEntity>();
+            CreateMap<AddLeadDto, LeadEntity>();
+            CreateMap<UpdateLeadDto, LeadEntity>();
+            CreateMap<LeadEntity, GetLeadDto>();
+            CreateMap<DisqualifyLeadDto, LeadEntity>();
 
-            CreateMap<AddOrUpdateProductDTO, ProductEntity>();
-            CreateMap<ProductEntity, GetProductDTO>();
+            CreateMap<AddOrUpdateProductDto, ProductEntity>();
+            CreateMap<ProductEntity, GetProductDto>();
 
-            CreateMap<DealEntity, GetDealDTO>()
+            CreateMap<DealEntity, GetDealDto>()
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Lead.Customer.Name))
                 .ForMember(dest => dest.OriginatingLead, opt => opt.MapFrom(src => src.Lead.Title))
                 .ForMember(dest => dest.EstimatedRevenue, opt => opt.MapFrom(src => src.Lead.EstimatedRevenue));
-            CreateMap<DealEntity, GetAllDealsDTO>()
+            CreateMap<DealEntity, GetAllDealsDto>()
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Lead.Customer.Name));
             CreateMap<LeadEntity, DealEntity>()
                 .ForMember(dest => dest.LeadId, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Description, opt => opt.Ignore());
-            CreateMap<UpdateDealDTO, DealEntity>();
+            CreateMap<UpdateDealDto, DealEntity>();
 
-            CreateMap<DealProductEntity, GetDealProductDTO>()
+            CreateMap<DealProductEntity, GetDealProductDto>()
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Quantity * src.PricePerUnit))
                 .ForMember(dest => dest.StringId, opt => opt.MapFrom(src => src.Quantity * src.PricePerUnit));
-            CreateMap<AddOrUpdateProductToDealDTO, DealProductEntity>()
+            CreateMap<AddOrUpdateProductToDealDto, DealProductEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId));
-
         }
     }
 }

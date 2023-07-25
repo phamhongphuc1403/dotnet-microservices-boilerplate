@@ -12,10 +12,10 @@ namespace TinyCRM.Domain.HttpExceptions
             StatusCode = statusCode;
 
             Response = $@"
-            {{ 
+            {{
                 ""statusCode"": {(int)statusCode},
                 ""code"": ""{code}"",
-                ""message"": ""{message}"" 
+                ""message"": ""{message}""
             }}";
         }
     }

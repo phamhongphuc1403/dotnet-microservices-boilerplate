@@ -4,6 +4,7 @@ using TinyCRM.API.Utilities;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Entities.Enums;
 using TinyCRM.Domain.HttpExceptions;
+using TinyCRM.Infrastructure.PaginationHelper;
 using TinyCRM.Infrastructure.Repositories.Interfaces;
 using TinyCRM.Infrastructure.UnitOfWork;
 
@@ -14,6 +15,7 @@ namespace TinyCRM.API.Modules.Deal.Services
         private readonly IRepository<DealEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
         public DealService(IRepository<DealEntity> productRepository,
             IMapper mapper, IUnitOfWork unitOfWork)
         {
@@ -22,16 +24,17 @@ namespace TinyCRM.API.Modules.Deal.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IList<GetAllDealsDTO>> GetAllAsync(int? skip, int? take, string? title, string? sortBy, bool? descending)
+        public async Task<PaginationResponse<GetAllDealsDto>> GetAllAsync(DealQueryDTO query)
         {
-            var deals = await _repository.GetPaginationAsync(skip, take, 
-                entity => entity.Lead.Customer.Name.Contains(title ?? ""), 
-                sortBy, descending, "Lead.Customer");
+            var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealEntity>
+                .Init(query)
+                .JoinTable("Lead.Customer")
+                .Build());
 
-            return _mapper.Map<IList<GetAllDealsDTO>>(deals);
+            return new PaginationResponse<GetAllDealsDto>(_mapper.Map<List<GetAllDealsDto>>(deals), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetDealDTO> UpdateAsync(Guid id, UpdateDealDTO dto)
+        public async Task<GetDealDto> UpdateAsync(Guid id, UpdateDealDto dto)
         {
             var deal = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
@@ -44,7 +47,7 @@ namespace TinyCRM.API.Modules.Deal.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetDealDTO>(deal);
+            return _mapper.Map<GetDealDto>(deal);
         }
 
         private static void CheckStatusOnUpdateOrDelete(DealEntity deal)
@@ -55,25 +58,25 @@ namespace TinyCRM.API.Modules.Deal.Services
             }
         }
 
-        public async Task<GetDealDTO> GetByIdAsync(Guid id)
+        public async Task<GetDealDto> GetByIdAsync(Guid id)
         {
             var lead = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id, "Lead.Customer"))
                .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
 
-            return _mapper.Map<GetDealDTO>(lead);
+            return _mapper.Map<GetDealDto>(lead);
         }
 
-        public async Task<GetDealDTO> CloseAsWonAsync(Guid id)
+        public async Task<GetDealDto> CloseAsWonAsync(Guid id)
         {
             return await CloseAsAsync(id, DealStatusEnum.Won);
         }
 
-        public async Task<GetDealDTO> CloseAsLostAsync(Guid id)
+        public async Task<GetDealDto> CloseAsLostAsync(Guid id)
         {
             return await CloseAsAsync(id, DealStatusEnum.Lost);
         }
 
-        private async Task<GetDealDTO> CloseAsAsync(Guid id, DealStatusEnum status)
+        private async Task<GetDealDto> CloseAsAsync(Guid id, DealStatusEnum status)
         {
             var deal = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id))
                  .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
@@ -88,7 +91,7 @@ namespace TinyCRM.API.Modules.Deal.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetDealDTO>(deal);
+            return _mapper.Map<GetDealDto>(deal);
         }
 
         private static void CheckValidStatusOnClose(DealStatusEnum status)
@@ -99,13 +102,15 @@ namespace TinyCRM.API.Modules.Deal.Services
             }
         }
 
-        public async Task<IList<GetAllDealsDTO>> GetAllByCustomerIdAsync(Guid customerId, int? skip, int? take, string? title, string? sortBy, bool? descending)
+        public async Task<PaginationResponse<GetAllDealsDto>> GetAllByCustomerIdAsync(Guid customerId, DealQueryDTO query)
         {
-            var deals = await _repository.GetPaginationAsync(skip, take,
-                entity => entity.Lead.CustomerId == customerId && entity.Title.Contains(title ?? ""),
-                sortBy, descending, "Lead.Customer");
+            var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealEntity>
+                .Init(query)
+                .AddContraints(entity => entity.Lead.CustomerId == customerId)
+                .JoinTable("Lead.Customer")
+                .Build());
 
-            return _mapper.Map<IList<GetAllDealsDTO>>(deals);
+            return new PaginationResponse<GetAllDealsDto>(_mapper.Map<List<GetAllDealsDto>>(deals), query.Page, query.Take, totalCount);
         }
     }
 }

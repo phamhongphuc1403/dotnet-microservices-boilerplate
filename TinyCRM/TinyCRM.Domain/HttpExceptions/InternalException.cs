@@ -4,6 +4,8 @@ namespace TinyCRM.Domain.HttpExceptions
 {
     public class InternalException : HttpException
     {
-        public InternalException(string message = "Internal server error") : base(HttpStatusCode.InternalServerError, ExceptionEnum.INTERNAL, message) { }
+        public InternalException(string message = "Internal server error") : base(HttpStatusCode.InternalServerError, ExceptionEnum.Internal, message)
+        {
+        }
     }
 }

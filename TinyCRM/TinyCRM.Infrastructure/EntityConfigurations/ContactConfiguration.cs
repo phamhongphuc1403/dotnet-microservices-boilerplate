@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.Infrastructure;
 
 namespace TinyCRM.Domain.Entities.Configurations
 {

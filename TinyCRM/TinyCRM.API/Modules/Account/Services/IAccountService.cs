@@ -1,15 +1,18 @@
 ﻿using TinyCRM.API.Modules.Account.DTOs;
-using TinyCRM.API.Modules.Account.Model;
-using TinyCRM.Domain.Entities;
+using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Account.Services
 {
     public interface IAccountService
     {
-        Task<IList<GetAccountDTO>> GetAllAsync(int? skip, int? take, string? name, string? sortBy, bool? descending);
-        Task<GetAccountDTO> GetByIdAsync(Guid id);
-        Task<GetAccountDTO> AddAsync(AddOrUpdateAccountDTO dto);
-        Task<GetAccountDTO> UpdateAsync(AddOrUpdateAccountDTO dto, Guid id);
+        Task<PaginationResponse<GetAccountDto>> GetAllAsync(AccountQueryDto query);
+
+        Task<GetAccountDto> GetByIdAsync(Guid id);
+
+        Task<GetAccountDto> AddAsync(AddOrUpdateAccountDto dto);
+
+        Task<GetAccountDto> UpdateAsync(AddOrUpdateAccountDto dto, Guid id);
+
         Task DeleteAsync(Guid id);
     }
 }

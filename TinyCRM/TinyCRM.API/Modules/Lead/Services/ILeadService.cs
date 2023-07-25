@@ -1,18 +1,25 @@
-﻿using TinyCRM.API.Modules.Contact.DTOs;
-using TinyCRM.API.Modules.Deal.DTOs;
+﻿using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Lead.DTOs;
+using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Lead.Services
 {
     public interface ILeadService
     {
-        Task<GetLeadDTO> GetByIdAsync(Guid id);
-        Task<GetLeadDTO> AddAsync(AddLeadDTO dto);
-        Task<GetLeadDTO> UpdateAsync(UpdateLeadDTO dto, Guid id);
+        Task<GetLeadDto> GetByIdAsync(Guid id);
+
+        Task<GetLeadDto> AddAsync(AddLeadDto dto);
+
+        Task<GetLeadDto> UpdateAsync(UpdateLeadDto dto, Guid id);
+
         Task DeleteAsync(Guid id);
-        Task<IList<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, int? skip, int? take, string? title, string? sortBy, bool? descending);
-        Task<IList<GetLeadDTO>> GetAllAsync(int? skip, int? take, string? title, string? sortBy, bool? descending);
-        Task<GetLeadDTO> DisqualifyLeadAsync(Guid id, DisqualifyLeadDTO model);
-        Task<GetDealDTO> QualifyLeadAsync(Guid id);
+
+        Task<PaginationResponse<GetLeadDto>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query);
+
+        Task<PaginationResponse<GetLeadDto>> GetAllAsync(LeadQueryDTO query);
+
+        Task<GetLeadDto> DisqualifyLeadAsync(Guid id, DisqualifyLeadDto model);
+
+        Task<GetDealDto> QualifyLeadAsync(Guid id);
     }
 }

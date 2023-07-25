@@ -2,6 +2,7 @@
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Modules.Lead.Services;
+using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -15,31 +16,30 @@ namespace TinyCRM.API.Controllers
         {
             _service = leadService;
         }
+
         [HttpGet]
-        public async Task<ActionResult<IList<GetLeadDTO>>> GetAllAsync([FromQuery] int? skip,
-            [FromQuery] int? take, [FromQuery] string? title, [FromQuery] string? sortBy, [FromQuery] bool? descending)
+        public async Task<ActionResult<PaginationResponse<GetLeadDto>>> GetAllAsync([FromQuery] LeadQueryDTO query)
         {
-            return Ok(await _service.GetAllAsync(skip, take, title, sortBy, descending));
+            return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetLeadDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetLeadDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetLeadDTO>> CreateAsync([FromBody] AddLeadDTO model)
+        public async Task<ActionResult<GetLeadDto>> CreateAsync([FromBody] AddLeadDto model)
         {
             var newLead = await _service.AddAsync(model);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newLead.Id }, newLead);
-
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<GetLeadDTO>> UpdateAsync(Guid id, [FromBody] UpdateLeadDTO model)
+        public async Task<ActionResult<GetLeadDto>> UpdateAsync(Guid id, [FromBody] UpdateLeadDto model)
         {
             return Ok(await _service.UpdateAsync(model, id));
         }
@@ -52,9 +52,8 @@ namespace TinyCRM.API.Controllers
             return NoContent();
         }
 
-
         [HttpPost("{id}/qualify")]
-        public async Task<ActionResult<GetDealDTO>> QualifyLeadAsync(Guid id)
+        public async Task<ActionResult<GetDealDto>> QualifyLeadAsync(Guid id)
         {
             var deal = await _service.QualifyLeadAsync(id);
 
@@ -69,7 +68,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost("{id}/disqualify")]
-        public async Task<ActionResult<GetLeadDTO>> DisqualifyLeadAsync(Guid id, [FromBody] DisqualifyLeadDTO model)
+        public async Task<ActionResult<GetLeadDto>> DisqualifyLeadAsync(Guid id, [FromBody] DisqualifyLeadDto model)
         {
             return Ok(await _service.DisqualifyLeadAsync(id, model));
         }

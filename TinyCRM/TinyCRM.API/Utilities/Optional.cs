@@ -1,8 +1,6 @@
-﻿using TinyCRM.Domain.Entities;
-
-namespace TinyCRM.API.Utilities
+﻿namespace TinyCRM.API.Utilities
 {
-    public class Optional<T> where T : GuidBaseEntity
+    public class Optional<T>
     {
         private readonly T? _instance;
 
@@ -18,12 +16,22 @@ namespace TinyCRM.API.Utilities
 
         public Optional<T> ThrowIfPresent(Exception exception)
         {
-            return _instance != null ? throw exception : this;
+            if ((_instance is bool && _instance.Equals(true)) || (_instance is not bool && _instance != null))
+            {
+                throw exception;
+            }
+
+            return this;
         }
 
         public Optional<T> ThrowIfNotPresent(Exception exception)
         {
-            return _instance == null ? throw exception : this;
+            if ((_instance is bool && _instance.Equals(false)) || (_instance is not bool && _instance == null))
+            {
+                throw exception;
+            }
+
+            return this;
         }
 
         public T Get()

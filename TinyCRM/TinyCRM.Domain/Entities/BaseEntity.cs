@@ -24,7 +24,10 @@ namespace TinyCRM.Domain.Entities
         DateTime? UpdatedDate { get; set; }
         string UpdatedBy { get; set; }
     }
-    public interface IAuditEntity<TKey> : IAuditEntity, IDeleteEntity<TKey> { }
+
+    public interface IAuditEntity<TKey> : IAuditEntity, IDeleteEntity<TKey>
+    { }
+
     public abstract class BaseEntity<TKey> : IBaseEntity<TKey>
     {
         [Key]
@@ -45,5 +48,6 @@ namespace TinyCRM.Domain.Entities
         public string UpdatedBy { get; set; } = string.Empty;
     }
 
-    public abstract class GuidBaseEntity : BaseEntity<Guid> { }
+    public abstract class GuidBaseEntity : BaseEntity<Guid>
+    { }
 }

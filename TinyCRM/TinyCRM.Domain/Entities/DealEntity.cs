@@ -10,6 +10,7 @@ namespace TinyCRM.Domain.Entities
         public string? Description { get; set; }
         public DealStatusEnum Status { get; set; }
         public virtual ICollection<DealProductEntity> DealsProducts { get; set; }
+
         public DealEntity()
         {
             DealsProducts = new HashSet<DealProductEntity>();

@@ -2,10 +2,11 @@
 
 namespace TinyCRM.API.Modules.Deal.DTOs
 {
-    public class UpdateDealDTO
+    public class UpdateDealDto
     {
         [Required]
         public string Title { get; set; } = string.Empty;
+
         public string? Description { get; set; }
     }
 }

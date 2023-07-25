@@ -1,17 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using TinyCRM.Domain.Middlewares;
+using Serilog;
 using TinyCRM.API.Modules.Account.Services;
-using TinyCRM.Infrastructure.Repositories;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.Database;
-using TinyCRM.Infrastructure.UnitOfWork;
-using TinyCRM.Domain.Entities;
 using TinyCRM.API.Modules.Contact.Services;
-using TinyCRM.API.Modules.Lead.Services;
-using TinyCRM.API.Modules.Product.Services;
 using TinyCRM.API.Modules.Deal.Services;
 using TinyCRM.API.Modules.DealProduct.Services;
+using TinyCRM.API.Modules.Lead.Services;
+using TinyCRM.API.Modules.Product.Services;
+using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Middlewares;
+using TinyCRM.Infrastructure.Database;
+using TinyCRM.Infrastructure.Repositories;
+using TinyCRM.Infrastructure.Repositories.Interfaces;
+using TinyCRM.Infrastructure.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,14 +46,18 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddSwaggerGen(option =>
 {
-    option.SwaggerDoc("v1", new OpenApiInfo 
-    { 
+    option.SwaggerDoc("v1", new OpenApiInfo
+    {
         Title = "TinyCRM",
         Version = "v1"
     });
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
 
 var app = builder.Build();
 

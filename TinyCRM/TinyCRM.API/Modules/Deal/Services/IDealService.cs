@@ -1,14 +1,20 @@
 ﻿using TinyCRM.API.Modules.Deal.DTOs;
+using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Deal.Services
 {
     public interface IDealService
     {
-        Task<IList<GetAllDealsDTO>> GetAllAsync(int? skip, int? take, string? title, string? sortBy, bool? descending);
-        Task<GetDealDTO> GetByIdAsync(Guid id);
-        Task<GetDealDTO> UpdateAsync(Guid id, UpdateDealDTO dto);
-        Task<GetDealDTO> CloseAsWonAsync(Guid id);
-        Task<GetDealDTO> CloseAsLostAsync(Guid id);
-        Task<IList<GetAllDealsDTO>> GetAllByCustomerIdAsync(Guid customerId, int? skip, int? take, string? title, string? sortBy, bool? descending);
+        Task<PaginationResponse<GetAllDealsDto>> GetAllAsync(DealQueryDTO query);
+
+        Task<GetDealDto> GetByIdAsync(Guid id);
+
+        Task<GetDealDto> UpdateAsync(Guid id, UpdateDealDto dto);
+
+        Task<GetDealDto> CloseAsWonAsync(Guid id);
+
+        Task<GetDealDto> CloseAsLostAsync(Guid id);
+
+        Task<PaginationResponse<GetAllDealsDto>> GetAllByCustomerIdAsync(Guid customerId, DealQueryDTO query);
     }
 }

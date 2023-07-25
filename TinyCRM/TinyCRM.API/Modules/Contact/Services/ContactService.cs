@@ -3,6 +3,7 @@ using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Utilities;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
+using TinyCRM.Infrastructure.PaginationHelper;
 using TinyCRM.Infrastructure.Repositories.Interfaces;
 using TinyCRM.Infrastructure.UnitOfWork;
 
@@ -14,8 +15,9 @@ namespace TinyCRM.API.Modules.Contact.Services
         private readonly IRepository<AccountEntity> _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
         public ContactService(
-            IRepository<ContactEntity> contactRepository, 
+            IRepository<ContactEntity> contactRepository,
             IMapper mapper, IUnitOfWork unitOfWork,
             IRepository<AccountEntity> accountRepository)
         {
@@ -24,7 +26,8 @@ namespace TinyCRM.API.Modules.Contact.Services
             _unitOfWork = unitOfWork;
             _accountRepository = accountRepository;
         }
-        public async Task<GetContactDTO> AddAsync(AddOrUpdateContactDTO dto)
+
+        public async Task<GetContactDto> AddAsync(AddOrUpdateContactDto dto)
         {
             await CheckValidOnAdd(dto);
 
@@ -34,33 +37,36 @@ namespace TinyCRM.API.Modules.Contact.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetContactDTO>(contact);
+            return _mapper.Map<GetContactDto>(contact);
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            var contact = Optional<ContactEntity>.Of(await _repository.GetByIdAsync(id)).ThrowIfNotPresent(new NotFoundException("Contact not found")).Get(); ;
+            var contact = Optional<ContactEntity>.Of(await _repository.GetByIdAsync(id))
+                .ThrowIfNotPresent(new NotFoundException("Contact not found")).Get(); ;
 
             _repository.Delete(contact);
 
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<IList<GetContactDTO>> GetAllAsync(int? skip, int? take, string? name, string? sortBy, bool? descending)
+        public async Task<PaginationResponse<GetContactDto>> GetAllAsync(ContactQueryDTO query)
         {
-            var contacts = await _repository.GetPaginationAsync(skip, take, entity => entity.Name.Contains(name ?? ""), sortBy, descending);
+            var (contacts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ContactEntity>
+                .Init(query).Build());
 
-            return _mapper.Map<IList<GetContactDTO>>(contacts);
+            return new PaginationResponse<GetContactDto>(_mapper.Map<List<GetContactDto>>(contacts), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetContactDTO> GetByIdAsync(Guid id)
+        public async Task<GetContactDto> GetByIdAsync(Guid id)
         {
-            var contact = Optional<ContactEntity>.Of(await _repository.GetByIdAsync(id)).ThrowIfNotPresent(new NotFoundException("Contact not found")).Get();
-        
-            return _mapper.Map<GetContactDTO>(contact);
+            var contact = Optional<ContactEntity>.Of(await _repository.GetByIdAsync(id))
+                .ThrowIfNotPresent(new NotFoundException("Contact not found")).Get();
+
+            return _mapper.Map<GetContactDto>(contact);
         }
 
-        public async Task<GetContactDTO> UpdateAsync(AddOrUpdateContactDTO dto, Guid id)
+        public async Task<GetContactDto> UpdateAsync(AddOrUpdateContactDto dto, Guid id)
         {
             await GetByIdAsync(id);
 
@@ -74,55 +80,53 @@ namespace TinyCRM.API.Modules.Contact.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetContactDTO>(updatedContact);
+            return _mapper.Map<GetContactDto>(updatedContact);
         }
 
-        private async Task CheckValidOnAdd(AddOrUpdateContactDTO dto)
+        private async Task CheckValidOnAdd(AddOrUpdateContactDto dto)
         {
-            Optional<ContactEntity>.Of(await _repository.GetAnyAsync(entity => entity.Email == dto.Email)).ThrowIfPresent(new DuplicateException("This email already exist"));
+            Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.Email == dto.Email))
+                .ThrowIfPresent(new DuplicateException("This email already exist"));
 
             if (!string.IsNullOrEmpty(dto.PhoneNumber))
             {
-                Optional<ContactEntity>.Of(await _repository.GetAnyAsync(entity => entity.PhoneNumber == dto.PhoneNumber)).ThrowIfPresent(new DuplicateException("This phone number already exist"));
+                Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.PhoneNumber == dto.PhoneNumber))
+                    .ThrowIfPresent(new DuplicateException("This phone number already exist"));
             }
 
             if (dto.AccountId != null)
             {
-                Optional<AccountEntity>.Of(await _accountRepository.GetByIdAsync(dto.AccountId ?? Guid.Empty)).ThrowIfNotPresent(new NotFoundException("This account is not exist"));
+                Optional<bool>.Of(await _accountRepository.CheckIfIdExistAsync(dto.AccountId ?? Guid.Empty))
+                    .ThrowIfNotPresent(new NotFoundException("This account is not exist"));
             }
         }
 
-        private async Task CheckValidOnUpdate(AddOrUpdateContactDTO dto, Guid id)
+        private async Task CheckValidOnUpdate(AddOrUpdateContactDto dto, Guid id)
         {
-            var contactByEmail = await _repository.GetAnyAsync(entity => entity.Email == dto.Email);
-
-            if (contactByEmail?.Id != id)
-            {
-                throw new DuplicateException("This email already exist");
-            }
-
+            Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.Email == dto.Email && entity.Id != id))
+                .ThrowIfPresent(new DuplicateException("This email already exist"));
 
             if (!string.IsNullOrEmpty(dto.PhoneNumber))
             {
-                var contactByPhoneNumber = await _repository.GetAnyAsync(entity => entity.PhoneNumber == dto.PhoneNumber);
-
-                if (contactByPhoneNumber?.Id != id)
-                {
-                    throw new DuplicateException("This phone number already exist");
-                }
+                Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.PhoneNumber == dto.PhoneNumber && entity.Id != id))
+                    .ThrowIfPresent(new DuplicateException("This email already exist"));
             }
 
             if (dto.AccountId != null)
             {
-                Optional<AccountEntity>.Of(await _accountRepository.GetByIdAsync(dto.AccountId ?? Guid.Empty)).ThrowIfNotPresent(new NotFoundException("This account is not exist"));
+                Optional<bool>.Of(await _accountRepository.CheckIfIdExistAsync(dto.AccountId ?? Guid.Empty))
+                    .ThrowIfNotPresent(new NotFoundException("This account is not exist"));
             }
         }
 
-        public async Task<IList<GetContactDTO>> GetAllByAccountIdAsync(Guid accountId, int? skip, int? take, string? name, string? sortBy, bool? descending)
+        public async Task<PaginationResponse<GetContactDto>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query)
         {
-            var contacts = await _repository.GetPaginationAsync(skip, take, entity => entity.AccountId == accountId, sortBy, descending);
+            var (contacts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ContactEntity>
+                .Init(query)
+                .AddContraints(entity => entity.AccountId == id)
+                .Build());
 
-            return _mapper.Map<IList<GetContactDTO>>(contacts);
+            return new PaginationResponse<GetContactDto>(_mapper.Map<List<GetContactDto>>(contacts), query.Page, query.Take, totalCount);
         }
     }
 }

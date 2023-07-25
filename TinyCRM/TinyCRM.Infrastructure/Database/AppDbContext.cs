@@ -12,7 +12,9 @@ namespace TinyCRM.Infrastructure.Database
         public DbSet<LeadEntity> Leads { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
 
-        public AppDbContext(DbContextOptions options) : base(options) { }
+        public AppDbContext(DbContextOptions options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

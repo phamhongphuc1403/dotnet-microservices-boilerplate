@@ -1,10 +1,10 @@
-﻿using TinyCRM.Domain.Entities.Enums;
+﻿using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Entities.Enums;
 
 namespace TinyCRM.API.Modules.Product.DTOs
 {
-    public class GetProductDTO
+    public class GetProductDto : GuidBaseEntity
     {
-        public Guid Id { get; set; }
         public string StringId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public ProductTypeEnum Type { get; set; }

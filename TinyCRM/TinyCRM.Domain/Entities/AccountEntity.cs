@@ -9,6 +9,7 @@
         public double? ToSales { get; set; }
         public virtual ICollection<ContactEntity> Contacts { get; set; }
         public virtual ICollection<LeadEntity> Leads { get; set; }
+
         public AccountEntity()
         {
             Contacts = new HashSet<ContactEntity>();

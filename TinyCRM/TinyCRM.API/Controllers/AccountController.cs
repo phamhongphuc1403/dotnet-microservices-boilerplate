@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TinyCRM.API.Modules.Account.DTOs;
-using TinyCRM.API.Modules.Account.Model;
 using TinyCRM.API.Modules.Account.Services;
 using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Modules.Contact.Services;
@@ -8,6 +7,7 @@ using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Deal.Services;
 using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Modules.Lead.Services;
+using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -30,35 +30,35 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<GetAccountDTO>>> GetAllAsync([FromQuery] int? skip, [FromQuery] int? take, [FromQuery] string? name, [FromQuery] string? sortBy, [FromQuery] bool? descending)
+        public async Task<ActionResult<IList<GetAccountDto>>> GetAllAsync([FromQuery] AccountQueryDto query)
         {
-            return Ok(await _service.GetAllAsync(skip, take, name, sortBy, descending));
+            return Ok(await _service.GetAllAsync(query));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetAccountDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetAccountDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetAccountDTO>> CreateAsync([FromBody] AddOrUpdateAccountDTO model)
+        public async Task<ActionResult<GetAccountDto>> CreateAsync([FromBody] AddOrUpdateAccountDto model)
         {
             var newAccount = await _service.AddAsync(model);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newAccount.Id }, newAccount);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<GetAccountDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateAccountDTO model)
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<GetAccountDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateAccountDto model)
         {
             var updatedAccount = await _service.UpdateAsync(model, id);
 
             return Ok(updatedAccount);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);
@@ -66,25 +66,22 @@ namespace TinyCRM.API.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}/contacts")]
-        public async Task<ActionResult<IList<GetContactDTO>>> GetAllContactsByIdAsync(Guid id, [FromQuery] int? skip,
-            [FromQuery] int? take, [FromQuery] string? name, [FromQuery] string? sortBy, [FromQuery] bool? descending)
+        [HttpGet("{id:guid}/contacts")]
+        public async Task<ActionResult<PaginationResponse<GetContactDto>>> GetAllContactsByIdAsync(Guid id, [FromQuery] ContactQueryDTO query)
         {
-            return Ok(await _contactService.GetAllByAccountIdAsync(id, skip, take, name, sortBy, descending));
+            return Ok(await _contactService.GetAllByAccountIdAsync(id, query));
         }
 
-        [HttpGet("{id}/deals")]
-        public async Task<ActionResult<IList<GetAllDealsDTO>>> GetAllDealsByIdAsync(Guid id,
-            [FromQuery] int? skip, [FromQuery] int? take, [FromQuery] string? title, [FromQuery] string? sortBy, [FromQuery] bool? descending)
+        [HttpGet("{id:guid}/deals")]
+        public async Task<ActionResult<PaginationResponse<GetAllDealsDto>>> GetAllDealsByIdAsync(Guid id, [FromQuery] DealQueryDTO query)
         {
-            return Ok(await _dealService.GetAllByCustomerIdAsync(id, skip, take, title, sortBy, descending));
+            return Ok(await _dealService.GetAllByCustomerIdAsync(id, query));
         }
 
-        [HttpGet("{id}/leads")]
-        public async Task<ActionResult<IList<GetLeadDTO>>> GetAllLeadsByIdAsync(Guid id,
-            [FromQuery] int? skip, [FromQuery] int? take, [FromQuery] string? title, [FromQuery] string? sortBy, [FromQuery] bool? descending)
+        [HttpGet("{id:guid}/leads")]
+        public async Task<ActionResult<PaginationResponse<GetLeadDto>>> GetAllLeadsByIdAsync(Guid id, [FromQuery] LeadQueryDTO query)
         {
-            return Ok(await _leadService.GetAllByCustomerIdAsync(id, skip, take, title, sortBy, descending));
+            return Ok(await _leadService.GetAllByCustomerIdAsync(id, query));
         }
     }
 }
