@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TinyCRM.API.Modules.Auth.DTOs
+﻿namespace TinyCRM.API.Modules.Auth.DTOs
 {
     public class LoginDTO
     {

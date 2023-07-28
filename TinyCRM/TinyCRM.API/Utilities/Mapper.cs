@@ -46,7 +46,7 @@ namespace TinyCRM.API.Utilities
             CreateMap<AddOrUpdateProductToDealDTO, DealProductEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId));
 
-            CreateMap<CreateUserDTO, UserEntity>()
+            CreateMap<CreateOrEditUserDTO, UserEntity>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
             CreateMap<UserEntity, GetUserDTO>();
         }

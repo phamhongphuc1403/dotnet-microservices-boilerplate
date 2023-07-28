@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Principal;
 using TinyCRM.API.Constants;
 using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Modules.User.DTOs;
@@ -20,8 +18,9 @@ namespace TinyCRM.API.Controllers
         {
             _service = userService;
         }
+
         [HttpPost]
-        public async Task<ActionResult<GetUserDTO>> CreateAsync([FromBody] CreateUserDTO model)
+        public async Task<ActionResult<GetUserDTO>> CreateAsync([FromBody] CreateOrEditUserDTO model)
         {
             var newUser = await _service.CreateAsync(model);
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newUser.Id }, newUser);
@@ -32,6 +31,12 @@ namespace TinyCRM.API.Controllers
         public async Task<ActionResult<GetAccountDTO>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<GetUserDTO>> UpdateAsync(Guid id, [FromBody] CreateOrEditUserDTO model)
+        {
+            return Ok(await _service.UpdateAsync(id, model));
         }
     }
 }

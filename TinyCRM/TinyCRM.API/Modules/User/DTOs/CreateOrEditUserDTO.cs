@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.API.Modules.User.DTOs
 {
-    public class CreateUserDTO
+    public class CreateOrEditUserDTO
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;

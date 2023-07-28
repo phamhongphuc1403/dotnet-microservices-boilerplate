@@ -39,17 +39,16 @@ builder.Services.AddIdentity<UserEntity, IdentityRole>(options =>
     options.Password.RequiredLength = 3;
     options.Password.RequiredUniqueChars = 1;
 
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); 
-    options.Lockout.MaxFailedAccessAttempts = 5; 
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
     options.Lockout.AllowedForNewUsers = true;
 
-    options.User.AllowedUserNameCharacters = 
+    options.User.AllowedUserNameCharacters =
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = true; 
+    options.User.RequireUniqueEmail = true;
 
-
-    options.SignIn.RequireConfirmedEmail = true;  
-    options.SignIn.RequireConfirmedPhoneNumber = false; 
+    options.SignIn.RequireConfirmedEmail = true;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 builder.Services.Configure<DataProtectionTokenProviderOptions>(opt =>

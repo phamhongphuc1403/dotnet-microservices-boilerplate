@@ -14,11 +14,17 @@ namespace TinyCRM.API.Controllers
         {
             _service = authService;
         }
+
         [HttpPost("login")]
         public async Task<ActionResult> LoginAsync([FromBody] LoginDTO model)
         {
             return Ok(await _service.LoginAsync(model));
         }
-    }
 
+        [HttpPost("refresh-token")]
+        public async Task<ActionResult<RefreshTokenResponseDTO>> RefreshTokenAsync([FromBody] RefreshTokenDTO model)
+        {
+            return Ok(await _service.RefreshTokenAsync(model));
+        }
+    }
 }

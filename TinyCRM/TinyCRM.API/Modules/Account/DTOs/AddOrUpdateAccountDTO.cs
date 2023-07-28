@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TinyCRM.API.Modules.Account.DTOs
+﻿namespace TinyCRM.API.Modules.Account.DTOs
 {
     public class AddOrUpdateAccountDTO
     {

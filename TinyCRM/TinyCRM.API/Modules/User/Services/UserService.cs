@@ -21,7 +21,8 @@ namespace TinyCRM.API.Modules.User.Services
             _userManager = userManager;
             _unitOfWork = unitOfWork;
         }
-        public async Task<GetUserDTO> CreateAsync(CreateUserDTO model)
+
+        public async Task<GetUserDTO> CreateAsync(CreateOrEditUserDTO model)
         {
             try
             {
@@ -60,6 +61,11 @@ namespace TinyCRM.API.Modules.User.Services
                 .ThrowIfNotPresent(new NotFoundException("User not found")).Get();
 
             return _mapper.Map<GetUserDTO>(user);
+        }
+
+        public Task<GetUserDTO> UpdateAsync(Guid id, CreateOrEditUserDTO model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

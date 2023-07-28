@@ -1,9 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
 using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.API.Modules.Auth.Services
@@ -17,6 +16,7 @@ namespace TinyCRM.API.Modules.Auth.Services
         private readonly string _issuer;
         private readonly string _audience;
         private readonly UserManager<UserEntity> _userManager;
+
         public JwtService(IConfiguration configuration, UserManager<UserEntity> userManager)
         {
             var jwtSettings = configuration.GetSection("JwtSettings");
@@ -30,6 +30,7 @@ namespace TinyCRM.API.Modules.Auth.Services
             _issuer = jwtSettings["validIssuer"];
             _audience = jwtSettings["validAudience"];
         }
+
         public async Task<string> GenerateAccessTokenAsync(UserEntity user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
@@ -64,7 +65,7 @@ namespace TinyCRM.API.Modules.Auth.Services
                 audience: _audience,
                 claims: new List<Claim>
                 {
-                    new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new(ClaimTypes.NameIdentifier, user.Id),
                 },
                 expires: DateTime.Now.AddDays(_expireDay),
                 signingCredentials: _signingCredentials
@@ -96,7 +97,7 @@ namespace TinyCRM.API.Modules.Auth.Services
             {
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidateLifetime = true, 
+                ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = _issuer,
                 ValidAudience = _audience,

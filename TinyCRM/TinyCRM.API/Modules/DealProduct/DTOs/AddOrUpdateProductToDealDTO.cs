@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TinyCRM.API.Modules.DealProduct.DTOs
+﻿namespace TinyCRM.API.Modules.DealProduct.DTOs
 {
     public class AddOrUpdateProductToDealDTO
     {
