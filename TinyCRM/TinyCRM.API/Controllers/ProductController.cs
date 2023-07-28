@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TinyCRM.API.Constants;
 using TinyCRM.API.Modules.Product.DTOs;
 using TinyCRM.API.Modules.Product.Services;
 using TinyCRM.Infrastructure.PaginationHelper;
@@ -7,6 +9,7 @@ namespace TinyCRM.API.Controllers
 {
     [Route("api/products")]
     [ApiController]
+    [Authorize(Roles = Role.Admin)]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
@@ -17,20 +20,20 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetProductDto>>> GetAllAsync([FromQuery] ProductQueryDTO query)
+        public async Task<ActionResult<PaginationResponse<GetProductDTO>>> GetAllAsync([FromQuery] ProductQueryDTO query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetProductDto>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetProductDTO>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetProductDto>> CreateAsync([FromBody] AddOrUpdateProductDto model)
+        public async Task<ActionResult<GetProductDTO>> CreateAsync([FromBody] AddOrUpdateProductDTO model)
         {
             var newProduct = await _service.AddAsync(model);
 
@@ -38,7 +41,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<GetProductDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateProductDto model)
+        public async Task<ActionResult<GetProductDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateProductDTO model)
         {
             var updatedProduct = await _service.UpdateAsync(model, id);
 

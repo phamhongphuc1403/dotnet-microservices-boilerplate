@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace TinyCRM.Infrastructure.PaginationHelper
 {
-    public abstract class DataQueryDto<T>
+    public abstract class DataQueryDTO<T>
     {
         [Range(1, int.MaxValue, ErrorMessage = "The value must be larger than 0.")]
         public int? Take { get; set; }

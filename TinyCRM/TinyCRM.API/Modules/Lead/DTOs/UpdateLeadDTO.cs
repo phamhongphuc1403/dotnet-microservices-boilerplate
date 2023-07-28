@@ -4,12 +4,10 @@ using TinyCRM.Domain.Entities.Enums;
 
 namespace TinyCRM.API.Modules.Lead.DTOs
 {
-    public class UpdateLeadDto
+    public class UpdateLeadDTO
     {
-        [Required]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = null!;
 
-        [Required]
         public Guid CustomerId { get; set; }
 
         public string? Description { get; set; }
@@ -18,7 +16,6 @@ namespace TinyCRM.API.Modules.Lead.DTOs
         [EnumDataType(typeof(LeadSourceEnum))]
         public LeadSourceEnum? Source { get; set; }
 
-        [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(LeadStatusEnum))]
         public LeadStatusEnum Status { get; set; }

@@ -22,7 +22,7 @@ namespace TinyCRM.API.Modules.Product.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<GetProductDto> AddAsync(AddOrUpdateProductDto dto)
+        public async Task<GetProductDTO> AddAsync(AddOrUpdateProductDTO dto)
         {
             await CheckValidOnAdd(dto);
 
@@ -32,7 +32,7 @@ namespace TinyCRM.API.Modules.Product.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetProductDto>(product);
+            return _mapper.Map<GetProductDTO>(product);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -45,23 +45,23 @@ namespace TinyCRM.API.Modules.Product.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponse<GetProductDto>> GetAllAsync(ProductQueryDTO query)
+        public async Task<PaginationResponse<GetProductDTO>> GetAllAsync(ProductQueryDTO query)
         {
             var (products, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ProductEntity>
                 .Init(query).Build());
 
-            return new PaginationResponse<GetProductDto>(_mapper.Map<List<GetProductDto>>(products), query.Page, query.Take, totalCount);
+            return new PaginationResponse<GetProductDTO>(_mapper.Map<List<GetProductDTO>>(products), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetProductDto> GetByIdAsync(Guid id)
+        public async Task<GetProductDTO> GetByIdAsync(Guid id)
         {
             var product = Optional<ProductEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Product not found")).Get();
 
-            return _mapper.Map<GetProductDto>(product);
+            return _mapper.Map<GetProductDTO>(product);
         }
 
-        public async Task<GetProductDto> UpdateAsync(AddOrUpdateProductDto dto, Guid id)
+        public async Task<GetProductDTO> UpdateAsync(AddOrUpdateProductDTO dto, Guid id)
         {
             await GetByIdAsync(id);
 
@@ -75,16 +75,16 @@ namespace TinyCRM.API.Modules.Product.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetProductDto>(updatedProduct);
+            return _mapper.Map<GetProductDTO>(updatedProduct);
         }
 
-        private async Task CheckValidOnAdd(AddOrUpdateProductDto dto)
+        private async Task CheckValidOnAdd(AddOrUpdateProductDTO dto)
         {
             Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.StringId == dto.StringId))
                 .ThrowIfPresent(new DuplicateException("This string Id already exist"));
         }
 
-        private async Task CheckValidOnUpdate(AddOrUpdateProductDto dto, Guid id)
+        private async Task CheckValidOnUpdate(AddOrUpdateProductDTO dto, Guid id)
         {
             Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.StringId == dto.StringId && entity.Id != id))
                 .ThrowIfPresent(new DuplicateException("This string Id already exist"));

@@ -5,10 +5,10 @@ using TinyCRM.Domain.Entities.Enums;
 
 namespace TinyCRM.API.Modules.Deal.DTOs
 {
-    public class GetAllDealsDto : GuidBaseEntity
+    public class GetAllDealsDTO : GuidBaseEntity
     {
-        public string Title { get; set; } = string.Empty;
-        public string Customer { get; set; } = string.Empty;
+        public string Title { get; set; } = null!;
+        public string Customer { get; set; } = null!;
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(DealStatusEnum))]

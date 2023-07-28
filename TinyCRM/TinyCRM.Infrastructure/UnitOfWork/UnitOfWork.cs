@@ -1,10 +1,12 @@
-﻿using TinyCRM.Infrastructure.Database;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using TinyCRM.Infrastructure.Database;
 
 namespace TinyCRM.Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbFactory _dbFactory;
+        private IDbContextTransaction _transaction;
 
         public UnitOfWork(DbFactory dbFactory)
         {
@@ -14,6 +16,21 @@ namespace TinyCRM.Infrastructure.UnitOfWork
         public Task<int> CommitAsync()
         {
             return _dbFactory.DbContext.SaveChangesAsync();
+        }
+
+        public async Task BeginTransactionAsync()
+        {
+            _transaction = await _dbFactory.DbContext.Database.BeginTransactionAsync();
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            await _transaction.CommitAsync();
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            await _transaction.RollbackAsync();
         }
     }
 }

@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  tinycrm.api:
+    image: ${DOCKER_REGISTRY-}tinycrmapi
+    ports:
+    - "5001:443"
+    - "5000:80"
+    build:
+      context: .
+      dockerfile: TinyCRM.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ConnectionStrings__DefaultConnection=Server=tinycrm.db;Database=TinyCRM;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True
+  tinycrm.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+    - ACCEPT_EULA=Y
+    - SA_PASSWORD=yourStrong(!)Password
+    ports:
+    - "14433:1433"
+    volumes:
+    - crmdata:/var/opt/mssql
+volumes:
+    crmdata:
+

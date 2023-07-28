@@ -22,7 +22,7 @@ namespace TinyCRM.API.Modules.Account.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<GetAccountDto> AddAsync(AddOrUpdateAccountDto dto)
+        public async Task<GetAccountDTO> AddAsync(AddOrUpdateAccountDTO dto)
         {
             await CheckValidOnAdd(dto);
 
@@ -32,7 +32,7 @@ namespace TinyCRM.API.Modules.Account.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetAccountDto>(account);
+            return _mapper.Map<GetAccountDTO>(account);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -45,23 +45,23 @@ namespace TinyCRM.API.Modules.Account.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponse<GetAccountDto>> GetAllAsync(AccountQueryDto query)
+        public async Task<PaginationResponse<GetAccountDTO>> GetAllAsync(AccountQueryDTO query)
         {
             var (accounts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<AccountEntity>
                 .Init(query).Build());
 
-            return new PaginationResponse<GetAccountDto>(_mapper.Map<List<GetAccountDto>>(accounts), query.Page, query.Take, totalCount);
+            return new PaginationResponse<GetAccountDTO>(_mapper.Map<List<GetAccountDTO>>(accounts), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetAccountDto> GetByIdAsync(Guid id)
+        public async Task<GetAccountDTO> GetByIdAsync(Guid id)
         {
             var account = Optional<AccountEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Account not found")).Get();
 
-            return _mapper.Map<GetAccountDto>(account);
+            return _mapper.Map<GetAccountDTO>(account);
         }
 
-        public async Task<GetAccountDto> UpdateAsync(AddOrUpdateAccountDto dto, Guid id)
+        public async Task<GetAccountDTO> UpdateAsync(AddOrUpdateAccountDTO dto, Guid id)
         {
             await GetByIdAsync(id);
 
@@ -75,10 +75,10 @@ namespace TinyCRM.API.Modules.Account.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetAccountDto>(updatedAccount);
+            return _mapper.Map<GetAccountDTO>(updatedAccount);
         }
 
-        private async Task CheckValidOnAdd(AddOrUpdateAccountDto dto)
+        private async Task CheckValidOnAdd(AddOrUpdateAccountDTO dto)
         {
             Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.Email == dto.Email))
                 .ThrowIfPresent(new DuplicateException("This email already exist"));
@@ -90,7 +90,7 @@ namespace TinyCRM.API.Modules.Account.Services
             }
         }
 
-        private async Task CheckValidOnUpdate(AddOrUpdateAccountDto dto, Guid id)
+        private async Task CheckValidOnUpdate(AddOrUpdateAccountDTO dto, Guid id)
         {
             Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.Email == dto.Email && entity.Id != id))
                 .ThrowIfPresent(new DuplicateException("This email already exist"));

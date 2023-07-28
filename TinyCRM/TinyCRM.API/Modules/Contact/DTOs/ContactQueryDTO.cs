@@ -6,7 +6,7 @@ using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Contact.DTOs
 {
-    public class ContactQueryDTO : DataQueryDto<ContactEntity>
+    public class ContactQueryDTO : DataQueryDTO<ContactEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(ContactSortByEnum))]
@@ -14,12 +14,12 @@ namespace TinyCRM.API.Modules.Contact.DTOs
 
         public override Expression<Func<ContactEntity, bool>> BuildExpression()
         {
-            return entity => entity.Name.Contains(Name ?? string.Empty);
+            return entity => entity.Name.Contains(Name ?? null!);
         }
 
         public override string BuildSort()
         {
-            return SortBy.ToString() ?? string.Empty;
+            return SortBy.ToString() ?? null!;
         }
     }
 

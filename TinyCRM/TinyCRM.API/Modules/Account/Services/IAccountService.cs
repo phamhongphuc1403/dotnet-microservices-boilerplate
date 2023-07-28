@@ -5,13 +5,13 @@ namespace TinyCRM.API.Modules.Account.Services
 {
     public interface IAccountService
     {
-        Task<PaginationResponse<GetAccountDto>> GetAllAsync(AccountQueryDto query);
+        Task<PaginationResponse<GetAccountDTO>> GetAllAsync(AccountQueryDTO query);
 
-        Task<GetAccountDto> GetByIdAsync(Guid id);
+        Task<GetAccountDTO> GetByIdAsync(Guid id);
 
-        Task<GetAccountDto> AddAsync(AddOrUpdateAccountDto dto);
+        Task<GetAccountDTO> AddAsync(AddOrUpdateAccountDTO dto);
 
-        Task<GetAccountDto> UpdateAsync(AddOrUpdateAccountDto dto, Guid id);
+        Task<GetAccountDTO> UpdateAsync(AddOrUpdateAccountDTO dto, Guid id);
 
         Task DeleteAsync(Guid id);
     }

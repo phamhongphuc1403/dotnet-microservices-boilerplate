@@ -7,7 +7,7 @@ using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace TinyCRM.Domain.Middlewares
 {
-    public static class HttpExceptionHandlerMiddlewareExtension
+    public static class HttpExceptionHandlerMiddleware
     {
         public static IApplicationBuilder UseHttpExceptionHandler(this IApplicationBuilder app)
         {
@@ -24,7 +24,7 @@ namespace TinyCRM.Domain.Middlewares
                         Log.Error(ex.Message);
 
                         context.Response.StatusCode = (int)ex.StatusCode;
-                        await context.Response.WriteAsync(ex.Response);
+                        await context.Response.WriteAsJsonAsync(ex.Response);
                     }
                     else
                     {
@@ -32,15 +32,14 @@ namespace TinyCRM.Domain.Middlewares
 
                         var message = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? exceptionHandlerPathFeature?.Error?.Message : "Something went wrong!";
 
-                        var response = $@"{{
-                            ""statusCode"": {StatusCodes.Status500InternalServerError},
-                            ""code"": ""{"INTERNAL"}"",
-                            ""message"": ""{message}""
-                        }}";
-
                         Log.Error(message);
 
-                        await context.Response.WriteAsync(response);
+                        await context.Response.WriteAsJsonAsync(new
+                        {
+                            statusCode = StatusCodes.Status500InternalServerError,
+                            code = "INTERNAL",
+                            message
+                        });
                     }
                 });
             });

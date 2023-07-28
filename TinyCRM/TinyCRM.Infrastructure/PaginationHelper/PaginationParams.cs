@@ -9,6 +9,6 @@ namespace TinyCRM.Infrastructure.PaginationHelper
         public int Skip { get; set; }
         public List<Expression<Func<T, bool>>> ExpressionList { get; set; } = null!;
         public List<string> Includes { get; set; } = new();
-        public string SortBy { get; set; } = string.Empty;
+        public string SortBy { get; set; } = null!;
     }
 }

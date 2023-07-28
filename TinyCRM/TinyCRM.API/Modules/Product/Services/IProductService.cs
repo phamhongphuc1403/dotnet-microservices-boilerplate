@@ -5,14 +5,14 @@ namespace TinyCRM.API.Modules.Product.Services
 {
     public interface IProductService
     {
-        Task<GetProductDto> AddAsync(AddOrUpdateProductDto dto);
+        Task<GetProductDTO> AddAsync(AddOrUpdateProductDTO dto);
 
         Task DeleteAsync(Guid id);
 
-        Task<PaginationResponse<GetProductDto>> GetAllAsync(ProductQueryDTO query);
+        Task<PaginationResponse<GetProductDTO>> GetAllAsync(ProductQueryDTO query);
 
-        Task<GetProductDto> GetByIdAsync(Guid id);
+        Task<GetProductDTO> GetByIdAsync(Guid id);
 
-        Task<GetProductDto> UpdateAsync(AddOrUpdateProductDto dto, Guid id);
+        Task<GetProductDTO> UpdateAsync(AddOrUpdateProductDTO dto, Guid id);
     }
 }

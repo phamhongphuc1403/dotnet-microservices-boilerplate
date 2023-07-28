@@ -43,9 +43,9 @@ namespace TinyCRM.Domain.Entities
     public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
     {
         public DateTime CreatedDate { get; set; }
-        public string CreatedBy { get; set; } = string.Empty;
+        public string CreatedBy { get; set; } = null!;
         public DateTime? UpdatedDate { get; set; }
-        public string UpdatedBy { get; set; } = string.Empty;
+        public string UpdatedBy { get; set; } = null!;
     }
 
     public abstract class GuidBaseEntity : BaseEntity<Guid>

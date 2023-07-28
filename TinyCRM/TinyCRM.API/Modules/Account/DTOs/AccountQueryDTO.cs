@@ -6,7 +6,7 @@ using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Account.DTOs
 {
-    public class AccountQueryDto : DataQueryDto<AccountEntity>
+    public class AccountQueryDTO : DataQueryDTO<AccountEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(AccountSortByEnum))]

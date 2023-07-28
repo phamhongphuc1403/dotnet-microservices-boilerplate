@@ -4,20 +4,13 @@ using TinyCRM.Domain.Entities.Enums;
 
 namespace TinyCRM.API.Modules.Product.DTOs
 {
-    public class AddOrUpdateProductDto
+    public class AddOrUpdateProductDTO
     {
-        [Required]
-        public string StringId { get; set; } = string.Empty;
-
-        [Required]
-        public string Name { get; set; } = string.Empty;
-
-        [Required]
+        public string StringId { get; set; } = null!;
+        public string Name { get; set; } = null!;
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(ProductTypeEnum))]
         public ProductTypeEnum Type { get; set; }
-
-        [Required]
         public double Price { get; set; }
     }
 }

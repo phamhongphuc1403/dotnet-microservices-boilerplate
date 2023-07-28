@@ -4,13 +4,13 @@ namespace TinyCRM.Infrastructure.PaginationHelper
 {
     public class PaginationResponse<T> where T : GuidBaseEntity
     {
-        public MetaDto Meta { get; set; } = new();
+        public MetaDTO Meta { get; set; } = new();
         public List<T> Data { get; set; }
 
         public PaginationResponse()
         {
             Data = new List<T>();
-            Meta = new MetaDto();
+            Meta = new MetaDTO();
         }
 
         public PaginationResponse(List<T> data, int? page, int? take, int totalCount)
@@ -23,7 +23,7 @@ namespace TinyCRM.Infrastructure.PaginationHelper
         }
     }
 
-    public class MetaDto
+    public class MetaDTO
     {
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }

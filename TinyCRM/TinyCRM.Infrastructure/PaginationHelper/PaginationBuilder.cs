@@ -5,18 +5,18 @@ namespace TinyCRM.Infrastructure.PaginationHelper
 {
     public class PaginationBuilder<T> where T : GuidBaseEntity
     {
-        private readonly DataQueryDto<T> _query;
+        private readonly DataQueryDTO<T> _query;
         private readonly List<string> _includes;
         private readonly List<Expression<Func<T, bool>>> _expressionList = new();
 
-        private PaginationBuilder(DataQueryDto<T> query)
+        private PaginationBuilder(DataQueryDTO<T> query)
         {
             _query = query;
             _includes = new List<string>();
             _expressionList.Add(_query.BuildExpression());
         }
 
-        public static PaginationBuilder<T> Init(DataQueryDto<T> query)
+        public static PaginationBuilder<T> Init(DataQueryDTO<T> query)
         {
             return new PaginationBuilder<T>(query);
         }

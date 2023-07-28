@@ -6,20 +6,20 @@ namespace TinyCRM.API.Modules.Lead.Services
 {
     public interface ILeadService
     {
-        Task<GetLeadDto> GetByIdAsync(Guid id);
+        Task<GetLeadDTO> GetByIdAsync(Guid id);
 
-        Task<GetLeadDto> AddAsync(AddLeadDto dto);
+        Task<GetLeadDTO> AddAsync(AddLeadDTO dto);
 
-        Task<GetLeadDto> UpdateAsync(UpdateLeadDto dto, Guid id);
+        Task<GetLeadDTO> UpdateAsync(UpdateLeadDTO dto, Guid id);
 
         Task DeleteAsync(Guid id);
 
-        Task<PaginationResponse<GetLeadDto>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query);
+        Task<PaginationResponse<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query);
 
-        Task<PaginationResponse<GetLeadDto>> GetAllAsync(LeadQueryDTO query);
+        Task<PaginationResponse<GetLeadDTO>> GetAllAsync(LeadQueryDTO query);
 
-        Task<GetLeadDto> DisqualifyLeadAsync(Guid id, DisqualifyLeadDto model);
+        Task<GetLeadDTO> DisqualifyLeadAsync(Guid id, DisqualifyLeadDTO model);
 
-        Task<GetDealDto> QualifyLeadAsync(Guid id);
+        Task<GetDealDTO> QualifyLeadAsync(Guid id);
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using TinyCRM.API.Constants;
 using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Modules.Account.Services;
 using TinyCRM.API.Modules.Contact.DTOs;
@@ -13,6 +15,7 @@ namespace TinyCRM.API.Controllers
 {
     [ApiController]
     [Route("api/accounts")]
+    [Authorize(Roles = Role.Admin)]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _service;
@@ -30,20 +33,20 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<GetAccountDto>>> GetAllAsync([FromQuery] AccountQueryDto query)
+        public async Task<ActionResult<PaginationResponse<GetAccountDTO>>> GetAllAsync([FromQuery] AccountQueryDTO query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetAccountDto>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetAccountDTO>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetAccountDto>> CreateAsync([FromBody] AddOrUpdateAccountDto model)
+        public async Task<ActionResult<GetAccountDTO>> CreateAsync([FromBody] AddOrUpdateAccountDTO model)
         {
             var newAccount = await _service.AddAsync(model);
 
@@ -51,7 +54,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<GetAccountDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateAccountDto model)
+        public async Task<ActionResult<GetAccountDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateAccountDTO model)
         {
             var updatedAccount = await _service.UpdateAsync(model, id);
 
@@ -67,19 +70,19 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("{id:guid}/contacts")]
-        public async Task<ActionResult<PaginationResponse<GetContactDto>>> GetAllContactsByIdAsync(Guid id, [FromQuery] ContactQueryDTO query)
+        public async Task<ActionResult<PaginationResponse<GetContactDTO>>> GetAllContactsByIdAsync(Guid id, [FromQuery] ContactQueryDTO query)
         {
             return Ok(await _contactService.GetAllByAccountIdAsync(id, query));
         }
 
         [HttpGet("{id:guid}/deals")]
-        public async Task<ActionResult<PaginationResponse<GetAllDealsDto>>> GetAllDealsByIdAsync(Guid id, [FromQuery] DealQueryDTO query)
+        public async Task<ActionResult<PaginationResponse<GetAllDealsDTO>>> GetAllDealsByIdAsync(Guid id, [FromQuery] DealQueryDTO query)
         {
             return Ok(await _dealService.GetAllByCustomerIdAsync(id, query));
         }
 
         [HttpGet("{id:guid}/leads")]
-        public async Task<ActionResult<PaginationResponse<GetLeadDto>>> GetAllLeadsByIdAsync(Guid id, [FromQuery] LeadQueryDTO query)
+        public async Task<ActionResult<PaginationResponse<GetLeadDTO>>> GetAllLeadsByIdAsync(Guid id, [FromQuery] LeadQueryDTO query)
         {
             return Ok(await _leadService.GetAllByCustomerIdAsync(id, query));
         }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Domain", "TinyCRM.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Infrastructure", "TinyCRM.Infrastructure\TinyCRM.Infrastructure.csproj", "{548F9708-4A32-4484-ABBF-F600BBC714A3}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{20E65FE6-A2FB-4C91-98E6-C5D2FEEA7625}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{548F9708-4A32-4484-ABBF-F600BBC714A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20E65FE6-A2FB-4C91-98E6-C5D2FEEA7625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20E65FE6-A2FB-4C91-98E6-C5D2FEEA7625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20E65FE6-A2FB-4C91-98E6-C5D2FEEA7625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20E65FE6-A2FB-4C91-98E6-C5D2FEEA7625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

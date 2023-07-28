@@ -31,7 +31,7 @@ namespace TinyCRM.API.Modules.DealProduct.Services
             _dealRepository = dealRepository;
         }
 
-        public async Task<GetDealProductDto> AddAsync(AddOrUpdateProductToDealDto dto, Guid id)
+        public async Task<GetDealProductDTO> AddAsync(AddOrUpdateProductToDealDTO dto, Guid id)
         {
             await CheckValidOnAdd(dto, id);
 
@@ -43,10 +43,10 @@ namespace TinyCRM.API.Modules.DealProduct.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetDealProductDto>(dealProduct);
+            return _mapper.Map<GetDealProductDTO>(dealProduct);
         }
 
-        private async Task CheckValidOnAdd(AddOrUpdateProductToDealDto dto, Guid dealId)
+        private async Task CheckValidOnAdd(AddOrUpdateProductToDealDTO dto, Guid dealId)
         {
             var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealId))
                 .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
@@ -63,7 +63,7 @@ namespace TinyCRM.API.Modules.DealProduct.Services
                 .ThrowIfPresent(new BadRequestException("Product already added to this deal"));
         }
 
-        public async Task<PaginationResponse<GetDealProductDto>> GetAllAsync(Guid id, DealProductDTO query)
+        public async Task<PaginationResponse<GetDealProductDTO>> GetAllAsync(Guid id, DealProductDTO query)
         {
             var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealProductEntity>
                 .Init(query)
@@ -71,10 +71,10 @@ namespace TinyCRM.API.Modules.DealProduct.Services
                 .JoinTable("Product")
                 .Build());
 
-            return new PaginationResponse<GetDealProductDto>(_mapper.Map<List<GetDealProductDto>>(deals), query.Page, query.Take, totalCount);
+            return new PaginationResponse<GetDealProductDTO>(_mapper.Map<List<GetDealProductDTO>>(deals), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetDealProductDto> UpdateAsync(AddOrUpdateProductToDealDto dto, Guid dealId, Guid id)
+        public async Task<GetDealProductDTO> UpdateAsync(AddOrUpdateProductToDealDTO dto, Guid dealId, Guid id)
         {
             var dealProduct = Optional<DealProductEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Deal product not found")).Get();
@@ -87,10 +87,10 @@ namespace TinyCRM.API.Modules.DealProduct.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetDealProductDto>(dealProduct);
+            return _mapper.Map<GetDealProductDTO>(dealProduct);
         }
 
-        private async Task CheckValidOnUpdate(Guid dealId, AddOrUpdateProductToDealDto dto, DealProductEntity dealProduct)
+        private async Task CheckValidOnUpdate(Guid dealId, AddOrUpdateProductToDealDTO dto, DealProductEntity dealProduct)
         {
             var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealId))
                 .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
@@ -107,7 +107,7 @@ namespace TinyCRM.API.Modules.DealProduct.Services
                 .ThrowIfNotPresent(new NotFoundException("Product not found in this deal")).Get();
         }
 
-        public async Task<GetDealProductDto> GetByIdAsync(Guid dealId, Guid id)
+        public async Task<GetDealProductDTO> GetByIdAsync(Guid dealId, Guid id)
         {
             Optional<bool>.Of(await _dealRepository.CheckIfIdExistAsync(dealId))
                 .ThrowIfNotPresent(new NotFoundException("Deal not found"));
@@ -115,7 +115,7 @@ namespace TinyCRM.API.Modules.DealProduct.Services
             var dealProduct = Optional<DealProductEntity>.Of(await _repository.GetAnyAsync(entity => entity.Id == id && entity.DealId == dealId))
                 .ThrowIfNotPresent(new NotFoundException("Product not found in this deal")).Get();
 
-            return _mapper.Map<GetDealProductDto>(dealProduct);
+            return _mapper.Map<GetDealProductDTO>(dealProduct);
         }
     }
 }

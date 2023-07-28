@@ -6,7 +6,7 @@ using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.DealProduct.DTOs
 {
-    public class DealProductDTO : DataQueryDto<DealProductEntity>
+    public class DealProductDTO : DataQueryDTO<DealProductEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(DealProductSortByEnum))]
@@ -14,12 +14,12 @@ namespace TinyCRM.API.Modules.DealProduct.DTOs
 
         public override Expression<Func<DealProductEntity, bool>> BuildExpression()
         {
-            return entity => entity.Product.Name.Contains(Name ?? string.Empty);
+            return entity => entity.Product.Name.Contains(Name ?? null!);
         }
 
         public override string BuildSort()
         {
-            return SortBy.ToString() ?? string.Empty;
+            return SortBy.ToString() ?? null!;
         }
     }
 

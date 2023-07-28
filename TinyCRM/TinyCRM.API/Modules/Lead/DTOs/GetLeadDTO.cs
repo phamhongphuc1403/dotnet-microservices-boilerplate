@@ -4,9 +4,9 @@ using TinyCRM.Domain.Entities.Enums;
 
 namespace TinyCRM.API.Modules.Lead.DTOs
 {
-    public class GetLeadDto : GuidBaseEntity
+    public class GetLeadDTO : GuidBaseEntity
     {
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = null!;
         public Guid CustomerId { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
