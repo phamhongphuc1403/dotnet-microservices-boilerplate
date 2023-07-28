@@ -55,7 +55,7 @@ namespace TinyCRM.API.Modules.Auth.Services
             if (userIdClaim != null)
             {
                 string userId = userIdClaim.Value;
-                
+
                 var user = await _userManager.FindByIdAsync(userId);
 
                 if (user != null && user.RefreshToken == model.RefreshToken)
