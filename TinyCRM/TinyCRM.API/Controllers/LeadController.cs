@@ -26,7 +26,7 @@ namespace TinyCRM.API.Controllers
             return Ok(await _service.GetAllAsync(query));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
         public async Task<ActionResult<GetLeadDTO>> GetByIdAsync(Guid id)
         {
@@ -41,13 +41,13 @@ namespace TinyCRM.API.Controllers
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newLead.Id }, newLead);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<ActionResult<GetLeadDTO>> UpdateAsync(Guid id, [FromBody] UpdateLeadDTO model)
         {
             return Ok(await _service.UpdateAsync(model, id));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);
@@ -55,7 +55,7 @@ namespace TinyCRM.API.Controllers
             return NoContent();
         }
 
-        [HttpPost("{id}/qualify")]
+        [HttpPost("{id:guid}/qualify")]
         public async Task<ActionResult<GetDealDTO>> QualifyLeadAsync(Guid id)
         {
             var deal = await _service.QualifyLeadAsync(id);
@@ -70,10 +70,16 @@ namespace TinyCRM.API.Controllers
             return CreatedAtRoute(routeValues, deal);
         }
 
-        [HttpPost("{id}/disqualify")]
+        [HttpPost("{id:guid}/disqualify")]
         public async Task<ActionResult<GetLeadDTO>> DisqualifyLeadAsync(Guid id, [FromBody] DisqualifyLeadDTO model)
         {
             return Ok(await _service.DisqualifyLeadAsync(id, model));
+        }
+
+        [HttpGet("customer/{customerId:guid}/leads")]
+        public async Task<ActionResult<PaginationResponse<GetLeadDTO>>> GetAllLeadsByIdAsync(Guid customerId, [FromQuery] LeadQueryDTO query)
+        {
+            return Ok(await _service.GetAllByCustomerIdAsync(customerId, query));
         }
     }
 }

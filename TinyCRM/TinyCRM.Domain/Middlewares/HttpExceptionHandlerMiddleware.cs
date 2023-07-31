@@ -32,7 +32,7 @@ namespace TinyCRM.Domain.Middlewares
 
                         var message = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? exceptionHandlerPathFeature?.Error?.Message : "Something went wrong!";
 
-                        Log.Error(message);
+                        Log.Error(exceptionHandlerPathFeature?.Error?.Message ?? string.Empty);
 
                         await context.Response.WriteAsJsonAsync(new
                         {

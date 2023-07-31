@@ -12,7 +12,7 @@ namespace TinyCRM.API.Modules.Lead.DTOs
         [EnumDataType(typeof(LeadSortByEnum))]
         public LeadSortByEnum? SortBy { get; set; }
 
-        public override Expression<Func<LeadEntity, bool>> BuildExpression()
+        public override Expression<Func<LeadEntity, bool>> BuildFilterExpression()
         {
             return entity => entity.Title.Contains(Name ?? null!);
         }

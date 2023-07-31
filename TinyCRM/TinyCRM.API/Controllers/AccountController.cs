@@ -19,17 +19,10 @@ namespace TinyCRM.API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _service;
-        private readonly IDealService _dealService;
-        private readonly IContactService _contactService;
-        private readonly ILeadService _leadService;
 
-        public AccountController(IAccountService accountService,
-            IDealService dealService, IContactService contactService, ILeadService leadService)
+        public AccountController(IAccountService accountService)
         {
             _service = accountService;
-            _dealService = dealService;
-            _contactService = contactService;
-            _leadService = leadService;
         }
 
         [HttpGet]
@@ -67,24 +60,6 @@ namespace TinyCRM.API.Controllers
             await _service.DeleteAsync(id);
 
             return Ok();
-        }
-
-        [HttpGet("{id:guid}/contacts")]
-        public async Task<ActionResult<PaginationResponse<GetContactDTO>>> GetAllContactsByIdAsync(Guid id, [FromQuery] ContactQueryDTO query)
-        {
-            return Ok(await _contactService.GetAllByAccountIdAsync(id, query));
-        }
-
-        [HttpGet("{id:guid}/deals")]
-        public async Task<ActionResult<PaginationResponse<GetAllDealsDTO>>> GetAllDealsByIdAsync(Guid id, [FromQuery] DealQueryDTO query)
-        {
-            return Ok(await _dealService.GetAllByCustomerIdAsync(id, query));
-        }
-
-        [HttpGet("{id:guid}/leads")]
-        public async Task<ActionResult<PaginationResponse<GetLeadDTO>>> GetAllLeadsByIdAsync(Guid id, [FromQuery] LeadQueryDTO query)
-        {
-            return Ok(await _leadService.GetAllByCustomerIdAsync(id, query));
         }
     }
 }

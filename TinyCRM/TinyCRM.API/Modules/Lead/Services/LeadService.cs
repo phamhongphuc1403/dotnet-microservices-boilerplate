@@ -113,7 +113,7 @@ namespace TinyCRM.API.Modules.Lead.Services
         {
             var (leads, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<LeadEntity>
                 .Init(query)
-                .AddContraints(entity => entity.CustomerId == customerId)
+                .AddConstraint(entity => entity.CustomerId == customerId)
                 .Build());
 
             return new PaginationResponse<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);

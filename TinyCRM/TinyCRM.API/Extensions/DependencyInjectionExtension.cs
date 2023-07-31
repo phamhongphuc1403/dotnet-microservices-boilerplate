@@ -8,8 +8,8 @@ using TinyCRM.API.Modules.Product.Services;
 using TinyCRM.API.Modules.User.Services;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Infrastructure.Database;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
 using TinyCRM.Infrastructure.Repositories;
+using TinyCRM.Infrastructure.Repositories.Interfaces;
 using TinyCRM.Infrastructure.UnitOfWork;
 
 namespace TinyCRM.API.Extensions

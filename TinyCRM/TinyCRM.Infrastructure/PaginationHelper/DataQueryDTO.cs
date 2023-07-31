@@ -14,7 +14,7 @@ namespace TinyCRM.Infrastructure.PaginationHelper
         public string? Name { get; set; }
         public bool? Descending { get; set; }
 
-        public abstract Expression<Func<T, bool>> BuildExpression();
+        public abstract Expression<Func<T, bool>> BuildFilterExpression();
 
         public abstract string BuildSort();
     }

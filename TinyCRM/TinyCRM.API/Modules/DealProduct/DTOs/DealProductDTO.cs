@@ -12,7 +12,7 @@ namespace TinyCRM.API.Modules.DealProduct.DTOs
         [EnumDataType(typeof(DealProductSortByEnum))]
         public DealProductSortByEnum? SortBy { get; set; }
 
-        public override Expression<Func<DealProductEntity, bool>> BuildExpression()
+        public override Expression<Func<DealProductEntity, bool>> BuildFilterExpression()
         {
             return entity => entity.Product.Name.Contains(Name ?? null!);
         }

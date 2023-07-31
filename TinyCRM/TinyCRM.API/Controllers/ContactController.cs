@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TinyCRM.API.Constants;
 using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Modules.Contact.Services;
+using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -24,7 +25,7 @@ namespace TinyCRM.API.Controllers
             return Ok(await _service.GetAllAsync(query));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
         public async Task<ActionResult<GetContactDTO>> GetByIdAsync(Guid id)
         {
@@ -39,7 +40,7 @@ namespace TinyCRM.API.Controllers
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newContact.Id }, newContact);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<ActionResult<GetContactDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateContactDTO model)
         {
             var updatedContact = await _service.UpdateAsync(model, id);
@@ -47,12 +48,18 @@ namespace TinyCRM.API.Controllers
             return Ok(updatedContact);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);
 
             return Ok();
+        }
+
+        [HttpGet("account/{accountId:guid}/contacts")]
+        public async Task<ActionResult<PaginationResponse<GetContactDTO>>> GetAllByAccountIdAsync(Guid accountId, [FromQuery] ContactQueryDTO query)
+        {
+            return Ok(await _service.GetAllByAccountIdAsync(accountId, query));
         }
     }
 }

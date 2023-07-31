@@ -123,7 +123,7 @@ namespace TinyCRM.API.Modules.Contact.Services
         {
             var (contacts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ContactEntity>
                 .Init(query)
-                .AddContraints(entity => entity.AccountId == id)
+                .AddConstraint(entity => entity.AccountId == id)
                 .Build());
 
             return new PaginationResponse<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);

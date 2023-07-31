@@ -12,7 +12,7 @@ namespace TinyCRM.API.Modules.Account.DTOs
         [EnumDataType(typeof(AccountSortByEnum))]
         public AccountSortByEnum? SortBy { get; set; }
 
-        public override Expression<Func<AccountEntity, bool>> BuildExpression()
+        public override Expression<Func<AccountEntity, bool>> BuildFilterExpression()
         {
             return entity => entity.Name.Contains(Name ?? string.Empty);
         }

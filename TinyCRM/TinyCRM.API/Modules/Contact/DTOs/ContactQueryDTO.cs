@@ -12,7 +12,7 @@ namespace TinyCRM.API.Modules.Contact.DTOs
         [EnumDataType(typeof(ContactSortByEnum))]
         public ContactSortByEnum? SortBy { get; set; }
 
-        public override Expression<Func<ContactEntity, bool>> BuildExpression()
+        public override Expression<Func<ContactEntity, bool>> BuildFilterExpression()
         {
             return entity => entity.Name.Contains(Name ?? null!);
         }

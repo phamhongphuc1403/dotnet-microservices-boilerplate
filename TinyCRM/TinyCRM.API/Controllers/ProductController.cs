@@ -25,7 +25,7 @@ namespace TinyCRM.API.Controllers
             return Ok(await _service.GetAllAsync(query));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
         public async Task<ActionResult<GetProductDTO>> GetByIdAsync(Guid id)
         {
@@ -40,7 +40,7 @@ namespace TinyCRM.API.Controllers
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newProduct.StringId }, newProduct);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<ActionResult<GetProductDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateProductDTO model)
         {
             var updatedProduct = await _service.UpdateAsync(model, id);
@@ -48,7 +48,7 @@ namespace TinyCRM.API.Controllers
             return Ok(updatedProduct);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);

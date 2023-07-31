@@ -106,7 +106,7 @@ namespace TinyCRM.API.Modules.Deal.Services
         {
             var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealEntity>
                 .Init(query)
-                .AddContraints(entity => entity.Lead.CustomerId == customerId)
+                .AddConstraint(entity => entity.Lead.CustomerId == customerId)
                 .JoinTable("Lead.Customer")
                 .Build());
 

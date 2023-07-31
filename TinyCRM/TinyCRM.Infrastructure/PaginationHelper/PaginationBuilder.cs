@@ -13,7 +13,7 @@ namespace TinyCRM.Infrastructure.PaginationHelper
         {
             _query = query;
             _includes = new List<string>();
-            _expressionList.Add(_query.BuildExpression());
+            _expressionList.Add(_query.BuildFilterExpression());
         }
 
         public static PaginationBuilder<T> Init(DataQueryDTO<T> query)
@@ -27,7 +27,7 @@ namespace TinyCRM.Infrastructure.PaginationHelper
             return this;
         }
 
-        public PaginationBuilder<T> AddContraints(Expression<Func<T, bool>> expression)
+        public PaginationBuilder<T> AddConstraint(Expression<Func<T, bool>> expression)
         {
             _expressionList.Add(expression);
 
