@@ -6,7 +6,7 @@ namespace TinyCRM.Domain.Entities
     {
         public string Title { get; set; } = null!;
         public Guid CustomerId { get; set; }
-        public virtual AccountEntity Customer { get; set; }
+        public virtual AccountEntity Customer { get; set; } = null!;
         public LeadSourceEnum? Source { get; set; }
         public double? EstimatedRevenue { get; set; }
         public string? Description { get; set; }

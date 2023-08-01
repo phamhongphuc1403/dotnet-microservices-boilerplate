@@ -36,7 +36,7 @@
 
         public T Get()
         {
-            return _instance;
+            return _instance ?? throw new InvalidOperationException("No value present");
         }
     }
 }

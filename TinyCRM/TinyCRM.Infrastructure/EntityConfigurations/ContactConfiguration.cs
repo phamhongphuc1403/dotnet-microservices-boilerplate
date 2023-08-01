@@ -14,8 +14,6 @@ namespace TinyCRM.Domain.Entities.Configurations
 
             builder.HasIndex(c => c.Email).IsUnique();
             builder.HasIndex(c => c.PhoneNumber).IsUnique();
-
-            //builder.HasData(SeedGenerator.GenerateContacts());
         }
     }
 }

@@ -32,7 +32,7 @@ namespace TinyCRM.Domain.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual TKey Id { get; set; }
+        public virtual TKey Id { get; set; } = default!;
     }
 
     public abstract class DeleteEntity<TKey> : BaseEntity<TKey>, IDeleteEntity<TKey>

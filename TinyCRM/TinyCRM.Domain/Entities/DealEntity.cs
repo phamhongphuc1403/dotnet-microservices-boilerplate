@@ -6,7 +6,7 @@ namespace TinyCRM.Domain.Entities
     {
         public string Title { get; set; } = null!;
         public Guid LeadId { get; set; }
-        public virtual LeadEntity Lead { get; set; }
+        public virtual LeadEntity Lead { get; set; } = null!;
         public string? Description { get; set; }
         public DealStatusEnum Status { get; set; }
         public virtual ICollection<DealProductEntity> DealsProducts { get; set; }
