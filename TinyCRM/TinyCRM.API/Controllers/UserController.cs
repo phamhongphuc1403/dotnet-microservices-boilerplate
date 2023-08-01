@@ -9,7 +9,6 @@ namespace TinyCRM.API.Controllers
 {
     [Route("api/users")]
     [ApiController]
-    [Authorize(Roles = Role.Admin)]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -20,6 +19,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<GetUserDTO>> CreateAsync([FromBody] CreateOrEditUserDTO model)
         {
             var newUser = await _service.CreateAsync(model);
@@ -27,6 +27,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [Authorize(Policy = "ViewAndUpdateUserPermission")]
         [ActionName(nameof(GetByIdAsync))]
         public async Task<ActionResult<GetAccountDTO>> GetByIdAsync(Guid id)
         {
@@ -34,8 +35,10 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Policy = "ViewAndUpdateUserPermission")]
         public async Task<ActionResult<GetUserDTO>> UpdateAsync(Guid id, [FromBody] CreateOrEditUserDTO model)
         {
+
             return Ok(await _service.UpdateAsync(id, model));
         }
     }

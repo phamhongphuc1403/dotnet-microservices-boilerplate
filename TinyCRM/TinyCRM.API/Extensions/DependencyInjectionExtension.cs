@@ -1,4 +1,5 @@
-﻿using TinyCRM.API.Modules.Account.Services;
+﻿using Microsoft.AspNetCore.Authorization;
+using TinyCRM.API.Modules.Account.Services;
 using TinyCRM.API.Modules.Auth.Services;
 using TinyCRM.API.Modules.Contact.Services;
 using TinyCRM.API.Modules.Deal.Services;
@@ -33,6 +34,9 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<IRepository<ProductEntity>, Repository<ProductEntity>>();
             services.AddScoped<IRepository<DealEntity>, Repository<DealEntity>>();
             services.AddScoped<IRepository<DealProductEntity>, Repository<DealProductEntity>>();
+
+            services.AddScoped<IAuthorizationHandler, API.Extensions.EditInfoHandler>();
+
 
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();

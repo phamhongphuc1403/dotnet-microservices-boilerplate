@@ -24,16 +24,16 @@ namespace TinyCRM.API.Modules.User.Services
 
         public async Task<GetUserDTO> CreateAsync(CreateOrEditUserDTO model)
         {
+            if (model.Password != model.ConfirmPassword)
+            {
+                throw new BadRequestException("Password and confirm password do not match");
+            }
+
             try
             {
-                await _unitOfWork.BeginTransactionAsync();
-
-                if (model.Password != model.ConfirmPassword)
-                {
-                    throw new BadRequestException("Password and confirm password do not match");
-                }
-
                 var user = _mapper.Map<UserEntity>(model);
+
+                await _unitOfWork.BeginTransactionAsync();
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 

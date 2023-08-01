@@ -1,5 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.API.Modules.Auth.Services
@@ -11,7 +10,5 @@ namespace TinyCRM.API.Modules.Auth.Services
         string GenerateRefreshToken(UserEntity user);
 
         ClaimsPrincipal? Verify(string token);
-
-        TokenValidationParameters ValidateToken();
     }
 }

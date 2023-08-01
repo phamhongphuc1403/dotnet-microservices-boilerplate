@@ -19,6 +19,8 @@ var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
 builder.Services.AddAuthenticationExtension(jwtSettings);
 
+builder.Services.AddAuthorizationExtension();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
