@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
+using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.API.Modules.Contact.Services
 {
@@ -50,12 +50,14 @@ namespace TinyCRM.API.Modules.Contact.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponse<GetContactDTO>> GetAllAsync(ContactQueryDTO query)
+        public async Task<PaginationResponseDTO<GetContactDTO>> GetAllAsync(ContactQueryDTO query)
         {
-            var (contacts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ContactEntity>
-                .Init(query).Build());
+            var (contacts, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<ContactEntity>
+                    .Init(query)
+                    .Build());
 
-            return new PaginationResponse<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);
         }
 
         public async Task<GetContactDTO> GetByIdAsync(Guid id)
@@ -119,14 +121,15 @@ namespace TinyCRM.API.Modules.Contact.Services
             }
         }
 
-        public async Task<PaginationResponse<GetContactDTO>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query)
+        public async Task<PaginationResponseDTO<GetContactDTO>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query)
         {
-            var (contacts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ContactEntity>
-                .Init(query)
-                .AddConstraint(entity => entity.AccountId == id)
-                .Build());
+            var (contacts, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<ContactEntity>
+                    .Init(query)
+                    .AddConstraint(entity => entity.AccountId == id)
+                    .Build());
 
-            return new PaginationResponse<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);
         }
     }
 }

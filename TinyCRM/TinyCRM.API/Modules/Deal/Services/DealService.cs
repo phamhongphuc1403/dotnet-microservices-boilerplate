@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Entities.Enums;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
+using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.API.Modules.Deal.Services
 {
@@ -24,14 +24,15 @@ namespace TinyCRM.API.Modules.Deal.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<PaginationResponse<GetAllDealsDTO>> GetAllAsync(DealQueryDTO query)
+        public async Task<PaginationResponseDTO<GetAllDealsDTO>> GetAllAsync(DealQueryDTO query)
         {
-            var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealEntity>
-                .Init(query)
-                .JoinTable("Lead.Customer")
-                .Build());
+            var (deals, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<DealEntity>
+                    .Init(query)
+                    .JoinTable("Lead.Customer")
+                    .Build());
 
-            return new PaginationResponse<GetAllDealsDTO>(_mapper.Map<List<GetAllDealsDTO>>(deals), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetAllDealsDTO>(_mapper.Map<List<GetAllDealsDTO>>(deals), query.Page, query.Take, totalCount);
         }
 
         public async Task<GetDealDTO> UpdateAsync(Guid id, UpdateDealDTO dto)
@@ -102,7 +103,7 @@ namespace TinyCRM.API.Modules.Deal.Services
             }
         }
 
-        public async Task<PaginationResponse<GetAllDealsDTO>> GetAllByCustomerIdAsync(Guid customerId, DealQueryDTO query)
+        public async Task<PaginationResponseDTO<GetAllDealsDTO>> GetAllByCustomerIdAsync(Guid customerId, DealQueryDTO query)
         {
             var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealEntity>
                 .Init(query)
@@ -110,7 +111,7 @@ namespace TinyCRM.API.Modules.Deal.Services
                 .JoinTable("Lead.Customer")
                 .Build());
 
-            return new PaginationResponse<GetAllDealsDTO>(_mapper.Map<List<GetAllDealsDTO>>(deals), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetAllDealsDTO>(_mapper.Map<List<GetAllDealsDTO>>(deals), query.Page, query.Take, totalCount);
         }
     }
 }

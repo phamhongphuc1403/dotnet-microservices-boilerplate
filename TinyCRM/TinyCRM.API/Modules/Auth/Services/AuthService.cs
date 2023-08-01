@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using TinyCRM.API.Modules.Auth.DTOs;
 using TinyCRM.Domain.Entities;
@@ -10,13 +9,11 @@ namespace TinyCRM.API.Modules.Auth.Services
     public class AuthService : IAuthService
     {
         private readonly UserManager<UserEntity> _userManager;
-        private readonly IMapper _mapper;
         private readonly IJwtService _jwtService;
 
-        public AuthService(UserManager<UserEntity> userManager, IMapper mapper, IJwtService jwtService)
+        public AuthService(UserManager<UserEntity> userManager, IJwtService jwtService)
         {
             _userManager = userManager;
-            _mapper = mapper;
             _jwtService = jwtService;
         }
 

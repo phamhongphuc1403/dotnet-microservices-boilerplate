@@ -1,8 +1,7 @@
 ﻿using System.Linq.Expressions;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Infrastructure.PaginationHelper;
 
-namespace TinyCRM.Infrastructure.Repositories.Interfaces
+namespace TinyCRM.Domain.Repositories
 {
     public interface IRepository<TEntity> where TEntity : GuidBaseEntity
     {

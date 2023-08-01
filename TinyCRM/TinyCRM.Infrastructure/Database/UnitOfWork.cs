@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
-using TinyCRM.Infrastructure.Database;
+using TinyCRM.Domain;
 
-namespace TinyCRM.Infrastructure.UnitOfWork
+namespace TinyCRM.Infrastructure.Database
 {
     public class UnitOfWork : IUnitOfWork
     {

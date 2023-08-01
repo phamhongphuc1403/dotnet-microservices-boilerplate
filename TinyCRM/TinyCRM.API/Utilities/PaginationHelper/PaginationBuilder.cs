@@ -1,7 +1,9 @@
 ﻿using System.Linq.Expressions;
+using TinyCRM.API.Common.DTOs;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 
-namespace TinyCRM.Infrastructure.PaginationHelper
+namespace TinyCRM.API.Utilities.PaginationHelper
 {
     public class PaginationBuilder<T> where T : GuidBaseEntity
     {

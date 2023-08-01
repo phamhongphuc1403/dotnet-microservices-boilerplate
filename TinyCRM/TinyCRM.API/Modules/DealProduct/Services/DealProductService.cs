@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.DealProduct.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Entities.Enums;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
+using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.API.Modules.DealProduct.Services
 {
@@ -67,15 +67,16 @@ namespace TinyCRM.API.Modules.DealProduct.Services
                 .ThrowIfPresent(new BadRequestException("Product already added to this deal"));
         }
 
-        public async Task<PaginationResponse<GetDealProductDTO>> GetAllAsync(Guid id, DealProductDTO query)
+        public async Task<PaginationResponseDTO<GetDealProductDTO>> GetAllAsync(Guid id, DealProductDTO query)
         {
-            var (deals, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<DealProductEntity>
-                .Init(query)
-                .AddConstraint(entity => entity.DealId == id)
-                .JoinTable("Product")
-                .Build());
+            var (deals, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<DealProductEntity>
+                    .Init(query)
+                    .AddConstraint(entity => entity.DealId == id)
+                    .JoinTable("Product")
+                    .Build());
 
-            return new PaginationResponse<GetDealProductDTO>(_mapper.Map<List<GetDealProductDTO>>(deals), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetDealProductDTO>(_mapper.Map<List<GetDealProductDTO>>(deals), query.Page, query.Take, totalCount);
         }
 
         public async Task<GetDealProductDTO> UpdateAsync(AddOrUpdateProductToDealDTO dto, Guid dealId, Guid id)

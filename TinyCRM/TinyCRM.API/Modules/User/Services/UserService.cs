@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.User.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.UnitOfWork;
 
 namespace TinyCRM.API.Modules.User.Services
 {

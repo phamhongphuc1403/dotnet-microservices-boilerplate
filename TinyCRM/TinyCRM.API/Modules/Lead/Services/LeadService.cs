@@ -2,12 +2,12 @@
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Entities.Enums;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
+using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.API.Modules.Lead.Services
 {
@@ -109,23 +109,25 @@ namespace TinyCRM.API.Modules.Lead.Services
             }
         }
 
-        public async Task<PaginationResponse<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query)
+        public async Task<PaginationResponseDTO<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query)
         {
-            var (leads, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<LeadEntity>
-                .Init(query)
-                .AddConstraint(entity => entity.CustomerId == customerId)
-                .Build());
+            var (leads, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<LeadEntity>
+                    .Init(query)
+                    .AddConstraint(entity => entity.CustomerId == customerId)
+                    .Build());
 
-            return new PaginationResponse<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);
         }
 
-        public async Task<PaginationResponse<GetLeadDTO>> GetAllAsync(LeadQueryDTO query)
+        public async Task<PaginationResponseDTO<GetLeadDTO>> GetAllAsync(LeadQueryDTO query)
         {
-            var (leads, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<LeadEntity>
-                .Init(query)
-                .Build());
+            var (leads, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<LeadEntity>
+                    .Init(query)
+                    .Build());
 
-            return new PaginationResponse<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);
         }
 
         public async Task<GetLeadDTO> DisqualifyLeadAsync(Guid id, DisqualifyLeadDTO dto)

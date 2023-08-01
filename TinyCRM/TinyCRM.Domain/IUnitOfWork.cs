@@ -1,4 +1,4 @@
-﻿namespace TinyCRM.Infrastructure.UnitOfWork
+﻿namespace TinyCRM.Domain
 {
     public interface IUnitOfWork
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Modules.User.DTOs;
 using TinyCRM.API.Modules.User.Services;
@@ -38,7 +38,6 @@ namespace TinyCRM.API.Controllers
         [Authorize(Policy = "ViewAndUpdateUserPermission")]
         public async Task<ActionResult<GetUserDTO>> UpdateAsync(Guid id, [FromBody] CreateOrEditUserDTO model)
         {
-
             return Ok(await _service.UpdateAsync(id, model));
         }
     }

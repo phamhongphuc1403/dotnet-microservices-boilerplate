@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Repositories;
 using TinyCRM.Infrastructure.Database;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
 
 namespace TinyCRM.Infrastructure.Repositories
 {
@@ -41,7 +41,7 @@ namespace TinyCRM.Infrastructure.Repositories
         public async Task<(List<TEntity>, int)> GetPaginationAsync(PaginationParams<TEntity> parameters)
         {
             var query = DbSet.AsNoTracking();
-            
+
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
                 query = query.OrderBy(parameters.SortBy);

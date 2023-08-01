@@ -1,15 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Modules.Account.Services;
-using TinyCRM.API.Modules.Contact.DTOs;
-using TinyCRM.API.Modules.Contact.Services;
-using TinyCRM.API.Modules.Deal.DTOs;
-using TinyCRM.API.Modules.Deal.Services;
-using TinyCRM.API.Modules.Lead.DTOs;
-using TinyCRM.API.Modules.Lead.Services;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -26,7 +20,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetAccountDTO>>> GetAllAsync([FromQuery] AccountQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetAccountDTO>>> GetAllAsync([FromQuery] AccountQueryDTO query)
         {
             return Ok(await _service.GetAllAsync(query));
         }

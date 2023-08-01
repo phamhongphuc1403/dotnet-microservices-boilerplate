@@ -1,11 +1,11 @@
 ﻿using TinyCRM.API.Modules.Account.DTOs;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Account.Services
 {
     public interface IAccountService
     {
-        Task<PaginationResponse<GetAccountDTO>> GetAllAsync(AccountQueryDTO query);
+        Task<PaginationResponseDTO<GetAccountDTO>> GetAllAsync(AccountQueryDTO query);
 
         Task<GetAccountDTO> GetByIdAsync(Guid id);
 

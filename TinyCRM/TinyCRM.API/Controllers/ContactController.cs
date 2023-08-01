@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Modules.Contact.Services;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -57,7 +57,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("account/{accountId:guid}/contacts")]
-        public async Task<ActionResult<PaginationResponse<GetContactDTO>>> GetAllByAccountIdAsync(Guid accountId, [FromQuery] ContactQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetContactDTO>>> GetAllByAccountIdAsync(Guid accountId, [FromQuery] ContactQueryDTO query)
         {
             return Ok(await _service.GetAllByAccountIdAsync(accountId, query));
         }

@@ -1,19 +1,19 @@
 ﻿using TinyCRM.Domain.Entities;
 
-namespace TinyCRM.Infrastructure.PaginationHelper
+namespace TinyCRM.API.Utilities.PaginationHelper
 {
-    public class PaginationResponse<T> where T : GuidBaseEntity
+    public class PaginationResponseDTO<T> where T : GuidBaseEntity
     {
         public MetaDTO Meta { get; set; } = new();
         public List<T> Data { get; set; }
 
-        public PaginationResponse()
+        public PaginationResponseDTO()
         {
             Data = new List<T>();
             Meta = new MetaDTO();
         }
 
-        public PaginationResponse(List<T> data, int? page, int? take, int totalCount)
+        public PaginationResponseDTO(List<T> data, int? page, int? take, int totalCount)
         {
             Data = data;
             Meta.CurrentPage = page ?? 1;

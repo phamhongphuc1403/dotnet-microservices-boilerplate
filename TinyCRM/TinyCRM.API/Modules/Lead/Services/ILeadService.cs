@@ -1,6 +1,6 @@
 ﻿using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Lead.DTOs;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Lead.Services
 {
@@ -14,9 +14,9 @@ namespace TinyCRM.API.Modules.Lead.Services
 
         Task DeleteAsync(Guid id);
 
-        Task<PaginationResponse<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query);
+        Task<PaginationResponseDTO<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query);
 
-        Task<PaginationResponse<GetLeadDTO>> GetAllAsync(LeadQueryDTO query);
+        Task<PaginationResponseDTO<GetLeadDTO>> GetAllAsync(LeadQueryDTO query);
 
         Task<GetLeadDTO> DisqualifyLeadAsync(Guid id, DisqualifyLeadDTO model);
 

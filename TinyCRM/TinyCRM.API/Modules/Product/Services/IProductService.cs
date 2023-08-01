@@ -1,5 +1,5 @@
 ﻿using TinyCRM.API.Modules.Product.DTOs;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Product.Services
 {
@@ -9,7 +9,7 @@ namespace TinyCRM.API.Modules.Product.Services
 
         Task DeleteAsync(Guid id);
 
-        Task<PaginationResponse<GetProductDTO>> GetAllAsync(ProductQueryDTO query);
+        Task<PaginationResponseDTO<GetProductDTO>> GetAllAsync(ProductQueryDTO query);
 
         Task<GetProductDTO> GetByIdAsync(Guid id);
 

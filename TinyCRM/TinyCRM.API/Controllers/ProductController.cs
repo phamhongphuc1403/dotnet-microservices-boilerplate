@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Product.DTOs;
 using TinyCRM.API.Modules.Product.Services;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -20,7 +20,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetProductDTO>>> GetAllAsync([FromQuery] ProductQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetProductDTO>>> GetAllAsync([FromQuery] ProductQueryDTO query)
         {
             return Ok(await _service.GetAllAsync(query));
         }

@@ -7,11 +7,11 @@ using TinyCRM.API.Modules.DealProduct.Services;
 using TinyCRM.API.Modules.Lead.Services;
 using TinyCRM.API.Modules.Product.Services;
 using TinyCRM.API.Modules.User.Services;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Repositories;
 using TinyCRM.Infrastructure.Database;
 using TinyCRM.Infrastructure.Repositories;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
 
 namespace TinyCRM.API.Extensions
 {
@@ -37,7 +37,6 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<IDealRepository, DealRepository>();
 
             services.AddScoped<IAuthorizationHandler, ViewOrUpdateUserHandler>();
-
 
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using TinyCRM.API.Extensions;
-using TinyCRM.Domain.Middlewares;
+using TinyCRM.API.Middlewares;
 using TinyCRM.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);

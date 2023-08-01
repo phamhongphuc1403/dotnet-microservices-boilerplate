@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
+using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.API.Modules.Account.Services
 {
@@ -45,12 +45,14 @@ namespace TinyCRM.API.Modules.Account.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponse<GetAccountDTO>> GetAllAsync(AccountQueryDTO query)
+        public async Task<PaginationResponseDTO<GetAccountDTO>> GetAllAsync(AccountQueryDTO query)
         {
-            var (accounts, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<AccountEntity>
-                .Init(query).Build());
+            var (accounts, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<AccountEntity>
+                    .Init(query)
+                    .Build());
 
-            return new PaginationResponse<GetAccountDTO>(_mapper.Map<List<GetAccountDTO>>(accounts), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetAccountDTO>(_mapper.Map<List<GetAccountDTO>>(accounts), query.Page, query.Take, totalCount);
         }
 
         public async Task<GetAccountDTO> GetByIdAsync(Guid id)

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.Product.DTOs;
 using TinyCRM.API.Utilities;
+using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.PaginationHelper;
-using TinyCRM.Infrastructure.Repositories.Interfaces;
-using TinyCRM.Infrastructure.UnitOfWork;
+using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.API.Modules.Product.Services
 {
@@ -45,12 +45,14 @@ namespace TinyCRM.API.Modules.Product.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponse<GetProductDTO>> GetAllAsync(ProductQueryDTO query)
+        public async Task<PaginationResponseDTO<GetProductDTO>> GetAllAsync(ProductQueryDTO query)
         {
-            var (products, totalCount) = await _repository.GetPaginationAsync(PaginationBuilder<ProductEntity>
-                .Init(query).Build());
+            var (products, totalCount) = await _repository.GetPaginationAsync(
+                PaginationBuilder<ProductEntity>
+                    .Init(query)
+                    .Build());
 
-            return new PaginationResponse<GetProductDTO>(_mapper.Map<List<GetProductDTO>>(products), query.Page, query.Take, totalCount);
+            return new PaginationResponseDTO<GetProductDTO>(_mapper.Map<List<GetProductDTO>>(products), query.Page, query.Take, totalCount);
         }
 
         public async Task<GetProductDTO> GetByIdAsync(Guid id)

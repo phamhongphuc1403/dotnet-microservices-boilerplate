@@ -1,5 +1,5 @@
 ﻿using TinyCRM.API.Modules.DealProduct.DTOs;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Modules.DealProduct.Services
 {
@@ -7,7 +7,7 @@ namespace TinyCRM.API.Modules.DealProduct.Services
     {
         Task<GetDealProductDTO> AddAsync(AddOrUpdateProductToDealDTO dto, Guid id);
 
-        Task<PaginationResponse<GetDealProductDTO>> GetAllAsync(Guid id, DealProductDTO query);
+        Task<PaginationResponseDTO<GetDealProductDTO>> GetAllAsync(Guid id, DealProductDTO query);
 
         Task<GetDealProductDTO> GetByIdAsync(Guid dealId, Guid id);
 

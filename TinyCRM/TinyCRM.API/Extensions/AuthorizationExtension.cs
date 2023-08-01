@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using TinyCRM.API.Constants;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using TinyCRM.API.Common.Constants;
 
 namespace TinyCRM.API.Extensions
 {
@@ -8,7 +8,6 @@ namespace TinyCRM.API.Extensions
     {
         public static IServiceCollection AddAuthorizationExtension(this IServiceCollection services)
         {
-
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ViewAndUpdateUserPermission", policy =>
@@ -30,6 +29,7 @@ namespace TinyCRM.API.Extensions
         {
             _httpContextAccessor = httpContextAccessor;
         }
+
         protected override Task HandleRequirementAsync(
             AuthorizationHandlerContext context, EditInfoRequirement requirement)
 

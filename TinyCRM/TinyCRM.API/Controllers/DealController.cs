@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Deal.Services;
 using TinyCRM.API.Modules.DealProduct.DTOs;
 using TinyCRM.API.Modules.DealProduct.Services;
 using TinyCRM.API.Modules.Lead.DTOs;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -25,7 +25,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetAllDealsDTO>>> GetAllAsync([FromQuery] DealQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetAllDealsDTO>>> GetAllAsync([FromQuery] DealQueryDTO query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
@@ -56,7 +56,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("{dealId:guid}/products")]
-        public async Task<ActionResult<PaginationResponse<GetDealProductDTO>>> GetProductsAsync(Guid dealId, [FromQuery] DealProductDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetDealProductDTO>>> GetProductsAsync(Guid dealId, [FromQuery] DealProductDTO query)
         {
             return Ok(await _dealProductService.GetAllAsync(dealId, query));
         }
@@ -80,7 +80,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("customer/{customerId:guid}/deals")]
-        public async Task<ActionResult<PaginationResponse<GetAllDealsDTO>>> GetAllByCustomerIdAsync(Guid customerId, [FromQuery] DealQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetAllDealsDTO>>> GetAllByCustomerIdAsync(Guid customerId, [FromQuery] DealQueryDTO query)
         {
             return Ok(await _service.GetAllByCustomerIdAsync(customerId, query));
         }

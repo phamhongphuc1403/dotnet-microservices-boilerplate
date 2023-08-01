@@ -77,7 +77,7 @@ namespace TinyCRM.API.Modules.Auth.Services
         public ClaimsPrincipal? Verify(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-                
+
             return tokenHandler.ValidateToken(token, ValidateToken(_jwtSettings), out var validatedToken);
         }
 
@@ -92,7 +92,7 @@ namespace TinyCRM.API.Modules.Auth.Services
                 ValidIssuer = jwtSettings["validIssuer"],
                 ValidAudience = jwtSettings["validAudience"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["securityKey"]))
-        };
+            };
         }
     }
 }

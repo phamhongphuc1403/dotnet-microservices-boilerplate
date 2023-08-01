@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
-namespace TinyCRM.Infrastructure.PaginationHelper
+namespace TinyCRM.API.Common.DTOs
 {
     public abstract class DataQueryDTO<T>
     {

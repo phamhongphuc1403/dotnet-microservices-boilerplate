@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
+using TinyCRM.API.Common.DTOs;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Infrastructure.PaginationHelper;
 
 namespace TinyCRM.API.Modules.DealProduct.DTOs
 {

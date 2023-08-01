@@ -1,7 +1,7 @@
 ﻿using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Entities.Enums;
 
-namespace TinyCRM.Infrastructure.Repositories.Interfaces
+namespace TinyCRM.Domain.Repositories
 {
     public interface IDealRepository : IRepository<DealEntity>
     {

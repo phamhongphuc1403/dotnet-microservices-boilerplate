@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Constants;
+using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Modules.Lead.Services;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
 {
@@ -21,7 +21,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponse<GetLeadDTO>>> GetAllAsync([FromQuery] LeadQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetLeadDTO>>> GetAllAsync([FromQuery] LeadQueryDTO query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
@@ -77,7 +77,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("customer/{customerId:guid}/leads")]
-        public async Task<ActionResult<PaginationResponse<GetLeadDTO>>> GetAllLeadsByIdAsync(Guid customerId, [FromQuery] LeadQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDTO<GetLeadDTO>>> GetAllLeadsByIdAsync(Guid customerId, [FromQuery] LeadQueryDTO query)
         {
             return Ok(await _service.GetAllByCustomerIdAsync(customerId, query));
         }

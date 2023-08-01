@@ -1,11 +1,11 @@
 ﻿using TinyCRM.API.Modules.Contact.DTOs;
-using TinyCRM.Infrastructure.PaginationHelper;
+using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Modules.Contact.Services
 {
     public interface IContactService
     {
-        Task<PaginationResponse<GetContactDTO>> GetAllAsync(ContactQueryDTO query);
+        Task<PaginationResponseDTO<GetContactDTO>> GetAllAsync(ContactQueryDTO query);
 
         Task<GetContactDTO> GetByIdAsync(Guid id);
 
@@ -15,6 +15,6 @@ namespace TinyCRM.API.Modules.Contact.Services
 
         Task DeleteAsync(Guid id);
 
-        Task<PaginationResponse<GetContactDTO>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query);
+        Task<PaginationResponseDTO<GetContactDTO>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query);
     }
 }
