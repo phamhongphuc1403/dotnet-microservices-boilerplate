@@ -14,7 +14,7 @@ namespace TinyCRM.API.Modules.Deal.DTOs
 
         public override Expression<Func<DealEntity, bool>> BuildFilterExpression()
         {
-            return entity => entity.Title.Contains(Name ?? null!);
+            return entity => entity.Title.Contains(Name ?? string.Empty);
         }
 
         public override string BuildSort()

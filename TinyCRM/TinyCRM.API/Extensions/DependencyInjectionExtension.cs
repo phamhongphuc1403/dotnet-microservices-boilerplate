@@ -34,8 +34,9 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<IRepository<ProductEntity>, Repository<ProductEntity>>();
             services.AddScoped<IRepository<DealEntity>, Repository<DealEntity>>();
             services.AddScoped<IRepository<DealProductEntity>, Repository<DealProductEntity>>();
+            services.AddScoped<IDealRepository, DealRepository>();
 
-            services.AddScoped<IAuthorizationHandler, API.Extensions.EditInfoHandler>();
+            services.AddScoped<IAuthorizationHandler, ViewOrUpdateUserHandler>();
 
 
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());

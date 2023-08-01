@@ -41,6 +41,7 @@ namespace TinyCRM.Infrastructure.Repositories
         public async Task<(List<TEntity>, int)> GetPaginationAsync(PaginationParams<TEntity> parameters)
         {
             var query = DbSet.AsNoTracking();
+            
             if (!string.IsNullOrEmpty(parameters.SortBy))
             {
                 query = query.OrderBy(parameters.SortBy);

@@ -14,13 +14,13 @@ namespace TinyCRM.API.Modules.DealProduct.Services
     {
         private readonly IRepository<DealProductEntity> _repository;
         private readonly IRepository<ProductEntity> _productRepository;
-        private readonly IRepository<DealEntity> _dealRepository;
+        private readonly IDealRepository _dealRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public DealProductService(IRepository<DealProductEntity> dealProductRepository,
             IRepository<ProductEntity> productRepository,
-            IRepository<DealEntity> dealRepository,
+            IDealRepository dealRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
@@ -48,10 +48,14 @@ namespace TinyCRM.API.Modules.DealProduct.Services
 
         private async Task CheckValidOnAdd(AddOrUpdateProductToDealDTO dto, Guid dealId)
         {
-            var deal = Optional<DealEntity>.Of(await _dealRepository.GetByIdAsync(dealId))
-                .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
+            var status = await _dealRepository.GetDealStatusById(dealId);
 
-            if (deal.Status != DealStatusEnum.Open)
+            if (status == 0)
+            {
+                throw new NotFoundException("Deal not found");
+            }
+
+            if (status != DealStatusEnum.Open)
             {
                 throw new BadRequestException("Cannot add product to won or lost deal");
             }

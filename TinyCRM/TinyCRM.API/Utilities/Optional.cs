@@ -26,7 +26,7 @@
 
         public Optional<T> ThrowIfNotPresent(Exception exception)
         {
-            if ((_instance is bool && _instance.Equals(false)) || (_instance is not bool && _instance == null))
+            if ((_instance is bool && _instance.Equals(false)) || _instance == null)
             {
                 throw exception;
             }

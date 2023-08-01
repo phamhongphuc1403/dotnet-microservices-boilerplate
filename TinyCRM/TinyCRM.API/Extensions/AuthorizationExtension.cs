@@ -22,11 +22,11 @@ namespace TinyCRM.API.Extensions
     {
     }
 
-    public class EditInfoHandler : AuthorizationHandler<EditInfoRequirement>
+    public class ViewOrUpdateUserHandler : AuthorizationHandler<EditInfoRequirement>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public EditInfoHandler(IHttpContextAccessor httpContextAccessor)
+        public ViewOrUpdateUserHandler(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

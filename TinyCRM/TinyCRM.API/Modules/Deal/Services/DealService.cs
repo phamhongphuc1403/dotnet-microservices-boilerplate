@@ -12,11 +12,11 @@ namespace TinyCRM.API.Modules.Deal.Services
 {
     public class DealService : IDealService
     {
-        private readonly IRepository<DealEntity> _repository;
+        private readonly IDealRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DealService(IRepository<DealEntity> productRepository,
+        public DealService(IDealRepository productRepository,
             IMapper mapper, IUnitOfWork unitOfWork)
         {
             _repository = productRepository;

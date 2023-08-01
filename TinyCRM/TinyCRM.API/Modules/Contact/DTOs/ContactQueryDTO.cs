@@ -14,7 +14,7 @@ namespace TinyCRM.API.Modules.Contact.DTOs
 
         public override Expression<Func<ContactEntity, bool>> BuildFilterExpression()
         {
-            return entity => entity.Name.Contains(Name ?? null!);
+            return entity => entity.Name.Contains(Name ?? string.Empty);
         }
 
         public override string BuildSort()
