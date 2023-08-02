@@ -31,14 +31,14 @@ namespace TinyCRM.API.Controllers
         [ActionName(nameof(GetByIdAsync))]
         public async Task<ActionResult<GetAccountDTO>> GetByIdAsync(Guid id)
         {
-            return Ok(await _service.GetByIdAsync(id));
+            return Ok(await _service.GetByIdAsync(id.ToString()));
         }
 
         [HttpPut("{id:guid}")]
         [Authorize(Policy = "ViewAndUpdateUserPermission")]
         public async Task<ActionResult<GetUserDTO>> UpdateAsync(Guid id, [FromBody] CreateOrEditUserDTO model)
         {
-            return Ok(await _service.UpdateAsync(id, model));
+            return Ok(await _service.UpdateAsync(id.ToString(), model));
         }
     }
 }

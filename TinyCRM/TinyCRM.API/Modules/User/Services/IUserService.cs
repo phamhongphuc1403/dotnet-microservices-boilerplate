@@ -6,8 +6,8 @@ namespace TinyCRM.API.Modules.User.Services
     {
         Task<GetUserDTO> CreateAsync(CreateOrEditUserDTO model);
 
-        Task<GetUserDTO> GetByIdAsync(Guid id);
+        Task<GetUserDTO> GetByIdAsync(string id);
 
-        Task<GetUserDTO> UpdateAsync(Guid id, CreateOrEditUserDTO model);
+        Task<GetUserDTO> UpdateAsync(string id, CreateOrEditUserDTO model);
     }
 }

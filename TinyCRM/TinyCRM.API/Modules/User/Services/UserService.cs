@@ -24,10 +24,7 @@ namespace TinyCRM.API.Modules.User.Services
 
         public async Task<GetUserDTO> CreateAsync(CreateOrEditUserDTO model)
         {
-            if (model.Password != model.ConfirmPassword)
-            {
-                throw new BadRequestException("Password and confirm password do not match");
-            }
+            CheckPasswordMatching(model);
 
             try
             {
@@ -55,17 +52,39 @@ namespace TinyCRM.API.Modules.User.Services
             }
         }
 
-        public async Task<GetUserDTO> GetByIdAsync(Guid id)
+        public async Task<GetUserDTO> GetByIdAsync(string id)
         {
-            var user = Optional<UserEntity>.Of(await _userManager.FindByIdAsync(id.ToString()))
+            var user = Optional<UserEntity>.Of(await _userManager.FindByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("User not found")).Get();
 
             return _mapper.Map<GetUserDTO>(user);
         }
 
-        public Task<GetUserDTO> UpdateAsync(Guid id, CreateOrEditUserDTO model)
+        public async Task<GetUserDTO> UpdateAsync(string id, CreateOrEditUserDTO dto)
         {
-            throw new NotImplementedException();
+            CheckPasswordMatching(dto);
+
+            var user = Optional<UserEntity>.Of(await _userManager.FindByIdAsync(id))
+                .ThrowIfNotPresent(new NotFoundException("User not found")).Get();
+
+            _mapper.Map(dto, user);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                throw new BadRequestException(result.Errors.First().Description);
+            }
+
+            return _mapper.Map<GetUserDTO>(user);
+        }
+
+        private void CheckPasswordMatching(CreateOrEditUserDTO dto)
+        {
+            if (dto.Password != dto.ConfirmPassword)
+            {
+                throw new BadRequestException("Password and confirm password do not match");
+            }
         }
     }
 }
