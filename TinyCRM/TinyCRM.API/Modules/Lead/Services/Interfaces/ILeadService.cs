@@ -2,7 +2,7 @@
 using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Utilities.PaginationHelper;
 
-namespace TinyCRM.API.Modules.Lead.Services
+namespace TinyCRM.API.Modules.Lead.Services.Interfaces
 {
     public interface ILeadService
     {

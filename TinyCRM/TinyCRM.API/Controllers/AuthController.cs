@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TinyCRM.API.Modules.Auth.DTOs;
-using TinyCRM.API.Modules.Auth.Services;
+using TinyCRM.API.Modules.Auth.Services.Interfaces;
 
 namespace TinyCRM.API.Controllers
 {

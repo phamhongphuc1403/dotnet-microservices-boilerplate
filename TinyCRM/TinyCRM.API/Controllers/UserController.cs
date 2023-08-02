@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Modules.User.DTOs;
-using TinyCRM.API.Modules.User.Services;
+using TinyCRM.API.Modules.User.Services.Interfaces;
 
 namespace TinyCRM.API.Controllers
 {

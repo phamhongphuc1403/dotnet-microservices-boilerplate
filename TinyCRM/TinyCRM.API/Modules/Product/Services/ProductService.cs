@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TinyCRM.API.Modules.Product.DTOs;
+using TinyCRM.API.Modules.Product.Services.Interfaces;
 using TinyCRM.API.Utilities;
 using TinyCRM.API.Utilities.PaginationHelper;
 using TinyCRM.Domain;

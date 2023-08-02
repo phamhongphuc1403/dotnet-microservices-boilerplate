@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.User.DTOs;
+using TinyCRM.API.Modules.User.Services.Interfaces;
 using TinyCRM.API.Utilities;
 using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;

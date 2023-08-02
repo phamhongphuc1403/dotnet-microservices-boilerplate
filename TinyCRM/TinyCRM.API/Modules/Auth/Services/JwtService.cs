@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using TinyCRM.API.Modules.Auth.Services.Interfaces;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Params;
 

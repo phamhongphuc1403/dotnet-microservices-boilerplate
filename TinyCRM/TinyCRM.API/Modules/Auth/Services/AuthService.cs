@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using TinyCRM.API.Modules.Auth.DTOs;
+using TinyCRM.API.Modules.Auth.Services.Interfaces;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 

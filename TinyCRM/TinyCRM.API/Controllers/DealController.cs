@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Deal.DTOs;
-using TinyCRM.API.Modules.Deal.Services;
+using TinyCRM.API.Modules.Deal.Services.Interfaces;
 using TinyCRM.API.Modules.DealProduct.DTOs;
-using TinyCRM.API.Modules.DealProduct.Services;
+using TinyCRM.API.Modules.DealProduct.Services.Interfaces;
 using TinyCRM.API.Modules.Lead.DTOs;
 using TinyCRM.API.Utilities.PaginationHelper;
 

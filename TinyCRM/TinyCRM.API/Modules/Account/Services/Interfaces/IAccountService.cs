@@ -1,7 +1,7 @@
 ﻿using TinyCRM.API.Modules.Account.DTOs;
 using TinyCRM.API.Utilities.PaginationHelper;
 
-namespace TinyCRM.API.Modules.Account.Services
+namespace TinyCRM.API.Modules.Account.Services.Interfaces
 {
     public interface IAccountService
     {

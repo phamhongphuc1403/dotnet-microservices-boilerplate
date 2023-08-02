@@ -1,6 +1,6 @@
 ﻿using TinyCRM.API.Modules.Auth.DTOs;
 
-namespace TinyCRM.API.Modules.Auth.Services
+namespace TinyCRM.API.Modules.Auth.Services.Interfaces
 {
     public interface IAuthService
     {

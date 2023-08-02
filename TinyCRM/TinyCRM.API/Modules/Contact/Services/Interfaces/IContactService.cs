@@ -1,7 +1,7 @@
 ﻿using TinyCRM.API.Modules.Contact.DTOs;
 using TinyCRM.API.Utilities.PaginationHelper;
 
-namespace TinyCRM.API.Modules.Contact.Services
+namespace TinyCRM.API.Modules.Contact.Services.Interfaces
 {
     public interface IContactService
     {

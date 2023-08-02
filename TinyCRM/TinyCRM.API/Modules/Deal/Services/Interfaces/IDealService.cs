@@ -1,7 +1,7 @@
 ﻿using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Utilities.PaginationHelper;
 
-namespace TinyCRM.API.Modules.Deal.Services
+namespace TinyCRM.API.Modules.Deal.Services.Interfaces
 {
     public interface IDealService
     {

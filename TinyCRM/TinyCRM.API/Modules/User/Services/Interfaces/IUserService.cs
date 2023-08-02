@@ -1,6 +1,6 @@
 ﻿using TinyCRM.API.Modules.User.DTOs;
 
-namespace TinyCRM.API.Modules.User.Services
+namespace TinyCRM.API.Modules.User.Services.Interfaces
 {
     public interface IUserService
     {

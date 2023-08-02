@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TinyCRM.API.Common.Constants;
 using TinyCRM.API.Modules.Deal.DTOs;
 using TinyCRM.API.Modules.Lead.DTOs;
-using TinyCRM.API.Modules.Lead.Services;
+using TinyCRM.API.Modules.Lead.Services.Interfaces;
 using TinyCRM.API.Utilities.PaginationHelper;
 
 namespace TinyCRM.API.Controllers
