@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Domain.Entities.Enums;
+using TinyCRM.Domain.Enums;
 using TinyCRM.Domain.Repositories;
 using TinyCRM.Infrastructure.Database;
 

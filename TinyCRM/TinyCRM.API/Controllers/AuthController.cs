@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Modules.Auth.DTOs;
-using TinyCRM.API.Modules.Auth.Services.Interfaces;
+using TinyCRM.Application.Modules.Auth.DTOs;
+using TinyCRM.Application.Modules.Auth.Services.Interfaces;
 
 namespace TinyCRM.API.Controllers
 {
@@ -16,7 +16,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult> LoginAsync([FromBody] LoginDTO model)
+        public async Task<ActionResult<LoginResponseDTO>> LoginAsync([FromBody] LoginDTO model)
         {
             return Ok(await _service.LoginAsync(model));
         }

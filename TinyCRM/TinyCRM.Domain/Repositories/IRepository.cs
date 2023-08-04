@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Domain.Params;
 
 namespace TinyCRM.Domain.Repositories
 {

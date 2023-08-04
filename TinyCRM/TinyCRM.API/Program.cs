@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using TinyCRM.API.Extensions;
-using TinyCRM.API.Middlewares;
+using TinyCRM.Application.Middlewares;
+using TinyCRM.Application.Utilities;
+using TinyCRM.Infrastructure;
 using TinyCRM.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,7 +32,7 @@ builder.Services.AddDependencyInjectionExtension();
 
 builder.Services.AddSwaggerExtension();
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(Mapper));
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)

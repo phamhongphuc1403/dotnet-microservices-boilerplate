@@ -1,5 +1,5 @@
 ﻿using TinyCRM.Domain.Entities;
-using TinyCRM.Domain.Entities.Enums;
+using TinyCRM.Domain.Enums;
 
 namespace TinyCRM.Domain.Repositories
 {

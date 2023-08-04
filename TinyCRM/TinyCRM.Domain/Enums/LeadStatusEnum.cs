@@ -1,4 +1,4 @@
-﻿namespace TinyCRM.Domain.Entities.Enums
+﻿namespace TinyCRM.Domain.Enums
 {
     public enum LeadStatusEnum
     {

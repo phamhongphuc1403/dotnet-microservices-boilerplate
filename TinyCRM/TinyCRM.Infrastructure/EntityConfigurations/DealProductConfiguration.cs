@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TinyCRM.Domain.Entities;
 
-namespace TinyCRM.Domain.Entities.Configurations
+namespace TinyCRM.Infrastructure.EntityConfigurations
 {
     public class DealProductConfiguration : IEntityTypeConfiguration<DealProductEntity>
     {

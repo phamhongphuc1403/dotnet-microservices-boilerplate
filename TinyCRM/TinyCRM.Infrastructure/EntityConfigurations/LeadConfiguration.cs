@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.Domain.Entities.Enums;
+using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Enums;
 
-namespace TinyCRM.Domain.Entities.Configurations
+namespace TinyCRM.Infrastructure.EntityConfigurations
 {
     public class LeadConfiguration : IEntityTypeConfiguration<LeadEntity>
     {

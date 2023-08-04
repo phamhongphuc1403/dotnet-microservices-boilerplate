@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
+using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Domain.Params;
 using TinyCRM.Domain.Repositories;
 using TinyCRM.Infrastructure.Database;
 

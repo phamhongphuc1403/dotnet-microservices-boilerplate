@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.API.Common.Constants;
-using TinyCRM.API.Modules.Deal.DTOs;
-using TinyCRM.API.Modules.Deal.Services.Interfaces;
-using TinyCRM.API.Modules.DealProduct.DTOs;
-using TinyCRM.API.Modules.DealProduct.Services.Interfaces;
-using TinyCRM.API.Modules.Lead.DTOs;
-using TinyCRM.API.Utilities.PaginationHelper;
+using TinyCRM.Application.Common.Constants;
+using TinyCRM.Application.Common.DTOs;
+using TinyCRM.Application.Modules.Deal.DTOs;
+using TinyCRM.Application.Modules.Deal.Services.Interfaces;
+using TinyCRM.Application.Modules.DealProduct.DTOs;
+using TinyCRM.Application.Modules.DealProduct.Services.Interfaces;
+using TinyCRM.Application.Modules.Lead.DTOs;
 
 namespace TinyCRM.API.Controllers
 {

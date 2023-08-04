@@ -1,24 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using TinyCRM.API.Modules.Account.Services;
-using TinyCRM.API.Modules.Account.Services.Interfaces;
-using TinyCRM.API.Modules.Auth.Services;
-using TinyCRM.API.Modules.Auth.Services.Interfaces;
-using TinyCRM.API.Modules.Contact.Services;
-using TinyCRM.API.Modules.Contact.Services.Interfaces;
-using TinyCRM.API.Modules.Deal.Services;
-using TinyCRM.API.Modules.Deal.Services.Interfaces;
-using TinyCRM.API.Modules.DealProduct.Services;
-using TinyCRM.API.Modules.DealProduct.Services.Interfaces;
-using TinyCRM.API.Modules.Lead.Services;
-using TinyCRM.API.Modules.Lead.Services.Interfaces;
-using TinyCRM.API.Modules.Product.Services;
-using TinyCRM.API.Modules.Product.Services.Interfaces;
-using TinyCRM.API.Modules.User.Services;
-using TinyCRM.API.Modules.User.Services.Interfaces;
+using TinyCRM.Application.Common.Interfaces;
+using TinyCRM.Application.Modules.Account.Services;
+using TinyCRM.Application.Modules.Account.Services.Interfaces;
+using TinyCRM.Application.Modules.Auth.Services;
+using TinyCRM.Application.Modules.Auth.Services.Interfaces;
+using TinyCRM.Application.Modules.Contact.Services;
+using TinyCRM.Application.Modules.Contact.Services.Interfaces;
+using TinyCRM.Application.Modules.Deal.Services;
+using TinyCRM.Application.Modules.Deal.Services.Interfaces;
+using TinyCRM.Application.Modules.DealProduct.Services;
+using TinyCRM.Application.Modules.DealProduct.Services.Interfaces;
+using TinyCRM.Application.Modules.Lead.Services;
+using TinyCRM.Application.Modules.Lead.Services.Interfaces;
+using TinyCRM.Application.Modules.Product.Services;
+using TinyCRM.Application.Modules.Product.Services.Interfaces;
+using TinyCRM.Application.Modules.User.Services;
+using TinyCRM.Application.Modules.User.Services.Interfaces;
 using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Repositories;
 using TinyCRM.Infrastructure.Database;
+using TinyCRM.Infrastructure.Identity.Services;
+using TinyCRM.Infrastructure.Identity.Services.Interfaces;
 using TinyCRM.Infrastructure.Repositories;
 
 namespace TinyCRM.API.Extensions
@@ -49,6 +52,11 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IIdentityAuthService, IdentityAuthService>();
+            services.AddScoped<IIdentityRoleService, IdentityRoleService>();
+            services.AddScoped<IIdentityHelper, IdentityHelper>();
 
             return services;
         }
