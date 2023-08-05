@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Serilog;
 using TinyCRM.Domain.HttpExceptions;
 using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace TinyCRM.Application.Middlewares
+namespace TinyCRM.API.Middlewares
 {
     public static class HttpExceptionHandlerMiddleware
     {

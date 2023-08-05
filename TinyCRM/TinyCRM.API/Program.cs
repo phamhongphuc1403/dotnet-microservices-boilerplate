@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using TinyCRM.API.Extensions;
-using TinyCRM.Application.Middlewares;
+using TinyCRM.API.Middlewares;
 using TinyCRM.Application.Utilities;
 using TinyCRM.Infrastructure;
 using TinyCRM.Infrastructure.Database;

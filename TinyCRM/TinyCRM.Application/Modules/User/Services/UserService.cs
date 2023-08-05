@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using TinyCRM.Application.Common.Constants;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.User.DTOs;

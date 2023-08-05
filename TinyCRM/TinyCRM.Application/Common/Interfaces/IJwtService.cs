@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using TinyCRM.Domain.Entities;
 
-namespace TinyCRM.Application.Modules.Auth.Services.Interfaces
+namespace TinyCRM.Application.Common.Interfaces
 {
     public interface IJwtService
     {

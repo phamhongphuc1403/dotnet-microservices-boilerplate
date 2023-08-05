@@ -4,11 +4,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using TinyCRM.Application.Common.Interfaces;
-using TinyCRM.Application.Common.Params;
-using TinyCRM.Application.Modules.Auth.Services.Interfaces;
 using TinyCRM.Domain.Entities;
 
-namespace TinyCRM.Application.Modules.Auth.Services
+namespace TinyCRM.Infrastructure.JWT.Services
 {
     public class JwtService : IJwtService
     {

@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Text;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
-namespace TinyCRM.Application.Common.Params
+namespace TinyCRM.Infrastructure.JWT
 {
     public class JwtParams
     {
