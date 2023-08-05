@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
-using Serilog;
 using TinyCRM.Domain.HttpExceptions;
+using TinyCRM.Infrastructure.Logger;
 using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace TinyCRM.API.Middlewares
@@ -19,7 +19,7 @@ namespace TinyCRM.API.Middlewares
 
                     if (exceptionHandlerPathFeature?.Error is HttpException ex)
                     {
-                        Log.Error(ex.Message);
+                        LoggerService.LogError(ex.Message);
 
                         context.Response.StatusCode = (int)ex.StatusCode;
                         await context.Response.WriteAsJsonAsync(ex.Response);
@@ -30,7 +30,7 @@ namespace TinyCRM.API.Middlewares
 
                         var message = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? exceptionHandlerPathFeature?.Error?.Message : "Something went wrong!";
 
-                        Log.Error(exceptionHandlerPathFeature?.Error?.Message ?? string.Empty);
+                        LoggerService.LogError(exceptionHandlerPathFeature?.Error?.Message ?? string.Empty);
 
                         await context.Response.WriteAsJsonAsync(new
                         {

@@ -18,13 +18,13 @@ namespace TinyCRM.Infrastructure.Database
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+            builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            foreach (var entityType in builder.Model.GetEntityTypes())
             {
                 var tableName = entityType.GetTableName();
                 if (tableName.StartsWith("AspNet"))
