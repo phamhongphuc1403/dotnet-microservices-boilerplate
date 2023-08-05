@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\TinyCRM.Application.csproj" />
     <ProjectReference Include="..\TinyCRM.Infrastructure\TinyCRM.Infrastructure.csproj" />
   </ItemGroup>
 

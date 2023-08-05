@@ -52,8 +52,7 @@ namespace TinyCRM.Infrastructure
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
             CreateMap<UserEntity, ApplicationUser>()
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
-                ;
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
             CreateMap<ApplicationUser, GetUserDTO>();
             CreateMap<ApplicationUser, UserEntity>();
         }

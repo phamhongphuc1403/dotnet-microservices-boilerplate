@@ -34,7 +34,7 @@ namespace TinyCRM.Application.Modules.Auth.Services
             var claims = new List<Claim>
             {
                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new(ClaimTypes.Name, user.Name ?? ""),
+                new(ClaimTypes.Name, user.Name),
                 new(ClaimTypes.Role, role)
             };
 
