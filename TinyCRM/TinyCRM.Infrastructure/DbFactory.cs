@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TinyCRM.Infrastructure.Data;
 
-namespace TinyCRM.Infrastructure.Database
+namespace TinyCRM.Infrastructure
 {
     public class DbFactory : IDisposable
     {

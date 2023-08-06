@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using TinyCRM.Application.Common.Constants;
+using TinyCRM.Domain.Constants;
 
 namespace TinyCRM.API.Extensions
 {

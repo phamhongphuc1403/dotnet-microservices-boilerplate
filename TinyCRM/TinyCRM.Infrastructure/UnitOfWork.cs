@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using TinyCRM.Domain;
 
-namespace TinyCRM.Infrastructure.Database
+namespace TinyCRM.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbFactory _dbFactory;
-        private IDbContextTransaction _transaction;
+        private IDbContextTransaction _transaction = null!;
 
         public UnitOfWork(DbFactory dbFactory)
         {

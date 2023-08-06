@@ -54,7 +54,7 @@ namespace TinyCRM.Application.Modules.Deal.Services
 
         private static void CheckStatusOnUpdateOrDelete(DealEntity deal)
         {
-            if (deal.Status == DealStatusEnum.Won || deal.Status == DealStatusEnum.Lost)
+            if (deal.Status != DealStatusEnum.Open)
             {
                 throw new BadRequestException("Cannot update won or lost deal");
             }
@@ -85,8 +85,6 @@ namespace TinyCRM.Application.Modules.Deal.Services
 
             CheckStatusOnUpdateOrDelete(deal);
 
-            CheckValidStatusOnClose(status);
-
             deal.Status = status;
 
             _repository.Update(deal);
@@ -94,14 +92,6 @@ namespace TinyCRM.Application.Modules.Deal.Services
             await _unitOfWork.CommitAsync();
 
             return _mapper.Map<GetDealDTO>(deal);
-        }
-
-        private static void CheckValidStatusOnClose(DealStatusEnum status)
-        {
-            if (status == DealStatusEnum.Open)
-            {
-                throw new BadRequestException("Cannot close deal as open");
-            }
         }
 
         public async Task<PaginationResponseDTO<GetAllDealsDTO>> GetAllByCustomerIdAsync(Guid customerId, DealQueryDTO query)

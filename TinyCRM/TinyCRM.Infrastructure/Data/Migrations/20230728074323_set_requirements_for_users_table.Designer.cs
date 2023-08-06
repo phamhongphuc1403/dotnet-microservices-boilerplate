@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TinyCRM.Infrastructure.Database;
+using TinyCRM.Infrastructure.Data;
 
 #nullable disable
 
 namespace TinyCRM.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230728133521_seed_admin_data")]
-    partial class seed_admin_data
+    [Migration("20230728074323_set_requirements_for_users_table")]
+    partial class set_requirements_for_users_table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,20 +50,6 @@ namespace TinyCRM.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "80bee362-64ca-42cc-aeb2-444d5f61b008",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
-                            Name = "Member",
-                            NormalizedName = "MEMBER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -151,13 +137,6 @@ namespace TinyCRM.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "d28888e9-2ba9-473a-a40f-e38cb54f9b35",
-                            RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -449,22 +428,6 @@ namespace TinyCRM.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "d28888e9-2ba9-473a-a40f-e38cb54f9b35",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8defe23-c7e2-40d0-aae2-b6c1b14f3dca",
-                            Email = "admin@123",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOTJb6l8HOHh1wHnpiRDTaZCCyavpjEt27SSXd4toN9W1yY+1fx37d8AhWk3lyYcYg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "d354dab7-835f-46b1-b87a-d50d51f88817",
-                            TwoFactorEnabled = false
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

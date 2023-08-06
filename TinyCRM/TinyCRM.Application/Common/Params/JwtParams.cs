@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace TinyCRM.Infrastructure.JWT
+namespace TinyCRM.Application.Common.Params
 {
     public class JwtParams
     {

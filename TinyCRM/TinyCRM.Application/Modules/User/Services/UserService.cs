@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using TinyCRM.Application.Common.Constants;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.User.DTOs;
 using TinyCRM.Application.Modules.User.Services.Interfaces;
 using TinyCRM.Domain;
+using TinyCRM.Domain.Constants;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 
@@ -18,7 +18,7 @@ namespace TinyCRM.Application.Modules.User.Services
         private readonly IUnitOfWork _unitOfWork;
 
         public UserService(
-            IIdentityService identityService, 
+            IIdentityService identityService,
             IIdentityRoleService identityRoleService,
             IIdentityAuthService identityAuthService,
             IMapper mapper, IUnitOfWork unitOfWork)
@@ -91,7 +91,7 @@ namespace TinyCRM.Application.Modules.User.Services
             }
         }
 
-        private void CheckPasswordMatching(CreateOrEditUserDTO dto)
+        private static void CheckPasswordMatching(CreateOrEditUserDTO dto)
         {
             if (dto.Password != dto.ConfirmPassword)
             {

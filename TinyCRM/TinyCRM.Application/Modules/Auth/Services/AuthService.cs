@@ -14,7 +14,7 @@ namespace TinyCRM.Application.Modules.Auth.Services
         private readonly IJwtService _jwtService;
 
         public AuthService(
-            IIdentityService identityService, 
+            IIdentityService identityService,
             IJwtService jwtService,
             IIdentityAuthService identityAuthService)
         {
@@ -47,9 +47,9 @@ namespace TinyCRM.Application.Modules.Auth.Services
             return refreshToken;
         }
 
-        public async Task<RefreshTokenResponseDTO> RefreshTokenAsync(RefreshTokenDTO model)
+        public async Task<RefreshTokenResponseDTO> RefreshTokenAsync(RefreshTokenDTO dto)
         {
-            var verifiedUser = await VerifyRefreshTokenAsync(model.RefreshToken);
+            var verifiedUser = await VerifyRefreshTokenAsync(dto.RefreshToken);
 
             var newRefreshToken = await GenerateRefreshTokenAsync(verifiedUser);
 

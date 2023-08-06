@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using TinyCRM.Infrastructure.Database;
+using TinyCRM.Infrastructure.Data;
 using TinyCRM.Infrastructure.Identity;
 
 namespace TinyCRM.API.Extensions

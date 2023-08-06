@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.Application.Common.Constants;
 using TinyCRM.Application.Common.DTOs;
 using TinyCRM.Application.Modules.Deal.DTOs;
 using TinyCRM.Application.Modules.Lead.DTOs;
 using TinyCRM.Application.Modules.Lead.Services.Interfaces;
+using TinyCRM.Domain.Constants;
 
 namespace TinyCRM.API.Controllers
 {

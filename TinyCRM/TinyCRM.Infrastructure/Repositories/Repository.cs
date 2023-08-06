@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Repositories;
-using TinyCRM.Infrastructure.Database;
 
 namespace TinyCRM.Infrastructure.Repositories
 {

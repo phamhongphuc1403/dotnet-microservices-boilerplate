@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Infrastructure.Identity;
 
-namespace TinyCRM.Infrastructure.Database
+namespace TinyCRM.Infrastructure.Data
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {

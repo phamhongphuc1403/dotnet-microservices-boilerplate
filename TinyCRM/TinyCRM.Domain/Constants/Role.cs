@@ -1,4 +1,4 @@
-﻿namespace TinyCRM.Application.Common.Constants
+﻿namespace TinyCRM.Domain.Constants
 {
     public static class Role
     {

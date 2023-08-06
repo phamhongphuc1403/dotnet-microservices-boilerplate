@@ -101,7 +101,7 @@ namespace TinyCRM.Application.Modules.Account.Services
             if (!string.IsNullOrEmpty(dto.PhoneNumber))
             {
                 Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.PhoneNumber == dto.PhoneNumber && entity.Id != id))
-                .ThrowIfPresent(new DuplicateException("This phone number already exist"));
+                    .ThrowIfPresent(new DuplicateException("This phone number already exist"));
             }
         }
     }

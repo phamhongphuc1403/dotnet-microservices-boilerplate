@@ -22,6 +22,7 @@ namespace TinyCRM.API.Middlewares
                         LoggerService.LogError(ex.Message);
 
                         context.Response.StatusCode = (int)ex.StatusCode;
+
                         await context.Response.WriteAsJsonAsync(ex.Response);
                     }
                     else

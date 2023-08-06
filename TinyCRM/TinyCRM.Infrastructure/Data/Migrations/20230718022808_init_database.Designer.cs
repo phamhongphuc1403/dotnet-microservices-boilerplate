@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TinyCRM.Infrastructure.Database;
+using TinyCRM.Infrastructure.Data;
 
 #nullable disable
 
 namespace TinyCRM.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230719104426_set_default_status_in_leads_table")]
-    partial class set_default_status_in_leads_table
+    [Migration("20230718022808_init_database")]
+    partial class init_database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,7 +68,7 @@ namespace TinyCRM.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AccountId")
+                    b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
@@ -176,9 +176,7 @@ namespace TinyCRM.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -227,7 +225,8 @@ namespace TinyCRM.Infrastructure.Migrations
                     b.HasOne("TinyCRM.Domain.Entities.AccountEntity", "Account")
                         .WithMany("Contacts")
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });
