@@ -75,8 +75,7 @@ namespace TinyCRM.Application.Modules.Auth.Services
         public ClaimsPrincipal Verify(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-
-            return tokenHandler.ValidateToken(token, ValidateToken(_jwtSettings), out var validatedToken);
+            return tokenHandler.ValidateToken(token, ValidateToken(_jwtSettings), out _);
         }
 
         public static TokenValidationParameters ValidateToken(IConfiguration jwtSettings)

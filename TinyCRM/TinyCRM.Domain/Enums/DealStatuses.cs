@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Domain.Enums
 {
-    public enum DealStatusEnum
+    public enum DealStatuses
     {
         Open = 1,
         Won,

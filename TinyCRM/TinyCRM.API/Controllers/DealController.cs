@@ -25,62 +25,62 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponseDTO<GetAllDealsDTO>>> GetAllAsync([FromQuery] DealQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDto<GetAllDealsDto>>> GetAllAsync([FromQuery] DealQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetLeadDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetLeadDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<GetDealDTO>> UpdateAsync(Guid id, [FromBody] UpdateDealDTO dto)
+        public async Task<ActionResult<GetDealDto>> UpdateAsync(Guid id, [FromBody] UpdateDealDto dto)
         {
             return Ok(await _service.UpdateAsync(id, dto));
         }
 
         [HttpPost("{id:guid}/close-as-won")]
-        public async Task<ActionResult<GetDealDTO>> CloseAsWonAsync(Guid id)
+        public async Task<ActionResult<GetDealDto>> CloseAsWonAsync(Guid id)
         {
             return Ok(await _service.CloseAsWonAsync(id));
         }
 
         [HttpPost("{id:guid}/close-as-lost")]
-        public async Task<ActionResult<GetDealDTO>> CloseAsLostAsync(Guid id)
+        public async Task<ActionResult<GetDealDto>> CloseAsLostAsync(Guid id)
         {
             return Ok(await _service.CloseAsLostAsync(id));
         }
 
         [HttpGet("{dealId:guid}/products")]
-        public async Task<ActionResult<PaginationResponseDTO<GetDealProductDTO>>> GetProductsAsync(Guid dealId, [FromQuery] DealProductDTO query)
+        public async Task<ActionResult<PaginationResponseDto<GetDealProductDto>>> GetProductsAsync(Guid dealId, [FromQuery] DealProductDto query)
         {
             return Ok(await _dealProductService.GetAllAsync(dealId, query));
         }
 
         [HttpPost("{dealId:guid}/products")]
-        public async Task<ActionResult<GetDealDTO>> AddProductAsync(Guid dealId, [FromBody] AddOrUpdateProductToDealDTO dto)
+        public async Task<ActionResult<GetDealDto>> AddProductAsync(Guid dealId, [FromBody] AddOrUpdateProductToDealDto dto)
         {
             return Ok(await _dealProductService.AddAsync(dto, dealId));
         }
 
         [HttpGet("{dealId:guid}/products/{id:guid}")]
-        public async Task<ActionResult<GetDealProductDTO>> GetProductByIdAsync(Guid dealId, Guid id)
+        public async Task<ActionResult<GetDealProductDto>> GetProductByIdAsync(Guid dealId, Guid id)
         {
             return Ok(await _dealProductService.GetByIdAsync(dealId, id));
         }
 
         [HttpPut("{dealId:guid}/products/{id:guid}")]
-        public async Task<ActionResult<GetDealDTO>> UpdateProductAsync(Guid dealId, Guid id, [FromBody] AddOrUpdateProductToDealDTO dto)
+        public async Task<ActionResult<GetDealDto>> UpdateProductAsync(Guid dealId, Guid id, [FromBody] AddOrUpdateProductToDealDto dto)
         {
             return Ok(await _dealProductService.UpdateAsync(dto, dealId, id));
         }
 
         [HttpGet("customer/{customerId:guid}/deals")]
-        public async Task<ActionResult<PaginationResponseDTO<GetAllDealsDTO>>> GetAllByCustomerIdAsync(Guid customerId, [FromQuery] DealQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDto<GetAllDealsDto>>> GetAllByCustomerIdAsync(Guid customerId, [FromQuery] DealQueryDto query)
         {
             return Ok(await _service.GetAllByCustomerIdAsync(customerId, query));
         }

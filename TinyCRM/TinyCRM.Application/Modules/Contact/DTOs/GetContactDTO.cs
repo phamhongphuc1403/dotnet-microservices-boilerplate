@@ -2,7 +2,7 @@
 
 namespace TinyCRM.Application.Modules.Contact.DTOs
 {
-    public class GetContactDTO : GuidBaseEntity
+    public class GetContactDto : GuidBaseEntity
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;

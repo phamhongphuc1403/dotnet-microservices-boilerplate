@@ -2,7 +2,7 @@
 
 namespace TinyCRM.Application.Modules.Account.DTOs
 {
-    public class GetAccountDTO : GuidBaseEntity
+    public class GetAccountDto : GuidBaseEntity
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;

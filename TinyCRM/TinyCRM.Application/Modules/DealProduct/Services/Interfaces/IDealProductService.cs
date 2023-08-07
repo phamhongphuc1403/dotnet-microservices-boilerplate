@@ -5,12 +5,12 @@ namespace TinyCRM.Application.Modules.DealProduct.Services.Interfaces
 {
     public interface IDealProductService
     {
-        Task<GetDealProductDTO> AddAsync(AddOrUpdateProductToDealDTO dto, Guid id);
+        Task<GetDealProductDto> AddAsync(AddOrUpdateProductToDealDto dto, Guid id);
 
-        Task<PaginationResponseDTO<GetDealProductDTO>> GetAllAsync(Guid id, DealProductDTO query);
+        Task<PaginationResponseDto<GetDealProductDto>> GetAllAsync(Guid id, DealProductDto query);
 
-        Task<GetDealProductDTO> GetByIdAsync(Guid dealId, Guid id);
+        Task<GetDealProductDto> GetByIdAsync(Guid dealId, Guid id);
 
-        Task<GetDealProductDTO> UpdateAsync(AddOrUpdateProductToDealDTO dto, Guid dealId, Guid id);
+        Task<GetDealProductDto> UpdateAsync(AddOrUpdateProductToDealDto dto, Guid dealId, Guid id);
     }
 }

@@ -30,7 +30,7 @@ namespace TinyCRM.Application.Modules.User.Services
             _identityAuthService = identityAuthService;
         }
 
-        public async Task<GetUserDTO> CreateAsync(CreateOrEditUserDTO dto)
+        public async Task<GetUserDto> CreateAsync(CreateOrEditUserDto dto)
         {
             CheckPasswordMatching(dto);
 
@@ -48,7 +48,7 @@ namespace TinyCRM.Application.Modules.User.Services
 
                 user.Id = new Guid(id);
 
-                return _mapper.Map<GetUserDTO>(user);
+                return _mapper.Map<GetUserDto>(user);
             }
             catch (Exception)
             {
@@ -57,14 +57,14 @@ namespace TinyCRM.Application.Modules.User.Services
             }
         }
 
-        public async Task<GetUserDTO> GetByIdAsync(string id)
+        public async Task<GetUserDto> GetByIdAsync(string id)
         {
             var user = await _identityService.GetByIdAsync(id);
 
-            return _mapper.Map<GetUserDTO>(user);
+            return _mapper.Map<GetUserDto>(user);
         }
 
-        public async Task<GetUserDTO> UpdateAsync(string id, CreateOrEditUserDTO dto)
+        public async Task<GetUserDto> UpdateAsync(string id, CreateOrEditUserDto dto)
         {
             CheckPasswordMatching(dto);
 
@@ -82,7 +82,7 @@ namespace TinyCRM.Application.Modules.User.Services
 
                 await _unitOfWork.CommitTransactionAsync();
 
-                return _mapper.Map<GetUserDTO>(user);
+                return _mapper.Map<GetUserDto>(user);
             }
             catch (Exception)
             {
@@ -91,7 +91,7 @@ namespace TinyCRM.Application.Modules.User.Services
             }
         }
 
-        private static void CheckPasswordMatching(CreateOrEditUserDTO dto)
+        private static void CheckPasswordMatching(CreateOrEditUserDto dto)
         {
             if (dto.Password != dto.ConfirmPassword)
             {

@@ -4,8 +4,8 @@ namespace TinyCRM.Application.Modules.Auth.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<LoginResponseDTO> LoginAsync(LoginDTO dto);
+        Task<LoginResponseDto> LoginAsync(LoginDto dto);
 
-        Task<RefreshTokenResponseDTO> RefreshTokenAsync(RefreshTokenDTO dto);
+        Task<RefreshTokenResponseDto> RefreshTokenAsync(RefreshTokenDto dto);
     }
 }

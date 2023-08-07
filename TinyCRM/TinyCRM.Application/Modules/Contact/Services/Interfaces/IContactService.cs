@@ -5,16 +5,16 @@ namespace TinyCRM.Application.Modules.Contact.Services.Interfaces
 {
     public interface IContactService
     {
-        Task<PaginationResponseDTO<GetContactDTO>> GetAllAsync(ContactQueryDTO query);
+        Task<PaginationResponseDto<GetContactDto>> GetAllAsync(ContactQueryDto query);
 
-        Task<GetContactDTO> GetByIdAsync(Guid id);
+        Task<GetContactDto> GetByIdAsync(Guid id);
 
-        Task<GetContactDTO> AddAsync(AddOrUpdateContactDTO dto);
+        Task<GetContactDto> AddAsync(AddOrUpdateContactDto dto);
 
-        Task<GetContactDTO> UpdateAsync(AddOrUpdateContactDTO dto, Guid id);
+        Task<GetContactDto> UpdateAsync(AddOrUpdateContactDto dto, Guid id);
 
         Task DeleteAsync(Guid id);
 
-        Task<PaginationResponseDTO<GetContactDTO>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query);
+        Task<PaginationResponseDto<GetContactDto>> GetAllByAccountIdAsync(Guid id, ContactQueryDto query);
     }
 }

@@ -14,14 +14,14 @@ namespace TinyCRM.Application.Modules.Lead.Services
 {
     public class LeadService : ILeadService
     {
-        private readonly IRepository<LeadEntity> _repository;
-        private readonly IRepository<AccountEntity> _accountRepository;
-        private readonly IRepository<DealEntity> _dealRepository;
+        private readonly ILeadRepository _repository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IDealRepository _dealRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public LeadService(IRepository<LeadEntity> leadRepository, IRepository<AccountEntity> accountRepository,
-            IUnitOfWork unitOfWork, IMapper mapper, IRepository<DealEntity> dealRepository)
+        public LeadService(ILeadRepository leadRepository, IAccountRepository accountRepository,
+            IUnitOfWork unitOfWork, IMapper mapper, IDealRepository dealRepository)
         {
             _repository = leadRepository;
             _accountRepository = accountRepository;
@@ -30,19 +30,19 @@ namespace TinyCRM.Application.Modules.Lead.Services
             _dealRepository = dealRepository;
         }
 
-        public async Task<GetLeadDTO> AddAsync(AddLeadDTO dto)
+        public async Task<GetLeadDto> AddAsync(AddLeadDto dto)
         {
             await CheckValidOnAdd(dto);
 
             var lead = _mapper.Map<LeadEntity>(dto);
 
-            lead.Status = LeadStatusEnum.Prospect;
+            lead.Status = LeadStatuses.Prospect;
 
             _repository.Add(lead);
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetLeadDTO>(lead);
+            return _mapper.Map<GetLeadDto>(lead);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -57,15 +57,15 @@ namespace TinyCRM.Application.Modules.Lead.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<GetLeadDTO> GetByIdAsync(Guid id)
+        public async Task<GetLeadDto> GetByIdAsync(Guid id)
         {
             var lead = Optional<LeadEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Lead not found")).Get();
 
-            return _mapper.Map<GetLeadDTO>(lead);
+            return _mapper.Map<GetLeadDto>(lead);
         }
 
-        public async Task<GetLeadDTO> UpdateAsync(UpdateLeadDTO dto, Guid id)
+        public async Task<GetLeadDto> UpdateAsync(UpdateLeadDto dto, Guid id)
         {
             await CheckValidOnUpdate(dto, id);
 
@@ -77,18 +77,18 @@ namespace TinyCRM.Application.Modules.Lead.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetLeadDTO>(updatedLead);
+            return _mapper.Map<GetLeadDto>(updatedLead);
         }
 
-        private async Task CheckValidOnAdd(AddLeadDTO dto)
+        private async Task CheckValidOnAdd(AddLeadDto dto)
         {
             Optional<bool>.Of(await _accountRepository.CheckIfIdExistAsync(dto.CustomerId))
                 .ThrowIfNotPresent(new NotFoundException("This account is not exist"));
         }
 
-        private async Task CheckValidOnUpdate(UpdateLeadDTO dto, Guid id)
+        private async Task CheckValidOnUpdate(UpdateLeadDto dto, Guid id)
         {
-            if (dto.Status == LeadStatusEnum.Qualify || dto.Status == LeadStatusEnum.Disqualify)
+            if (dto.Status is LeadStatuses.Qualify or LeadStatuses.Disqualify)
             {
                 throw new BadRequestException("Cannot set qualify or disqualify status");
             }
@@ -104,34 +104,27 @@ namespace TinyCRM.Application.Modules.Lead.Services
 
         private static void CheckStatusOnUpdateOrDelete(LeadEntity lead)
         {
-            if (lead.Status == LeadStatusEnum.Qualify || lead.Status == LeadStatusEnum.Disqualify)
+            if (lead.Status is LeadStatuses.Qualify or LeadStatuses.Disqualify)
             {
                 throw new BadRequestException("Cannot update or delete qualified or disqualified lead");
             }
         }
 
-        public async Task<PaginationResponseDTO<GetLeadDTO>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDTO query)
+        public async Task<PaginationResponseDto<GetLeadDto>> GetAllByCustomerIdAsync(Guid customerId, LeadQueryDto query)
         {
-            var (leads, totalCount) = await _repository.GetPaginationAsync(
-                PaginationBuilder<LeadEntity>
-                    .Init(query)
-                    .AddConstraint(entity => entity.CustomerId == customerId)
-                    .Build());
+            var (leads, totalCount) = await _repository.GetPagedLeadsByCustomerIdAsync(query, customerId);
 
-            return new PaginationResponseDTO<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);
+            return new PaginationResponseDto<GetLeadDto>(_mapper.Map<List<GetLeadDto>>(leads), query.Page, query.Take, totalCount);
         }
 
-        public async Task<PaginationResponseDTO<GetLeadDTO>> GetAllAsync(LeadQueryDTO query)
+        public async Task<PaginationResponseDto<GetLeadDto>> GetAllAsync(LeadQueryDto query)
         {
-            var (leads, totalCount) = await _repository.GetPaginationAsync(
-                PaginationBuilder<LeadEntity>
-                    .Init(query)
-                    .Build());
+            var (leads, totalCount) = await _repository.GetPagedLeadsAsync(query);
 
-            return new PaginationResponseDTO<GetLeadDTO>(_mapper.Map<List<GetLeadDTO>>(leads), query.Page, query.Take, totalCount);
+            return new PaginationResponseDto<GetLeadDto>(_mapper.Map<List<GetLeadDto>>(leads), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetLeadDTO> DisqualifyLeadAsync(Guid id, DisqualifyLeadDTO dto)
+        public async Task<GetLeadDto> DisqualifyLeadAsync(Guid id, DisqualifyLeadDto dto)
         {
             var lead = Optional<LeadEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Lead not found")).Get();
@@ -140,35 +133,35 @@ namespace TinyCRM.Application.Modules.Lead.Services
 
             _mapper.Map(dto, lead);
 
-            lead.Status = LeadStatusEnum.Disqualify;
+            lead.Status = LeadStatuses.Disqualify;
 
             _repository.Update(lead);
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetLeadDTO>(lead);
+            return _mapper.Map<GetLeadDto>(lead);
         }
 
-        public async Task<GetDealDTO> QualifyLeadAsync(Guid id)
+        public async Task<GetDealDto> QualifyLeadAsync(Guid id)
         {
             var lead = Optional<LeadEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Lead not found")).Get();
 
             CheckStatusOnUpdateOrDelete(lead);
 
-            lead.Status = LeadStatusEnum.Qualify;
+            lead.Status = LeadStatuses.Qualify;
 
             _repository.Update(lead);
 
             var deal = _mapper.Map<DealEntity>(lead);
 
-            deal.Status = DealStatusEnum.Open;
+            deal.Status = DealStatuses.Open;
 
             _dealRepository.Add(deal);
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetDealDTO>(deal);
+            return _mapper.Map<GetDealDto>(deal);
         }
     }
 }

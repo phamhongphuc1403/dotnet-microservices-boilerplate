@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using TinyCRM.Application.Common.DTOs;
+using TinyCRM.Domain.DTOs;
 using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.Application.Modules.DealProduct.DTOs
 {
-    public class DealProductDTO : DataQueryDTO<DealProductEntity>
+    public class DealProductDto : DataQueryDto<DealProductEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
         [EnumDataType(typeof(DealProductSortByEnum))]

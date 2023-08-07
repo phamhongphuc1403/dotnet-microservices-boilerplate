@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Application.Modules.DealProduct.DTOs
 {
-    public class AddOrUpdateProductToDealDTO
+    public class AddOrUpdateProductToDealDto
     {
         public Guid ProductId { get; set; }
 

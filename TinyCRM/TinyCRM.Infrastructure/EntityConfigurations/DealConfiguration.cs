@@ -15,7 +15,7 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
                  .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(d => d.Status)
-               .HasDefaultValue(DealStatusEnum.Open);
+               .HasDefaultValue(DealStatuses.Open);
         }
     }
 }

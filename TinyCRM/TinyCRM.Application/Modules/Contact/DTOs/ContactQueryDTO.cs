@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using TinyCRM.Application.Common.DTOs;
+using TinyCRM.Domain.DTOs;
 using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.Application.Modules.Contact.DTOs
 {
-    public class ContactQueryDTO : DataQueryDTO<ContactEntity>
+    public class ContactQueryDto : DataQueryDto<ContactEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        [EnumDataType(typeof(ContactSortByEnum))]
-        public ContactSortByEnum? SortBy { get; set; }
+        [EnumDataType(typeof(ContactSortProperties))]
+        public ContactSortProperties? SortBy { get; set; }
 
         public override Expression<Func<ContactEntity, bool>> BuildFilterExpression()
         {
@@ -23,7 +23,7 @@ namespace TinyCRM.Application.Modules.Contact.DTOs
         }
     }
 
-    public enum ContactSortByEnum
+    public enum ContactSortProperties
     {
         Id = 1,
         Name,

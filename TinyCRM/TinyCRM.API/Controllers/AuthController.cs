@@ -16,13 +16,13 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<LoginResponseDTO>> LoginAsync([FromBody] LoginDTO model)
+        public async Task<ActionResult<LoginResponseDto>> LoginAsync([FromBody] LoginDto model)
         {
             return Ok(await _service.LoginAsync(model));
         }
 
         [HttpPost("refresh-token")]
-        public async Task<ActionResult<RefreshTokenResponseDTO>> RefreshTokenAsync([FromBody] RefreshTokenDTO model)
+        public async Task<ActionResult<RefreshTokenResponseDto>> RefreshTokenAsync([FromBody] RefreshTokenDto model)
         {
             return Ok(await _service.RefreshTokenAsync(model));
         }

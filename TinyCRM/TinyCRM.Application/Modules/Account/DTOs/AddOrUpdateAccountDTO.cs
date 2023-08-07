@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Application.Modules.Account.DTOs
 {
-    public class AddOrUpdateAccountDTO
+    public class AddOrUpdateAccountDto
     {
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;

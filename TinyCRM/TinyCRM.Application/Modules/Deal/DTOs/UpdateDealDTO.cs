@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Application.Modules.Deal.DTOs
 {
-    public class UpdateDealDTO
+    public class UpdateDealDto
     {
         public string Title { get; set; } = null!;
 

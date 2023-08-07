@@ -4,7 +4,7 @@ using TinyCRM.Domain.Enums;
 
 namespace TinyCRM.Application.Modules.Lead.DTOs
 {
-    public class AddLeadDTO
+    public class AddLeadDto
     {
         public string Title { get; set; } = null!;
 
@@ -13,7 +13,7 @@ namespace TinyCRM.Application.Modules.Lead.DTOs
         public string? Description { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        [EnumDataType(typeof(LeadSourceEnum))]
-        public LeadSourceEnum? Source { get; set; }
+        [EnumDataType(typeof(LeadSources))]
+        public LeadSources? Source { get; set; }
     }
 }

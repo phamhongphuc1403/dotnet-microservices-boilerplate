@@ -1,24 +1,24 @@
 ﻿using System.Linq.Expressions;
-using TinyCRM.Application.Common.DTOs;
-using TinyCRM.Domain;
+using TinyCRM.Domain.DTOs;
 using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Params;
 
 namespace TinyCRM.Application.Utilities
 {
     public class PaginationBuilder<T> where T : GuidBaseEntity
     {
-        private readonly DataQueryDTO<T> _query;
+        private readonly DataQueryDto<T> _query;
         private readonly List<string> _includes;
         private readonly List<Expression<Func<T, bool>>> _expressionList = new();
 
-        private PaginationBuilder(DataQueryDTO<T> query)
+        private PaginationBuilder(DataQueryDto<T> query)
         {
             _query = query;
             _includes = new List<string>();
             _expressionList.Add(_query.BuildFilterExpression());
         }
 
-        public static PaginationBuilder<T> Init(DataQueryDTO<T> query)
+        public static PaginationBuilder<T> Init(DataQueryDto<T> query)
         {
             return new PaginationBuilder<T>(query);
         }
@@ -42,7 +42,7 @@ namespace TinyCRM.Application.Utilities
 
             if (!string.IsNullOrEmpty(sortBy))
             {
-                sortBy += _query.Descending == true ? " desc" : "";
+                sortBy += _query.IsDescending == true ? " desc" : "";
             }
 
             return new PaginationParams<T>

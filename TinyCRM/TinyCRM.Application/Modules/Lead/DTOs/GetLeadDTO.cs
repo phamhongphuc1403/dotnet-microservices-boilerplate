@@ -4,22 +4,22 @@ using TinyCRM.Domain.Enums;
 
 namespace TinyCRM.Application.Modules.Lead.DTOs
 {
-    public class GetLeadDTO : GuidBaseEntity
+    public class GetLeadDto : GuidBaseEntity
     {
         public string Title { get; set; } = null!;
         public Guid CustomerId { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public LeadSourceEnum? Source { get; set; }
+        public LeadSources? Source { get; set; }
 
         public double? EstimatedRevenue { get; set; }
         public string? Description { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public LeadStatusEnum? Status { get; set; }
+        public LeadStatuses? Status { get; set; }
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public LeadDisqualificationReasonEnum? DisqualificationReason { get; set; }
+        public LeadDisqualificationReasons? DisqualificationReason { get; set; }
 
         public string? DisqualificationDescription { get; set; }
     }

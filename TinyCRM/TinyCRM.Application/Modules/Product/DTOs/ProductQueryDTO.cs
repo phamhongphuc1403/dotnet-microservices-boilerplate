@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using TinyCRM.Application.Common.DTOs;
+using TinyCRM.Domain.DTOs;
 using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.Application.Modules.Product.DTOs
 {
-    public class ProductQueryDTO : DataQueryDTO<ProductEntity>
+    public class ProductQueryDto : DataQueryDto<ProductEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        [EnumDataType(typeof(ProductSortByEnum))]
-        public ProductSortByEnum? SortBy { get; set; }
+        [EnumDataType(typeof(ProductSortProperties))]
+        public ProductSortProperties? SortBy { get; set; }
 
         public override Expression<Func<ProductEntity, bool>> BuildFilterExpression()
         {
@@ -23,7 +23,7 @@ namespace TinyCRM.Application.Modules.Product.DTOs
         }
     }
 
-    public enum ProductSortByEnum
+    public enum ProductSortProperties
     {
         Id = 1,
         StringId,

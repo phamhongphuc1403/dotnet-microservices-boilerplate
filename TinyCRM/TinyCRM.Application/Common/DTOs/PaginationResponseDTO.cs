@@ -2,18 +2,18 @@
 
 namespace TinyCRM.Application.Common.DTOs
 {
-    public class PaginationResponseDTO<T> where T : GuidBaseEntity
+    public class PaginationResponseDto<T> where T : GuidBaseEntity
     {
-        public MetaDTO Meta { get; set; } = new();
+        public MetaDto Meta { get; set; } = new();
         public List<T> Data { get; set; }
 
-        public PaginationResponseDTO()
+        public PaginationResponseDto()
         {
             Data = new List<T>();
-            Meta = new MetaDTO();
+            Meta = new MetaDto();
         }
 
-        public PaginationResponseDTO(List<T> data, int? page, int? take, int totalCount)
+        public PaginationResponseDto(List<T> data, int? page, int? take, int totalCount)
         {
             Data = data;
             Meta.CurrentPage = page ?? 1;
@@ -23,7 +23,7 @@ namespace TinyCRM.Application.Common.DTOs
         }
     }
 
-    public class MetaDTO
+    public class MetaDto
     {
         public int CurrentPage { get; set; }
         public int TotalPages { get; set; }

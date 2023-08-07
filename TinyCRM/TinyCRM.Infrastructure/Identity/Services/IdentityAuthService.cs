@@ -24,7 +24,7 @@ namespace TinyCRM.Infrastructure.Identity.Services
             _identityHelper = identityHelper;
         }
 
-        public async Task<UserEntity> AuthenticateUserAsync(LoginDTO dto)
+        public async Task<UserEntity> AuthenticateUserAsync(LoginDto dto)
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
 

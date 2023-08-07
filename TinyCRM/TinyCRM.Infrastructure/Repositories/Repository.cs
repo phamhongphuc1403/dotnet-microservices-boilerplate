@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
-using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
+using TinyCRM.Domain.Params;
 using TinyCRM.Domain.Repositories;
 
 namespace TinyCRM.Infrastructure.Repositories
@@ -10,7 +10,7 @@ namespace TinyCRM.Infrastructure.Repositories
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : GuidBaseEntity
     {
         private readonly DbFactory _dbFactory;
-        private DbSet<TEntity> _dbSet;
+        private DbSet<TEntity> _dbSet = null!;
 
         protected DbSet<TEntity> DbSet => _dbSet ??= _dbFactory.DbContext.Set<TEntity>();
 
@@ -28,7 +28,7 @@ namespace TinyCRM.Infrastructure.Repositories
         {
             if (typeof(IDeleteEntity).IsAssignableFrom(typeof(TEntity)))
             {
-                ((IDeleteEntity)entity).IsDeleted = true;
+                (entity as IDeleteEntity).IsDeleted = true;
                 DbSet.Update(entity);
             }
             else

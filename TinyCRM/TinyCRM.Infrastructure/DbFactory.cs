@@ -6,9 +6,9 @@ namespace TinyCRM.Infrastructure
     public class DbFactory : IDisposable
     {
         private bool _disposed;
-        private Func<AppDbContext> _instanceFunc;
-        private DbContext _dbContext;
-        public DbContext DbContext => _dbContext ?? (_dbContext = _instanceFunc.Invoke());
+        private readonly Func<AppDbContext> _instanceFunc;
+        private DbContext _dbContext = null!;
+        public DbContext DbContext => _dbContext ??= _instanceFunc.Invoke();
 
         public DbFactory(Func<AppDbContext> dbContextFactory)
         {
@@ -17,7 +17,7 @@ namespace TinyCRM.Infrastructure
 
         public void Dispose()
         {
-            if (!_disposed && _dbContext != null)
+            if (!_disposed)
             {
                 _disposed = true;
                 _dbContext.Dispose();

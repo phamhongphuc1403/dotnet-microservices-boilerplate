@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using TinyCRM.Application.Common.DTOs;
+using TinyCRM.Domain.DTOs;
 using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.Application.Modules.Lead.DTOs
 {
-    public class LeadQueryDTO : DataQueryDTO<LeadEntity>
+    public class LeadQueryDto : DataQueryDto<LeadEntity>
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        [EnumDataType(typeof(LeadSortByEnum))]
-        public LeadSortByEnum? SortBy { get; set; }
+        [EnumDataType(typeof(LeadSortProperties))]
+        public LeadSortProperties? SortBy { get; set; }
 
         public override Expression<Func<LeadEntity, bool>> BuildFilterExpression()
         {
@@ -23,7 +23,7 @@ namespace TinyCRM.Application.Modules.Lead.DTOs
         }
     }
 
-    public enum LeadSortByEnum
+    public enum LeadSortProperties
     {
         Id = 1,
         Title,

@@ -20,7 +20,7 @@ namespace TinyCRM.API.Controllers
 
         [HttpPost]
         [Authorize(Roles = Role.Admin)]
-        public async Task<ActionResult<GetUserDTO>> CreateAsync([FromBody] CreateOrEditUserDTO model)
+        public async Task<ActionResult<GetUserDto>> CreateAsync([FromBody] CreateOrEditUserDto model)
         {
             var newUser = await _service.CreateAsync(model);
             return CreatedAtAction(nameof(GetByIdAsync), new { id = newUser.Id }, newUser);
@@ -29,14 +29,14 @@ namespace TinyCRM.API.Controllers
         [HttpGet("{id:guid}")]
         [Authorize(Policy = "ViewAndUpdateUserPermission")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetAccountDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetAccountDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id.ToString()));
         }
 
         [HttpPut("{id:guid}")]
         [Authorize(Policy = "ViewAndUpdateUserPermission")]
-        public async Task<ActionResult<GetUserDTO>> UpdateAsync(Guid id, [FromBody] CreateOrEditUserDTO model)
+        public async Task<ActionResult<GetUserDto>> UpdateAsync(Guid id, [FromBody] CreateOrEditUserDto model)
         {
             return Ok(await _service.UpdateAsync(id.ToString(), model));
         }

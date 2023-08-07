@@ -2,7 +2,7 @@
 
 namespace TinyCRM.Application.Modules.DealProduct.DTOs
 {
-    public class GetDealProductDTO : GuidBaseEntity
+    public class GetDealProductDto : GuidBaseEntity
     {
         public Guid ProductId { get; set; }
         public string StringId { get; set; } = null!;

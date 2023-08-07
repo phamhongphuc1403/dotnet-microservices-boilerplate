@@ -4,13 +4,13 @@ using TinyCRM.Domain.Enums;
 
 namespace TinyCRM.Application.Modules.Deal.DTOs
 {
-    public class GetDealDTO : GuidBaseEntity
+    public class GetDealDto : GuidBaseEntity
     {
         public string Title { get; set; } = null!;
         public string Customer { get; set; } = null!;
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public DealStatusEnum Status { get; set; }
+        public DealStatuses Status { get; set; }
 
         public string OriginatingLead { get; set; } = null!;
         public string? Description { get; set; }

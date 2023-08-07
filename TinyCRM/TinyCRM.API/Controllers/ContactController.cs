@@ -20,20 +20,20 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IList<GetContactDTO>>> GetAllAsync([FromQuery] ContactQueryDTO query)
+        public async Task<ActionResult<IList<GetContactDto>>> GetAllAsync([FromQuery] ContactQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetContactDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetContactDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetContactDTO>> CreateAsync([FromBody] AddOrUpdateContactDTO model)
+        public async Task<ActionResult<GetContactDto>> CreateAsync([FromBody] AddOrUpdateContactDto model)
         {
             var newContact = await _service.AddAsync(model);
 
@@ -41,7 +41,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<GetContactDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateContactDTO model)
+        public async Task<ActionResult<GetContactDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateContactDto model)
         {
             var updatedContact = await _service.UpdateAsync(model, id);
 
@@ -57,7 +57,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet("account/{accountId:guid}/contacts")]
-        public async Task<ActionResult<PaginationResponseDTO<GetContactDTO>>> GetAllByAccountIdAsync(Guid accountId, [FromQuery] ContactQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDto<GetContactDto>>> GetAllByAccountIdAsync(Guid accountId, [FromQuery] ContactQueryDto query)
         {
             return Ok(await _service.GetAllByAccountIdAsync(accountId, query));
         }

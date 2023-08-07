@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Domain.Enums
 {
-    public enum LeadDisqualificationReasonEnum
+    public enum LeadDisqualificationReasons
     {
         Budget = 1,
         BadFakeData,

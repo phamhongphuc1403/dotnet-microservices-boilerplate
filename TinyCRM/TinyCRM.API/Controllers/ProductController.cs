@@ -20,20 +20,20 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PaginationResponseDTO<GetProductDTO>>> GetAllAsync([FromQuery] ProductQueryDTO query)
+        public async Task<ActionResult<PaginationResponseDto<GetProductDto>>> GetAllAsync([FromQuery] ProductQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
-        public async Task<ActionResult<GetProductDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<GetProductDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<GetProductDTO>> CreateAsync([FromBody] AddOrUpdateProductDTO model)
+        public async Task<ActionResult<GetProductDto>> CreateAsync([FromBody] AddOrUpdateProductDto model)
         {
             var newProduct = await _service.AddAsync(model);
 
@@ -41,7 +41,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<GetProductDTO>> UpdateAsync(Guid id, [FromBody] AddOrUpdateProductDTO model)
+        public async Task<ActionResult<GetProductDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateProductDto model)
         {
             var updatedProduct = await _service.UpdateAsync(model, id);
 

@@ -4,11 +4,11 @@ using TinyCRM.Domain.Enums;
 
 namespace TinyCRM.Application.Modules.Lead.DTOs
 {
-    public class DisqualifyLeadDTO
+    public class DisqualifyLeadDto
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        [EnumDataType(typeof(LeadDisqualificationReasonEnum))]
-        public LeadDisqualificationReasonEnum? DisqualificationReason { get; set; }
+        [EnumDataType(typeof(LeadDisqualificationReasons))]
+        public LeadDisqualificationReasons? DisqualificationReason { get; set; }
 
         public string? DisqualificationDescription { get; set; }
     }

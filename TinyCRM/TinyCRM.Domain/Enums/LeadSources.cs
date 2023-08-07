@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Domain.Enums
 {
-    public enum LeadSourceEnum
+    public enum LeadSources
     {
         Email = 1,
         Event,

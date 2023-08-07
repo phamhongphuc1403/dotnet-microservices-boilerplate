@@ -12,18 +12,18 @@ namespace TinyCRM.Application.Modules.Product.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IRepository<ProductEntity> _repository;
+        private readonly IProductRepository _repository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ProductService(IRepository<ProductEntity> productRepository, IMapper mapper, IUnitOfWork unitOfWork)
+        public ProductService(IProductRepository productRepository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _repository = productRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<GetProductDTO> AddAsync(AddOrUpdateProductDTO dto)
+        public async Task<GetProductDto> AddAsync(AddOrUpdateProductDto dto)
         {
             await CheckValidOnAdd(dto);
 
@@ -33,7 +33,7 @@ namespace TinyCRM.Application.Modules.Product.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetProductDTO>(product);
+            return _mapper.Map<GetProductDto>(product);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -46,25 +46,22 @@ namespace TinyCRM.Application.Modules.Product.Services
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponseDTO<GetProductDTO>> GetAllAsync(ProductQueryDTO query)
+        public async Task<PaginationResponseDto<GetProductDto>> GetAllAsync(ProductQueryDto query)
         {
-            var (products, totalCount) = await _repository.GetPaginationAsync(
-                PaginationBuilder<ProductEntity>
-                    .Init(query)
-                    .Build());
+            var (products, totalCount) = await _repository.GetPagedProductsAsync(query);
 
-            return new PaginationResponseDTO<GetProductDTO>(_mapper.Map<List<GetProductDTO>>(products), query.Page, query.Take, totalCount);
+            return new PaginationResponseDto<GetProductDto>(_mapper.Map<List<GetProductDto>>(products), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetProductDTO> GetByIdAsync(Guid id)
+        public async Task<GetProductDto> GetByIdAsync(Guid id)
         {
             var product = Optional<ProductEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Product not found")).Get();
 
-            return _mapper.Map<GetProductDTO>(product);
+            return _mapper.Map<GetProductDto>(product);
         }
 
-        public async Task<GetProductDTO> UpdateAsync(AddOrUpdateProductDTO dto, Guid id)
+        public async Task<GetProductDto> UpdateAsync(AddOrUpdateProductDto dto, Guid id)
         {
             await GetByIdAsync(id);
 
@@ -78,18 +75,18 @@ namespace TinyCRM.Application.Modules.Product.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetProductDTO>(updatedProduct);
+            return _mapper.Map<GetProductDto>(updatedProduct);
         }
 
-        private async Task CheckValidOnAdd(AddOrUpdateProductDTO dto)
+        private async Task CheckValidOnAdd(AddOrUpdateProductDto dto)
         {
-            Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.StringId == dto.StringId))
+            Optional<bool>.Of(await _repository.CheckIfStringIdExist(dto.StringId))
                 .ThrowIfPresent(new DuplicateException("This string Id already exist"));
         }
 
-        private async Task CheckValidOnUpdate(AddOrUpdateProductDTO dto, Guid id)
+        private async Task CheckValidOnUpdate(AddOrUpdateProductDto dto, Guid id)
         {
-            Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.StringId == dto.StringId && entity.Id != id))
+            Optional<bool>.Of(await _repository.CheckIfStringIdExist(dto.StringId, id))
                 .ThrowIfPresent(new DuplicateException("This string Id already exist"));
         }
     }

@@ -23,13 +23,13 @@ namespace TinyCRM.Application.Modules.Auth.Services
             _identityAuthService = identityAuthService;
         }
 
-        public async Task<LoginResponseDTO> LoginAsync(LoginDTO dto)
+        public async Task<LoginResponseDto> LoginAsync(LoginDto dto)
         {
             var user = await _identityAuthService.AuthenticateUserAsync(dto);
 
             var refreshToken = await GenerateRefreshTokenAsync(user);
 
-            return new LoginResponseDTO
+            return new LoginResponseDto
             {
                 AccessToken = await _jwtService.GenerateAccessTokenAsync(user),
                 RefreshToken = refreshToken
@@ -47,13 +47,13 @@ namespace TinyCRM.Application.Modules.Auth.Services
             return refreshToken;
         }
 
-        public async Task<RefreshTokenResponseDTO> RefreshTokenAsync(RefreshTokenDTO dto)
+        public async Task<RefreshTokenResponseDto> RefreshTokenAsync(RefreshTokenDto dto)
         {
             var verifiedUser = await VerifyRefreshTokenAsync(dto.RefreshToken);
 
             var newRefreshToken = await GenerateRefreshTokenAsync(verifiedUser);
 
-            return new RefreshTokenResponseDTO
+            return new RefreshTokenResponseDto
             {
                 AccessToken = await _jwtService.GenerateAccessTokenAsync(verifiedUser),
                 RefreshToken = newRefreshToken

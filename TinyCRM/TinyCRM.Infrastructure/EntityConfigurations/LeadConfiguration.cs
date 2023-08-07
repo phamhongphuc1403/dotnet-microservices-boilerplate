@@ -15,7 +15,7 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
                  .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(a => a.Status)
-                .HasDefaultValue(LeadStatusEnum.Prospect);
+                .HasDefaultValue(LeadStatuses.Prospect);
         }
     }
 }

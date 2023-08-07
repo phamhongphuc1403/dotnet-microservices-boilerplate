@@ -12,13 +12,13 @@ namespace TinyCRM.Application.Modules.Contact.Services
 {
     public class ContactService : IContactService
     {
-        private readonly IRepository<ContactEntity> _repository;
+        private readonly IContactRepository _repository;
         private readonly IRepository<AccountEntity> _accountRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public ContactService(
-            IRepository<ContactEntity> contactRepository,
+            IContactRepository contactRepository,
             IMapper mapper, IUnitOfWork unitOfWork,
             IRepository<AccountEntity> accountRepository)
         {
@@ -28,7 +28,7 @@ namespace TinyCRM.Application.Modules.Contact.Services
             _accountRepository = accountRepository;
         }
 
-        public async Task<GetContactDTO> AddAsync(AddOrUpdateContactDTO dto)
+        public async Task<GetContactDto> AddAsync(AddOrUpdateContactDto dto)
         {
             await CheckValidOnAdd(dto);
 
@@ -38,38 +38,35 @@ namespace TinyCRM.Application.Modules.Contact.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetContactDTO>(contact);
+            return _mapper.Map<GetContactDto>(contact);
         }
 
         public async Task DeleteAsync(Guid id)
         {
             var contact = Optional<ContactEntity>.Of(await _repository.GetByIdAsync(id))
-                .ThrowIfNotPresent(new NotFoundException("Contact not found")).Get(); ;
+                .ThrowIfNotPresent(new NotFoundException("Contact not found")).Get();
 
             _repository.Delete(contact);
 
             await _unitOfWork.CommitAsync();
         }
 
-        public async Task<PaginationResponseDTO<GetContactDTO>> GetAllAsync(ContactQueryDTO query)
+        public async Task<PaginationResponseDto<GetContactDto>> GetAllAsync(ContactQueryDto query)
         {
-            var (contacts, totalCount) = await _repository.GetPaginationAsync(
-                PaginationBuilder<ContactEntity>
-                    .Init(query)
-                    .Build());
+            var (contacts, totalCount) = await _repository.GetPagedContactsAsync(query);
 
-            return new PaginationResponseDTO<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);
+            return new PaginationResponseDto<GetContactDto>(_mapper.Map<List<GetContactDto>>(contacts), query.Page, query.Take, totalCount);
         }
 
-        public async Task<GetContactDTO> GetByIdAsync(Guid id)
+        public async Task<GetContactDto> GetByIdAsync(Guid id)
         {
             var contact = Optional<ContactEntity>.Of(await _repository.GetByIdAsync(id))
                 .ThrowIfNotPresent(new NotFoundException("Contact not found")).Get();
 
-            return _mapper.Map<GetContactDTO>(contact);
+            return _mapper.Map<GetContactDto>(contact);
         }
 
-        public async Task<GetContactDTO> UpdateAsync(AddOrUpdateContactDTO dto, Guid id)
+        public async Task<GetContactDto> UpdateAsync(AddOrUpdateContactDto dto, Guid id)
         {
             await GetByIdAsync(id);
 
@@ -83,17 +80,17 @@ namespace TinyCRM.Application.Modules.Contact.Services
 
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<GetContactDTO>(updatedContact);
+            return _mapper.Map<GetContactDto>(updatedContact);
         }
 
-        private async Task CheckValidOnAdd(AddOrUpdateContactDTO dto)
+        private async Task CheckValidOnAdd(AddOrUpdateContactDto dto)
         {
-            Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.Email == dto.Email))
+            Optional<bool>.Of(await _repository.CheckIfEmailExistAsync(dto.Email))
                 .ThrowIfPresent(new DuplicateException("This email already exist"));
 
             if (!string.IsNullOrEmpty(dto.PhoneNumber))
             {
-                Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.PhoneNumber == dto.PhoneNumber))
+                Optional<bool>.Of(await _repository.CheckIfPhoneNumberExistAsync(dto.PhoneNumber))
                     .ThrowIfPresent(new DuplicateException("This phone number already exist"));
             }
 
@@ -104,14 +101,14 @@ namespace TinyCRM.Application.Modules.Contact.Services
             }
         }
 
-        private async Task CheckValidOnUpdate(AddOrUpdateContactDTO dto, Guid id)
+        private async Task CheckValidOnUpdate(AddOrUpdateContactDto dto, Guid id)
         {
-            Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.Email == dto.Email && entity.Id != id))
+            Optional<bool>.Of(await _repository.CheckIfEmailExistAsync(dto.Email, id))
                 .ThrowIfPresent(new DuplicateException("This email already exist"));
 
             if (!string.IsNullOrEmpty(dto.PhoneNumber))
             {
-                Optional<bool>.Of(await _repository.CheckIfExistAsync(entity => entity.PhoneNumber == dto.PhoneNumber && entity.Id != id))
+                Optional<bool>.Of(await _repository.CheckIfPhoneNumberExistAsync(dto.PhoneNumber, id))
                     .ThrowIfPresent(new DuplicateException("This email already exist"));
             }
 
@@ -122,15 +119,11 @@ namespace TinyCRM.Application.Modules.Contact.Services
             }
         }
 
-        public async Task<PaginationResponseDTO<GetContactDTO>> GetAllByAccountIdAsync(Guid id, ContactQueryDTO query)
+        public async Task<PaginationResponseDto<GetContactDto>> GetAllByAccountIdAsync(Guid id, ContactQueryDto query)
         {
-            var (contacts, totalCount) = await _repository.GetPaginationAsync(
-                PaginationBuilder<ContactEntity>
-                    .Init(query)
-                    .AddConstraint(entity => entity.AccountId == id)
-                    .Build());
+            var (contacts, totalCount) = await _repository.GetPagedContactsByAccountIdAsync(query, id);
 
-            return new PaginationResponseDTO<GetContactDTO>(_mapper.Map<List<GetContactDTO>>(contacts), query.Page, query.Take, totalCount);
+            return new PaginationResponseDto<GetContactDto>(_mapper.Map<List<GetContactDto>>(contacts), query.Page, query.Take, totalCount);
         }
     }
 }

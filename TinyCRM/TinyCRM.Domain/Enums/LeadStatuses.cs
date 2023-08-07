@@ -1,6 +1,6 @@
 ﻿namespace TinyCRM.Domain.Enums
 {
-    public enum LeadStatusEnum
+    public enum LeadStatuses
     {
         Prospect = 1,
         Open,
