@@ -10,7 +10,6 @@ namespace TinyCRM.API.Controllers
 {
     [Route("api/leads")]
     [ApiController]
-    [Authorize(Roles = Role.Admin)]
     public class LeadController : ControllerBase
     {
         private readonly ILeadService _service;
@@ -21,6 +20,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permission.Lead.View)]
         public async Task<ActionResult<PaginationResponseDto<GetLeadDto>>> GetAllAsync([FromQuery] LeadQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
@@ -28,12 +28,14 @@ namespace TinyCRM.API.Controllers
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
+        [Authorize(Policy = Permission.Lead.View)]
         public async Task<ActionResult<GetLeadDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
+        [Authorize(Policy = Permission.Lead.Create)]
         public async Task<ActionResult<GetLeadDto>> CreateAsync([FromBody] AddLeadDto model)
         {
             var newLead = await _service.AddAsync(model);
@@ -42,12 +44,14 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Policy = Permission.Lead.Update)]
         public async Task<ActionResult<GetLeadDto>> UpdateAsync(Guid id, [FromBody] UpdateLeadDto model)
         {
             return Ok(await _service.UpdateAsync(model, id));
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Policy = Permission.Lead.Delete)]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);
@@ -56,6 +60,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost("{id:guid}/qualify")]
+        [Authorize(Policy = Permission.Lead.Update)]
         public async Task<ActionResult<GetDealDto>> QualifyLeadAsync(Guid id)
         {
             var deal = await _service.QualifyLeadAsync(id);
@@ -71,12 +76,14 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost("{id:guid}/disqualify")]
+        [Authorize(Policy = Permission.Lead.Update)]
         public async Task<ActionResult<GetLeadDto>> DisqualifyLeadAsync(Guid id, [FromBody] DisqualifyLeadDto model)
         {
             return Ok(await _service.DisqualifyLeadAsync(id, model));
         }
 
         [HttpGet("customer/{customerId:guid}/leads")]
+        [Authorize(Policy = Permission.Lead.View)]
         public async Task<ActionResult<PaginationResponseDto<GetLeadDto>>> GetAllLeadsByIdAsync(Guid customerId, [FromQuery] LeadQueryDto query)
         {
             return Ok(await _service.GetAllByCustomerIdAsync(customerId, query));

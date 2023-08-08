@@ -42,7 +42,7 @@ namespace TinyCRM.Application.Modules.User.Services
 
                 var id = await _identityService.CreateAsync(user);
 
-                await _identityRoleService.AddToRoleAsync(id, Role.Member);
+                await _identityRoleService.AddToRoleAsync(id, Role.User);
 
                 await _unitOfWork.CommitTransactionAsync();
 

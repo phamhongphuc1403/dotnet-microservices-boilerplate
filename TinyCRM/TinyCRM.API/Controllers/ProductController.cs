@@ -9,7 +9,6 @@ namespace TinyCRM.API.Controllers
 {
     [Route("api/products")]
     [ApiController]
-    [Authorize(Roles = Role.Admin)]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
@@ -20,6 +19,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permission.Product.View)]
         public async Task<ActionResult<PaginationResponseDto<GetProductDto>>> GetAllAsync([FromQuery] ProductQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
@@ -27,12 +27,14 @@ namespace TinyCRM.API.Controllers
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(GetByIdAsync))]
+        [Authorize(Policy = Permission.Product.View)]
         public async Task<ActionResult<GetProductDto>> GetByIdAsync(Guid id)
         {
             return Ok(await _service.GetByIdAsync(id));
         }
 
         [HttpPost]
+        [Authorize(Policy = Permission.Product.Create)]
         public async Task<ActionResult<GetProductDto>> CreateAsync([FromBody] AddOrUpdateProductDto model)
         {
             var newProduct = await _service.AddAsync(model);
@@ -41,6 +43,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Policy = Permission.Product.Update)]
         public async Task<ActionResult<GetProductDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateProductDto model)
         {
             var updatedProduct = await _service.UpdateAsync(model, id);
@@ -49,6 +52,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Policy = Permission.Product.Delete)]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);

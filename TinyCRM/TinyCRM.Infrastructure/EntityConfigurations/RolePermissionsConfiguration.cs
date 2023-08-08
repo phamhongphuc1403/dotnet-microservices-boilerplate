@@ -1,14 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using TinyCRM.Domain.Entities;
-using System.Reflection;
-using TinyCRM.Domain.Constants.Permissions;
+using TinyCRM.Domain.Constants;
 
 namespace TinyCRM.Infrastructure.EntityConfigurations
 {
@@ -20,35 +13,32 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
 
             var index = 1;
 
-            foreach (Type permissionType in typeof(Permissions).GetNestedTypes())
+            foreach (var permission in Permission.PermissionsList)
             {
-                PropertyInfo[] properties = permissionType.GetProperties();
-
-                foreach (PropertyInfo property in properties)
+                builder.HasData(new IdentityRoleClaim<string>
                 {
-                    if (property.PropertyType == typeof(PermissionContent))
+                    Id = index++,
+                    RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008",
+                    ClaimType = permission.Name,
+                    ClaimValue = permission.Description
+                });
+
+                if (permission.Name 
+                    is Permission.User.ViewPersonal 
+                    or Permission.User.UpdatePersonal 
+                    or Permission.Account.View
+                    or Permission.Contact.View
+                    or Permission.Lead.View
+                    or Permission.Deal.View
+                    or Permission.Product.View)
+                {
+                    builder.HasData(new IdentityRoleClaim<string>
                     {
-                        var permission = (PermissionContent)property.GetValue(null)!;
-
-                        builder.HasData(new IdentityRoleClaim<string>
-                        {
-                            Id = index++,
-                            RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008",
-                            ClaimType = permission.Name,
-                            ClaimValue = permission.Description
-                        });
-
-                        if (property.Name is "ViewPersonal" or "View" or "UpdatePersonal")
-                        {
-                            builder.HasData(new IdentityRoleClaim<string>
-                            {
-                                Id = index++,
-                                RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
-                                ClaimType = permission.Name,
-                                ClaimValue = permission.Description
-                            });
-                        }
-                    }
+                        Id = index++,
+                        RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
+                        ClaimType = permission.Name,
+                        ClaimValue = permission.Description
+                    });
                 }
             }
         }

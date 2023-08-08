@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TinyCRM.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using TinyCRM.Infrastructure.Data;
 namespace TinyCRM.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230808075447_update_seeds_in_RoleClaims_table")]
+    partial class update_seeds_in_RoleClaims_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -692,13 +695,10 @@ namespace TinyCRM.Infrastructure.Migrations
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Admin",
-                            NormalizedEmail = "ADMIN@123",
-                            NormalizedUserName = "ADMIN@123",
                             PasswordHash = "AQAAAAIAAYagAAAAEOTJb6l8HOHh1wHnpiRDTaZCCyavpjEt27SSXd4toN9W1yY+1fx37d8AhWk3lyYcYg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "29bf979f-d7b1-4d7d-b6ac-1a9191759f5c",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@123"
+                            TwoFactorEnabled = false
                         });
                 });
 

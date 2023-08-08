@@ -9,7 +9,6 @@ namespace TinyCRM.API.Controllers
 {
     [ApiController]
     [Route("api/accounts")]
-    [Authorize(Roles = Role.Admin)]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _service;
@@ -20,12 +19,14 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permission.Account.View)]
         public async Task<ActionResult<PaginationResponseDto<GetAccountDto>>> GetAllAsync([FromQuery] AccountQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
         [HttpGet("{id:guid}")]
+        [Authorize(Policy = Permission.Account.View)]
         [ActionName(nameof(GetByIdAsync))]
         public async Task<ActionResult<GetAccountDto>> GetByIdAsync(Guid id)
         {
@@ -33,6 +34,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = Permission.Account.Create)]
         public async Task<ActionResult<GetAccountDto>> CreateAsync([FromBody] AddOrUpdateAccountDto model)
         {
             var newAccount = await _service.AddAsync(model);
@@ -41,6 +43,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Policy = Permission.Account.Update)]
         public async Task<ActionResult<GetAccountDto>> UpdateAsync(Guid id, [FromBody] AddOrUpdateAccountDto model)
         {
             var updatedAccount = await _service.UpdateAsync(model, id);
@@ -49,6 +52,7 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Policy = Permission.Account.Delete)]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);

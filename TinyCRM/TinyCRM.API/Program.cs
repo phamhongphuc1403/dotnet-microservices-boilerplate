@@ -18,8 +18,6 @@ var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
 builder.Services.AddAuthenticationExtension(jwtSettings);
 
-builder.Services.AddAuthorizationExtension();
-
 builder.Services.AddAddDbContextExtension(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 builder.Services.AddDependencyInjectionExtension();

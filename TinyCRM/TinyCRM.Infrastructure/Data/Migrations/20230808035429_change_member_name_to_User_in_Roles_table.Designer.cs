@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TinyCRM.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using TinyCRM.Infrastructure.Data;
 namespace TinyCRM.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230808035429_change_member_name_to_User_in_Roles_table")]
+    partial class change_member_name_to_User_in_Roles_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,231 +96,231 @@ namespace TinyCRM.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            ClaimType = "Permission.User.View.Personal",
+                            ClaimType = "User.View.Personal",
                             ClaimValue = "Can view personal user profile",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 2,
-                            ClaimType = "Permission.User.View.Personal",
+                            ClaimType = "User.View.Personal",
                             ClaimValue = "Can view personal user profile",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 3,
-                            ClaimType = "Permission.User.View.All",
+                            ClaimType = "User.View.All",
                             ClaimValue = "Can view all user profiles",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 4,
-                            ClaimType = "Permission.User.Update.Personal",
+                            ClaimType = "User.Update.Personal",
                             ClaimValue = "Can update personal user profile",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 5,
-                            ClaimType = "Permission.User.Update.Personal",
+                            ClaimType = "User.Update.Personal",
                             ClaimValue = "Can update personal user profile",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 6,
-                            ClaimType = "Permission.User.Update.All",
+                            ClaimType = "User.Update.All",
                             ClaimValue = "Can update all user profiles",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 7,
-                            ClaimType = "Permission.User.Delete.All",
+                            ClaimType = "User.Delete.All",
                             ClaimValue = "Can delete all user profiles",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 8,
-                            ClaimType = "Permission.User.Create",
+                            ClaimType = "User.Create",
                             ClaimValue = "Can create user",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 9,
-                            ClaimType = "Permission.Account.View",
+                            ClaimType = "Account.View",
                             ClaimValue = "Can view accounts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 10,
-                            ClaimType = "Permission.Account.View",
+                            ClaimType = "Account.View",
                             ClaimValue = "Can view accounts",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 11,
-                            ClaimType = "Permission.Account.Update",
+                            ClaimType = "Account.Update",
                             ClaimValue = "Can update accounts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 12,
-                            ClaimType = "Permission.Account.Delete",
+                            ClaimType = "Account.Delete",
                             ClaimValue = "Can delete accounts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 13,
-                            ClaimType = "Permission.Account.Create",
+                            ClaimType = "Account.Create",
                             ClaimValue = "Can create accounts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 14,
-                            ClaimType = "Permission.Contact.View",
+                            ClaimType = "Contact.View",
                             ClaimValue = "Can view contacts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 15,
-                            ClaimType = "Permission.Contact.View",
+                            ClaimType = "Contact.View",
                             ClaimValue = "Can view contacts",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 16,
-                            ClaimType = "Permission.Contact.Update",
+                            ClaimType = "Contact.Update",
                             ClaimValue = "Can update contacts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 17,
-                            ClaimType = "Permission.Contact.Delete",
+                            ClaimType = "Contact.Delete",
                             ClaimValue = "Can delete contacts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 18,
-                            ClaimType = "Permission.Contact.Create",
+                            ClaimType = "Contact.Create",
                             ClaimValue = "Can create contacts",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 19,
-                            ClaimType = "Permission.Lead.View",
+                            ClaimType = "Lead.View",
                             ClaimValue = "Can view leads",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 20,
-                            ClaimType = "Permission.Lead.View",
+                            ClaimType = "Lead.View",
                             ClaimValue = "Can view leads",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 21,
-                            ClaimType = "Permission.Lead.Update",
+                            ClaimType = "Lead.Update",
                             ClaimValue = "Can update leads",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 22,
-                            ClaimType = "Permission.Lead.Delete",
+                            ClaimType = "Lead.Delete",
                             ClaimValue = "Can delete leads",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 23,
-                            ClaimType = "Permission.Lead.Create",
+                            ClaimType = "Lead.Create",
                             ClaimValue = "Can create leads",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 24,
-                            ClaimType = "Permission.Deal.View",
+                            ClaimType = "Deal.View",
                             ClaimValue = "Can view deals",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 25,
-                            ClaimType = "Permission.Deal.View",
+                            ClaimType = "Deal.View",
                             ClaimValue = "Can view deals",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 26,
-                            ClaimType = "Permission.Deal.Update",
+                            ClaimType = "Deal.Update",
                             ClaimValue = "Can update deals",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 27,
-                            ClaimType = "Permission.Deal.Delete",
+                            ClaimType = "Deal.Delete",
                             ClaimValue = "Can delete deals",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 28,
-                            ClaimType = "Permission.Deal.Create",
+                            ClaimType = "Deal.Create",
                             ClaimValue = "Can create deals",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 29,
-                            ClaimType = "Permission.Product.View",
+                            ClaimType = "Product.View",
                             ClaimValue = "Can view products",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 30,
-                            ClaimType = "Permission.Product.View",
+                            ClaimType = "Product.View",
                             ClaimValue = "Can view products",
                             RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef"
                         },
                         new
                         {
                             Id = 31,
-                            ClaimType = "Permission.Product.Update",
+                            ClaimType = "Product.Update",
                             ClaimValue = "Can update products",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 32,
-                            ClaimType = "Permission.Product.Delete",
+                            ClaimType = "Product.Delete",
                             ClaimValue = "Can delete products",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         },
                         new
                         {
                             Id = 33,
-                            ClaimType = "Permission.Product.Create",
+                            ClaimType = "Product.Create",
                             ClaimValue = "Can create products",
                             RoleId = "80bee362-64ca-42cc-aeb2-444d5f61b008"
                         });
@@ -692,13 +695,10 @@ namespace TinyCRM.Infrastructure.Migrations
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Admin",
-                            NormalizedEmail = "ADMIN@123",
-                            NormalizedUserName = "ADMIN@123",
                             PasswordHash = "AQAAAAIAAYagAAAAEOTJb6l8HOHh1wHnpiRDTaZCCyavpjEt27SSXd4toN9W1yY+1fx37d8AhWk3lyYcYg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "29bf979f-d7b1-4d7d-b6ac-1a9191759f5c",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@123"
+                            TwoFactorEnabled = false
                         });
                 });
 

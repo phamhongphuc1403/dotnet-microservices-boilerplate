@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using TinyCRM.Application.Authorization;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.Account.Services;
 using TinyCRM.Application.Modules.Account.Services.Interfaces;
@@ -53,7 +54,8 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<ILeadRepository, LeadRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
 
-            services.AddScoped<IAuthorizationHandler, ViewOrUpdateUserHandler>();
+            services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
             services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
             services.AddScoped<DbFactory>();

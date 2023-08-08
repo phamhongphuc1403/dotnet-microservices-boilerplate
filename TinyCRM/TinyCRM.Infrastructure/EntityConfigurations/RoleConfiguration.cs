@@ -18,8 +18,8 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
                 new IdentityRole
                 {
                     Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
-                    Name = "Member",
-                    NormalizedName = "MEMBER"
+                    Name = "User",
+                    NormalizedName = "USER"
                 }
             );
         }
