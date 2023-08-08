@@ -17,7 +17,9 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
                 Id = "d28888e9-2ba9-473a-a40f-e38cb54f9b35",
                 Name = "Admin",
                 Email = "admin@123",
-                PasswordHash = "AQAAAAIAAYagAAAAEOTJb6l8HOHh1wHnpiRDTaZCCyavpjEt27SSXd4toN9W1yY+1fx37d8AhWk3lyYcYg=="
+                PasswordHash = "AQAAAAIAAYagAAAAEOTJb6l8HOHh1wHnpiRDTaZCCyavpjEt27SSXd4toN9W1yY+1fx37d8AhWk3lyYcYg==",
+                ConcurrencyStamp = "1415161f-ae5c-46a2-929a-60edda6cba35",
+                SecurityStamp = "29bf979f-d7b1-4d7d-b6ac-1a9191759f5c"
             });
         }
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TinyCRM.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using TinyCRM.Infrastructure.Data;
 namespace TinyCRM.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230808033633_init_seeds_and_constraints_to_RoleClaims_table")]
+    partial class init_seeds_and_constraints_to_RoleClaims_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -687,14 +690,14 @@ namespace TinyCRM.Infrastructure.Migrations
                         {
                             Id = "d28888e9-2ba9-473a-a40f-e38cb54f9b35",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1415161f-ae5c-46a2-929a-60edda6cba35",
+                            ConcurrencyStamp = "1415161f-ae5c-46a2-929a-60edda6cba85",
                             Email = "admin@123",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Admin",
                             PasswordHash = "AQAAAAIAAYagAAAAEOTJb6l8HOHh1wHnpiRDTaZCCyavpjEt27SSXd4toN9W1yY+1fx37d8AhWk3lyYcYg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "29bf979f-d7b1-4d7d-b6ac-1a9191759f5c",
+                            SecurityStamp = "29bf979f-d7b1-4d7d-b6ac-1a919175925c",
                             TwoFactorEnabled = false
                         });
                 });
