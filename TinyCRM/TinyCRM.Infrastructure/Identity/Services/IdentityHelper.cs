@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TinyCRM.Application.Utilities;
 using TinyCRM.Domain.HttpExceptions;
+using TinyCRM.Infrastructure.Identity.Entities;
 using TinyCRM.Infrastructure.Identity.Services.Interfaces;
 
 namespace TinyCRM.Infrastructure.Identity.Services

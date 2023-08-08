@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using TinyCRM.Application.Common.Interfaces;
+using TinyCRM.Domain.HttpExceptions;
 
-namespace TinyCRM.Application.Authorization
+namespace TinyCRM.API.Authorization
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
@@ -22,6 +23,8 @@ namespace TinyCRM.Application.Authorization
             {
                 context.Succeed(requirement);
             }
+
+            throw new ForbiddenException();
         }
     }
 }

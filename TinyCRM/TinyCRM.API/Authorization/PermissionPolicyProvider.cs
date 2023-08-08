@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace TinyCRM.Application.Authorization
+namespace TinyCRM.API.Authorization
 {
     public class PermissionPolicyProvider : IAuthorizationPolicyProvider
     {

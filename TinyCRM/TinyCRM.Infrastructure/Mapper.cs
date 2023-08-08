@@ -7,7 +7,7 @@ using TinyCRM.Application.Modules.Lead.DTOs;
 using TinyCRM.Application.Modules.Product.DTOs;
 using TinyCRM.Application.Modules.User.DTOs;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Infrastructure.Identity;
+using TinyCRM.Infrastructure.Identity.Entities;
 
 namespace TinyCRM.Infrastructure
 {

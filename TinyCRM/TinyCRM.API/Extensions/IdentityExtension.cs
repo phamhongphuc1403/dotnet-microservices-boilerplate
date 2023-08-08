@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TinyCRM.Infrastructure.Data;
-using TinyCRM.Infrastructure.Identity;
+using TinyCRM.Infrastructure.Identity.Entities;
 
 namespace TinyCRM.API.Extensions
 {
@@ -8,7 +8,7 @@ namespace TinyCRM.API.Extensions
     {
         public static IServiceCollection AddIdentityExtension(this IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;

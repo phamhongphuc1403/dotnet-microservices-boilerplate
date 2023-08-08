@@ -4,6 +4,7 @@ using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.Auth.DTOs;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
+using TinyCRM.Infrastructure.Identity.Entities;
 using TinyCRM.Infrastructure.Identity.Services.Interfaces;
 
 namespace TinyCRM.Infrastructure.Identity.Services

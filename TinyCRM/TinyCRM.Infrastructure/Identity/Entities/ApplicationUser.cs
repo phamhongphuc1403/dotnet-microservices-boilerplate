@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace TinyCRM.Infrastructure.Identity
+namespace TinyCRM.Infrastructure.Identity.Entities
 {
     public class ApplicationUser : IdentityUser
     {

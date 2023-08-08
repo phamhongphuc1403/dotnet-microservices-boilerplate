@@ -11,6 +11,7 @@ namespace TinyCRM.Infrastructure
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
+                options.EnableSensitiveDataLogging();
             });
 
             return services;

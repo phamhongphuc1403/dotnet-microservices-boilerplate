@@ -1,27 +1,31 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TinyCRM.Infrastructure.Identity.Entities;
 
 namespace TinyCRM.Infrastructure.EntityConfigurations
 {
-    public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
+    public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
     {
-        public void Configure(EntityTypeBuilder<IdentityRole> builder)
+        public void Configure(EntityTypeBuilder<ApplicationRole> builder)
         {
             builder.HasData(
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = "80bee362-64ca-42cc-aeb2-444d5f61b008",
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR"
                 },
-                new IdentityRole
+                new ApplicationRole
                 {
                     Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
                     Name = "User",
                     NormalizedName = "USER"
                 }
             );
+
+            builder.HasMany(r => r.Claims)
+                .WithOne()
+                .HasForeignKey(r => r.RoleId);
         }
     }
 }

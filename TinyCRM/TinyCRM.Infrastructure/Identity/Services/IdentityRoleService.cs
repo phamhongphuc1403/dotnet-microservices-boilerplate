@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Domain.HttpExceptions;
+using TinyCRM.Infrastructure.Identity.Entities;
 using TinyCRM.Infrastructure.Identity.Services.Interfaces;
 
 namespace TinyCRM.Infrastructure.Identity.Services
@@ -9,12 +10,12 @@ namespace TinyCRM.Infrastructure.Identity.Services
     public class IdentityRoleService : IIdentityRoleService
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IIdentityHelper _identityHelper;
 
         public IdentityRoleService(
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<ApplicationRole> roleManager,
             IIdentityHelper identityHelper)
         {
             _userManager = userManager;

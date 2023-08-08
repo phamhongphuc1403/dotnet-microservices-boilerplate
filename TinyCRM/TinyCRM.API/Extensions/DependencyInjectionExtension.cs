@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using TinyCRM.Application.Authorization;
+using TinyCRM.API.Authorization;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.Account.Services;
 using TinyCRM.Application.Modules.Account.Services.Interfaces;

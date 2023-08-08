@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.Infrastructure.Identity;
+using TinyCRM.Infrastructure.Identity.Entities;
 
 namespace TinyCRM.Infrastructure.EntityConfigurations
 {
@@ -21,7 +20,7 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
                 UserName = "admin@123",
                 NormalizedEmail = "ADMIN@123",
                 NormalizedUserName = "ADMIN@123",
-                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null!, "string"),
+                PasswordHash = "AQAAAAIAAYagAAAAEJK/8yMYIxM3p+/ja/lTborkwRADLmeAbbjkxRACcShtni4oIXpmEIoKzsvRPrfNtw==",
                 ConcurrencyStamp = "1415161f-ae5c-46a2-929a-60edda6cba35",
                 SecurityStamp = "29bf979f-d7b1-4d7d-b6ac-1a9191759f5c"
             });

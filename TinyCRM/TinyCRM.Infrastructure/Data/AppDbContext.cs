@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Infrastructure.Identity;
+using TinyCRM.Infrastructure.Identity.Entities;
 
 namespace TinyCRM.Infrastructure.Data
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public DbSet<AccountEntity> Accounts { get; set; }
         public DbSet<ContactEntity> Contacts { get; set; }
