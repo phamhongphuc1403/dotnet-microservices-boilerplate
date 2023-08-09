@@ -17,18 +17,31 @@ namespace TinyCRM.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Role.Admin)]
+        [Authorize(Policy = Permission.Role.View)]
         public async Task<IActionResult> GetAllRolesAsync([FromQuery] RoleQueryDto query)
         {
             return Ok(await _service.GetAllAsync(query));
         }
 
-        [HttpGet("users/{userId:Guid}/roles")]
-        [Authorize(Roles = Role.Admin)]
+        [HttpGet("users/{userId:Guid}/role")]
+        [Authorize(Policy = Permission.Role.View)]
         public async Task<IActionResult> GetUserRoleAsync(Guid userId)
         {
             return Ok(await _service.GetUserRoleAsync(userId));
         }
+
+        [HttpPut("users/{userId:Guid}/role")]
+        [Authorize(Policy = Permission.Role.Update)]
+        public async Task<IActionResult> UpdateUserRoleAsync(Guid userId, [FromBody] UpdateUserRoleDto model)
+        {
+            await _service.UpdateUserRoleAsync(userId, model);
+
+            return Ok();
+        }
+    }
+
+    public class UpdateUserRoleDto
+    {
     }
 
     public class RoleQueryDto
@@ -39,5 +52,6 @@ namespace TinyCRM.API.Controllers
     {
         Task<object?> GetAllAsync(RoleQueryDto query);
         Task<object?> GetUserRoleAsync(Guid userId);
+        Task UpdateUserRoleAsync(Guid userId, UpdateUserRoleDto model);
     }
 }

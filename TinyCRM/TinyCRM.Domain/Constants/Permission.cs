@@ -56,6 +56,12 @@ namespace TinyCRM.Domain.Constants
             public const string Create = $"{Prefix}.{nameof(Product)}.Create";
         }
 
+        public static class Role
+        {
+            public const string View = $"{Prefix}.{nameof(Role)}.View";
+            public const string Update = $"{Prefix}.{nameof(Role)}.Update";
+        }
+        
         public static readonly ImmutableList<PermissionContent> PermissionsList = ImmutableList.Create<PermissionContent>(
             // USER
             new PermissionContent(User.ViewPersonal, "Can view personal user profile"),

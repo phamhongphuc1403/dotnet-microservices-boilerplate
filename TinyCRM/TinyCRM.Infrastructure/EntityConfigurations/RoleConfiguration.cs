@@ -20,6 +20,12 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
                     Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
                     Name = "User",
                     NormalizedName = "USER"
+                },
+                new ApplicationRole
+                {
+                    Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1ce1",
+                    Name = "Super Administrator",
+                    NormalizedName = "SUPER ADMINISTRATOR"
                 }
             );
 

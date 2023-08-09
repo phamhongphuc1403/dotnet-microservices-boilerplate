@@ -5,7 +5,7 @@ using TinyCRM.Domain.Constants;
 
 namespace TinyCRM.Infrastructure.EntityConfigurations
 {
-    internal class RolePermissionsConfiguration : IEntityTypeConfiguration<IdentityRoleClaim<string>>
+    public class RolePermissionsConfiguration : IEntityTypeConfiguration<IdentityRoleClaim<string>>
     {
         public void Configure(EntityTypeBuilder<IdentityRoleClaim<string>> builder)
         {
@@ -15,6 +15,19 @@ namespace TinyCRM.Infrastructure.EntityConfigurations
 
             foreach (var permission in Permission.PermissionsList)
             {
+                builder.HasData(new IdentityRoleClaim<string>
+                {
+                    Id = index++,
+                    RoleId = "d8bc22dc-5c2d-41c7-bc22-6293121a1ce1",
+                    ClaimType = permission.Name,
+                    ClaimValue = permission.Description
+                });
+
+                if (permission.Name == Permission.Role.Update)
+                {
+                    continue;
+                }
+
                 builder.HasData(new IdentityRoleClaim<string>
                 {
                     Id = index++,
