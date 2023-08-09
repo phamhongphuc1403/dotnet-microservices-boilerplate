@@ -15,6 +15,8 @@ using TinyCRM.Application.Modules.Lead.Services;
 using TinyCRM.Application.Modules.Lead.Services.Interfaces;
 using TinyCRM.Application.Modules.Product.Services;
 using TinyCRM.Application.Modules.Product.Services.Interfaces;
+using TinyCRM.Application.Modules.Role.Services;
+using TinyCRM.Application.Modules.Role.Services.Interfaces;
 using TinyCRM.Application.Modules.User.Services;
 using TinyCRM.Application.Modules.User.Services.Interfaces;
 using TinyCRM.Domain;
@@ -41,6 +43,8 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+
             services.AddScoped<IRepository<AccountEntity>, Repository<AccountEntity>>();
             services.AddScoped<IRepository<ContactEntity>, Repository<ContactEntity>>();
             services.AddScoped<IRepository<LeadEntity>, Repository<LeadEntity>>();

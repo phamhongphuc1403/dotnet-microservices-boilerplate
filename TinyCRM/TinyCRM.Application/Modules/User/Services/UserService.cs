@@ -3,7 +3,6 @@ using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.User.DTOs;
 using TinyCRM.Application.Modules.User.Services.Interfaces;
 using TinyCRM.Domain;
-using TinyCRM.Domain.Constants;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 
@@ -42,7 +41,7 @@ namespace TinyCRM.Application.Modules.User.Services
 
                 var id = await _identityService.CreateAsync(user);
 
-                await _identityRoleService.AddToRoleAsync(id, Role.User);
+                await _identityRoleService.AddToRoleAsync(id, Domain.Constants.Role.User);
 
                 await _unitOfWork.CommitTransactionAsync();
 

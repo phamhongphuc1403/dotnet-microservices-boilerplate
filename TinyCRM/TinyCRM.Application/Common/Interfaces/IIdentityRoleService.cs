@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.Application.Common.Interfaces
 {
@@ -9,5 +10,9 @@ namespace TinyCRM.Application.Common.Interfaces
         Task<IList<string>> GetRolesAsync(string userId);
 
         Task<IList<Claim>> GetClaimsByRoleIdAsync(string roleName);
+
+        Task<List<RoleEntity>> GetAllRoles();
+
+        Task<RoleEntity> GetRoleByUserId(string userId);
     }
 }

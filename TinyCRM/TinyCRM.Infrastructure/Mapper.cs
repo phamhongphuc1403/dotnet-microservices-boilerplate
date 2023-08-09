@@ -15,20 +15,25 @@ namespace TinyCRM.Infrastructure
     {
         public Mapper()
         {
+            // ACCOUNT
             CreateMap<AddOrUpdateAccountDto, AccountEntity>();
             CreateMap<AccountEntity, GetAccountDto>();
 
+            // CONTACT
             CreateMap<ContactEntity, GetContactDto>();
             CreateMap<AddOrUpdateContactDto, ContactEntity>();
 
+            // LEAD
             CreateMap<AddLeadDto, LeadEntity>();
             CreateMap<UpdateLeadDto, LeadEntity>();
             CreateMap<LeadEntity, GetLeadDto>();
             CreateMap<DisqualifyLeadDto, LeadEntity>();
 
+            // PRODUCT
             CreateMap<AddOrUpdateProductDto, ProductEntity>();
             CreateMap<ProductEntity, GetProductDto>();
 
+            // DEAL
             CreateMap<DealEntity, GetDealDto>()
                 .ForMember(dest => dest.Customer, opt => opt.MapFrom(src => src.Lead.Customer.Name))
                 .ForMember(dest => dest.OriginatingLead, opt => opt.MapFrom(src => src.Lead.Title))
@@ -41,12 +46,14 @@ namespace TinyCRM.Infrastructure
                 .ForMember(dest => dest.Description, opt => opt.Ignore());
             CreateMap<UpdateDealDto, DealEntity>();
 
+            // DEAL PRODUCT
             CreateMap<DealProductEntity, GetDealProductDto>()
                 .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src => src.Quantity * src.PricePerUnit))
                 .ForMember(dest => dest.StringId, opt => opt.MapFrom(src => src.Quantity * src.PricePerUnit));
             CreateMap<AddOrUpdateProductToDealDto, DealProductEntity>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId));
 
+            // USER
             CreateMap<UserEntity, GetUserDto>();
             CreateMap<CreateOrEditUserDto, UserEntity>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
@@ -55,6 +62,9 @@ namespace TinyCRM.Infrastructure
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
             CreateMap<ApplicationUser, GetUserDto>();
             CreateMap<ApplicationUser, UserEntity>();
+
+            // ROLE
+            CreateMap<ApplicationRole, RoleEntity>();
         }
     }
 }

@@ -23,8 +23,10 @@ namespace TinyCRM.API.Authorization
             {
                 context.Succeed(requirement);
             }
-
-            throw new ForbiddenException();
+            else
+            {
+                throw new ForbiddenException();
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.Application.Modules.Account.DTOs;
+using TinyCRM.Application.Modules.Role.DTOs;
+using TinyCRM.Application.Modules.Role.Services.Interfaces;
 using TinyCRM.Domain.Constants;
+using TinyCRM.Domain.Entities;
 
 namespace TinyCRM.API.Controllers
 {
@@ -18,40 +20,25 @@ namespace TinyCRM.API.Controllers
 
         [HttpGet]
         [Authorize(Policy = Permission.Role.View)]
-        public async Task<IActionResult> GetAllRolesAsync([FromQuery] RoleQueryDto query)
+        public async Task<ActionResult<List<RoleEntity>>> GetAllRolesAsync()
         {
-            return Ok(await _service.GetAllAsync(query));
+            return Ok(await _service.GetAllAsync());
         }
 
         [HttpGet("users/{userId:Guid}/role")]
         [Authorize(Policy = Permission.Role.View)]
-        public async Task<IActionResult> GetUserRoleAsync(Guid userId)
+        public async Task<ActionResult<RoleEntity>> GetUserRoleAsync(Guid userId)
         {
-            return Ok(await _service.GetUserRoleAsync(userId));
+            return Ok(await _service.GetUserRoleAsync(userId.ToString()));
         }
 
         [HttpPut("users/{userId:Guid}/role")]
         [Authorize(Policy = Permission.Role.Update)]
         public async Task<IActionResult> UpdateUserRoleAsync(Guid userId, [FromBody] UpdateUserRoleDto model)
         {
-            await _service.UpdateUserRoleAsync(userId, model);
+            await _service.UpdateUserRoleAsync(userId.ToString(), model);
 
             return Ok();
         }
-    }
-
-    public class UpdateUserRoleDto
-    {
-    }
-
-    public class RoleQueryDto
-    {
-    }
-
-    public interface IRoleService
-    {
-        Task<object?> GetAllAsync(RoleQueryDto query);
-        Task<object?> GetUserRoleAsync(Guid userId);
-        Task UpdateUserRoleAsync(Guid userId, UpdateUserRoleDto model);
     }
 }

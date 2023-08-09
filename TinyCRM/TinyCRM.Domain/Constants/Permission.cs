@@ -99,7 +99,11 @@ namespace TinyCRM.Domain.Constants
             new PermissionContent(Product.View, "Can view products"),
             new PermissionContent(Product.Update, "Can update products"),
             new PermissionContent(Product.Delete, "Can delete products"),
-            new PermissionContent(Product.Create, "Can create products")
+            new PermissionContent(Product.Create, "Can create products"),
+
+            // ROLE
+            new PermissionContent(Role.View, "Can view roles"),
+            new PermissionContent(Role.Update, "Can update roles")
         );
     }
 
