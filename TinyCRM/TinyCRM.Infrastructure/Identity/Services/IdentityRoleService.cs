@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Application.Common.Interfaces;
+using TinyCRM.Application.Utilities;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 using TinyCRM.Infrastructure.Identity.Entities;
@@ -79,6 +80,28 @@ namespace TinyCRM.Infrastructure.Identity.Services
             var role = await _roleManager.FindByNameAsync(roleName);
 
             return _mapper.Map<RoleEntity>(role);
+        }
+
+        public async Task<RoleEntity> GetRoleById(string roleId)
+        {
+            var role = Optional<ApplicationRole>.Of(await _roleManager.Roles.FirstOrDefaultAsync(x => x.Id == roleId))
+                 .ThrowIfNotPresent(new NotFoundException("Role not found")).Get();
+
+            return _mapper.Map<RoleEntity>(role);
+        }
+
+        public async Task RemoveFromRole(string userId)
+        {
+            var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
+
+            var currentRole = await _userManager.GetRolesAsync(user)!;
+
+            var result = await _userManager.RemoveFromRolesAsync(user, currentRole);
+
+            if (!result.Succeeded)
+            {
+                throw new BadRequestException(result.Errors.First().Description);
+            }
         }
     }
 }

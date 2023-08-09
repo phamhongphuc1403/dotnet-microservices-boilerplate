@@ -14,5 +14,9 @@ namespace TinyCRM.Application.Common.Interfaces
         Task<List<RoleEntity>> GetAllRoles();
 
         Task<RoleEntity> GetRoleByUserId(string userId);
+        
+        Task<RoleEntity> GetRoleById(string roleId);
+
+        Task RemoveFromRole(string userId);
     }
 }

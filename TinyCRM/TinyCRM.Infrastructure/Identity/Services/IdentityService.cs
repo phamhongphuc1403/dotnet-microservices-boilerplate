@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using TinyCRM.Application.Common.Interfaces;
+using TinyCRM.Application.Modules.User.DTOs;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 using TinyCRM.Infrastructure.Identity.Entities;
@@ -56,6 +58,13 @@ namespace TinyCRM.Infrastructure.Identity.Services
             {
                 throw new BadRequestException(result.Errors.First().Description);
             }
+        }
+
+        public async Task<(List<UserEntity>, int)> GetAllAsync(UserQueryDto query)
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            return (_mapper.Map<List<UserEntity>>(users), users.Count);
         }
     }
 }

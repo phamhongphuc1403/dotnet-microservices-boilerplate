@@ -1,4 +1,5 @@
-﻿using TinyCRM.Application.Modules.User.DTOs;
+﻿using TinyCRM.Application.Common.DTOs;
+using TinyCRM.Application.Modules.User.DTOs;
 
 namespace TinyCRM.Application.Modules.User.Services.Interfaces
 {
@@ -9,5 +10,7 @@ namespace TinyCRM.Application.Modules.User.Services.Interfaces
         Task<GetUserDto> GetByIdAsync(string id);
 
         Task<GetUserDto> UpdateAsync(string id, CreateOrEditUserDto dto);
+        
+        Task<PaginationResponseDto<GetUserDto>> GetAllAsync(UserQueryDto query);
     }
 }

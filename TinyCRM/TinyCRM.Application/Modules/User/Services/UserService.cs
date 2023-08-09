@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using TinyCRM.Application.Common.DTOs;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.User.DTOs;
 using TinyCRM.Application.Modules.User.Services.Interfaces;
@@ -88,6 +89,13 @@ namespace TinyCRM.Application.Modules.User.Services
                 await _unitOfWork.RollbackTransactionAsync();
                 throw;
             }
+        }
+
+        public async Task<PaginationResponseDto<GetUserDto>> GetAllAsync(UserQueryDto query)
+        {
+            var (users, totalCount) = await _identityService.GetAllAsync(query);
+
+            return new PaginationResponseDto<GetUserDto>(_mapper.Map<List<GetUserDto>>(users), query.Page, query.Take, totalCount);
         }
 
         private static void CheckPasswordMatching(CreateOrEditUserDto dto)
