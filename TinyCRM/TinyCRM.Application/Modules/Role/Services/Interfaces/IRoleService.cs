@@ -6,7 +6,9 @@ namespace TinyCRM.Application.Modules.Role.Services.Interfaces
     public interface IRoleService
     {
         Task<List<RoleEntity>> GetAllAsync();
-        Task<RoleEntity> GetUserRoleAsync(string userId);
+
+        Task<IEnumerable<string>> GetUserRolesAsync(string userId);
+
         Task UpdateUserRoleAsync(string userId, UpdateUserRoleDto model);
     }
 }

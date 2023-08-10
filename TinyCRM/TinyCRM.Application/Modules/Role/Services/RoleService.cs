@@ -28,32 +28,21 @@ namespace TinyCRM.Application.Modules.Role.Services
             return _identityRoleService.GetAllRoles();
         }
 
-        public Task<RoleEntity> GetUserRoleAsync(string userId)
+        public Task<IEnumerable<string>> GetUserRolesAsync(string userId)
         {
-            return _identityRoleService.GetRoleByUserId(userId);
+            return _identityRoleService.GetRoleNamesByUserId(userId);
         }
 
         public async Task UpdateUserRoleAsync(string userId, UpdateUserRoleDto model)
         {
-            await _identityRoleService.GetRoleById(model.RoleId);
-            await _identityService.GetByIdAsync(userId);
-
-            await CheckValidOnUpdate(userId, model);
-        }
-
-        private async Task CheckValidOnUpdate(string userId, UpdateUserRoleDto model)
-        {
+            await CheckValidOnUpdate(userId, model.Name);
             try
             {
-                await CheckValidOnUpdate(userId, model.RoleId);
-
-                var role = await _identityRoleService.GetRoleById(model.RoleId);
-
                 await _unitOfWork.BeginTransactionAsync();
 
                 await _identityRoleService.RemoveFromRole(userId);
 
-                await _identityRoleService.AddToRoleAsync(userId, role.Name);
+                await _identityRoleService.AddToRolesAsync(userId, model.Name);
 
                 await _unitOfWork.CommitTransactionAsync();
             }
@@ -64,13 +53,12 @@ namespace TinyCRM.Application.Modules.Role.Services
             }
         }
 
-        private async Task CheckValidOnUpdate(string userId, string roleId)
+        private async Task CheckValidOnUpdate(string userId, IEnumerable<string> roleNames)
         {
-            var userRole = await _identityRoleService.GetRoleByUserId(userId);
-           
-            var role = await _identityRoleService.GetRoleById(roleId);
+            var roles = await _identityRoleService.GetRoleNamesByUserId(userId);
 
-            if (userRole.Name == Domain.Constants.Role.SuperAdmin || role.Name == Domain.Constants.Role.SuperAdmin)
+
+            if (roleNames.Any(role => role == Domain.Constants.Role.SuperAdmin) || roles.Any(role => role == Domain.Constants.Role.SuperAdmin))
             {
                 throw new ForbiddenException("You can not update super admin role");
             }

@@ -2,6 +2,6 @@
 {
     public class UpdateUserRoleDto
     {
-        public string RoleId { get; set; } = null!;
+        public List<string> Name { get; set; } = new();
     }
 }

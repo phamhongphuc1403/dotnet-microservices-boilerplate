@@ -20,7 +20,7 @@ namespace TinyCRM.API.Controllers
 
         [HttpGet]
         [Authorize(Policy = Permission.Role.View)]
-        public async Task<ActionResult<List<RoleEntity>>> GetAllRolesAsync()
+        public async Task<ActionResult<List<RoleEntity>>> GetAllAsync()
         {
             return Ok(await _service.GetAllAsync());
         }
@@ -29,12 +29,12 @@ namespace TinyCRM.API.Controllers
         [Authorize(Policy = Permission.Role.View)]
         public async Task<ActionResult<RoleEntity>> GetUserRoleAsync(Guid userId)
         {
-            return Ok(await _service.GetUserRoleAsync(userId.ToString()));
+            return Ok(await _service.GetUserRolesAsync(userId.ToString()));
         }
 
         [HttpPut("users/{userId:Guid}/role")]
         [Authorize(Policy = Permission.Role.Update)]
-        public async Task<IActionResult> UpdateUserRoleAsync(Guid userId, [FromBody] UpdateUserRoleDto model)
+        public async Task<IActionResult> UpdateAsync(Guid userId, [FromBody] UpdateUserRoleDto model)
         {
             await _service.UpdateUserRoleAsync(userId.ToString(), model);
 

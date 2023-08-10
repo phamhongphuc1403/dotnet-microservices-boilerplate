@@ -42,6 +42,18 @@ namespace TinyCRM.Infrastructure.Identity.Services
             }
         }
 
+        public async Task AddToRolesAsync(string userId, IEnumerable<string> roles)
+        {
+            var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
+
+            var result = await _userManager.AddToRolesAsync(user, roles);
+
+            if (!result.Succeeded)
+            {
+                throw new BadRequestException(result.Errors.First().Description);
+            }
+        }
+
         public async Task<IList<string>> GetRolesAsync(string userId)
         {
             var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
@@ -69,17 +81,13 @@ namespace TinyCRM.Infrastructure.Identity.Services
             return _mapper.Map<List<RoleEntity>>(roles);
         }
 
-        public async Task<RoleEntity> GetRoleByUserId(string userId)
+        public async Task<IEnumerable<string>> GetRoleNamesByUserId(string userId)
         {
             var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
 
             var roleNames = await _userManager.GetRolesAsync(user);
 
-            var roleName = roleNames.FirstOrDefault() ?? throw new InvalidOperationException("User has no role");
-
-            var role = await _roleManager.FindByNameAsync(roleName);
-
-            return _mapper.Map<RoleEntity>(role);
+            return roleNames;
         }
 
         public async Task<RoleEntity> GetRoleById(string roleId)

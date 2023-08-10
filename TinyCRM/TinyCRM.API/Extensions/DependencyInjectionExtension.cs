@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using TinyCRM.API.Authorization;
+using TinyCRM.API.Controllers;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.Account.Services;
 using TinyCRM.Application.Modules.Account.Services.Interfaces;
@@ -44,6 +45,7 @@ namespace TinyCRM.API.Extensions
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPermissionService, PermissionService>();
 
             services.AddScoped<IRepository<AccountEntity>, Repository<AccountEntity>>();
             services.AddScoped<IRepository<ContactEntity>, Repository<ContactEntity>>();
