@@ -1,22 +1,21 @@
 ﻿using System.Net;
 
-namespace TinyCRM.Domain.HttpExceptions
+namespace TinyCRM.Domain.HttpExceptions;
+
+public class HttpException : Exception
 {
-    public class HttpException : Exception
+    public HttpException(HttpStatusCode statusCode, string code, string message) : base(message)
     {
-        public HttpStatusCode StatusCode { get; set; }
-        public object Response { get; set; }
+        StatusCode = statusCode;
 
-        public HttpException(HttpStatusCode statusCode, string code, string message) : base(message)
+        Response = new
         {
-            StatusCode = statusCode;
-
-            Response = new
-            {
-                statusCode = (int)statusCode,
-                code,
-                message
-            };
-        }
+            statusCode = (int)statusCode,
+            code,
+            message
+        };
     }
+
+    public HttpStatusCode StatusCode { get; set; }
+    public object Response { get; set; }
 }

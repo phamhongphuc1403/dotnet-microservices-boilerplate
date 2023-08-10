@@ -1,18 +1,17 @@
 ﻿using TinyCRM.Application.Common.DTOs;
 using TinyCRM.Application.Modules.Product.DTOs;
 
-namespace TinyCRM.Application.Modules.Product.Services.Interfaces
+namespace TinyCRM.Application.Modules.Product.Services.Interfaces;
+
+public interface IProductService
 {
-    public interface IProductService
-    {
-        Task<GetProductDto> AddAsync(AddOrUpdateProductDto dto);
+    Task<GetProductDto> AddAsync(AddOrUpdateProductDto dto);
 
-        Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id);
 
-        Task<PaginationResponseDto<GetProductDto>> GetAllAsync(ProductQueryDto query);
+    Task<PaginationResponseDto<GetProductDto>> GetAllAsync(ProductQueryDto query);
 
-        Task<GetProductDto> GetByIdAsync(Guid id);
+    Task<GetProductDto> GetByIdAsync(Guid id);
 
-        Task<GetProductDto> UpdateAsync(AddOrUpdateProductDto dto, Guid id);
-    }
+    Task<GetProductDto> UpdateAsync(AddOrUpdateProductDto dto, Guid id);
 }

@@ -1,8 +1,7 @@
-﻿namespace TinyCRM.Application.Modules.Auth.DTOs
+﻿namespace TinyCRM.Application.Modules.Auth.DTOs;
+
+public class LoginResponseDto
 {
-    public class LoginResponseDto
-    {
-        public string AccessToken { get; set; } = null!;
-        public string RefreshToken { get; set; } = null!;
-    }
+    public string AccessToken { get; set; } = null!;
+    public string RefreshToken { get; set; } = null!;
 }

@@ -1,7 +1,6 @@
-﻿namespace TinyCRM.Application.Modules.Role.DTOs
+﻿namespace TinyCRM.Application.Modules.Role.DTOs;
+
+public class UpdateUserRoleDto
 {
-    public class UpdateUserRoleDto
-    {
-        public List<string> Name { get; set; } = new();
-    }
+    public List<string> Name { get; set; } = new();
 }

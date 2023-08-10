@@ -1,11 +1,11 @@
 ﻿using System.Net;
 
-namespace TinyCRM.Domain.HttpExceptions
+namespace TinyCRM.Domain.HttpExceptions;
+
+public class BadRequestException : HttpException
 {
-    public class BadRequestException : HttpException
+    public BadRequestException(string message = "Bad request") : base(HttpStatusCode.BadRequest,
+        ExceptionEnum.BadRequest, message)
     {
-        public BadRequestException(string message = "Bad request") : base(HttpStatusCode.BadRequest, ExceptionEnum.BadRequest, message)
-        {
-        }
     }
 }

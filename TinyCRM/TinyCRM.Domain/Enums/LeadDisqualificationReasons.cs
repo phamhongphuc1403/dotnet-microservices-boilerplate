@@ -1,11 +1,10 @@
-﻿namespace TinyCRM.Domain.Enums
+﻿namespace TinyCRM.Domain.Enums;
+
+public enum LeadDisqualificationReasons
 {
-    public enum LeadDisqualificationReasons
-    {
-        Budget = 1,
-        BadFakeData,
-        NotResponsive,
-        LostToCompetitor,
-        TimeLine
-    }
+    Budget = 1,
+    BadFakeData,
+    NotResponsive,
+    LostToCompetitor,
+    TimeLine
 }

@@ -4,8 +4,8 @@ services:
   tinycrm.api:
     image: ${DOCKER_REGISTRY-}tinycrmapi
     ports:
-    - "5001:443"
-    - "5000:80"
+      - "5001:443"
+      - "5000:80"
     build:
       context: .
       dockerfile: TinyCRM.API/Dockerfile
@@ -15,12 +15,12 @@ services:
   tinycrm.db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-    - ACCEPT_EULA=Y
-    - SA_PASSWORD=yourStrong(!)Password
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=yourStrong(!)Password
     ports:
-    - "14433:1433"
+      - "14433:1433"
     volumes:
-    - crmdata:/var/opt/mssql
+      - crmdata:/var/opt/mssql
 volumes:
-    crmdata:
+  crmdata:
 

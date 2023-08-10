@@ -1,13 +1,12 @@
-﻿namespace TinyCRM.Domain
+﻿namespace TinyCRM.Domain;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task<int> CommitAsync();
+    Task<int> CommitAsync();
 
-        Task BeginTransactionAsync();
+    Task BeginTransactionAsync();
 
-        Task CommitTransactionAsync();
+    Task CommitTransactionAsync();
 
-        Task RollbackTransactionAsync();
-    }
+    Task RollbackTransactionAsync();
 }

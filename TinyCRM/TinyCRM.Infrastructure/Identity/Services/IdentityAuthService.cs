@@ -7,48 +7,42 @@ using TinyCRM.Domain.HttpExceptions;
 using TinyCRM.Infrastructure.Identity.Entities;
 using TinyCRM.Infrastructure.Identity.Services.Interfaces;
 
-namespace TinyCRM.Infrastructure.Identity.Services
+namespace TinyCRM.Infrastructure.Identity.Services;
+
+public class IdentityAuthService : IIdentityAuthService
 {
-    public class IdentityAuthService : IIdentityAuthService
+    private readonly IIdentityHelper _identityHelper;
+    private readonly IMapper _mapper;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public IdentityAuthService(
+        UserManager<ApplicationUser> userManager,
+        IMapper mapper,
+        IIdentityHelper identityHelper)
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IIdentityHelper _identityHelper;
-        private readonly IMapper _mapper;
+        _userManager = userManager;
+        _mapper = mapper;
+        _identityHelper = identityHelper;
+    }
 
-        public IdentityAuthService(
-            UserManager<ApplicationUser> userManager,
-            IMapper mapper,
-            IIdentityHelper identityHelper)
-        {
-            _userManager = userManager;
-            _mapper = mapper;
-            _identityHelper = identityHelper;
-        }
+    public async Task<UserEntity> AuthenticateUserAsync(LoginDto dto)
+    {
+        var user = await _userManager.FindByEmailAsync(dto.Email);
 
-        public async Task<UserEntity> AuthenticateUserAsync(LoginDto dto)
-        {
-            var user = await _userManager.FindByEmailAsync(dto.Email);
+        if (user != null && await _userManager.CheckPasswordAsync(user, dto.Password))
+            return _mapper.Map<UserEntity>(user);
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, dto.Password))
-            {
-                return _mapper.Map<UserEntity>(user);
-            }
+        throw new BadRequestException("Email or password does not match");
+    }
 
-            throw new BadRequestException("Email or password does not match");
-        }
+    public async Task UpdatePasswordAsync(string userId, string password)
+    {
+        var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
 
-        public async Task UpdatePasswordAsync(string userId, string password)
-        {
-            var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
+        var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            string resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var result = await _userManager.ResetPasswordAsync(user, resetToken, password);
 
-            var result = await _userManager.ResetPasswordAsync(user, resetToken, password);
-
-            if (!result.Succeeded)
-            {
-                throw new BadRequestException(result.Errors.First().Description);
-            }
-        }
+        if (!result.Succeeded) throw new BadRequestException(result.Errors.First().Description);
     }
 }

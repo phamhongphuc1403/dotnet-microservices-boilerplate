@@ -9,92 +9,91 @@ using TinyCRM.Domain.Enums;
 using TinyCRM.Domain.HttpExceptions;
 using TinyCRM.Domain.Repositories;
 
-namespace TinyCRM.Application.Modules.Deal.Services
+namespace TinyCRM.Application.Modules.Deal.Services;
+
+public class DealService : IDealService
 {
-    public class DealService : IDealService
+    private readonly IMapper _mapper;
+    private readonly IDealRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public DealService(IDealRepository productRepository,
+        IMapper mapper, IUnitOfWork unitOfWork)
     {
-        private readonly IDealRepository _repository;
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        _repository = productRepository;
+        _mapper = mapper;
+        _unitOfWork = unitOfWork;
+    }
 
-        public DealService(IDealRepository productRepository,
-            IMapper mapper, IUnitOfWork unitOfWork)
-        {
-            _repository = productRepository;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-        }
+    public async Task<PaginationResponseDto<GetAllDealsDto>> GetAllAsync(DealQueryDto query)
+    {
+        var (deals, totalCount) = await _repository.GetPagedDealsAsync(query);
 
-        public async Task<PaginationResponseDto<GetAllDealsDto>> GetAllAsync(DealQueryDto query)
-        {
-            var (deals, totalCount) = await _repository.GetPagedDealsAsync(query);
+        return new PaginationResponseDto<GetAllDealsDto>(_mapper.Map<List<GetAllDealsDto>>(deals), query.Page,
+            query.Take, totalCount);
+    }
 
-            return new PaginationResponseDto<GetAllDealsDto>(_mapper.Map<List<GetAllDealsDto>>(deals), query.Page, query.Take, totalCount);
-        }
+    public async Task<GetDealDto> UpdateAsync(Guid id, UpdateDealDto dto)
+    {
+        var deal = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id))
+            .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
 
-        public async Task<GetDealDto> UpdateAsync(Guid id, UpdateDealDto dto)
-        {
-            var deal = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id))
-                .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
+        CheckStatusOnUpdateOrDelete(deal);
 
-            CheckStatusOnUpdateOrDelete(deal);
+        _mapper.Map(dto, deal);
 
-            _mapper.Map(dto, deal);
+        _repository.Update(deal);
 
-            _repository.Update(deal);
+        await _unitOfWork.CommitAsync();
 
-            await _unitOfWork.CommitAsync();
+        return _mapper.Map<GetDealDto>(deal);
+    }
 
-            return _mapper.Map<GetDealDto>(deal);
-        }
+    public async Task<GetDealDto> GetByIdAsync(Guid id)
+    {
+        var lead = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id, "Lead.Customer"))
+            .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
 
-        private static void CheckStatusOnUpdateOrDelete(DealEntity deal)
-        {
-            if (deal.Status != DealStatuses.Open)
-            {
-                throw new BadRequestException("Cannot update won or lost deal");
-            }
-        }
+        return _mapper.Map<GetDealDto>(lead);
+    }
 
-        public async Task<GetDealDto> GetByIdAsync(Guid id)
-        {
-            var lead = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id, "Lead.Customer"))
-               .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
+    public async Task<GetDealDto> CloseAsWonAsync(Guid id)
+    {
+        return await CloseAsAsync(id, DealStatuses.Won);
+    }
 
-            return _mapper.Map<GetDealDto>(lead);
-        }
+    public async Task<GetDealDto> CloseAsLostAsync(Guid id)
+    {
+        return await CloseAsAsync(id, DealStatuses.Lost);
+    }
 
-        public async Task<GetDealDto> CloseAsWonAsync(Guid id)
-        {
-            return await CloseAsAsync(id, DealStatuses.Won);
-        }
+    public async Task<PaginationResponseDto<GetAllDealsDto>> GetAllByCustomerIdAsync(Guid customerId,
+        DealQueryDto query)
+    {
+        var (deals, totalCount) = await _repository.GetPagedDealsByCustomerIdAsync(query, customerId);
 
-        public async Task<GetDealDto> CloseAsLostAsync(Guid id)
-        {
-            return await CloseAsAsync(id, DealStatuses.Lost);
-        }
+        return new PaginationResponseDto<GetAllDealsDto>(_mapper.Map<List<GetAllDealsDto>>(deals), query.Page,
+            query.Take, totalCount);
+    }
 
-        private async Task<GetDealDto> CloseAsAsync(Guid id, DealStatuses status)
-        {
-            var deal = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id))
-                 .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
+    private static void CheckStatusOnUpdateOrDelete(DealEntity deal)
+    {
+        if (deal.Status != DealStatuses.Open) throw new BadRequestException("Cannot update won or lost deal");
+    }
 
-            CheckStatusOnUpdateOrDelete(deal);
+    private async Task<GetDealDto> CloseAsAsync(Guid id, DealStatuses status)
+    {
+        var deal = Optional<DealEntity>.Of(await _repository.GetByIdAsync(id))
+            .ThrowIfNotPresent(new NotFoundException("Deal not found")).Get();
 
-            deal.Status = status;
+        CheckStatusOnUpdateOrDelete(deal);
 
-            _repository.Update(deal);
+        deal.Status = status;
 
-            await _unitOfWork.CommitAsync();
+        _repository.Update(deal);
 
-            return _mapper.Map<GetDealDto>(deal);
-        }
+        await _unitOfWork.CommitAsync();
 
-        public async Task<PaginationResponseDto<GetAllDealsDto>> GetAllByCustomerIdAsync(Guid customerId, DealQueryDto query)
-        {
-            var (deals, totalCount) = await _repository.GetPagedDealsByCustomerIdAsync(query, customerId);
-
-            return new PaginationResponseDto<GetAllDealsDto>(_mapper.Map<List<GetAllDealsDto>>(deals), query.Page, query.Take, totalCount);
-        }
+        return _mapper.Map<GetDealDto>(deal);
     }
 }

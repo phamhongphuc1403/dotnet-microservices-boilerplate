@@ -1,11 +1,11 @@
 ﻿using System.Net;
 
-namespace TinyCRM.Domain.HttpExceptions
+namespace TinyCRM.Domain.HttpExceptions;
+
+public class ForbiddenException : HttpException
 {
-    public class ForbiddenException : HttpException
+    public ForbiddenException(string message = "Forbidden") : base(HttpStatusCode.Forbidden, ExceptionEnum.Forbidden,
+        message)
     {
-        public ForbiddenException(string message = "Forbidden") : base(HttpStatusCode.Forbidden, ExceptionEnum.Forbidden, message)
-        {
-        }
     }
 }

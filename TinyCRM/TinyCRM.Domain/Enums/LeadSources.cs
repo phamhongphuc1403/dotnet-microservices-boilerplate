@@ -1,11 +1,10 @@
-﻿namespace TinyCRM.Domain.Enums
+﻿namespace TinyCRM.Domain.Enums;
+
+public enum LeadSources
 {
-    public enum LeadSources
-    {
-        Email = 1,
-        Event,
-        Phone,
-        Referral,
-        Web
-    }
+    Email = 1,
+    Event,
+    Phone,
+    Referral,
+    Web
 }

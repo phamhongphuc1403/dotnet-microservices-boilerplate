@@ -1,11 +1,10 @@
 ﻿using TinyCRM.Application.Modules.Auth.DTOs;
 
-namespace TinyCRM.Application.Modules.Auth.Services.Interfaces
-{
-    public interface IAuthService
-    {
-        Task<LoginResponseDto> LoginAsync(LoginDto dto);
+namespace TinyCRM.Application.Modules.Auth.Services.Interfaces;
 
-        Task<RefreshTokenResponseDto> RefreshTokenAsync(RefreshTokenDto dto);
-    }
+public interface IAuthService
+{
+    Task<LoginResponseDto> LoginAsync(LoginDto dto);
+
+    Task<RefreshTokenResponseDto> RefreshTokenAsync(RefreshTokenDto dto);
 }

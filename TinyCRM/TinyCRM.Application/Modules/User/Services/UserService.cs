@@ -7,103 +7,101 @@ using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 
-namespace TinyCRM.Application.Modules.User.Services
+namespace TinyCRM.Application.Modules.User.Services;
+
+public class UserService : IUserService
 {
-    public class UserService : IUserService
+    private readonly IIdentityAuthService _identityAuthService;
+    private readonly IIdentityRoleService _identityRoleService;
+    private readonly IIdentityService _identityService;
+    private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public UserService(
+        IIdentityService identityService,
+        IIdentityRoleService identityRoleService,
+        IIdentityAuthService identityAuthService,
+        IMapper mapper, IUnitOfWork unitOfWork)
     {
-        private readonly IIdentityService _identityService;
-        private readonly IIdentityAuthService _identityAuthService;
-        private readonly IIdentityRoleService _identityRoleService;
-        private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork;
+        _identityService = identityService;
+        _mapper = mapper;
+        _unitOfWork = unitOfWork;
+        _identityRoleService = identityRoleService;
+        _identityAuthService = identityAuthService;
+    }
 
-        public UserService(
-            IIdentityService identityService,
-            IIdentityRoleService identityRoleService,
-            IIdentityAuthService identityAuthService,
-            IMapper mapper, IUnitOfWork unitOfWork)
+    public async Task<GetUserDto> CreateAsync(CreateOrEditUserDto dto)
+    {
+        CheckPasswordMatching(dto);
+
+        try
         {
-            _identityService = identityService;
-            _mapper = mapper;
-            _unitOfWork = unitOfWork;
-            _identityRoleService = identityRoleService;
-            _identityAuthService = identityAuthService;
-        }
+            var user = _mapper.Map<UserEntity>(dto);
 
-        public async Task<GetUserDto> CreateAsync(CreateOrEditUserDto dto)
-        {
-            CheckPasswordMatching(dto);
+            await _unitOfWork.BeginTransactionAsync();
 
-            try
-            {
-                var user = _mapper.Map<UserEntity>(dto);
+            var id = await _identityService.CreateAsync(user);
 
-                await _unitOfWork.BeginTransactionAsync();
+            await _identityRoleService.AddToRoleAsync(id, Domain.Constants.Role.User);
 
-                var id = await _identityService.CreateAsync(user);
+            await _unitOfWork.CommitTransactionAsync();
 
-                await _identityRoleService.AddToRoleAsync(id, Domain.Constants.Role.User);
-
-                await _unitOfWork.CommitTransactionAsync();
-
-                user.Id = new Guid(id);
-
-                return _mapper.Map<GetUserDto>(user);
-            }
-            catch (Exception)
-            {
-                await _unitOfWork.RollbackTransactionAsync();
-                throw;
-            }
-        }
-
-        public async Task<GetUserDto> GetByIdAsync(string id)
-        {
-            var user = await _identityService.GetByIdAsync(id);
+            user.Id = new Guid(id);
 
             return _mapper.Map<GetUserDto>(user);
         }
-
-        public async Task<GetUserDto> UpdateAsync(string id, CreateOrEditUserDto dto)
+        catch (Exception)
         {
-            CheckPasswordMatching(dto);
-
-            var user = await _identityService.GetByIdAsync(id);
-
-            _mapper.Map(dto, user);
-
-            try
-            {
-                await _unitOfWork.BeginTransactionAsync();
-
-                await _identityService.UpdateAsync(user);
-
-                await _identityAuthService.UpdatePasswordAsync(id, dto.Password);
-
-                await _unitOfWork.CommitTransactionAsync();
-
-                return _mapper.Map<GetUserDto>(user);
-            }
-            catch (Exception)
-            {
-                await _unitOfWork.RollbackTransactionAsync();
-                throw;
-            }
+            await _unitOfWork.RollbackTransactionAsync();
+            throw;
         }
+    }
 
-        public async Task<PaginationResponseDto<GetUserDto>> GetAllAsync(UserQueryDto query)
+    public async Task<GetUserDto> GetByIdAsync(string id)
+    {
+        var user = await _identityService.GetByIdAsync(id);
+
+        return _mapper.Map<GetUserDto>(user);
+    }
+
+    public async Task<GetUserDto> UpdateAsync(string id, CreateOrEditUserDto dto)
+    {
+        CheckPasswordMatching(dto);
+
+        var user = await _identityService.GetByIdAsync(id);
+
+        _mapper.Map(dto, user);
+
+        try
         {
-            var (users, totalCount) = await _identityService.GetAllAsync(query);
+            await _unitOfWork.BeginTransactionAsync();
 
-            return new PaginationResponseDto<GetUserDto>(_mapper.Map<List<GetUserDto>>(users), query.Page, query.Take, totalCount);
+            await _identityService.UpdateAsync(user);
+
+            await _identityAuthService.UpdatePasswordAsync(id, dto.Password);
+
+            await _unitOfWork.CommitTransactionAsync();
+
+            return _mapper.Map<GetUserDto>(user);
         }
-
-        private static void CheckPasswordMatching(CreateOrEditUserDto dto)
+        catch (Exception)
         {
-            if (dto.Password != dto.ConfirmPassword)
-            {
-                throw new BadRequestException("Password and confirm password do not match");
-            }
+            await _unitOfWork.RollbackTransactionAsync();
+            throw;
         }
+    }
+
+    public async Task<PaginationResponseDto<GetUserDto>> GetAllAsync(UserQueryDto query)
+    {
+        var (users, totalCount) = await _identityService.GetAllAsync(query);
+
+        return new PaginationResponseDto<GetUserDto>(_mapper.Map<List<GetUserDto>>(users), query.Page, query.Take,
+            totalCount);
+    }
+
+    private static void CheckPasswordMatching(CreateOrEditUserDto dto)
+    {
+        if (dto.Password != dto.ConfirmPassword)
+            throw new BadRequestException("Password and confirm password do not match");
     }
 }

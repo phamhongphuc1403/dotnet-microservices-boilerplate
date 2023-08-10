@@ -1,7 +1,6 @@
-﻿namespace TinyCRM.Domain.Entities
+﻿namespace TinyCRM.Domain.Entities;
+
+public class RoleEntity : GuidBaseEntity
 {
-    public class RoleEntity : GuidBaseEntity
-    {
-        public string Name { get; set; } = null!;
-    }
+    public string Name { get; set; } = null!;
 }

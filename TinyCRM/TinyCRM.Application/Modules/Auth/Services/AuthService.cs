@@ -5,73 +5,72 @@ using TinyCRM.Application.Modules.Auth.Services.Interfaces;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
 
-namespace TinyCRM.Application.Modules.Auth.Services
+namespace TinyCRM.Application.Modules.Auth.Services;
+
+public class AuthService : IAuthService
 {
-    public class AuthService : IAuthService
+    private readonly IIdentityAuthService _identityAuthService;
+    private readonly IIdentityService _identityService;
+    private readonly IJwtService _jwtService;
+
+    public AuthService(
+        IIdentityService identityService,
+        IJwtService jwtService,
+        IIdentityAuthService identityAuthService)
     {
-        private readonly IIdentityService _identityService;
-        private readonly IIdentityAuthService _identityAuthService;
-        private readonly IJwtService _jwtService;
+        _identityService = identityService;
+        _jwtService = jwtService;
+        _identityAuthService = identityAuthService;
+    }
 
-        public AuthService(
-            IIdentityService identityService,
-            IJwtService jwtService,
-            IIdentityAuthService identityAuthService)
+    public async Task<LoginResponseDto> LoginAsync(LoginDto dto)
+    {
+        var user = await _identityAuthService.AuthenticateUserAsync(dto);
+
+        var refreshToken = await GenerateRefreshTokenAsync(user);
+
+        return new LoginResponseDto
         {
-            _identityService = identityService;
-            _jwtService = jwtService;
-            _identityAuthService = identityAuthService;
-        }
+            AccessToken = await _jwtService.GenerateAccessTokenAsync(user),
+            RefreshToken = refreshToken
+        };
+    }
 
-        public async Task<LoginResponseDto> LoginAsync(LoginDto dto)
+    public async Task<RefreshTokenResponseDto> RefreshTokenAsync(RefreshTokenDto dto)
+    {
+        var verifiedUser = await VerifyRefreshTokenAsync(dto.RefreshToken);
+
+        var newRefreshToken = await GenerateRefreshTokenAsync(verifiedUser);
+
+        return new RefreshTokenResponseDto
         {
-            var user = await _identityAuthService.AuthenticateUserAsync(dto);
+            AccessToken = await _jwtService.GenerateAccessTokenAsync(verifiedUser),
+            RefreshToken = newRefreshToken
+        };
+    }
 
-            var refreshToken = await GenerateRefreshTokenAsync(user);
+    private async Task<string> GenerateRefreshTokenAsync(UserEntity user)
+    {
+        var refreshToken = _jwtService.GenerateRefreshToken(user);
 
-            return new LoginResponseDto
-            {
-                AccessToken = await _jwtService.GenerateAccessTokenAsync(user),
-                RefreshToken = refreshToken
-            };
-        }
+        user.RefreshToken = refreshToken;
 
-        private async Task<string> GenerateRefreshTokenAsync(UserEntity user)
-        {
-            var refreshToken = _jwtService.GenerateRefreshToken(user);
+        await _identityService.UpdateAsync(user);
 
-            user.RefreshToken = refreshToken;
+        return refreshToken;
+    }
 
-            await _identityService.UpdateAsync(user);
+    private async Task<UserEntity> VerifyRefreshTokenAsync(string refreshToken)
+    {
+        var principal = _jwtService.Verify(refreshToken);
 
-            return refreshToken;
-        }
+        var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier)
+                          ?? throw new BadRequestException("Invalid token");
 
-        public async Task<RefreshTokenResponseDto> RefreshTokenAsync(RefreshTokenDto dto)
-        {
-            var verifiedUser = await VerifyRefreshTokenAsync(dto.RefreshToken);
+        var userId = userIdClaim.Value;
 
-            var newRefreshToken = await GenerateRefreshTokenAsync(verifiedUser);
+        var user = await _identityService.GetByIdAsync(userId);
 
-            return new RefreshTokenResponseDto
-            {
-                AccessToken = await _jwtService.GenerateAccessTokenAsync(verifiedUser),
-                RefreshToken = newRefreshToken
-            };
-        }
-
-        private async Task<UserEntity> VerifyRefreshTokenAsync(string refreshToken)
-        {
-            var principal = _jwtService.Verify(refreshToken);
-
-            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier)
-                ?? throw new BadRequestException("Invalid token");
-            
-            var userId = userIdClaim.Value;
-
-            var user = await _identityService.GetByIdAsync(userId);
-
-            return user.RefreshToken == refreshToken ? user : throw new BadRequestException("Token has expired");
-        }
+        return user.RefreshToken == refreshToken ? user : throw new BadRequestException("Token has expired");
     }
 }

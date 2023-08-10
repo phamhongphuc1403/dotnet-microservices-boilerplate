@@ -1,36 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 using TinyCRM.Domain;
 
-namespace TinyCRM.Infrastructure
+namespace TinyCRM.Infrastructure;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    private readonly DbFactory _dbFactory;
+    private IDbContextTransaction _transaction = null!;
+
+    public UnitOfWork(DbFactory dbFactory)
     {
-        private readonly DbFactory _dbFactory;
-        private IDbContextTransaction _transaction = null!;
+        _dbFactory = dbFactory;
+    }
 
-        public UnitOfWork(DbFactory dbFactory)
-        {
-            _dbFactory = dbFactory;
-        }
+    public Task<int> CommitAsync()
+    {
+        return _dbFactory.DbContext.SaveChangesAsync();
+    }
 
-        public Task<int> CommitAsync()
-        {
-            return _dbFactory.DbContext.SaveChangesAsync();
-        }
+    public async Task BeginTransactionAsync()
+    {
+        _transaction = await _dbFactory.DbContext.Database.BeginTransactionAsync();
+    }
 
-        public async Task BeginTransactionAsync()
-        {
-            _transaction = await _dbFactory.DbContext.Database.BeginTransactionAsync();
-        }
+    public async Task CommitTransactionAsync()
+    {
+        await _transaction.CommitAsync();
+    }
 
-        public async Task CommitTransactionAsync()
-        {
-            await _transaction.CommitAsync();
-        }
-
-        public async Task RollbackTransactionAsync()
-        {
-            await _transaction.RollbackAsync();
-        }
+    public async Task RollbackTransactionAsync()
+    {
+        await _transaction.RollbackAsync();
     }
 }

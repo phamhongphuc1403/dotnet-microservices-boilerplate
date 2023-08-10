@@ -2,13 +2,12 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using TinyCRM.Domain.Entities;
 
-namespace TinyCRM.Infrastructure.EntityConfigurations
+namespace TinyCRM.Infrastructure.EntityConfigurations;
+
+public class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
 {
-    public class ProductConfiguration : IEntityTypeConfiguration<ProductEntity>
+    public void Configure(EntityTypeBuilder<ProductEntity> builder)
     {
-        public void Configure(EntityTypeBuilder<ProductEntity> builder)
-        {
-            builder.HasIndex(a => a.StringId).IsUnique();
-        }
+        builder.HasIndex(a => a.StringId).IsUnique();
     }
 }

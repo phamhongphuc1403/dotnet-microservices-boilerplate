@@ -1,33 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace TinyCRM.Application.Modules.User.DTOs
+namespace TinyCRM.Application.Modules.User.DTOs;
+
+public class UserQueryDto
 {
-    public class UserQueryDto
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [EnumDataType(typeof(UserSortProperties))]
+    public UserSortProperties? SortBy { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "The value must be larger than 0.")]
+    public int? Take { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "The value must be larger than 0.")]
+    public int? Page { get; set; }
+
+    public string? Name { get; set; }
+    public bool? IsDescending { get; set; }
+
+    public string BuildSort()
     {
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        [EnumDataType(typeof(UserSortProperties))]
-        public UserSortProperties? SortBy { get; set; }
-
-        public string BuildSort()
-        {
-            return SortBy.ToString() ?? null!;
-        }
-
-        [Range(1, int.MaxValue, ErrorMessage = "The value must be larger than 0.")]
-        public int? Take { get; set; }
-
-        [Range(1, int.MaxValue, ErrorMessage = "The value must be larger than 0.")]
-        public int? Page { get; set; }
-
-        public string? Name { get; set; }
-        public bool? IsDescending { get; set; }
+        return SortBy.ToString() ?? null!;
     }
+}
 
-    public enum UserSortProperties
-    {
-        Id = 1,
-        Name,
-        Email
-    }
+public enum UserSortProperties
+{
+    Id = 1,
+    Name,
+    Email
 }

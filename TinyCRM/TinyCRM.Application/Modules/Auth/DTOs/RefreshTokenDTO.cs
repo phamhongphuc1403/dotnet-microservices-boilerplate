@@ -1,7 +1,6 @@
-﻿namespace TinyCRM.Application.Modules.Auth.DTOs
+﻿namespace TinyCRM.Application.Modules.Auth.DTOs;
+
+public class RefreshTokenDto
 {
-    public class RefreshTokenDto
-    {
-        public string RefreshToken { get; set; } = null!;
-    }
+    public string RefreshToken { get; set; } = null!;
 }

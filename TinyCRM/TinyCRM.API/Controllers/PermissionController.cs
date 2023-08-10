@@ -1,60 +1,42 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.Application.Common.Interfaces;
+using TinyCRM.Application.Modules.Permission.DTOs;
+using TinyCRM.Application.Modules.Permission.Services;
 using TinyCRM.Domain.Constants;
+using TinyCRM.Domain.Entities;
 
 
-namespace TinyCRM.API.Controllers
+namespace TinyCRM.API.Controllers;
+
+[Route("api/permissions")]
+[ApiController]
+[Authorize(Roles = Role.SuperAdmin)]
+public class PermissionController : ControllerBase
 {
-    [Route("api/permissions")]
-    [ApiController]
-    [Authorize(Roles = Role.SuperAdmin)]
-    public class PermissionController : ControllerBase
+    private readonly IPermissionService _service;
+
+    public PermissionController(IPermissionService permissionService)
     {
-        private readonly IPermissionService _service;
-
-        public PermissionController(IPermissionService permissionService)
-        {
-            _service = permissionService;
-        }
-
-        [HttpGet]
-        public ActionResult<List<PermissionContent>> GetAll()
-        {
-            return Ok(_service.GetAll());
-        }
-
-        [HttpGet("roles/{roleId:Guid}/permissions")]
-        public ActionResult<List<PermissionContent>> GetAllByRoleIdAsync(Guid roleId)
-        {
-            return Ok(_service.GetAllByRoleIdAsync(roleId));
-        }
+        _service = permissionService;
     }
 
-
-
-    public interface IPermissionService
+    [HttpGet]
+    public ActionResult<List<PermissionEntity>> GetAll()
     {
-        List<PermissionContent> GetAll();
-        Task<List<PermissionContent>> GetAllByRoleIdAsync(Guid roleId);
+        return Ok(_service.GetAll());
     }
 
-    public class PermissionService : IPermissionService
+    [HttpGet("roles/{roleName}/permissions")]
+    public async Task<ActionResult<IEnumerable<PermissionEntity>>> GetAllByRoleNameAsync(string roleName)
     {
-        private readonly IIdentityRoleService _identityRoleService;
+        return Ok(await _service.GetAllByRoleNameAsync(roleName));
+    }
 
-        public PermissionService(IIdentityRoleService identityRoleService)
-        {
-            _identityRoleService = identityRoleService;
-        }
-        public List<PermissionContent> GetAll()
-        {
-            return Permission.PermissionsList.ToList();
-        }
-
-        public Task<List<PermissionContent>> GetAllByRoleIdAsync(Guid roleId)
-        {
-            throw new NotImplementedException();
-        }
+    [HttpPut("roles/{roleName}/permissions")]
+    public async Task<ActionResult> UpdateRolePermissionsAsync(string roleName,
+        [FromBody] UpdateRolePermissionsDto model)
+    {
+        await _service.UpdateRolePermissionsAsync(roleName, model);
+        return Ok();
     }
 }
