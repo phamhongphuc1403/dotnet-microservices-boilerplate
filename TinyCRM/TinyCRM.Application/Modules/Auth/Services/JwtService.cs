@@ -27,18 +27,20 @@ namespace TinyCRM.Application.Modules.Auth.Services
 
         public async Task<string> GenerateAccessTokenAsync(UserEntity user)
         {
-            var roles = await _identityRoleService.GetRolesAsync(user.Id.ToString());
-
-            var role = roles.FirstOrDefault() ?? throw new InvalidOperationException("User has no role");
-
+            var roles = await _identityRoleService.GetRoleNamesByUserId(user.Id.ToString());
+            
             var claims = new List<Claim>
             {
                 new(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new(ClaimTypes.Name, user.Name),
-                new(ClaimTypes.Role, role)
             };
+            
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
-            var expires = DateTime.Now.AddMinutes(_jwtParams.ExpireMinute);
+            var expires = DateTime.UtcNow.AddMinutes(_jwtParams.ExpireMinute);
 
             return GenerateToken(claims, expires);
         }
@@ -67,7 +69,7 @@ namespace TinyCRM.Application.Modules.Auth.Services
                 new(ClaimTypes.NameIdentifier, dto.Id.ToString()),
             };
 
-            var expires = DateTime.Now.AddDays(_jwtParams.ExpireDay);
+            var expires = DateTime.UtcNow.AddDays(_jwtParams.ExpireDay);
 
             return GenerateToken(claims, expires);
         }

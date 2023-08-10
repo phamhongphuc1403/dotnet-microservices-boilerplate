@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Domain.Constants;
 
 
@@ -40,6 +41,12 @@ namespace TinyCRM.API.Controllers
 
     public class PermissionService : IPermissionService
     {
+        private readonly IIdentityRoleService _identityRoleService;
+
+        public PermissionService(IIdentityRoleService identityRoleService)
+        {
+            _identityRoleService = identityRoleService;
+        }
         public List<PermissionContent> GetAll()
         {
             return Permission.PermissionsList.ToList();

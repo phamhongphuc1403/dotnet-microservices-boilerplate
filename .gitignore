@@ -352,3 +352,5 @@ MigrationBackup/
 .ionide/
 
 logs.txt
+
+.idea/

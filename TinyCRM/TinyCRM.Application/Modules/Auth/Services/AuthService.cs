@@ -64,21 +64,14 @@ namespace TinyCRM.Application.Modules.Auth.Services
         {
             var principal = _jwtService.Verify(refreshToken);
 
-            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier);
+            var userIdClaim = principal.FindFirst(ClaimTypes.NameIdentifier)
+                ?? throw new BadRequestException("Invalid token");
+            
+            var userId = userIdClaim.Value;
 
-            if (userIdClaim != null)
-            {
-                string userId = userIdClaim.Value;
+            var user = await _identityService.GetByIdAsync(userId);
 
-                var user = await _identityService.GetByIdAsync(userId);
-
-                if (user.RefreshToken == refreshToken)
-                {
-                    return user;
-                }
-            }
-
-            throw new BadRequestException("Invalid token");
+            return user.RefreshToken == refreshToken ? user : throw new BadRequestException("Token has expired");
         }
     }
 }

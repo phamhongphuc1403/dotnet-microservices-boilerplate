@@ -54,13 +54,6 @@ namespace TinyCRM.Infrastructure.Identity.Services
             }
         }
 
-        public async Task<IList<string>> GetRolesAsync(string userId)
-        {
-            var user = await _identityHelper.GetApplicationUserByIdAsync(userId);
-
-            return _userManager.GetRolesAsync(user).Result;
-        }
-
         public async Task<IList<Claim>> GetClaimsByRoleIdAsync(string roleName)
         {
             var role = await _roleManager.FindByNameAsync(roleName);

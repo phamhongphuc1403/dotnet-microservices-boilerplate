@@ -8,9 +8,7 @@ namespace TinyCRM.Application.Common.Interfaces
         Task AddToRoleAsync(string userId, string role);
 
         Task AddToRolesAsync(string userId, IEnumerable<string> roles);
-
-        Task<IList<string>> GetRolesAsync(string userId);
-
+        
         Task<IList<Claim>> GetClaimsByRoleIdAsync(string roleName);
 
         Task<List<RoleEntity>> GetAllRoles();
