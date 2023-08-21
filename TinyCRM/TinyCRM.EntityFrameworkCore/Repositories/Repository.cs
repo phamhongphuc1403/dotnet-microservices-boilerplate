@@ -28,7 +28,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : GuidBase
     {
         if (typeof(IDeleteEntity).IsAssignableFrom(typeof(TEntity)))
         {
-            (entity as IDeleteEntity).IsDeleted = true;
+            (entity as IDeleteEntity)!.IsDeleted = true;
             DbSet.Update(entity);
         }
         else

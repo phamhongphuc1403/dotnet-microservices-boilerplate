@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.EntityFrameworkCore.Identity.Entities;
+using TinyCRM.Domain.Constants;
+using TinyCRM.Identity.Entities.Constants;
 
-namespace TinyCRM.EntityFrameworkCore.EntityConfigurations;
+namespace TinyCRM.Identity.Entities.EntityConfigurations;
 
 public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
 {
@@ -11,21 +12,21 @@ public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
         builder.HasData(
             new ApplicationRole
             {
-                Id = "80bee362-64ca-42cc-aeb2-444d5f61b008",
-                Name = "Administrator",
-                NormalizedName = "ADMINISTRATOR"
+                Id = RoleId.Admin,
+                Name = Role.Admin,
+                NormalizedName = Role.Admin.ToUpper()
             },
             new ApplicationRole
             {
-                Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1cef",
-                Name = "User",
-                NormalizedName = "USER"
+                Id = RoleId.User,
+                Name = Role.User,
+                NormalizedName = Role.User.ToUpper()
             },
             new ApplicationRole
             {
-                Id = "d8bc22dc-5c2d-41c7-bc22-6293121a1ce1",
-                Name = "Super Administrator",
-                NormalizedName = "SUPER ADMINISTRATOR"
+                Id = RoleId.SuperAdmin,
+                Name = Role.SuperAdmin,
+                NormalizedName = Role.SuperAdmin.ToUpper()
             }
         );
 

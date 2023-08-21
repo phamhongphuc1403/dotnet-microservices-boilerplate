@@ -2,6 +2,7 @@ using TinyCRM.API.Extensions;
 using TinyCRM.API.Middlewares;
 using TinyCRM.EntityFrameworkCore;
 using TinyCRM.EntityFrameworkCore.Logger;
+using TinyCRM.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,7 @@ builder.Services.AddDependencyInjectionExtension();
 builder.Services.AddSwaggerExtension();
 
 builder.Services.AddAutoMapper(typeof(Mapper));
+builder.Services.AddAutoMapper(typeof(IdentityMapper));
 
 LoggerService.ConfigureLogger(builder.Configuration);
 

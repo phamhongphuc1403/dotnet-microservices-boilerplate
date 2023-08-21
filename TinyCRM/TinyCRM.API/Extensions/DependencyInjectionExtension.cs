@@ -25,9 +25,9 @@ using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Repositories;
 using TinyCRM.EntityFrameworkCore;
 using TinyCRM.EntityFrameworkCore.Data;
-using TinyCRM.EntityFrameworkCore.Identity.Services;
-using TinyCRM.EntityFrameworkCore.Identity.Services.Interfaces;
 using TinyCRM.EntityFrameworkCore.Repositories;
+using TinyCRM.Identity.Services;
+using TinyCRM.Identity.Services.Interfaces;
 
 namespace TinyCRM.API.Extensions;
 

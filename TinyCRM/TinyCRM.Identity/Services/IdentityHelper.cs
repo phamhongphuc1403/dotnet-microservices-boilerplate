@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Application.Utilities;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.EntityFrameworkCore.Identity.Entities;
-using TinyCRM.EntityFrameworkCore.Identity.Services.Interfaces;
+using TinyCRM.Identity.Entities;
+using TinyCRM.Identity.Services.Interfaces;
 
-namespace TinyCRM.EntityFrameworkCore.Identity.Services;
+namespace TinyCRM.Identity.Services;
 
 public class IdentityHelper : IIdentityHelper
 {

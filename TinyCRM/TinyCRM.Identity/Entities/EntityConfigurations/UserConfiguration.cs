@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.EntityFrameworkCore.Identity.Entities;
+using TinyCRM.Identity.Entities.Constants;
 
-namespace TinyCRM.EntityFrameworkCore.EntityConfigurations;
+namespace TinyCRM.Identity.Entities.EntityConfigurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
@@ -15,7 +15,7 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
         builder.HasData(
             new ApplicationUser
             {
-                Id = "d28888e9-2ba9-473a-a40f-e38cb54f9b35",
+                Id = UserId.Admin,
                 Name = "Admin",
                 Email = "admin@123",
                 UserName = "admin@123",
@@ -27,7 +27,7 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
             },
             new ApplicationUser
             {
-                Id = "830112ba-ed9f-4f19-873c-0e31ca3494a9",
+                Id = UserId.SuperAdmin,
                 Name = "Super Admin",
                 Email = "superadmin@123",
                 UserName = "superadmin@123",
@@ -39,7 +39,7 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
             },
             new ApplicationUser
             {
-                Id = "8d33cc0a-cd85-4546-9c15-bdcf027393b4",
+                Id = UserId.User,
                 Name = "User",
                 Email = "string@123",
                 UserName = "string@123",

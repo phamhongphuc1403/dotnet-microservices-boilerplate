@@ -1,6 +1,6 @@
-﻿using TinyCRM.EntityFrameworkCore.Identity.Entities;
+﻿using TinyCRM.Identity.Entities;
 
-namespace TinyCRM.EntityFrameworkCore.Identity.Services.Interfaces;
+namespace TinyCRM.Identity.Services.Interfaces;
 
 public interface IIdentityHelper
 {

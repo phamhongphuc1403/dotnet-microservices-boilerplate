@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Domain.Entities;
-using TinyCRM.EntityFrameworkCore.Identity.Entities;
+using TinyCRM.Identity.Entities;
+using TinyCRM.Identity.Entities.EntityConfigurations;
 
 namespace TinyCRM.EntityFrameworkCore.Data;
 
@@ -23,11 +24,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
         base.OnModelCreating(builder);
 
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        builder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
 
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
             var tableName = entityType.GetTableName();
-            if (tableName.StartsWith("AspNet")) entityType.SetTableName(tableName.Substring(6));
+            if (tableName!.StartsWith("AspNet")) entityType.SetTableName(tableName.Substring(6));
         }
     }
 }
