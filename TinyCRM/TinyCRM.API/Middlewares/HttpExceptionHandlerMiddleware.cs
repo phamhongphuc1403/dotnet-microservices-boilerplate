@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.Infrastructure.Logger;
+using TinyCRM.EntityFrameworkCore.Logger;
 
 namespace TinyCRM.API.Middlewares;
 

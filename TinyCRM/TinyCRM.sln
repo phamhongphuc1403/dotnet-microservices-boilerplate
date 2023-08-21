@@ -7,11 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.API", "TinyCRM.API\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Domain", "TinyCRM.Domain\TinyCRM.Domain.csproj", "{11D3596E-9856-4351-9073-9631211439BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Infrastructure", "TinyCRM.Infrastructure\TinyCRM.Infrastructure.csproj", "{548F9708-4A32-4484-ABBF-F600BBC714A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.EntityFrameworkCore", "TinyCRM.EntityFrameworkCore\TinyCRM.EntityFrameworkCore.csproj", "{548F9708-4A32-4484-ABBF-F600BBC714A3}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{20E65FE6-A2FB-4C91-98E6-C5D2FEEA7625}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Application", "TinyCRM.Application\TinyCRM.Application.csproj", "{5A518988-3642-4B46-97D3-94C3448C3C2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0296BF0E-5C45-4135-86BE-045BF4664A31}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3E7724F7-A789-4FCE-9842-1D161CDF7247}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{FADC2768-B267-456A-A327-45EEAFAAAF20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,5 +51,11 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD7BE055-5997-458D-BEE0-619101DD6E4F}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A518988-3642-4B46-97D3-94C3448C3C2D} = {0296BF0E-5C45-4135-86BE-045BF4664A31}
+		{11D3596E-9856-4351-9073-9631211439BF} = {0296BF0E-5C45-4135-86BE-045BF4664A31}
+		{79AD331B-A337-4EF3-AA23-4BE7FE9BC32D} = {3E7724F7-A789-4FCE-9842-1D161CDF7247}
+		{548F9708-4A32-4484-ABBF-F600BBC714A3} = {FADC2768-B267-456A-A327-45EEAFAAAF20}
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,7 @@
 using TinyCRM.API.Extensions;
 using TinyCRM.API.Middlewares;
-using TinyCRM.Infrastructure;
-using TinyCRM.Infrastructure.Logger;
+using TinyCRM.EntityFrameworkCore;
+using TinyCRM.EntityFrameworkCore.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
 

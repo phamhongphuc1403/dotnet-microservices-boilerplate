@@ -23,11 +23,11 @@ using TinyCRM.Application.Modules.User.Services.Interfaces;
 using TinyCRM.Domain;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.Repositories;
-using TinyCRM.Infrastructure;
-using TinyCRM.Infrastructure.Data;
-using TinyCRM.Infrastructure.Identity.Services;
-using TinyCRM.Infrastructure.Identity.Services.Interfaces;
-using TinyCRM.Infrastructure.Repositories;
+using TinyCRM.EntityFrameworkCore;
+using TinyCRM.EntityFrameworkCore.Data;
+using TinyCRM.EntityFrameworkCore.Identity.Services;
+using TinyCRM.EntityFrameworkCore.Identity.Services.Interfaces;
+using TinyCRM.EntityFrameworkCore.Repositories;
 
 namespace TinyCRM.API.Extensions;
 
@@ -63,7 +63,7 @@ public static class DependencyInjectionExtension
         services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
-        services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetService<AppDbContext>());
+        services.AddScoped<Func<AppDbContext>>(provider => () => provider.GetService<AppDbContext>());
         services.AddScoped<DbFactory>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

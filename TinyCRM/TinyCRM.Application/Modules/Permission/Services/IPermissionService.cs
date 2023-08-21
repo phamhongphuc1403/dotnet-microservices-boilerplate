@@ -6,8 +6,8 @@ namespace TinyCRM.Application.Modules.Permission.Services;
 public interface IPermissionService
 {
     List<PermissionEntity> GetAll();
-    
+
     Task<IEnumerable<PermissionEntity>> GetAllByRoleNameAsync(string roleName);
-    
+
     Task UpdateRolePermissionsAsync(string roleName, UpdateRolePermissionsDto model);
 }

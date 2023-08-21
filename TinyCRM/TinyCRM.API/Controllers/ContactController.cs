@@ -62,7 +62,8 @@ public class ContactController : Controller
 
     [HttpGet("account/{accountId:guid}/contacts")]
     [Authorize(Policy = Permission.Contact.View)]
-    public async Task<ActionResult<PaginationResponseDto<GetContactDto>>> GetAllByAccountIdAsync(Guid accountId, [FromQuery] ContactQueryDto query)
+    public async Task<ActionResult<PaginationResponseDto<GetContactDto>>> GetAllByAccountIdAsync(Guid accountId,
+        [FromQuery] ContactQueryDto query)
     {
         return Ok(await _service.GetAllByAccountIdAsync(accountId, query));
     }

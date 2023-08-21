@@ -32,11 +32,13 @@ public class PermissionService : IPermissionService
         foreach (var permissionType in dto.PermissionTypes)
         {
             var permission = Optional<PermissionEntity>
-                .Of(Domain.Constants.Permission.PermissionsList.FirstOrDefault(permission => permission.Type == permissionType))
+                .Of(Domain.Constants.Permission.PermissionsList.FirstOrDefault(permission =>
+                    permission.Type == permissionType))
                 .ThrowIfNotPresent(new NotFoundException("Permission not found")).Get();
-                
+
             permissions.Add(permission);
         }
+
         await _identityRoleService.UpdateRolePermissionAsync(roleName, permissions);
     }
 }

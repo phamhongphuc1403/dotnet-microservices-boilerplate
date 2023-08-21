@@ -5,7 +5,6 @@ using TinyCRM.Application.Modules.Permission.Services;
 using TinyCRM.Domain.Constants;
 using TinyCRM.Domain.Entities;
 
-
 namespace TinyCRM.API.Controllers;
 
 [Route("api/permissions")]
