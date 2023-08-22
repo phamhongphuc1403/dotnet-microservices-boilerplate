@@ -4,8 +4,8 @@ namespace TinyCRM.Domain.HttpExceptions;
 
 public class UnauthorizedException : HttpException
 {
-    public UnauthorizedException(string message = "Unauthorized") : base(HttpStatusCode.BadRequest,
-        ExceptionEnum.BadRequest, message)
+    public UnauthorizedException(string message = "Unauthorized") : base(HttpStatusCode.Unauthorized,
+        ExceptionEnum.Unauthorized, message)
     {
     }
 }

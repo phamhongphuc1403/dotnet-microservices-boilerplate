@@ -8,7 +8,7 @@ public class JwtParams
 {
     public JwtParams(IConfiguration jwtSettings)
     {
-        var securityKey = jwtSettings["securityKey"];
+        var securityKey = Environment.GetEnvironmentVariable("JWT_SECURITY_KEY");
         var expireMinute = jwtSettings["expireMinute"];
         var expireDay = jwtSettings["expireDay"];
         var issuer = jwtSettings["validIssuer"];
