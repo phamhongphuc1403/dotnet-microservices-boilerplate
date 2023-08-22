@@ -1,15 +1,11 @@
-﻿using System.Security.Claims;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
 using TinyCRM.Application.Modules.Account.DTOs;
 using TinyCRM.Application.Modules.Contact.DTOs;
 using TinyCRM.Application.Modules.Deal.DTOs;
 using TinyCRM.Application.Modules.DealProduct.DTOs;
 using TinyCRM.Application.Modules.Lead.DTOs;
 using TinyCRM.Application.Modules.Product.DTOs;
-using TinyCRM.Application.Modules.User.DTOs;
 using TinyCRM.Domain.Entities;
-using TinyCRM.Identity.Entities;
 
 namespace TinyCRM.EntityFrameworkCore;
 

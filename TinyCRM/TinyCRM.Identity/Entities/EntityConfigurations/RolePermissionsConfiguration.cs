@@ -48,8 +48,8 @@ public class RolePermissionsConfiguration : IEntityTypeConfiguration<IdentityRol
     private static int SeedAdmin(
         EntityTypeBuilder<IdentityRoleClaim<string>> builder, PermissionEntity permission, int index)
     {
-        return permission.Type != Permission.Role.Update 
-            ? SeedData(builder, permission, index, RoleId.Admin) 
+        return permission.Type != Permission.Role.Update
+            ? SeedData(builder, permission, index, RoleId.Admin)
             : index;
     }
 
@@ -63,8 +63,8 @@ public class RolePermissionsConfiguration : IEntityTypeConfiguration<IdentityRol
             or Permission.Contact.View
             or Permission.Lead.View
             or Permission.Deal.View
-            or Permission.Product.View 
-            ? SeedData(builder, permission, index, RoleId.User) 
+            or Permission.Product.View
+            ? SeedData(builder, permission, index, RoleId.User)
             : index;
     }
 }

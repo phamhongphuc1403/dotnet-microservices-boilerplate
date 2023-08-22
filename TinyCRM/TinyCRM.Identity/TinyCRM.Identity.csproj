@@ -8,15 +8,14 @@
 
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.9"/>
     </ItemGroup>
 
 
     <ItemGroup>
-      <ProjectReference Include="..\TinyCRM.Application\TinyCRM.Application.csproj" />
+        <ProjectReference Include="..\TinyCRM.Application\TinyCRM.Application.csproj"/>
     </ItemGroup>
-
 
 
 </Project>
