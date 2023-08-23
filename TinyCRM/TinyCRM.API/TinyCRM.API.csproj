@@ -26,6 +26,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\TinyCRM.EntityFrameworkCore\TinyCRM.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="..\TinyCRM.RedisCache\TinyCRM.RedisCache.csproj" />
     </ItemGroup>
 
     <ProjectExtensions>

@@ -9,5 +9,5 @@ public interface IPermissionService
 
     Task<IEnumerable<PermissionEntity>> GetAllByRoleNameAsync(string roleName);
 
-    Task UpdateRolePermissionsAsync(string roleName, UpdateRolePermissionsDto model);
+    Task UpdateAsync(string roleName, UpdateRolePermissionsDto model);
 }

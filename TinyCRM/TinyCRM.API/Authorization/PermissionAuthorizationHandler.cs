@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using TinyCRM.Application.Common.Interfaces;
+using TinyCRM.Application.Modules.Permission.Services;
 using TinyCRM.Application.Utilities;
 using TinyCRM.Domain.HttpExceptions;
 
@@ -8,11 +8,14 @@ namespace TinyCRM.API.Authorization;
 
 public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
-    private readonly IIdentityRoleService _identityRoleService;
+    private readonly IPermissionCacheService _permissionCacheService;
 
-    public PermissionAuthorizationHandler(IIdentityRoleService identityRoleService)
+
+    public PermissionAuthorizationHandler(
+        IPermissionCacheService permissionCacheService
+    )
     {
-        _identityRoleService = identityRoleService;
+        _permissionCacheService = permissionCacheService;
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
@@ -21,9 +24,9 @@ public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionReq
         var role = Optional<Claim>.Of(context.User.FindFirst(ClaimTypes.Role))
             .ThrowIfNotPresent(new UnauthorizedException()).Get();
 
-        var claims = await _identityRoleService.GetAllPermissionsByRoleName(role.Value);
+        var permissions = await _permissionCacheService.GetAllOrAddByRoleName(role.Value);
 
-        if (claims.Any(claim => claim.Type == requirement.Permission))
+        if (permissions.Any(permission => permission.Type == requirement.Permission))
             context.Succeed(requirement);
         else
             throw new ForbiddenException();

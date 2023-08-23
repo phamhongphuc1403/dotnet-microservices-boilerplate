@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Redis.OM" Version="0.5.3" />
+      <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TinyCRM.Application\TinyCRM.Application.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -13,10 +13,15 @@ namespace TinyCRM.API.Controllers;
 public class PermissionController : ControllerBase
 {
     private readonly IPermissionService _service;
+    private readonly IPermissionCacheService _cacheService;
 
-    public PermissionController(IPermissionService permissionService)
+    public PermissionController(
+        IPermissionService permissionService,
+        IPermissionCacheService permissionCacheService
+        )
     {
         _service = permissionService;
+        _cacheService = permissionCacheService;
     }
 
     [HttpGet]
@@ -35,7 +40,8 @@ public class PermissionController : ControllerBase
     public async Task<ActionResult> UpdateRolePermissionsAsync(string roleName,
         [FromBody] UpdateRolePermissionsDto model)
     {
-        await _service.UpdateRolePermissionsAsync(roleName, model);
+        await _service.UpdateAsync(roleName, model);
+        await _cacheService.RemoveByRoleNameAsync(roleName);
         return Ok();
     }
 }

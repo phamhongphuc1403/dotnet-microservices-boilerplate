@@ -26,7 +26,7 @@ public class PermissionService : IPermissionService
         return _identityRoleService.GetAllPermissionsByRoleName(roleName);
     }
 
-    public async Task UpdateRolePermissionsAsync(string roleName, UpdateRolePermissionsDto dto)
+    public async Task UpdateAsync(string roleName, UpdateRolePermissionsDto dto)
     {
         var permissions = new List<PermissionEntity>();
         foreach (var permissionType in dto.PermissionTypes)

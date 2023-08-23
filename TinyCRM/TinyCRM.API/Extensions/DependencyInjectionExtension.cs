@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using StackExchange.Redis;
 using TinyCRM.API.Authorization;
 using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Modules.Account.Services;
@@ -28,6 +29,7 @@ using TinyCRM.EntityFrameworkCore.Data;
 using TinyCRM.EntityFrameworkCore.Repositories;
 using TinyCRM.Identity.Services;
 using TinyCRM.Identity.Services.Interfaces;
+using TinyCRM.RedisCache;
 
 namespace TinyCRM.API.Extensions;
 
@@ -63,7 +65,7 @@ public static class DependencyInjectionExtension
         services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
-        services.AddScoped<Func<AppDbContext>>(provider => () => provider.GetService<AppDbContext>());
+        services.AddScoped<Func<AppDbContext>>(provider => () => provider.GetService<AppDbContext>()!);
         services.AddScoped<DbFactory>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -72,6 +74,12 @@ public static class DependencyInjectionExtension
         services.AddScoped<IIdentityRoleService, IdentityRoleService>();
         services.AddScoped<IIdentityHelper, IdentityHelper>();
 
+        var multiplexer = ConnectionMultiplexer.Connect(Environment.GetEnvironmentVariable("REDIS")!);
+        services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+        services.AddScoped<ICacheService, RedisCacheService>();
+        
+        services.AddScoped<IPermissionCacheService, PermissionCacheService>();
+        
         return services;
     }
 }

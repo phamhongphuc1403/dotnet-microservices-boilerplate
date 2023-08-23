@@ -7,7 +7,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "JWT_SECURITY_KEY": "TinyCRM@TopSecretKey",
-        "CONNECTION_STRING": "Data Source=phuc\\phuc;Initial Catalog=TinyCRM;Integrated Security=True;TrustServerCertificate=True"
+        "CONNECTION_STRING": "Data Source=phuc\\phuc;Initial Catalog=TinyCRM;Integrated Security=True;TrustServerCertificate=True",
+        "REDIS": "localhost:6379"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5046"
