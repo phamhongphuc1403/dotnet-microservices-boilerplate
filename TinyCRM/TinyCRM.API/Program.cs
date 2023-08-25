@@ -25,6 +25,8 @@ builder.Services.AddDependencyInjectionExtension();
 
 builder.Services.AddSwaggerExtension();
 
+await builder.Services.ApplyMigrationAsync();
+
 builder.Services.AddAutoMapper(typeof(Mapper));
 builder.Services.AddAutoMapper(typeof(IdentityMapper));
 

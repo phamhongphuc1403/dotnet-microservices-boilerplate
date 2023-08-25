@@ -1,4 +1,4 @@
-namespace TinyCRM.RedisCache;
+namespace TinyCRM.Application.Common.Interfaces;
 
 public interface ICacheService
 {

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using StackExchange.Redis;
+using TinyCRM.Application.Common.Interfaces;
 
 namespace TinyCRM.RedisCache;
 

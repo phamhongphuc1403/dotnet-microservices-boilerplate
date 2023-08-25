@@ -18,7 +18,10 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "JWT_SECURITY_KEY": "TinyCRM@TopSecretKey",
+        "CONNECTION_STRING": "Data Source=phuc\\phuc;Initial Catalog=TinyCRM;Integrated Security=True;TrustServerCertificate=True",
+        "REDIS": "localhost:6379"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7130;http://localhost:5046"
@@ -36,7 +39,13 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true,
-      "useSSL": true
+      "useSSL": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "JWT_SECURITY_KEY": "TinyCRM@TopSecretKey",
+        "CONNECTION_STRING": "Data Source=phuc\\phuc;Initial Catalog=TinyCRM;Integrated Security=True;TrustServerCertificate=True",
+        "REDIS": "localhost:6379"
+      }
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",

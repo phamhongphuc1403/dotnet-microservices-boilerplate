@@ -3,7 +3,6 @@ using TinyCRM.Application.Common.Interfaces;
 using TinyCRM.Application.Common.Params;
 using TinyCRM.Domain.Entities;
 using TinyCRM.Domain.HttpExceptions;
-using TinyCRM.RedisCache;
 
 namespace TinyCRM.Application.Modules.Permission.Services;
 
