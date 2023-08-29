@@ -8,6 +8,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.HasIndex(a => a.StringId).IsUnique();
+        builder.HasIndex(a => a.Code).IsUnique();
     }
 }

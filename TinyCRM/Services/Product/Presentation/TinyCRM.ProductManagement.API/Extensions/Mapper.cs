@@ -7,7 +7,7 @@ public static class Mapper
 {
     public static IServiceCollection AddMapper(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetAssembly(typeof(ProductApplicationAssemblyReference)));
+        services.AddAutoMapper(Assembly.GetAssembly(typeof(TinyCRM.ProductManagement.EntityFrameworkCore.Mapper)));
         
         return services;
     }

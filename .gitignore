@@ -354,3 +354,7 @@ MigrationBackup/
 logs.txt
 
 .idea/
+
+Deal/
+
+TinyCRM.ApiGateway/

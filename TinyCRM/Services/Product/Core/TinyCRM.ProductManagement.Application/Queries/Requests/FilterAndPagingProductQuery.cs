@@ -4,9 +4,9 @@ using TinyCRM.Core.DTOs;
 using TinyCRM.ProductManagement.Application.DTOs;
 using TinyCRM.ProductManagement.Domain.Entities;
 
-namespace TinyCRM.ProductManagement.Application.Queries;
+namespace TinyCRM.ProductManagement.Application.Queries.Requests;
 
-public class FilterAndPagingProductQuery : FilterAndPagingQuery<Product>, IQuery<FilterAndPagingResultDto<GetProductDto>>
+public class FilterAndPagingProductQuery : FilterAndPagingQuery<Product>, IQuery<FilterAndPagingResultDto<ProductDto>>
 {
     public FilterAndPagingProductQuery(FilterAndPagingProductsDto dto) : base(dto)
     {

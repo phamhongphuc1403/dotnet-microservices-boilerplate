@@ -1,5 +1,6 @@
 using TinyCRM.ProductManagement.EntityFrameworkCore.Extensions;
 using TinyCRM.Service.Product.API.Extensions;
+using TinyCRM.Service.Product.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +21,7 @@ await builder.Services.ApplyMigrationAsync();
 
 var app = builder.Build();
 
-// app.UseHttpExceptionHandler();
-
+app.UseHttpExceptionHandler();
 app.UseSwagger();
 app.UseSwaggerUI();
 

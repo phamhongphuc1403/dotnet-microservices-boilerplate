@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Core;
-using TinyCRM.Core.BaseRepositories;
+using TinyCRM.Core.Repositories;
 
 namespace TinyCRM.EntityFrameworkCore;
 

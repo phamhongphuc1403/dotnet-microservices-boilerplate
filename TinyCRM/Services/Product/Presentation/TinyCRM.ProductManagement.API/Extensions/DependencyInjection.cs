@@ -1,3 +1,4 @@
+using TinyCRM.Core;
 using TinyCRM.EntityFrameworkCore;
 using TinyCRM.ProductManagement.Domain.Repositories;
 using TinyCRM.ProductManagement.EntityFrameworkCore;
@@ -13,7 +14,7 @@ public static class DependencyInjection
         
         services.AddScoped<Func<BaseAppDbContext>>(provider => () => provider.GetService<ProductDbContext>()!);
         services.AddScoped<DbFactory>();
-        // services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

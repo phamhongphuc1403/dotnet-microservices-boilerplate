@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace TinyCRM.Core.BaseRepositories;
+namespace TinyCRM.Core.Repositories;
 
 public interface IReadOnlyRepository<TEntity> where TEntity : GuidBaseEntity
 {

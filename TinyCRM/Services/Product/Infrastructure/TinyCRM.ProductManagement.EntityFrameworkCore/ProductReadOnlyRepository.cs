@@ -19,13 +19,13 @@ public class ProductReadOnlyRepository : ReadOnlyRepository<Product>, IProductRe
                 .Build());
     }
 
-    public Task<bool> CheckIfStringIdExist(string stringId)
+    public Task<bool> CheckIfCodeExist(string stringId)
     {
-        return CheckIfExistAsync(entity => entity.StringId == stringId);
+        return CheckIfExistAsync(entity => entity.Code == stringId);
     }
 
-    public Task<bool> CheckIfStringIdExist(string stringId, Guid productId)
+    public Task<bool> CheckIfCodeExist(string stringId, Guid productId)
     {
-        return CheckIfExistAsync(entity => entity.StringId == stringId && entity.Id != productId);
+        return CheckIfExistAsync(entity => entity.Code == stringId && entity.Id != productId);
     }
 }

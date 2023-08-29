@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TinyCRM.ProductManagement.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using TinyCRM.ProductManagement.EntityFrameworkCore;
 namespace TinyCRM.ProductManagement.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    partial class ProductDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230829034739_RenameStringIdColumnToCodeInProductsTable")]
+    partial class RenameStringIdColumnToCodeInProductsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

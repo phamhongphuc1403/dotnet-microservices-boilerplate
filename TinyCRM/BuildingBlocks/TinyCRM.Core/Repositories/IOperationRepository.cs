@@ -1,4 +1,4 @@
-namespace TinyCRM.Core.BaseRepositories;
+namespace TinyCRM.Core.Repositories;
 
 public interface IOperationRepository<TEntity> where TEntity : GuidBaseEntity
 {
