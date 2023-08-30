@@ -1,4 +1,3 @@
-using System.Net;
 using TinyCRM.Core.Exceptions.Enums;
 
 namespace TinyCRM.Core.Exceptions;

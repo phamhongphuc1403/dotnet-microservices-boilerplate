@@ -1,5 +1,4 @@
 using System.Reflection;
-using TinyCRM.ProductManagement.Application;
 
 namespace TinyCRM.Service.Product.API.Extensions;
 

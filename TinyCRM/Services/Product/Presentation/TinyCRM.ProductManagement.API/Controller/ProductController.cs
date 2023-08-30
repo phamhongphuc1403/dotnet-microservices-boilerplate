@@ -21,7 +21,7 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<FilterAndPagingResultDto<ProductDto>>> GetAllAsync([FromQuery] FilterAndPagingProductsDto dto)
     {
-        var products = await _mediator.Send(new FilterAndPagingProductQuery(dto));
+        var products = await _mediator.Send(new FilterAndPagingProductsQuery(dto));
 
         return Ok(products);
     }

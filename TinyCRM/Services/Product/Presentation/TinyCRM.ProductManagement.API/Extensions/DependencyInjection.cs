@@ -2,6 +2,7 @@ using TinyCRM.Core;
 using TinyCRM.EntityFrameworkCore;
 using TinyCRM.ProductManagement.Domain.Repositories;
 using TinyCRM.ProductManagement.EntityFrameworkCore;
+using TinyCRM.ProductManagement.EntityFrameworkCore.Repositories;
 
 namespace TinyCRM.Service.Product.API.Extensions;
 

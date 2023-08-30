@@ -6,7 +6,7 @@ namespace TinyCRM.ProductManagement.EntityFrameworkCore;
 
 public class ProductDbContext : BaseAppDbContext
 {
-    public DbSet<Product> Products { get; set; }
+    public DbSet<Product> Products { get; set; } = null!;
 
     public ProductDbContext(DbContextOptions options) : base(options)
     {

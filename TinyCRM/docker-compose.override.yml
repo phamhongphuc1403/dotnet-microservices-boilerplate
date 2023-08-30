@@ -1,17 +1,6 @@
 version: '3.4'
 
 services:
-  tinycrm.product.api:
-    image: ${DOCKER_REGISTRY-}tinycrm.product.api
-    ports:
-      - "5001:443"
-      - "5000:80"
-    build:
-      context: .
-      dockerfile: Services/Product/Presentation/TinyCRM.ProductManagement.API/Dockerfile
-    environment:
-      - ASPNETCORE_URLS=http://+:80
-      - CONNECTION_STRING=Server=tinycrm.db;Database=TinyCRM.Product;UID=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;
   tinycrm.db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -21,6 +10,10 @@ services:
       - "14433:1433"
     volumes:
       - crmdata:/var/opt/mssql
+    healthcheck:
+      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-PyourStrong(!)Password", "-Q", "select 1" ]
+      interval: 1s
+      retries: 20
   tinycrm.redis:
     image: redis
     ports:

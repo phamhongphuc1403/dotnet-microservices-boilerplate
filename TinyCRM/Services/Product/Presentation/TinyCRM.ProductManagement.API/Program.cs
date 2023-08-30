@@ -8,8 +8,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
-
 builder.Services
     .AddDatabase()
     .AddMapper()
@@ -22,7 +20,9 @@ await builder.Services.ApplyMigrationAsync();
 var app = builder.Build();
 
 app.UseHttpExceptionHandler();
+
 app.UseSwagger();
+
 app.UseSwaggerUI();
 
 // app.UseHttpsRedirection();

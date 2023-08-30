@@ -8,7 +8,7 @@ public interface IProductReadOnlyRepository : IReadOnlyRepository<Product>
 {
     Task<(List<Product>, int)> GetPagedProductsAsync(FilterAndPagingQuery<Product> query);
 
-    Task<bool> CheckIfCodeExist(string stringId);
+    Task<bool> CheckIfCodeExist(string code);
 
-    Task<bool> CheckIfCodeExist(string stringId, Guid productId);
+    Task<bool> CheckIfCodeExist(string code, Guid productId);
 }

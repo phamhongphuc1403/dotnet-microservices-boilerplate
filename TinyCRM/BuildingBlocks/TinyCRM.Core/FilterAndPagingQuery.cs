@@ -10,11 +10,12 @@ public class FilterAndPagingQuery<TEntity> where TEntity : GuidBaseEntity
     public int Skip { get; set; }
     
     public int Page { get; set; }
+    
     public readonly Expression<Func<TEntity, bool>> SearchFilterExpression;
 
-    public string? Sort;
+    public readonly string? Sort;
 
-    public FilterAndPagingQuery(FilterAndPagingDto<TEntity> dto)
+    protected FilterAndPagingQuery(FilterAndPagingDto<TEntity> dto)
     {
         Page = dto.Page ?? Pagination.Page;
         Take = dto.Take ??  Pagination.PageSize;

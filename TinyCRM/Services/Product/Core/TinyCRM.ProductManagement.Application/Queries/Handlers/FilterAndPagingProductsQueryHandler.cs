@@ -8,13 +8,13 @@ using TinyCRM.ProductManagement.Domain.Repositories;
 namespace TinyCRM.ProductManagement.Application.Queries.Handlers;
 
 public class
-    FilterAndPagingProductQueryHandler : IQueryHandler<FilterAndPagingProductQuery,
+    FilterAndPagingProductsQueryHandler : IQueryHandler<FilterAndPagingProductsQuery,
         FilterAndPagingResultDto<ProductDto>>
 {
     private readonly IProductReadOnlyRepository _repository;
     private readonly IMapper _mapper;
 
-    public FilterAndPagingProductQueryHandler(
+    public FilterAndPagingProductsQueryHandler(
         IProductReadOnlyRepository repository,
         IMapper mapper
     )
@@ -23,7 +23,7 @@ public class
         _mapper = mapper;
     }
 
-    public async Task<FilterAndPagingResultDto<ProductDto>> Handle(FilterAndPagingProductQuery query,
+    public async Task<FilterAndPagingResultDto<ProductDto>> Handle(FilterAndPagingProductsQuery query,
         CancellationToken cancellationToken)
     {
         var (products, totalCount) = await _repository.GetPagedProductsAsync(query);

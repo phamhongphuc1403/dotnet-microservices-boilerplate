@@ -6,9 +6,9 @@ using TinyCRM.ProductManagement.Domain.Entities;
 
 namespace TinyCRM.ProductManagement.Application.Queries.Requests;
 
-public class FilterAndPagingProductQuery : FilterAndPagingQuery<Product>, IQuery<FilterAndPagingResultDto<ProductDto>>
+public class FilterAndPagingProductsQuery : FilterAndPagingQuery<Product>, IQuery<FilterAndPagingResultDto<ProductDto>>
 {
-    public FilterAndPagingProductQuery(FilterAndPagingProductsDto dto) : base(dto)
+    public FilterAndPagingProductsQuery(FilterAndPagingProductsDto dto) : base(dto)
     {
     }
 }

@@ -3,7 +3,7 @@ using TinyCRM.EntityFrameworkCore;
 using TinyCRM.ProductManagement.Domain.Entities;
 using TinyCRM.ProductManagement.Domain.Repositories;
 
-namespace TinyCRM.ProductManagement.EntityFrameworkCore;
+namespace TinyCRM.ProductManagement.EntityFrameworkCore.Repositories;
 
 public class ProductReadOnlyRepository : ReadOnlyRepository<Product>, IProductReadOnlyRepository
 {
@@ -19,13 +19,13 @@ public class ProductReadOnlyRepository : ReadOnlyRepository<Product>, IProductRe
                 .Build());
     }
 
-    public Task<bool> CheckIfCodeExist(string stringId)
+    public Task<bool> CheckIfCodeExist(string code)
     {
-        return CheckIfExistAsync(entity => entity.Code == stringId);
+        return CheckIfExistAsync(entity => entity.Code == code);
     }
 
-    public Task<bool> CheckIfCodeExist(string stringId, Guid productId)
+    public Task<bool> CheckIfCodeExist(string code, Guid productId)
     {
-        return CheckIfExistAsync(entity => entity.Code == stringId && entity.Id != productId);
+        return CheckIfExistAsync(entity => entity.Code == code && entity.Id != productId);
     }
 }
