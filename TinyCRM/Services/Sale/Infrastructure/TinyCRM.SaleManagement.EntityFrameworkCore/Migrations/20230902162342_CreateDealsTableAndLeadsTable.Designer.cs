@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TinyCRM.SaleManagement.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using TinyCRM.SaleManagement.EntityFrameworkCore;
 namespace TinyCRM.SaleManagement.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(SaleDbContext))]
-    partial class SaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230902162342_CreateDealsTableAndLeadsTable")]
+    partial class CreateDealsTableAndLeadsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,21 +90,6 @@ namespace TinyCRM.SaleManagement.EntityFrameworkCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Leads");
-                });
-
-            modelBuilder.Entity("TinyCRM.SaleManagement.Domain.Entities.Product", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("TinyCRM.SaleManagement.Domain.Entities.Deal", b =>

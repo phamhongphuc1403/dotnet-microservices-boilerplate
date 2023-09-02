@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TinyCRM.SaleManagement.EntityFrameworkCore.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDealsTableAndLeadsTable : Migration
+    public partial class CreateDealsTableAndLeadsTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,15 +15,15 @@ namespace TinyCRM.SaleManagement.EntityFrameworkCore.Migrations
                 name: "Leads",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Source = table.Column<int>(type: "int", nullable: true),
-                    EstimatedRevenue = table.Column<double>(type: "float", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: true, defaultValue: 1),
-                    DisqualificationReason = table.Column<int>(type: "int", nullable: true),
-                    DisqualificationDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Source = table.Column<int>(type: "integer", nullable: true),
+                    EstimatedRevenue = table.Column<double>(type: "double precision", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: true, defaultValue: 1),
+                    DisqualificationReason = table.Column<int>(type: "integer", nullable: true),
+                    DisqualificationDescription = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,11 +34,11 @@ namespace TinyCRM.SaleManagement.EntityFrameworkCore.Migrations
                 name: "Deals",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LeadId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 1)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    LeadId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1)
                 },
                 constraints: table =>
                 {

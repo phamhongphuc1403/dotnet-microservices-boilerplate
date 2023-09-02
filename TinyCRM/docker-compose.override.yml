@@ -2,18 +2,19 @@ version: '3.4'
 
 services:
   tinycrm.db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: postgres:latest
     environment:
-      - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=yourStrong(!)Password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
     ports:
-      - "14433:1433"
+      - "5432:5432"
     volumes:
-      - crmdata:/var/opt/mssql
+      - crmdata:/var/opt/postgresql
     healthcheck:
-      test: [ "CMD", "/opt/mssql-tools/bin/sqlcmd", "-Usa", "-PyourStrong(!)Password", "-Q", "select 1" ]
-      interval: 1s
-      retries: 20
+      test: [ "CMD-SHELL", "pg_isready -U user" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   tinycrm.redis:
     image: redis
     ports:

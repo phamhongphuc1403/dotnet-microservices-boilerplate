@@ -8,6 +8,7 @@ public class SaleDbContext : BaseAppDbContext
 {
     public DbSet<Deal> Deals { get; set; } = null!;
     public DbSet<Lead> Leads { get; set; } = null!;
+    public DbSet<Product> Products { get; set; } = null!;
 
     public SaleDbContext(DbContextOptions options) : base(options)
     {

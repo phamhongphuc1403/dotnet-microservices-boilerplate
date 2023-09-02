@@ -27,7 +27,7 @@
       "applicationUrl": "https://localhost:7160;http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Server=localhost,14433;Database=TinyCRM.Sale;UID=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;"
+        "CONNECTION_STRING": "Host=localhost; Database=TinyCRM.Sale; Username=postgres; Password=password"
       }
     },
     "IIS Express": {

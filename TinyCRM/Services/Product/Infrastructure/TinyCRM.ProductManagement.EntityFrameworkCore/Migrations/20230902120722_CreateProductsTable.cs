@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TinyCRM.ProductManagement.EntityFrameworkCore.Migrations
 {
     /// <inheritdoc />
-    public partial class InitProductTable : Migration
+    public partial class CreateProductsTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,12 +15,12 @@ namespace TinyCRM.ProductManagement.EntityFrameworkCore.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StringId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    IsAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,9 +28,9 @@ namespace TinyCRM.ProductManagement.EntityFrameworkCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_StringId",
+                name: "IX_Products_Code",
                 table: "Products",
-                column: "StringId",
+                column: "Code",
                 unique: true);
         }
 

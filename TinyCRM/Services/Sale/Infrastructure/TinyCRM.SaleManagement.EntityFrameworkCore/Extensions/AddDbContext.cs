@@ -9,7 +9,8 @@ public static class AddDbContext
     {
         services.AddDbContext<SaleDbContext>(options =>
         {
-            options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
+            // options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
+            options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
             options.EnableSensitiveDataLogging();
         });
 
