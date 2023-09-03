@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TinyCRM.SaleManagement.EntityFrameworkCore;
@@ -11,9 +12,11 @@ using TinyCRM.SaleManagement.EntityFrameworkCore;
 namespace TinyCRM.SaleManagement.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(SaleDbContext))]
-    partial class SaleDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230902181917_CreateDealLinesTable")]
+    partial class CreateDealLinesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

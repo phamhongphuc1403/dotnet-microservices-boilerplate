@@ -9,8 +9,10 @@ public static class AddDbContext
     {
         services.AddDbContext<SaleDbContext>(options =>
         {
-            // options.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
-            options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
+            options.UseNpgsql(
+                // "Host=localhost; Port=5432; Database=TinyCRM.Sale; Username=postgres; Password=password"
+                Environment.GetEnvironmentVariable("CONNECTION_STRING")
+            );
             options.EnableSensitiveDataLogging();
         });
 

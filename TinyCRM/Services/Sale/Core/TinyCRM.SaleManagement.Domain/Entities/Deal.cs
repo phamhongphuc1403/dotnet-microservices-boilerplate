@@ -10,5 +10,5 @@ public class Deal : GuidBaseEntity
     public virtual Lead Lead { get; private set; } = null!;
     public string? Description { get; private set; }
     public DealStatuses Status { get; private set; }
-    // public virtual ICollection<DealProductEntity> DealsProducts { get; private set; } = new HashSet<DealProductEntity>();
+    public virtual ICollection<DealLine> DealLines { get; private set; } = new HashSet<DealLine>();
 }
