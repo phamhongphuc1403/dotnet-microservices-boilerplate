@@ -11,7 +11,8 @@ public static class DependencyInjection
     public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
     {
         services.AddScoped<IDealReadOnlyRepository, DealReadOnlyRepository>();
-        // services.AddScoped<IDealOperationRepository, DealOperationRepository>();
+        services.AddScoped<ILeadReadOnlyRepository, LeadReadOnlyRepository>();
+        services.AddScoped<ILeadOperationRepository, LeadOperationRepository>();
         
         services.AddScoped<Func<BaseAppDbContext>>(provider => () => provider.GetService<SaleDbContext>()!);
         services.AddScoped<DbFactory>();

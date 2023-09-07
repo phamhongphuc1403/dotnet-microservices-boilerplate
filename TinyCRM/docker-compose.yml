@@ -26,6 +26,8 @@ services:
     depends_on:
       tinycrm.db:
         condition: service_healthy
+      tinycrm.rabbitmq:
+        condition: service_healthy
     links:
       - tinycrm.db
   tinycrm.sale.api:
@@ -40,6 +42,8 @@ services:
       - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sale; Username=postgres; Password=password
     depends_on:
       tinycrm.db:
+        condition: service_healthy
+      tinycrm.rabbitmq:
         condition: service_healthy
     links:
       - tinycrm.db
@@ -60,5 +64,15 @@ services:
     image: redis
     ports:
       - "6379:6379"
+  tinycrm.rabbitmq:
+    image: rabbitmq:3.12-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 10s
+      timeout: 30s
+      retries: 3
 volumes:
   crmdata:

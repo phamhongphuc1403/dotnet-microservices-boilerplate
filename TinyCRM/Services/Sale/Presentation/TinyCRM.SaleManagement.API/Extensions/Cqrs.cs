@@ -8,7 +8,7 @@ public static class Cqrs
     {
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblyContaining(typeof(DealApplicationAssemblyReference));
+            cfg.RegisterServicesFromAssemblyContaining(typeof(SaleApplicationAssemblyReference));
         });
 
         return services;

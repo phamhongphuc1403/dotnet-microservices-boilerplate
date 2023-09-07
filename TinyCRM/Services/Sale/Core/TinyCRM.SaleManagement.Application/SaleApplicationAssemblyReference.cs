@@ -1,5 +1,5 @@
 namespace TinyCRM.SaleManagement.Application;
 
-public class DealApplicationAssemblyReference
+public class SaleApplicationAssemblyReference
 {
 }
