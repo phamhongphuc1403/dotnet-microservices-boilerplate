@@ -10,19 +10,16 @@
 
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-      <PackageReference Include="MediatR" Version="12.1.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8" />
     </ItemGroup>
 
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\Common.csproj" />
       <ProjectReference Include="..\..\Core\TinyCRM.ProductManagement.Application\TinyCRM.ProductManagement.Application.csproj" />
       <ProjectReference Include="..\..\Infrastructure\TinyCRM.ProductManagement.EntityFrameworkCore\TinyCRM.ProductManagement.EntityFrameworkCore.csproj" />
     </ItemGroup>

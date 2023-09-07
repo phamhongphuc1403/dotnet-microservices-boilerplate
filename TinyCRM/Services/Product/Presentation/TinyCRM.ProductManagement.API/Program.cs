@@ -1,21 +1,19 @@
-using TinyCRM.ProductManagement.EntityFrameworkCore.Extensions;
+using Common.Extensions;
+using Common.Middlewares;
+using TinyCRM.ProductManagement.Application;
+using TinyCRM.ProductManagement.EntityFrameworkCore;
 using TinyCRM.Service.Product.API.Extensions;
-using TinyCRM.Service.Product.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddEndpointsApiExplorer();
-
 builder.Services
-    .AddDatabase()
-    .AddMapper()
-    .AddCqrs()
-    .AddSwagger()
+    .AddDatabase<ProductDbContext>()
+    .AddMapper<Mapper>()
+    .AddCqrs<ProductApplicationAssemblyReference>()
+    .AddDefaultOpenApi(builder.Configuration)
     .AddDependencyInjection();
-
-await builder.Services.ApplyMigrationAsync();
 
 var app = builder.Build();
 

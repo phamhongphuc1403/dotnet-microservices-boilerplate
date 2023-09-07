@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using TinyCRM.Core.Exceptions;
 
-namespace TinyCRM.SaleManagement.API.Middlewares;
+namespace Common.Middlewares;
 
 public static class ExceptionHandler
 {
@@ -41,5 +43,5 @@ public static class ExceptionHandler
                 }
             });
         });
-    }
+    }   
 }

@@ -1,4 +1,3 @@
-using MediatR;
 using TinyCRM.Core;
 using TinyCRM.Core.CQRS;
 using TinyCRM.Core.DTOs;

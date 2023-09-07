@@ -8,19 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-        <PackageReference Include="MediatR" Version="12.1.1" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\BuildingBlocks\TinyCRM.Core\TinyCRM.Core.csproj" />
+      <ProjectReference Include="..\..\..\Common\Common.csproj" />
       <ProjectReference Include="..\..\Core\TinyCRM.SaleManagement.Application\TinyCRM.SaleManagement.Application.csproj" />
       <ProjectReference Include="..\..\Infrastructure\TinyCRM.SaleManagement.EntityFrameworkCore\TinyCRM.SaleManagement.EntityFrameworkCore.csproj" />
     </ItemGroup>
