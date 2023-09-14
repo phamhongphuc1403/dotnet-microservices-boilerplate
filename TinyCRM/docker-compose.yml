@@ -23,6 +23,7 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:80
       - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Product; Username=postgres; Password=password
+      - RABBITMQ_HOST=tinycrm.rabbitmq
     depends_on:
       tinycrm.db:
         condition: service_healthy
@@ -40,6 +41,7 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:80
       - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sale; Username=postgres; Password=password
+      - RABBITMQ_HOST=tinycrm.rabbitmq
     depends_on:
       tinycrm.db:
         condition: service_healthy

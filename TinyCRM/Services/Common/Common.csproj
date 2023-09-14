@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\BuildingBlocks\TinyCRM.EntityFrameworkCore\TinyCRM.EntityFrameworkCore.csproj" />
+      <ProjectReference Include="..\..\BuildingBlocks\TinyCRM.RabbitMQ\TinyCRM.RabbitMQ.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 using AutoMapper;
 using TinyCRM.Core.CQRS;
 using TinyCRM.Core.DTOs;
+using TinyCRM.Core.EventBus.Interfaces;
 using TinyCRM.ProductManagement.Application.DTOs;
 using TinyCRM.ProductManagement.Application.Queries.Requests;
 using TinyCRM.ProductManagement.Domain.Repositories;
@@ -13,14 +14,16 @@ public class
 {
     private readonly IProductReadOnlyRepository _repository;
     private readonly IMapper _mapper;
-
+    private readonly IEventBus _eventBus;
     public FilterAndPagingProductsQueryHandler(
         IProductReadOnlyRepository repository,
-        IMapper mapper
+        IMapper mapper,
+        IEventBus eventBus
     )
     {
         _repository = repository;
         _mapper = mapper;
+        _eventBus = eventBus;
     }
 
     public async Task<FilterAndPagingResultDto<ProductDto>> Handle(FilterAndPagingProductsQuery query,

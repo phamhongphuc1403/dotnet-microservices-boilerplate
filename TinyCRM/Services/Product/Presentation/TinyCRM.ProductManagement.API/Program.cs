@@ -13,7 +13,10 @@ builder.Services
     .AddMapper<Mapper>()
     .AddCqrs<ProductApplicationAssemblyReference>()
     .AddDefaultOpenApi(builder.Configuration)
-    .AddDependencyInjection();
+    .AddDependencyInjection()
+    .AddEventBus(builder.Configuration);
+
+await builder.Services.ApplyMigrationAsync<ProductDbContext>();
 
 var app = builder.Build();
 

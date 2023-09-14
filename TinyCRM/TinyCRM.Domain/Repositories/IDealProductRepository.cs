@@ -10,5 +10,5 @@ public interface IDealProductRepository : IRepository<DealProductEntity>
 
     Task<bool> CheckIfProductInDeal(Guid dealId, Guid productId);
 
-    Task<DealProductEntity?> GetProductInDeal(Guid dealId, Guid Id);
+    Task<DealProductEntity?> GetProductInDeal(Guid dealId, Guid id);
 }

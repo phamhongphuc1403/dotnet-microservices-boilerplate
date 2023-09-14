@@ -1,6 +1,7 @@
 using AutoMapper;
 using TinyCRM.Core;
 using TinyCRM.Core.CQRS;
+using TinyCRM.Core.EventBus.Interfaces;
 using TinyCRM.ProductManagement.Application.Commands.Requests;
 using TinyCRM.ProductManagement.Application.DTOs;
 using TinyCRM.ProductManagement.Domain.Entities;
@@ -14,14 +15,21 @@ public class CreateProductCommandHandler : IQueryHandler<CreateProductCommand, P
     private readonly IProductReadOnlyRepository _readonlyRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IEventBus _eventBus;
 
-    public CreateProductCommandHandler(IProductOperationRepository operationRepository,
-        IProductReadOnlyRepository readonlyRepository, IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateProductCommandHandler(
+        IProductOperationRepository operationRepository,
+        IProductReadOnlyRepository readonlyRepository, 
+        IUnitOfWork unitOfWork, 
+        IMapper mapper,
+        IEventBus eventBus
+        )
     {
         _operationRepository = operationRepository;
         _readonlyRepository = readonlyRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _eventBus = eventBus;
     }
 
     public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
