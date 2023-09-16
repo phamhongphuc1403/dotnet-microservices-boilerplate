@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace BuildingBLock.Common.Extensions;
 
-public static class AddDefaultOpenApiExtension
+public static class DefaultOpenApiExtension
 {
     public static IServiceCollection AddDefaultOpenApi(this IServiceCollection services, IConfiguration configuration)
     {
