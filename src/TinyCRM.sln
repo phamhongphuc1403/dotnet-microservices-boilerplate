@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.ProductManagement.E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.EntityFrameworkCore", "BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj", "{A395856B-8B26-40F9-8CC8-34D8DC92B60B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.ApiGateway", "TinyCRM.ApiGateway\TinyCRM.ApiGateway.csproj", "{21370C15-0A19-4570-B1AE-6CCD18290E38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{21370C15-0A19-4570-B1AE-6CCD18290E38}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sale", "Sale", "{79B78A98-AC05-4430-A2B3-F36FCE872BEF}"
 EndProject
