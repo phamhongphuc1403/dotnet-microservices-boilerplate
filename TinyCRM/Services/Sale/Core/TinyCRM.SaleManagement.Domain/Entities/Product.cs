@@ -1,4 +1,4 @@
-using TinyCRM.Core;
+using BuildingBlock.Core;
 
 namespace TinyCRM.SaleManagement.Domain.Entities;
 

@@ -1,4 +1,4 @@
-using TinyCRM.Core.CQRS;
+using BuildingBlock.Core.CQRS;
 using TinyCRM.ProductManagement.Application.DTOs;
 using TinyCRM.ProductManagement.Domain.Entities.Enums;
 

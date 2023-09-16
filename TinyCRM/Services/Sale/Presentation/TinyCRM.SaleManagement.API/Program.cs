@@ -1,6 +1,6 @@
-using Common.Extensions;
-using Common.Middlewares;
-using TinyCRM.Core.EventBus.Interfaces;
+using BuildingBLock.Common.Extensions;
+using BuildingBLock.Common.Middlewares;
+using BuildingBlock.Core.EventBus.Interfaces;
 using TinyCRM.SaleManagement.API.Extensions;
 using TinyCRM.SaleManagement.Application;
 using TinyCRM.SaleManagement.Application.IntegrationEvents.Events;

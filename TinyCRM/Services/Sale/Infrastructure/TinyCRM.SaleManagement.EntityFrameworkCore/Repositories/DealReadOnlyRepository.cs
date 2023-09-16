@@ -1,5 +1,5 @@
-using TinyCRM.Core;
-using TinyCRM.EntityFrameworkCore;
+using BuildingBlock.Core;
+using BuildingBlock.EntityFrameworkCore;
 using TinyCRM.SaleManagement.Domain.Entities;
 using TinyCRM.SaleManagement.Domain.Entities.Enums;
 using TinyCRM.SaleManagement.Domain.Repositories;

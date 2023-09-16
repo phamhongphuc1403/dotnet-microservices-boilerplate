@@ -1,6 +1,6 @@
 using AutoMapper;
-using TinyCRM.Core.CQRS;
-using TinyCRM.Core.DTOs;
+using BuildingBlock.Core.CQRS;
+using BuildingBlock.Core.DTOs;
 using TinyCRM.SaleManagement.Application.DTOs;
 using TinyCRM.SaleManagement.Application.Queries.Requests;
 using TinyCRM.SaleManagement.Domain.Repositories;

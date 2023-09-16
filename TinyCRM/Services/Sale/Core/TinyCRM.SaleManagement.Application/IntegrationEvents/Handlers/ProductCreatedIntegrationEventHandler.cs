@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using TinyCRM.Core.IntegrationEvents.Handlers;
+using BuildingBlock.Core.IntegrationEvents.Handlers;
 using TinyCRM.SaleManagement.Application.IntegrationEvents.Events;
 
 namespace TinyCRM.SaleManagement.Application.IntegrationEvents.Handlers;

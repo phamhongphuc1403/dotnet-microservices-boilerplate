@@ -8,7 +8,7 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\TinyCRM.Core\TinyCRM.Core.csproj"/>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Core\BuildingBlock.Core.csproj" />
         <ProjectReference Include="..\TinyCRM.SaleManagement.Domain\TinyCRM.SaleManagement.Domain.csproj"/>
     </ItemGroup>
 

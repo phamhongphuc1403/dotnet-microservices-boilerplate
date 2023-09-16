@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.Core.DTOs;
+using BuildingBlock.Core.DTOs;
 using TinyCRM.SaleManagement.Application.DTOs;
 using TinyCRM.SaleManagement.Application.Queries.Requests;
 

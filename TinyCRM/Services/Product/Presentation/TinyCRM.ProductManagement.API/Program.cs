@@ -1,5 +1,5 @@
-using Common.Extensions;
-using Common.Middlewares;
+using BuildingBLock.Common.Extensions;
+using BuildingBLock.Common.Middlewares;
 using TinyCRM.ProductManagement.Application;
 using TinyCRM.ProductManagement.EntityFrameworkCore;
 using TinyCRM.Service.Product.API.Extensions;

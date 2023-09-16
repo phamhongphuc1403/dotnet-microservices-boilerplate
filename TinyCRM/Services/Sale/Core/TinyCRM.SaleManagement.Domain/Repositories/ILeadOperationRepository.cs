@@ -1,4 +1,4 @@
-using TinyCRM.Core.Repositories;
+using BuildingBlock.Core.Repositories;
 using TinyCRM.SaleManagement.Domain.Entities;
 
 namespace TinyCRM.SaleManagement.Domain.Repositories;

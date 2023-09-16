@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
-using TinyCRM.Core.DTOs;
+using BuildingBlock.Core.DTOs;
 using TinyCRM.ProductManagement.Application.DTOs.Enums;
 using TinyCRM.ProductManagement.Domain.Entities;
 

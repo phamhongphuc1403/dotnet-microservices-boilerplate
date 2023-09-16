@@ -1,4 +1,4 @@
-using TinyCRM.Core.Exceptions;
+using BuildingBlock.Core.Exceptions;
 
 namespace TinyCRM.ProductManagement.Domain.Exceptions;
 

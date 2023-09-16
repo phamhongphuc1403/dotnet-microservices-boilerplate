@@ -1,6 +1,6 @@
+using BuildingBlock.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using TinyCRM.EntityFrameworkCore;
 
 namespace TinyCRM.ProductManagement.EntityFrameworkCore.Extensions;
 

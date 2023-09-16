@@ -1,4 +1,4 @@
-using TinyCRM.Core.CQRS;
+using BuildingBlock.Core.CQRS;
 using TinyCRM.ProductManagement.Application.DTOs;
 
 namespace TinyCRM.ProductManagement.Application.Queries.Requests;

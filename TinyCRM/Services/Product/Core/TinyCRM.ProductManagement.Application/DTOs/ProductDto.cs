@@ -1,4 +1,4 @@
-using TinyCRM.Core;
+using BuildingBlock.Core;
 using TinyCRM.ProductManagement.Domain.Entities.Enums;
 
 namespace TinyCRM.ProductManagement.Application.DTOs;

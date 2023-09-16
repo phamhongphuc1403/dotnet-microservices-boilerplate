@@ -1,5 +1,5 @@
+using BuildingBlock.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TinyCRM.EntityFrameworkCore;
 using TinyCRM.SaleManagement.Domain.Entities;
 
 namespace TinyCRM.SaleManagement.EntityFrameworkCore;

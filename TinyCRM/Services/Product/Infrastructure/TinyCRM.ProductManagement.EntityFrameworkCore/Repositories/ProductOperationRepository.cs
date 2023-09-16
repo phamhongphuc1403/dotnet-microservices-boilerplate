@@ -1,4 +1,4 @@
-using TinyCRM.EntityFrameworkCore;
+using BuildingBlock.EntityFrameworkCore;
 using TinyCRM.ProductManagement.Domain.Entities;
 using TinyCRM.ProductManagement.Domain.Repositories;
 

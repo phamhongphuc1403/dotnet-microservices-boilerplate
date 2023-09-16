@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using TinyCRM.Core.CQRS;
+using BuildingBlock.Core.CQRS;
 using TinyCRM.SaleManagement.Application.DTOs;
 using TinyCRM.SaleManagement.Domain.Entities.Enums;
 

@@ -1,7 +1,7 @@
 using AutoMapper;
-using TinyCRM.Core;
-using TinyCRM.Core.CQRS;
-using TinyCRM.Core.EventBus.Interfaces;
+using BuildingBlock.Core;
+using BuildingBlock.Core.CQRS;
+using BuildingBlock.Core.EventBus.Interfaces;
 using TinyCRM.ProductManagement.Application.Commands.Requests;
 using TinyCRM.ProductManagement.Application.DTOs;
 using TinyCRM.ProductManagement.Domain.Entities;

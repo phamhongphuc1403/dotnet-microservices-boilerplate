@@ -1,5 +1,5 @@
-using TinyCRM.Core;
-using TinyCRM.Core.Utils;
+using BuildingBlock.Core;
+using BuildingBlock.Core.Utils;
 using TinyCRM.ProductManagement.Domain.Entities.Enums;
 using TinyCRM.ProductManagement.Domain.Exceptions;
 using TinyCRM.ProductManagement.Domain.Repositories;

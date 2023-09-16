@@ -1,6 +1,6 @@
-using TinyCRM.Core;
-using TinyCRM.Core.CQRS;
-using TinyCRM.Core.DTOs;
+using BuildingBlock.Core;
+using BuildingBlock.Core.CQRS;
+using BuildingBlock.Core.DTOs;
 using TinyCRM.SaleManagement.Application.DTOs;
 using TinyCRM.SaleManagement.Domain.Entities;
 

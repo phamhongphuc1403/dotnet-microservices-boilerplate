@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\BuildingBlocks\TinyCRM.Core\TinyCRM.Core.csproj" />
-      <ProjectReference Include="..\..\..\..\BuildingBlocks\TinyCRM.EntityFrameworkCore\TinyCRM.EntityFrameworkCore.csproj" />
+      <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Core\BuildingBlock.Core.csproj" />
+      <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
     </ItemGroup>
 
 

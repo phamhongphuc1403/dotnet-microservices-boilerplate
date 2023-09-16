@@ -1,4 +1,4 @@
-using TinyCRM.Core.IntegrationEvents.Events;
+using BuildingBlock.Core.IntegrationEvents.Events;
 
 namespace TinyCRM.SaleManagement.Application.IntegrationEvents.Events;
 
