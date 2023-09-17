@@ -6,7 +6,7 @@ namespace BuildingBLock.Common.Extensions;
 
 public static class DatabaseExtension
 {
-    public static IServiceCollection AddDatabase<TDbContext>(this IServiceCollection services) where TDbContext : BaseAppDbContext
+    public static IServiceCollection AddDatabase<TDbContext>(this IServiceCollection services) where TDbContext : BaseDbContext
     {
         services.AddDbContext<TDbContext>(options =>
         {
@@ -17,7 +17,7 @@ public static class DatabaseExtension
         return services;
     }
     
-    public static async Task ApplyMigrationAsync<TDbContext>(this IServiceCollection services) where TDbContext : BaseAppDbContext
+    public static async Task ApplyMigrationAsync<TDbContext>(this IServiceCollection services) where TDbContext : BaseDbContext
     {
         using var scope = services.BuildServiceProvider().CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<TDbContext>();

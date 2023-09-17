@@ -14,9 +14,8 @@ public static class DependencyInjection
         services.AddScoped<ILeadReadOnlyRepository, LeadReadOnlyRepository>();
         services.AddScoped<ILeadOperationRepository, LeadOperationRepository>();
         
-        services.AddScoped<Func<BaseAppDbContext>>(provider => () => provider.GetService<SaleDbContext>()!);
-        services.AddScoped<DbFactory>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<Func<BaseDbContext>>(provider => () => provider.GetService<SaleDbContext>()!);
+        services.AddScoped<IUnitOfWork, UnitOfWork<SaleDbContext>>();
 
         return services;
     }

@@ -4,7 +4,7 @@ using TinyCRM.SaleManagement.Domain.Entities;
 
 namespace TinyCRM.SaleManagement.EntityFrameworkCore;
 
-public class SaleDbContext : BaseAppDbContext
+public class SaleDbContext : BaseDbContext
 {
     public DbSet<Deal> Deals { get; set; } = null!;
     public DbSet<Lead> Leads { get; set; } = null!;

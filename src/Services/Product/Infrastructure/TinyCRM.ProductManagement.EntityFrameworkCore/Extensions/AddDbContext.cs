@@ -6,7 +6,7 @@ namespace TinyCRM.ProductManagement.EntityFrameworkCore.Extensions;
 
 public static class AddDbContextExtension
 {
-    public static IServiceCollection AddDbContext<T>(this IServiceCollection services) where T : BaseAppDbContext
+    public static IServiceCollection AddDbContext<T>(this IServiceCollection services) where T : BaseDbContext
     {
         services.AddDbContext<T>(options =>
         {

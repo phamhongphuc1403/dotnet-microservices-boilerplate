@@ -4,9 +4,9 @@ using TinyCRM.SaleManagement.Domain.Repositories;
 
 namespace TinyCRM.SaleManagement.EntityFrameworkCore.Repositories;
 
-public class LeadOperationRepository : OperationRepository<Lead>, ILeadOperationRepository
+public class LeadOperationRepository : OperationRepository<SaleDbContext, Lead>, ILeadOperationRepository
 {
-    public LeadOperationRepository(DbFactory dbFactory) : base(dbFactory)
+    public LeadOperationRepository(SaleDbContext dbContext) : base(dbContext)
     {
     }
 }

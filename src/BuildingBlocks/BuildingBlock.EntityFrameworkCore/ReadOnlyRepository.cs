@@ -6,15 +6,17 @@ using BuildingBlock.Core.Repositories;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
-public class ReadOnlyRepository<TEntity> : IReadOnlyRepository<TEntity> where TEntity : GuidBaseEntity
+public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEntity> 
+    where TDbContext : BaseDbContext
+    where TEntity : GuidBaseEntity
 {
-    private readonly DbFactory _dbFactory;
-    private DbSet<TEntity> _dbSet = null!;
-    protected DbSet<TEntity> DbSet => _dbSet ??= _dbFactory.DbContext.Set<TEntity>();
+    private readonly TDbContext _dbContext;
+    private DbSet<TEntity>? _dbSet;
+    protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
 
-    public ReadOnlyRepository(DbFactory dbFactory)
+    public ReadOnlyRepository(TDbContext dbContext)
     {
-        _dbFactory = dbFactory;
+        _dbContext = dbContext;
     }
 
     public async Task<TEntity?> GetByIdAsync(Guid id, params string[] includes)
