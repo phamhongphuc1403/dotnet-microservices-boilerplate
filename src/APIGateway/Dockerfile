@@ -5,16 +5,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["TinyCRM.ApiGateway/TinyCRM.ApiGateway.csproj", "TinyCRM.ApiGateway/"]
-RUN dotnet restore "TinyCRM.ApiGateway/TinyCRM.ApiGateway.csproj"
+COPY ["APIGateway/APIGateway.csproj", "APIGateway/"]
+RUN dotnet restore "APIGateway/APIGateway.csproj"
 COPY . .
-WORKDIR "/src/TinyCRM.ApiGateway"
-RUN dotnet build "TinyCRM.ApiGateway.csproj" -c Release -o /app/build
+WORKDIR "/src/APIGateway"
+RUN dotnet build "APIGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "TinyCRM.ApiGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "APIGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TinyCRM.ApiGateway.dll"]
+ENTRYPOINT ["dotnet", "APIGateway.dll"]

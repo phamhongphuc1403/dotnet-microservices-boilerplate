@@ -2,24 +2,27 @@ version: '3.4'
 
 services:
   tinycrm.api-gateway:
-    image: ${DOCKER_REGISTRY-}tinycrm.api-gateway
+    image: tinycrm.api-gateway
     ports:
       - "3000:80"
     build:
       context: .
-      dockerfile: TinyCRM.ApiGateway/Dockerfile
+      dockerfile: APIGateway/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
     depends_on:
-      - tinycrm.product.api
-      - tinycrm.sale.api
-  tinycrm.product.api:
-    image: ${DOCKER_REGISTRY-}tinycrm.product.api
+      - tinycrm.products.api
+      - tinycrm.sales.api
+    links:
+      - tinycrm.products.api
+      - tinycrm.sales.api
+  tinycrm.products.api:
+    image: tinycrm.products
     ports:
       - "5001:80"
     build:
       context: .
-      dockerfile: Services/Product/Presentation/TinyCRM.ProductManagement.API/Dockerfile
+      dockerfile: Services/Products/Presentation/TinyCRM.Products.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
       - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Product; Username=postgres; Password=password
@@ -31,13 +34,14 @@ services:
         condition: service_healthy
     links:
       - tinycrm.db
-  tinycrm.sale.api:
-    image: ${DOCKER_REGISTRY-}tinycrm.sale.api
+      - tinycrm.rabbitmq
+  tinycrm.sales.api:
+    image: tinycrm.sales
     ports:
       - "5002:80"
     build:
       context: .
-      dockerfile: Services/Sale/Presentation/TinyCRM.SaleManagement.API/Dockerfile
+      dockerfile: Services/Sales/Presentation/TinyCRM.Sales.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
       - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sale; Username=postgres; Password=password
@@ -49,6 +53,7 @@ services:
         condition: service_healthy
     links:
       - tinycrm.db
+      - tinycrm.rabbitmq
   tinycrm.db:
     image: postgres:latest
     environment:
