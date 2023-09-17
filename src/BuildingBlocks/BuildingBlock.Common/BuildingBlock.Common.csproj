@@ -15,7 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
-      <ProjectReference Include="..\..\BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj" />
+      <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj" />
     </ItemGroup>
 
 </Project>

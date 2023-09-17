@@ -1,8 +1,8 @@
+using BuildingBlock.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using BuildingBlock.EntityFrameworkCore;
 
-namespace BuildingBLock.Common.Extensions;
+namespace BuildingBlock.Common.Extensions;
 
 public static class DatabaseExtension
 {

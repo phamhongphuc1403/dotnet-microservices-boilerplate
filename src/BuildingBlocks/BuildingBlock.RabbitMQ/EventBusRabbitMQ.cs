@@ -1,15 +1,15 @@
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
+using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Application.IntegrationEvents.Events;
+using BuildingBlock.Application.IntegrationEvents.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
-using BuildingBlock.Core.EventBus.Interfaces;
-using BuildingBlock.Core.IntegrationEvents.Events;
-using BuildingBlock.Core.IntegrationEvents.Handlers;
 
 namespace BuildingBlock.RabbitMQ;
 

@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using BuildingBlock.Core;
+using BuildingBlock.Domain;
 using System.Linq.Dynamic.Core;
-using BuildingBlock.Core.Repositories;
+using BuildingBlock.Domain.Repositories;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
