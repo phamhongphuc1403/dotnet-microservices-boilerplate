@@ -39,7 +39,7 @@ public class CreateProductCommandHandler : IQueryHandler<CreateProductCommand, P
 
         _operationRepository.Add(product);
 
-        await _unitOfWork.CommitAsync();
+        await _unitOfWork.SaveChangesAsync();
 
         return _mapper.Map<ProductDto>(product);
     }

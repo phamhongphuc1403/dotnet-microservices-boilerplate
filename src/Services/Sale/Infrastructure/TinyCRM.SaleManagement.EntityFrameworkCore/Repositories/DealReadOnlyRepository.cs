@@ -6,9 +6,9 @@ using TinyCRM.SaleManagement.Domain.Repositories;
 
 namespace TinyCRM.SaleManagement.EntityFrameworkCore.Repositories;
 
-public class DealReadOnlyRepository : ReadOnlyRepository<Deal>, IDealReadOnlyRepository
+public class DealReadOnlyRepository : ReadOnlyRepository<SaleDbContext, Deal>, IDealReadOnlyRepository
 {
-    public DealReadOnlyRepository(DbFactory dbFactory) : base(dbFactory)
+    public DealReadOnlyRepository(SaleDbContext dbContext) : base(dbContext)
     {
     }
     

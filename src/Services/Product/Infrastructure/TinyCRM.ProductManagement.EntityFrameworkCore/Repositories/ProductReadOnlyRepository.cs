@@ -5,9 +5,9 @@ using TinyCRM.ProductManagement.Domain.Repositories;
 
 namespace TinyCRM.ProductManagement.EntityFrameworkCore.Repositories;
 
-public class ProductReadOnlyRepository : ReadOnlyRepository<Product>, IProductReadOnlyRepository
+public class ProductReadOnlyRepository : ReadOnlyRepository<ProductDbContext, Product>, IProductReadOnlyRepository
 {
-    public ProductReadOnlyRepository(DbFactory dbFactory) : base(dbFactory)
+    public ProductReadOnlyRepository(ProductDbContext dbContext) : base(dbContext)
     {
     }
 

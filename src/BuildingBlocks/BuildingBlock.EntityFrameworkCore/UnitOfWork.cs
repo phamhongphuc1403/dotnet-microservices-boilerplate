@@ -3,33 +3,58 @@ using BuildingBlock.Core;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : BaseDbContext
 {
-    private readonly DbFactory _dbFactory;
-    private IDbContextTransaction _transaction = null!;
+    private readonly TDbContext _dbContext;
+    private IDbContextTransaction? _transaction;
 
-    public UnitOfWork(DbFactory dbFactory)
+    public UnitOfWork(TDbContext dbContext)
     {
-        _dbFactory = dbFactory;
+        _dbContext = dbContext;
     }
 
-    public Task<int> CommitAsync()
+    public Task<int> SaveChangesAsync()
     {
-        return _dbFactory.DbContext.SaveChangesAsync();
+        return _dbContext.SaveChangesAsync();
     }
 
     public async Task BeginTransactionAsync()
     {
-        _transaction = await _dbFactory.DbContext.Database.BeginTransactionAsync();
+        if (_transaction == null)
+        {
+            _transaction = await _dbContext.Database.BeginTransactionAsync();
+        }
+        else
+        {
+            throw new InvalidOperationException("Transaction already started.");
+        }
     }
 
     public async Task CommitTransactionAsync()
     {
-        await _transaction.CommitAsync();
+        if (_transaction != null)
+        {
+            await _transaction.CommitAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+        else
+        {
+            throw new InvalidOperationException("Transaction not started.");
+        }
     }
 
     public async Task RollbackTransactionAsync()
     {
-        await _transaction.RollbackAsync();
+        if (_transaction != null)
+        {
+            await _transaction.RollbackAsync();
+            await _transaction.DisposeAsync();
+            _transaction = null;
+        }
+        else
+        {
+            throw new InvalidOperationException("Transaction not started.");
+        }
     }
 }

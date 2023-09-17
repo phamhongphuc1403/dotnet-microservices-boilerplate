@@ -4,9 +4,9 @@ using TinyCRM.ProductManagement.Domain.Repositories;
 
 namespace TinyCRM.ProductManagement.EntityFrameworkCore.Repositories;
 
-public class ProductOperationRepository : OperationRepository<Product>, IProductOperationRepository
+public class ProductOperationRepository : OperationRepository<ProductDbContext, Product>, IProductOperationRepository
 {
-    public ProductOperationRepository(DbFactory dbFactory) : base(dbFactory)
+    public ProductOperationRepository(ProductDbContext dbContext) : base(dbContext)
     {
     }
 }

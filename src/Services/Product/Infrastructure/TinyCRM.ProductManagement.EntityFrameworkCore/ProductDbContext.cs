@@ -4,7 +4,7 @@ using TinyCRM.ProductManagement.Domain.Entities;
 
 namespace TinyCRM.ProductManagement.EntityFrameworkCore;
 
-public class ProductDbContext : BaseAppDbContext
+public class ProductDbContext : BaseDbContext
 {
     public DbSet<Product> Products { get; set; } = null!;
 

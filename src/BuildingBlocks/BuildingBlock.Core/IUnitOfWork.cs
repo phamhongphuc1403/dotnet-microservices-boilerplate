@@ -2,7 +2,7 @@ namespace BuildingBlock.Core;
 
 public interface IUnitOfWork
 {
-    Task<int> CommitAsync();
+    Task<int> SaveChangesAsync();
 
     Task BeginTransactionAsync();
 
