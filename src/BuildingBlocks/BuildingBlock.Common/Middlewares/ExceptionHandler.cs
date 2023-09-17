@@ -1,9 +1,9 @@
-using BuildingBlock.Core.Exceptions;
+using BuildingBlock.Domain.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 
-namespace BuildingBLock.Common.Middlewares;
+namespace BuildingBlock.Common.Middlewares;
 
 public static class ExceptionHandler
 {

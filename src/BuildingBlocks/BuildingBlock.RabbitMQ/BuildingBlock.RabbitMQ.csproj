@@ -13,7 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BuildingBlock.Core\BuildingBlock.Core.csproj" />
+      <ProjectReference Include="..\BuildingBlock.Application\BuildingBlock.Application.csproj" />
+      <ProjectReference Include="..\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
     </ItemGroup>
 
 </Project>

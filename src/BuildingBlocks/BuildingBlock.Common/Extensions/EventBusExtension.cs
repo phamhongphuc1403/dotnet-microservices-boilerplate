@@ -1,12 +1,12 @@
-using BuildingBlock.Core.EventBus;
-using BuildingBlock.Core.EventBus.Interfaces;
+using BuildingBlock.Application.EventBus;
+using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.RabbitMQ;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
-using BuildingBlock.RabbitMQ;
 
-namespace BuildingBLock.Common.Extensions;
+namespace BuildingBlock.Common.Extensions;
 
 public static class EventBusExtension
 {

@@ -2,7 +2,7 @@ using System.Reflection;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BuildingBLock.Common.Extensions;
+namespace BuildingBlock.Common.Extensions;
 
 public static class MapperExtension
 {

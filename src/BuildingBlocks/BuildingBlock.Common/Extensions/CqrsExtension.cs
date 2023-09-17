@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BuildingBLock.Common.Extensions;
+namespace BuildingBlock.Common.Extensions;
 
 public static class CqrsExtension
 {

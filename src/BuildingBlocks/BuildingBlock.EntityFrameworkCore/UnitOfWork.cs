@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore.Storage;
-using BuildingBlock.Core;
+using BuildingBlock.Domain;
 
 namespace BuildingBlock.EntityFrameworkCore;
 

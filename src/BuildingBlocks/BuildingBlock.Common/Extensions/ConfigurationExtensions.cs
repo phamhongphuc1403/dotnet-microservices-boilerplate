@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Configuration;
 
-namespace BuildingBLock.Common.Extensions;
+namespace BuildingBlock.Common.Extensions;
 
 public static class ConfigurationExtensions
 {
