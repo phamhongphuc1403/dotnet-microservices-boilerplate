@@ -1,15 +1,18 @@
+using System.Text.Json.Serialization;
 using BuildingBlock.Common.Extensions;
 using BuildingBlock.Common.Middlewares;
+using TinyCRM.Products.API.Extensions;
 using TinyCRM.Products.Application;
 using TinyCRM.Products.EntityFrameworkCore;
-using TinyCRM.Service.Product.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
 builder.Services
-    .AddDatabase<ProductDbContext>()
+    .AddDatabase<ProductDbContext>(builder.Configuration)
     .AddMapper<Mapper>()
     .AddCqrs<ProductApplicationAssemblyReference>()
     .AddDefaultOpenApi(builder.Configuration)

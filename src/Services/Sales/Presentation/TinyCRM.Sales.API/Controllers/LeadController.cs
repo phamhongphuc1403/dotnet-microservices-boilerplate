@@ -1,8 +1,8 @@
-using BuildingBlock.Domain.DTOs;
+using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TinyCRM.Sales.Application.CQRS.Queries.Requests;
 using TinyCRM.Sales.Application.DTOs;
-using TinyCRM.Sales.Application.Queries.Requests;
 
 namespace TinyCRM.Sales.API.Controllers;
 

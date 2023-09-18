@@ -25,7 +25,7 @@ services:
       dockerfile: Services/Products/Presentation/TinyCRM.Products.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Product; Username=postgres; Password=password
+      - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Products; Username=postgres; Password=password
       - RABBITMQ_HOST=tinycrm.rabbitmq
     depends_on:
       tinycrm.db:
@@ -44,7 +44,7 @@ services:
       dockerfile: Services/Sales/Presentation/TinyCRM.Sales.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sale; Username=postgres; Password=password
+      - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sales; Username=postgres; Password=password
       - RABBITMQ_HOST=tinycrm.rabbitmq
     depends_on:
       tinycrm.db:

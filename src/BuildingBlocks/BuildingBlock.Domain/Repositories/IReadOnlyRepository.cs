@@ -1,18 +1,15 @@
-using System.Linq.Expressions;
+using BuildingBlock.Domain.Specifications;
 
 namespace BuildingBlock.Domain.Repositories;
 
-public interface IReadOnlyRepository<TEntity> where TEntity : GuidBaseEntity
+public interface IReadOnlyRepository<TEntity> where TEntity : GuidEntity
 {
-    Task<TEntity?> GetByIdAsync(Guid id, params string[] includes);
-    
-    Task<TEntity?> GetAnyAsync(Expression<Func<TEntity, bool>> expression, params string[] includes);
-    
-    Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> expression, params string[] includes);
-    
-    Task<bool> CheckIfExistAsync(Expression<Func<TEntity, bool>> expression);
+    Task<TEntity?> GetAnyAsync(ISpecification<TEntity> specification, string? includeTables = null);
 
-    Task<bool> CheckIfIdExistAsync(Guid id);
+    Task<List<TEntity>> GetAllAsync(ISpecification<TEntity> specification, string? includeTables = null);
 
-    Task<(List<TEntity>, int)> GetFilterAndPagingAsync(FilterAndPagingParams<TEntity> parameters);
+    Task<bool> CheckIfExistAsync(ISpecification<TEntity> specification);
+
+    Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification,
+        string sort, int pageIndex, int pageSize, string? includeTables = null);
 }

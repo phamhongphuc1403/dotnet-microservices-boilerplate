@@ -2,7 +2,7 @@ using BuildingBlock.Domain;
 
 namespace TinyCRM.Sales.Domain.Entities;
 
-public class DealLine : GuidBaseEntity
+public class DealLine : GuidEntity
 {
     public Guid ProductId { get; private set; }
     public virtual Product Product { get; private set; } = null!;

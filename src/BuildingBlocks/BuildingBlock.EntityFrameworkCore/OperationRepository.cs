@@ -4,41 +4,43 @@ using BuildingBlock.Domain.Repositories;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
-public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEntity> 
+public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEntity>
     where TDbContext : BaseDbContext
-    where TEntity : GuidBaseEntity
+    where TEntity : GuidEntity
 {
     private readonly TDbContext _dbContext;
     private DbSet<TEntity>? _dbSet;
-    protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
-
 
     public OperationRepository(TDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
+    protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
 
-    public void Add(TEntity entity)
+    public async Task AddAsync(TEntity entity)
     {
-        DbSet.Add(entity);
+        entity.CreatedDate = DateTime.UtcNow;
+        await DbSet.AddAsync(entity);
     }
 
-    public void Delete(TEntity entity)
+    public async Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
-        if (typeof(IDeleteEntity).IsAssignableFrom(typeof(TEntity)))
-        {
-            (entity as IDeleteEntity)!.IsDeleted = true;
-            DbSet.Update(entity);
-        }
-        else
-        {
-            DbSet.Remove(entity);
-        }
+        var guidEntities = entities.ToList();
+
+        foreach (var entity in guidEntities) entity.CreatedDate = DateTime.UtcNow;
+
+        await DbSet.AddRangeAsync(guidEntities);
     }
 
-    public void Update(TEntity entity)
+    public void Remove(TEntity entity)
     {
+        DbSet.Remove(entity);
+    }
+
+    public virtual void Update(TEntity entity)
+    {
+        entity.UpdatedDate = DateTime.UtcNow;
         DbSet.Update(entity);
     }
 }
