@@ -19,4 +19,9 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+      <Folder Include="CQRS\" />
+    </ItemGroup>
+
+
 </Project>

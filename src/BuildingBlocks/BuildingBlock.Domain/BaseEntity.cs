@@ -49,6 +49,6 @@ public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
     public string UpdatedBy { get; set; } = null!;
 }
 
-public abstract class GuidBaseEntity : BaseEntity<Guid>
+public abstract class GuidEntity : AuditEntity<Guid>
 {
 }

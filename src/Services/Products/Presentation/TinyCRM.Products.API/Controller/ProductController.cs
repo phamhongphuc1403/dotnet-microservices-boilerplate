@@ -1,11 +1,11 @@
-using BuildingBlock.Domain.DTOs;
+using BuildingBlock.Application.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.Products.Application.Commands.Requests;
+using TinyCRM.Products.Application.CQRS.Commands.Requests;
+using TinyCRM.Products.Application.CQRS.Queries.Requests;
 using TinyCRM.Products.Application.DTOs;
-using TinyCRM.Products.Application.Queries.Requests;
 
-namespace TinyCRM.Service.Product.API.Controller;
+namespace TinyCRM.Products.API.Controller;
 
 [ApiController]
 [Route("api/products")]

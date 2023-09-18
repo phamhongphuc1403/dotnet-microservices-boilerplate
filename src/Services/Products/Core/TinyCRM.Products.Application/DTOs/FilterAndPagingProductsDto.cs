@@ -1,24 +1,10 @@
-using System.ComponentModel.DataAnnotations;
-using System.Linq.Expressions;
-using System.Text.Json.Serialization;
-using BuildingBlock.Domain.DTOs;
+using BuildingBlock.Application.DTOs;
 using TinyCRM.Products.Application.DTOs.Enums;
+using TinyCRM.Products.Domain.Entities.Enums;
 
 namespace TinyCRM.Products.Application.DTOs;
 
-public class FilterAndPagingProductsDto : FilterAndPagingDto<Domain.Entities.Product>
+public class FilterAndPagingProductsDto : FilterAndPagingDto<ProductSortProperty>
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
-    [EnumDataType(typeof(ProductSortProperties))]
-    public ProductSortProperties? SortBy { get; set; }
-
-    public override Expression<Func<Domain.Entities.Product, bool>> BuildSearchExpression()
-    {
-        return entity => entity.Name.Contains(Name ?? string.Empty);
-    }
-
-    public override string? BuildSort()
-    {
-        return SortBy.ToString();
-    }
+    public ProductType? Type { get; set; }
 }

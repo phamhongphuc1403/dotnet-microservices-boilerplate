@@ -1,10 +1,12 @@
 namespace BuildingBlock.Domain.Repositories;
 
-public interface IOperationRepository<TEntity> where TEntity : GuidBaseEntity
+public interface IOperationRepository<TEntity> where TEntity : GuidEntity
 {
-    void Add(TEntity entity);
+    Task AddAsync(TEntity entity);
 
-    void Delete(TEntity entity);
+    Task AddRangeAsync(IEnumerable<TEntity> entities);
+
+    void Remove(TEntity entity);
 
     void Update(TEntity entity);
 }

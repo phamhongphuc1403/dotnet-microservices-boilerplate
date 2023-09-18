@@ -15,6 +15,6 @@ public class DealConfiguration : IEntityTypeConfiguration<Deal>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(d => d.Status)
-            .HasDefaultValue(DealStatuses.Open);
+            .HasDefaultValue(DealStatus.Open);
     }
 }

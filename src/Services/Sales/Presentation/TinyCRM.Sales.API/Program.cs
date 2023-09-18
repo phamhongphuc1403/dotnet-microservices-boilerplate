@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using BuildingBlock.Application.EventBus.Interfaces;
 using BuildingBlock.Common.Extensions;
 using BuildingBlock.Common.Middlewares;
@@ -9,10 +10,12 @@ using TinyCRM.Sales.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
 builder.Services 
-    .AddDatabase<SaleDbContext>()
+    .AddDatabase<SaleDbContext>(builder.Configuration)
     .AddMapper<Mapper>()
     .AddCqrs<SaleApplicationAssemblyReference>()
     .AddDefaultOpenApi(builder.Configuration)

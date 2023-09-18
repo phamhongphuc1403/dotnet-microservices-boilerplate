@@ -1,17 +1,17 @@
 using BuildingBlock.Domain;
+using BuildingBlock.Domain.Repositories;
 using BuildingBlock.EntityFrameworkCore;
-using TinyCRM.Products.Domain.Repositories;
+using TinyCRM.Products.Domain.Entities;
 using TinyCRM.Products.EntityFrameworkCore;
-using TinyCRM.Products.EntityFrameworkCore.Repositories;
 
-namespace TinyCRM.Service.Product.API.Extensions;
+namespace TinyCRM.Products.API.Extensions;
 
 public static class DependencyInjection
 {
     public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
     {
-        services.AddScoped<IProductReadOnlyRepository, ProductReadOnlyRepository>();
-        services.AddScoped<IProductOperationRepository, ProductOperationRepository>();
+        services.AddScoped<IReadOnlyRepository<Product>, ReadOnlyRepository<ProductDbContext, Product>>();
+        services.AddScoped<IOperationRepository<Product>, OperationRepository<ProductDbContext, Product>>();
         
         services.AddScoped<Func<BaseDbContext>>(provider => () => provider.GetService<ProductDbContext>()!);
         services.AddScoped<IUnitOfWork, UnitOfWork<ProductDbContext>>();
