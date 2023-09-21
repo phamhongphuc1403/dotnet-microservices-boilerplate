@@ -9,16 +9,18 @@ using TinyCRM.Sales.Domain.Specifications;
 
 namespace TinyCRM.Sales.Application.CQRS.Queries.Handlers;
 
-public class FilterAndPagingLeadsQueryHandler : IQueryHandler<FilterAndPagingLeadsQuery, FilterAndPagingResultDto<LeadDto>>
+public class
+    FilterAndPagingLeadsQueryHandler : IQueryHandler<FilterAndPagingLeadsQuery, FilterAndPagingResultDto<LeadDto>>
 {
-    private readonly IReadOnlyRepository<Lead> _repository;
     private readonly IMapper _mapper;
+    private readonly IReadOnlyRepository<Lead> _repository;
 
     public FilterAndPagingLeadsQueryHandler(IReadOnlyRepository<Lead> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
+
     public async Task<FilterAndPagingResultDto<LeadDto>> Handle(FilterAndPagingLeadsQuery query,
         CancellationToken cancellationToken)
     {

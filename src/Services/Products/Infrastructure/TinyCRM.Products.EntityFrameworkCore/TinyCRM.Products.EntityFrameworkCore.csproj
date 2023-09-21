@@ -7,22 +7,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Core\TinyCRM.Products.Application\TinyCRM.Products.Application.csproj" />
-      <ProjectReference Include="..\..\Core\TinyCRM.Products.Domain\TinyCRM.Products.Domain.csproj" />
+        <ProjectReference Include="..\..\Core\TinyCRM.Products.Application\TinyCRM.Products.Application.csproj"/>
+        <ProjectReference Include="..\..\Core\TinyCRM.Products.Domain\TinyCRM.Products.Domain.csproj"/>
     </ItemGroup>
-
 
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
     </ItemGroup>
-
-
 
 
 </Project>

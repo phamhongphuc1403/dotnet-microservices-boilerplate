@@ -4,7 +4,7 @@ using TinyCRM.Sales.Domain.Entities;
 
 namespace TinyCRM.Sales.Domain.Specifications;
 
-public class LeadIdSpecification: Specification<Lead>, ISpecification<Lead>
+public class LeadIdSpecification : Specification<Lead>, ISpecification<Lead>
 {
     private readonly Guid _id;
 

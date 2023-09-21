@@ -11,19 +11,19 @@ namespace TinyCRM.Products.Application.CQRS.Commands.Handlers;
 
 public class CreateProductCommandHandler : IQueryHandler<CreateProductCommand, ProductDto>
 {
+    private readonly IEventBus _eventBus;
+    private readonly IMapper _mapper;
     private readonly IOperationRepository<Product> _operationRepository;
     private readonly IReadOnlyRepository<Product> _readonlyRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-    private readonly IEventBus _eventBus;
 
     public CreateProductCommandHandler(
         IOperationRepository<Product> operationRepository,
-        IReadOnlyRepository<Product> readonlyRepository, 
-        IUnitOfWork unitOfWork, 
+        IReadOnlyRepository<Product> readonlyRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper,
         IEventBus eventBus
-        )
+    )
     {
         _operationRepository = operationRepository;
         _readonlyRepository = readonlyRepository;

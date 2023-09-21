@@ -16,7 +16,7 @@ public class DealTitleSpecification : Specification<Deal>, ISpecification<Deal>
     public override Expression<Func<Deal, bool>> ToExpression()
     {
         if (string.IsNullOrWhiteSpace(_title)) return deal => true;
-        
+
         return deal => deal.Title.Contains(_title);
     }
 }

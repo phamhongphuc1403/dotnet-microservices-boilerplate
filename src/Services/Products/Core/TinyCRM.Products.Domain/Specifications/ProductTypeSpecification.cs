@@ -17,7 +17,7 @@ public class ProductTypeSpecification : Specification<Product>
     public override Expression<Func<Product, bool>> ToExpression()
     {
         if (_type == null) return product => true;
-        
+
         return product => product.Type == _type;
     }
 }

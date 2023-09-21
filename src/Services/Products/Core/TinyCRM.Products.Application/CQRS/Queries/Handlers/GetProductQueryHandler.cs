@@ -12,8 +12,9 @@ namespace TinyCRM.Products.Application.CQRS.Queries.Handlers;
 
 public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDto>
 {
-    private readonly IReadOnlyRepository<Product> _repository;
     private readonly IMapper _mapper;
+    private readonly IReadOnlyRepository<Product> _repository;
+
     public GetProductQueryHandler(
         IReadOnlyRepository<Product> repository,
         IMapper mapper
@@ -22,10 +23,11 @@ public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDto>
         _repository = repository;
         _mapper = mapper;
     }
+
     public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         var productIdSpecification = new ProductIdSpecification(request.Id);
-        
+
         var product = Optional<Product>.Of(await _repository.GetAnyAsync(productIdSpecification))
             .ThrowIfNotPresent(new ProductNotFoundException(request.Id)).Get();
 

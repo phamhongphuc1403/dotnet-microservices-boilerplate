@@ -12,14 +12,14 @@ public interface IEventBusSubscriptionsManager
         where TH : IIntegrationEventHandler<T>;
 
     bool HasSubscriptionsForEvent<T>() where T : IntegrationEvent;
-    
+
     bool HasSubscriptionsForEvent(string eventName);
-    
+
     Type? GetEventTypeByName(string eventName);
-    
+
     IEnumerable<Type> GetHandlersForEvent<T>() where T : IntegrationEvent;
-    
+
     IEnumerable<Type> GetHandlersForEvent(string eventName);
-    
+
     string GetEventKey<T>();
 }

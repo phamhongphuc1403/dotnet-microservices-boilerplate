@@ -12,14 +12,15 @@ namespace TinyCRM.Sales.Application.CQRS.Queries.Handlers;
 public class
     FilterAndPagingDealsQueryHandler : IQueryHandler<FilterAndPagingDealsQuery, FilterAndPagingResultDto<DealDto>>
 {
-    private readonly IReadOnlyRepository<Deal> _repository;
     private readonly IMapper _mapper;
+    private readonly IReadOnlyRepository<Deal> _repository;
 
     public FilterAndPagingDealsQueryHandler(IReadOnlyRepository<Deal> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
+
     public async Task<FilterAndPagingResultDto<DealDto>> Handle(FilterAndPagingDealsQuery query,
         CancellationToken cancellationToken)
     {

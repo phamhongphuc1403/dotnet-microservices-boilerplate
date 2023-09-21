@@ -5,7 +5,7 @@ using TinyCRM.Sales.Domain.Entities.Enums;
 
 namespace TinyCRM.Sales.EntityFrameworkCore.EntityConfigurations;
 
-public class LeadConfiguration: IEntityTypeConfiguration<Lead>
+public class LeadConfiguration : IEntityTypeConfiguration<Lead>
 {
     public void Configure(EntityTypeBuilder<Lead> builder)
     {

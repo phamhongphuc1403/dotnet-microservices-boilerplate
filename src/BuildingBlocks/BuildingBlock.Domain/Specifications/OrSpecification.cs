@@ -17,7 +17,7 @@ public class OrSpecification<TEntity> : Specification<TEntity> where TEntity : G
     {
         var leftExpression = _left.ToExpression();
         var rightExpression = _right.ToExpression();
-        
+
         var rightBody =
             ExpressionParameterReplacer.ReplaceParameters(rightExpression.Body, leftExpression.Parameters[0]);
 

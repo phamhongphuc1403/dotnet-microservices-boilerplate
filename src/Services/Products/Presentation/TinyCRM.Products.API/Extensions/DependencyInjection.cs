@@ -12,7 +12,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IReadOnlyRepository<Product>, ReadOnlyRepository<ProductDbContext, Product>>();
         services.AddScoped<IOperationRepository<Product>, OperationRepository<ProductDbContext, Product>>();
-        
+
         services.AddScoped<Func<BaseDbContext>>(provider => () => provider.GetService<ProductDbContext>()!);
         services.AddScoped<IUnitOfWork, UnitOfWork<ProductDbContext>>();
 

@@ -4,7 +4,7 @@ using TinyCRM.Sales.Application.DTOs;
 
 namespace TinyCRM.Sales.Application.CQRS.Queries.Requests;
 
-public class FilterAndPagingLeadsQuery: FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadDto>>
+public class FilterAndPagingLeadsQuery : FilterAndPagingLeadsDto, IQuery<FilterAndPagingResultDto<LeadDto>>
 {
     public FilterAndPagingLeadsQuery(FilterAndPagingLeadsDto dto)
     {

@@ -4,7 +4,7 @@ using TinyCRM.Sales.Domain.Entities;
 
 namespace TinyCRM.Sales.EntityFrameworkCore.EntityConfigurations;
 
-public class DealLineConfiguration: IEntityTypeConfiguration<DealLine>
+public class DealLineConfiguration : IEntityTypeConfiguration<DealLine>
 {
     public void Configure(EntityTypeBuilder<DealLine> builder)
     {

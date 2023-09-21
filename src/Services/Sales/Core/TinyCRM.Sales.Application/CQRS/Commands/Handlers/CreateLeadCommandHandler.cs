@@ -10,10 +10,10 @@ namespace TinyCRM.Sales.Application.CQRS.Commands.Handlers;
 
 public class CreateLeadCommandHandler : ICommandHandler<CreateLeadCommand, LeadDto>
 {
+    private readonly IMapper _mapper;
     private readonly IOperationRepository<Lead> _operationRepository;
     private readonly IReadOnlyRepository<Lead> _readonlyRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
 
     public CreateLeadCommandHandler(IOperationRepository<Lead> operationRepository,
         IReadOnlyRepository<Lead> readonlyRepository, IUnitOfWork unitOfWork, IMapper mapper)
@@ -23,6 +23,7 @@ public class CreateLeadCommandHandler : ICommandHandler<CreateLeadCommand, LeadD
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
+
     public Task<LeadDto> Handle(CreateLeadCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();

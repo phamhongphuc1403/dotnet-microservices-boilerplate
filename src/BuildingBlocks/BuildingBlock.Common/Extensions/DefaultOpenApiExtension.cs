@@ -11,25 +11,22 @@ public static class DefaultOpenApiExtension
     {
         var openApi = configuration.GetSection("OpenApi");
 
-        if (!openApi.Exists())
-        {
-            return services;
-        }
-        
+        if (!openApi.Exists()) return services;
+
         services.AddEndpointsApiExplorer();
-        
+
         services.AddSwaggerGen(option =>
         {
             var document = openApi.GetRequiredSection("Document");
             var title = $"TinyCRM.{document["Title"]}";
             var version = document["Version"] ?? "v1";
-            
+
             option.SwaggerDoc(version, new OpenApiInfo
             {
                 Title = title,
                 Version = version
             });
-            
+
             option.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
                 Description = "Enter your token",

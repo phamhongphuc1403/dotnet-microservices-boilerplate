@@ -6,13 +6,13 @@ namespace TinyCRM.Sales.Domain.Entities;
 public class Lead : GuidEntity
 {
     public string Title { get; private set; } = null!;
-    public Guid AccountId { get; private set; }
+    public Guid AccountId { get; }
     public virtual Account Account { get; private set; } = null!;
-    public LeadSource? Source { get; private set; }
-    public double? EstimatedRevenue { get; private set; }
-    public string? Description { get; private set; }
-    public LeadStatus? Status { get; private set; }
-    public LeadDisqualificationReason? DisqualificationReason { get; private set; }
-    public string? DisqualificationDescription { get; private set; }
-    public virtual Deal? Deal { get; private set; }
+    public LeadSource? Source { get; }
+    public double? EstimatedRevenue { get; }
+    public string? Description { get; }
+    public LeadStatus? Status { get; }
+    public LeadDisqualificationReason? DisqualificationReason { get; }
+    public string? DisqualificationDescription { get; }
+    public virtual Deal? Deal { get; }
 }

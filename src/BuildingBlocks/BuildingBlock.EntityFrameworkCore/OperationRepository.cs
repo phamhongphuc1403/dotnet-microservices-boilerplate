@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.EntityFrameworkCore;
 

@@ -6,8 +6,8 @@ namespace BuildingBlock.Application.EventBus;
 
 public class EventBusSubscriptionsManager : IEventBusSubscriptionsManager
 {
-    private readonly Dictionary<string, List<Type>> _handlers = new();
     private readonly List<Type> _eventTypes = new();
+    private readonly Dictionary<string, List<Type>> _handlers = new();
 
     public bool IsEmpty => _handlers is { Count: 0 };
 
@@ -17,26 +17,7 @@ public class EventBusSubscriptionsManager : IEventBusSubscriptionsManager
 
         DoAddSubscription(typeof(TH), eventName);
 
-        if (!_eventTypes.Contains(typeof(T)))
-        {
-            _eventTypes.Add(typeof(T));
-        }
-    }
-
-    private void DoAddSubscription(Type handlerType, string eventName)
-    {
-        if (!HasSubscriptionsForEvent(eventName))
-        {
-            _handlers.Add(eventName, new List<Type>());
-        }
-
-        if (_handlers[eventName].Any(type => type == handlerType))
-        {
-            throw new ArgumentException(
-                $"Handler Type {handlerType.Name} already registered for '{eventName}'", nameof(handlerType));
-        }
-
-        _handlers[eventName].Add(handlerType);
+        if (!_eventTypes.Contains(typeof(T))) _eventTypes.Add(typeof(T));
     }
 
     public IEnumerable<Type> GetHandlersForEvent<T>() where T : IntegrationEvent
@@ -69,5 +50,16 @@ public class EventBusSubscriptionsManager : IEventBusSubscriptionsManager
     public string GetEventKey<T>()
     {
         return typeof(T).Name;
+    }
+
+    private void DoAddSubscription(Type handlerType, string eventName)
+    {
+        if (!HasSubscriptionsForEvent(eventName)) _handlers.Add(eventName, new List<Type>());
+
+        if (_handlers[eventName].Any(type => type == handlerType))
+            throw new ArgumentException(
+                $"Handler Type {handlerType.Name} already registered for '{eventName}'", nameof(handlerType));
+
+        _handlers[eventName].Add(handlerType);
     }
 }

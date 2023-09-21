@@ -16,7 +16,7 @@ public class ProductCodeExactMatchSpecification : Specification<Product>
     public override Expression<Func<Product, bool>> ToExpression()
     {
         if (string.IsNullOrWhiteSpace(_code)) return product => true;
-        
+
         return product => product.Code == _code;
     }
 }

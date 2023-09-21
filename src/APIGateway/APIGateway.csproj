@@ -9,16 +9,16 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.7"/>
-        <PackageReference Include="MMLib.SwaggerForOcelot" Version="7.0.0" />
-        <PackageReference Include="Ocelot" Version="19.0.2" />
+        <PackageReference Include="MMLib.SwaggerForOcelot" Version="7.0.0"/>
+        <PackageReference Include="Ocelot" Version="19.0.2"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
 
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
 </Project>
