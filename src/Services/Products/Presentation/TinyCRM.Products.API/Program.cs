@@ -23,13 +23,13 @@ await builder.Services.ApplyMigrationAsync<ProductDbContext>();
 
 var app = builder.Build();
 
-app.UseHttpExceptionHandler();
+app.UseHttpExceptionHandler(app.Services.GetRequiredService<IWebHostEnvironment>());
 
 app.UseSwagger();
 
 app.UseSwaggerUI();
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

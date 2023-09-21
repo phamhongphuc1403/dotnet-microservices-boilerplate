@@ -14,7 +14,7 @@ builder.Services
     .AddControllers()
     .AddJsonOptions(options => { options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); });
 
-builder.Services 
+builder.Services
     .AddDatabase<SaleDbContext>(builder.Configuration)
     .AddMapper<Mapper>()
     .AddCqrs<SaleApplicationAssemblyReference>()
@@ -28,13 +28,13 @@ await builder.Services.ApplyMigrationAsync<SaleDbContext>();
 
 var app = builder.Build();
 
-app.UseHttpExceptionHandler();
+app.UseHttpExceptionHandler(app.Services.GetRequiredService<IWebHostEnvironment>());
 
 app.UseSwagger();
 
 app.UseSwaggerUI();
 
-// app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

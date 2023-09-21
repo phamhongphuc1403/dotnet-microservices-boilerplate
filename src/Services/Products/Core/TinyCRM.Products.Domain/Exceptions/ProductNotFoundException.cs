@@ -1,10 +1,11 @@
 using BuildingBlock.Domain.Exceptions;
+using TinyCRM.Products.Domain.Entities;
 
 namespace TinyCRM.Products.Domain.Exceptions;
 
-public class ProductNotFoundException : ResourceNotFoundException
+public class ProductNotFoundException : EntityNotFoundException
 {
-    public ProductNotFoundException(Guid id) : base("Product is not found with the id: " + id)
+    public ProductNotFoundException(Guid id) : base(nameof(Product), id)
     {
     }
 }
