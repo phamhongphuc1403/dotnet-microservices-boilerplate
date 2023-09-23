@@ -1,5 +1,7 @@
+using BuildingBlock.Application;
+
 namespace TinyCRM.Sales.Application;
 
-public class SaleApplicationAssemblyReference
+public class SaleApplicationAssemblyReference : ApplicationAssemblyReference
 {
 }
