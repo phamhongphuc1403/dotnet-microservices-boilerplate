@@ -11,7 +11,7 @@
         <PackageReference Include="Microsoft.OpenApi" Version="1.4.3"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8"/>
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0"/>
     </ItemGroup>
 
     <ItemGroup>
