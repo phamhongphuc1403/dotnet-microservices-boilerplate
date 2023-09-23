@@ -8,6 +8,11 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
     {
-        builder.HasIndex(a => a.Code).IsUnique();
+        builder.HasIndex(product => product.Code).IsUnique();
+        builder.Property(product => product.Code)
+            .IsRequired()
+            .HasMaxLength(10)
+            .IsUnicode(false)
+            .HasColumnType("citext");
     }
 }

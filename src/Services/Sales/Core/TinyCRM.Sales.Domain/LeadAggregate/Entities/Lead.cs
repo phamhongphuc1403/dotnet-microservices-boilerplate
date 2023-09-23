@@ -9,7 +9,7 @@ public class Lead : Entity
 {
     public string Title { get; private set; } = null!;
     public Guid AccountId { get; }
-    public virtual Account Account { get; private set; } = null!;
+    public Account Account { get; private set; } = null!;
     public LeadSource? Source { get; }
     public double? EstimatedRevenue { get; }
     public string? Description { get; }

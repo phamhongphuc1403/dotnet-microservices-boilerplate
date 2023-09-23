@@ -20,15 +20,12 @@ public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEn
 
     public async Task AddAsync(TEntity entity)
     {
-        entity.CreatedDate = DateTime.UtcNow;
         await DbSet.AddAsync(entity);
     }
 
     public async Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
         var guidEntities = entities.ToList();
-
-        foreach (var entity in guidEntities) entity.CreatedDate = DateTime.UtcNow;
 
         await DbSet.AddRangeAsync(guidEntities);
     }
@@ -40,7 +37,6 @@ public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEn
 
     public virtual void Update(TEntity entity)
     {
-        entity.UpdatedDate = DateTime.UtcNow;
         DbSet.Update(entity);
     }
 }

@@ -12,7 +12,7 @@ using TinyCRM.Products.EntityFrameworkCore;
 namespace TinyCRM.Products.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20230918023044_CreateProductsTable")]
+    [Migration("20230923135921_CreateProductsTable")]
     partial class CreateProductsTable
     {
         /// <inheritdoc />
@@ -23,6 +23,7 @@ namespace TinyCRM.Products.EntityFrameworkCore.Migrations
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "citext");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("TinyCRM.Products.Domain.Entities.Product", b =>
@@ -33,7 +34,9 @@ namespace TinyCRM.Products.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("citext");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -42,24 +45,27 @@ namespace TinyCRM.Products.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("boolean");
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
 
-                    b.Property<bool>("IsDeleted")
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<double>("Price")
-                        .HasColumnType("double precision");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
