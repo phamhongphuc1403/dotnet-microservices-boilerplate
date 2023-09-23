@@ -6,5 +6,5 @@ namespace TinyCRM.Sales.Domain.ProductAggregate.Entities;
 public class Product : Entity
 {
     public string Code { get; private set; } = null!;
-    public virtual ICollection<DealLine> DealLines { get; private set; } = new HashSet<DealLine>();
+    public ICollection<DealLine> DealLines { get; private set; } = null!;
 }

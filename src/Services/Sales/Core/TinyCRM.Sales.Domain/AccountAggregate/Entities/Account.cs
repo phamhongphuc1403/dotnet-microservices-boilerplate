@@ -6,5 +6,7 @@ namespace TinyCRM.Sales.Domain.AccountAggregate.Entities;
 public class Account : Entity
 {
     public string Name { get; private set; } = null!;
-    public virtual ICollection<Lead> Leads { get; private set; } = new HashSet<Lead>();
+
+    public string Email { get; private set; } = null!;
+    public ICollection<Lead> Leads { get; private set; } = null!;
 }

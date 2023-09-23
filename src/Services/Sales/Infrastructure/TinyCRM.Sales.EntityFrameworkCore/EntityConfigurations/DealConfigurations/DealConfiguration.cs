@@ -9,12 +9,24 @@ public class DealConfiguration : IEntityTypeConfiguration<Deal>
 {
     public void Configure(EntityTypeBuilder<Deal> builder)
     {
-        builder.HasOne(d => d.Lead)
-            .WithOne(l => l.Deal)
-            .HasForeignKey<Deal>(d => d.LeadId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.Property(deal => deal.Title)
+            .IsRequired()
+            .HasMaxLength(255);
 
-        builder.Property(d => d.Status)
+        builder.Property(deal => deal.LeadId)
+            .IsRequired();
+
+        builder.Property(deal => deal.Description)
+            .IsRequired()
+            .HasMaxLength(500);
+
+        builder.Property(deal => deal.Status)
+            .IsRequired()
             .HasDefaultValue(DealStatus.Open);
+
+        builder.HasOne(deal => deal.Lead)
+            .WithOne(deal => deal.Deal)
+            .HasForeignKey<Deal>(deal => deal.LeadId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

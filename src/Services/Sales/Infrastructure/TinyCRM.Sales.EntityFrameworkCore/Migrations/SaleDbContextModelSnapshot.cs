@@ -20,9 +20,10 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                 .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "citext");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Account", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.AccountAggregate.Entities.Account", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,15 +36,24 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .IsUnicode(false)
+                        .HasColumnType("citext");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -51,10 +61,13 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Account");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Deal", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.DealAggregate.Entities.Deal", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,11 +80,16 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("DeletedBy")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<Guid>("LeadId")
                         .HasColumnType("uuid");
@@ -83,10 +101,10 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -100,7 +118,7 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.ToTable("Deals");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.DealLine", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.DealAggregate.Entities.DealLine", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,11 +134,14 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Property<Guid>("DealId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<double>("PricePerUnit")
-                        .HasColumnType("double precision");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
@@ -129,7 +150,6 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -144,7 +164,7 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.ToTable("DealLines", (string)null);
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Lead", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.LeadAggregate.Entities.Lead", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,35 +180,43 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("DeletedBy")
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("DisqualificationDescription")
-                        .HasColumnType("text");
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
-                    b.Property<int?>("DisqualificationReason")
+                    b.Property<int>("DisqualificationReason")
                         .HasColumnType("integer");
 
                     b.Property<double?>("EstimatedRevenue")
-                        .HasColumnType("double precision");
+                        .IsRequired()
+                        .HasColumnType("decimal(18, 2)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("Source")
+                    b.Property<int>("Source")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasDefaultValue(1);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -201,7 +229,7 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.ToTable("Leads");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.ProductAggregate.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,7 +237,9 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("citext");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -218,11 +248,13 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -236,26 +268,26 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Deal", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.DealAggregate.Entities.Deal", b =>
                 {
-                    b.HasOne("TinyCRM.Sales.Domain.Entities.Lead", "Lead")
+                    b.HasOne("TinyCRM.Sales.Domain.LeadAggregate.Entities.Lead", "Lead")
                         .WithOne("Deal")
-                        .HasForeignKey("TinyCRM.Sales.Domain.Entities.Deal", "LeadId")
+                        .HasForeignKey("TinyCRM.Sales.Domain.DealAggregate.Entities.Deal", "LeadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Lead");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.DealLine", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.DealAggregate.Entities.DealLine", b =>
                 {
-                    b.HasOne("TinyCRM.Sales.Domain.Entities.Deal", "Deal")
+                    b.HasOne("TinyCRM.Sales.Domain.DealAggregate.Entities.Deal", "Deal")
                         .WithMany("DealLines")
                         .HasForeignKey("DealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TinyCRM.Sales.Domain.Entities.Product", "Product")
+                    b.HasOne("TinyCRM.Sales.Domain.ProductAggregate.Entities.Product", "Product")
                         .WithMany("DealLines")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -266,9 +298,9 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Lead", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.LeadAggregate.Entities.Lead", b =>
                 {
-                    b.HasOne("TinyCRM.Sales.Domain.Entities.Account", "Account")
+                    b.HasOne("TinyCRM.Sales.Domain.AccountAggregate.Entities.Account", "Account")
                         .WithMany("Leads")
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -277,22 +309,22 @@ namespace TinyCRM.Sales.EntityFrameworkCore.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Account", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.AccountAggregate.Entities.Account", b =>
                 {
                     b.Navigation("Leads");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Deal", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.DealAggregate.Entities.Deal", b =>
                 {
                     b.Navigation("DealLines");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Lead", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.LeadAggregate.Entities.Lead", b =>
                 {
                     b.Navigation("Deal");
                 });
 
-            modelBuilder.Entity("TinyCRM.Sales.Domain.Entities.Product", b =>
+            modelBuilder.Entity("TinyCRM.Sales.Domain.ProductAggregate.Entities.Product", b =>
                 {
                     b.Navigation("DealLines");
                 });
