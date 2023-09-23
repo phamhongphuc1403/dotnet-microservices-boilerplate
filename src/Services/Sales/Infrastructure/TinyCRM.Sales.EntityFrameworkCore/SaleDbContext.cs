@@ -1,6 +1,8 @@
 using BuildingBlock.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TinyCRM.Sales.Domain.Entities;
+using TinyCRM.Sales.Domain.DealAggregate.Entities;
+using TinyCRM.Sales.Domain.LeadAggregate.Entities;
+using TinyCRM.Sales.Domain.ProductAggregate.Entities;
 
 namespace TinyCRM.Sales.EntityFrameworkCore;
 

@@ -25,12 +25,12 @@ public class EventBusRabbitMq : IEventBus
     private readonly ILogger<EventBusRabbitMq> _logger;
 
     private readonly IRabbitMQPersistentConnection _persistentConnection;
+    private readonly string _queueName;
     private readonly int _retryCount;
     private readonly IServiceProvider _serviceProvider;
     private readonly IEventBusSubscriptionsManager _subsManager;
 
     private IModel _consumerChannel;
-    private readonly string _queueName;
 
     public EventBusRabbitMq(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMq> logger,
         IServiceProvider serviceProvider, IEventBusSubscriptionsManager subsManager, string queueName,

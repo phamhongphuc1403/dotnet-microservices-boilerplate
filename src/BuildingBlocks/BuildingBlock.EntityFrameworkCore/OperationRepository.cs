@@ -6,7 +6,7 @@ namespace BuildingBlock.EntityFrameworkCore;
 
 public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEntity>
     where TDbContext : BaseDbContext
-    where TEntity : GuidEntity
+    where TEntity : Entity
 {
     private readonly TDbContext _dbContext;
     private DbSet<TEntity>? _dbSet;

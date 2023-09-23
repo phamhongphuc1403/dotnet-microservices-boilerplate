@@ -2,7 +2,7 @@ using BuildingBlock.Domain.Specifications;
 
 namespace BuildingBlock.Domain.Repositories;
 
-public interface IReadOnlyRepository<TEntity> where TEntity : GuidEntity
+public interface IReadOnlyRepository<TEntity> where TEntity : Entity
 {
     Task<TEntity?> GetAnyAsync(ISpecification<TEntity> specification, string? includeTables = null);
 

@@ -10,7 +10,8 @@ public interface IBaseEntity<TKey>
 
 public interface IDeleteEntity
 {
-    bool IsDeleted { get; set; }
+    DateTime DeletedDate { get; set; }
+    string DeletedBy { get; set; }
 }
 
 public interface IDeleteEntity<TKey> : IDeleteEntity, IBaseEntity<TKey>
@@ -38,7 +39,8 @@ public abstract class BaseEntity<TKey> : IBaseEntity<TKey>
 
 public abstract class DeleteEntity<TKey> : BaseEntity<TKey>, IDeleteEntity<TKey>
 {
-    public virtual bool IsDeleted { get; set; }
+    public DateTime DeletedDate { get; set; }
+    public string DeletedBy { get; set; } = null!;
 }
 
 public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
@@ -49,6 +51,10 @@ public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
     public string UpdatedBy { get; set; } = null!;
 }
 
-public abstract class GuidEntity : AuditEntity<Guid>
+public abstract class Entity : AuditEntity<Guid>
+{
+}
+
+public abstract class AggregateRoot : Entity
 {
 }

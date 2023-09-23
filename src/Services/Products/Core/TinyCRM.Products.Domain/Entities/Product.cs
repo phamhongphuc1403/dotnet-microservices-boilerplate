@@ -7,7 +7,7 @@ using TinyCRM.Products.Domain.Specifications;
 
 namespace TinyCRM.Products.Domain.Entities;
 
-public class Product : GuidEntity
+public class Product : Entity
 {
     private Product(string code, string name, double price, bool isAvailable, ProductType type)
     {

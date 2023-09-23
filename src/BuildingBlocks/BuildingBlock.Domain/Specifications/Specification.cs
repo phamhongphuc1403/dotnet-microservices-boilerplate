@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace BuildingBlock.Domain.Specifications;
 
-public abstract class Specification<TEntity> : ISpecification<TEntity> where TEntity : GuidEntity
+public abstract class Specification<TEntity> : ISpecification<TEntity> where TEntity : Entity
 {
     public abstract Expression<Func<TEntity, bool>> ToExpression();
 
