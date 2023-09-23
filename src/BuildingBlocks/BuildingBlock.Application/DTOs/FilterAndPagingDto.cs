@@ -24,7 +24,7 @@ public class FilterAndPagingDto<TEnum>
 
         var sort = SortBy.ToString();
 
-        sort = IsDescending ? $"{sort} asc" : $"{sort} desc";
+        sort = IsDescending ? $"{sort} desc" : $"{sort} asc";
 
         return sort;
     }

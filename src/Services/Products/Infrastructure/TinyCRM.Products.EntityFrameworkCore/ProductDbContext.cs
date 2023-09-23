@@ -6,11 +6,11 @@ namespace TinyCRM.Products.EntityFrameworkCore;
 
 public class ProductDbContext : BaseDbContext
 {
-    public DbSet<Product> Products { get; set; } = null!;
-
     public ProductDbContext(DbContextOptions options) : base(options)
     {
     }
+
+    public DbSet<Product> Products { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

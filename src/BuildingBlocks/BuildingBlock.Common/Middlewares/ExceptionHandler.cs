@@ -20,8 +20,6 @@ public static class ExceptionHandler
             {
                 var exception = context.Features.Get<IExceptionHandlerPathFeature>()?.Error;
 
-                var message = exception is ValidationException ? "Validation error" : exception?.Message;
-
                 var response = context.Response;
 
                 var isDevelopment = env.IsDevelopment();
@@ -33,7 +31,7 @@ public static class ExceptionHandler
 
                 var pd = new ProblemDetails
                 {
-                    Title = isDevelopment ? message : "An error occurred on the server.",
+                    Title = GetMessage(exception, statusCode, isDevelopment),
                     Status = statusCode,
                     Detail = isDevelopment ? exception?.StackTrace : null
                 };
@@ -61,5 +59,11 @@ public static class ExceptionHandler
         };
 
         return statusCode;
+    }
+
+    private static string? GetMessage(Exception? exception, int statusCode, bool isDevelopment)
+    {
+        return exception is ValidationException ? "Validation error" :
+            isDevelopment && statusCode == 500 ? "An error occurred on the server." : exception?.Message;
     }
 }

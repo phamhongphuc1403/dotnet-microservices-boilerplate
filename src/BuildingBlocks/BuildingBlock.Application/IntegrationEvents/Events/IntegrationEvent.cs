@@ -17,9 +17,7 @@ public record IntegrationEvent
         CreationDate = createDate;
     }
 
-    [JsonInclude]
-    public Guid Id { get; private init; }
+    [JsonInclude] public Guid Id { get; private init; }
 
-    [JsonInclude]
-    public DateTime CreationDate { get; private init; }
+    [JsonInclude] public DateTime CreationDate { get; private init; }
 }

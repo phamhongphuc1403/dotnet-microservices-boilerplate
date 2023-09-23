@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace BuildingBlock.Domain.Specifications;
 
-public class AndSpecification<TEntity> : Specification<TEntity> where TEntity : GuidEntity
+public class AndSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
 {
     private readonly ISpecification<TEntity> _left;
     private readonly ISpecification<TEntity> _right;

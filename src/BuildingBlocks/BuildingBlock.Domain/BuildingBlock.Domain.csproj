@@ -11,7 +11,7 @@
     </ItemGroup>
     <ItemGroup>
         <Reference Include="Microsoft.AspNetCore.Diagnostics.Abstractions">
-          <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.7\Microsoft.AspNetCore.Diagnostics.Abstractions.dll</HintPath>
+            <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.7\Microsoft.AspNetCore.Diagnostics.Abstractions.dll</HintPath>
         </Reference>
         <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
             <HintPath>C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\7.0.7\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>

@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore.Storage;
 using BuildingBlock.Domain;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
@@ -21,13 +21,9 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : BaseDbConte
     public async Task BeginTransactionAsync()
     {
         if (_transaction == null)
-        {
             _transaction = await _dbContext.Database.BeginTransactionAsync();
-        }
         else
-        {
             throw new InvalidOperationException("Transaction already started.");
-        }
     }
 
     public async Task CommitTransactionAsync()

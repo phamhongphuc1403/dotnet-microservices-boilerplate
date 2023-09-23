@@ -9,7 +9,7 @@ public static class MapperExtension
     public static IServiceCollection AddMapper<TMapper>(this IServiceCollection services) where TMapper : Profile
     {
         services.AddAutoMapper(Assembly.GetAssembly(typeof(TMapper)));
-        
+
         return services;
     }
 }

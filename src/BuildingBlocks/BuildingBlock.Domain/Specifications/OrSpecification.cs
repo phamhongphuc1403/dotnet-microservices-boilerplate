@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace BuildingBlock.Domain.Specifications;
 
-public class OrSpecification<TEntity> : Specification<TEntity> where TEntity : GuidEntity
+public class OrSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
 {
     private readonly ISpecification<TEntity> _left;
     private readonly ISpecification<TEntity> _right;
@@ -17,7 +17,7 @@ public class OrSpecification<TEntity> : Specification<TEntity> where TEntity : G
     {
         var leftExpression = _left.ToExpression();
         var rightExpression = _right.ToExpression();
-        
+
         var rightBody =
             ExpressionParameterReplacer.ReplaceParameters(rightExpression.Body, leftExpression.Parameters[0]);
 

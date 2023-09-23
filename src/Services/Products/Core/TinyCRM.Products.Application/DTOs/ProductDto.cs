@@ -3,7 +3,7 @@ using TinyCRM.Products.Domain.Entities.Enums;
 
 namespace TinyCRM.Products.Application.DTOs;
 
-public class ProductDto : GuidEntity
+public class ProductDto : Entity
 {
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;

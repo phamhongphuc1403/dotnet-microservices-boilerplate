@@ -23,30 +23,21 @@ public static class EventBusExtension
 
         var eventBusSection = configuration.GetSection("EventBus");
 
-        if (!eventBusSection.Exists())
-        {
-            return services;
-        }
+        if (!eventBusSection.Exists()) return services;
 
         services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
         {
             var logger = sp.GetRequiredService<ILogger<RabbitMQPersistentConnection>>();
 
-            var factory = new ConnectionFactory()
+            var factory = new ConnectionFactory
             {
                 HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "tinycrm.rabbitmq",
                 DispatchConsumersAsync = true
             };
 
-            if (!string.IsNullOrEmpty(eventBusSection["UserName"]))
-            {
-                factory.UserName = eventBusSection["UserName"];
-            }
+            if (!string.IsNullOrEmpty(eventBusSection["UserName"])) factory.UserName = eventBusSection["UserName"];
 
-            if (!string.IsNullOrEmpty(eventBusSection["Password"]))
-            {
-                factory.Password = eventBusSection["Password"];
-            }
+            if (!string.IsNullOrEmpty(eventBusSection["Password"])) factory.Password = eventBusSection["Password"];
 
             var retryCount = eventBusSection.GetValue("RetryCount", 5);
 
@@ -66,7 +57,7 @@ public static class EventBusExtension
         });
 
         services.AddSingleton<IEventBusSubscriptionsManager, EventBusSubscriptionsManager>();
-        
+
         return services;
     }
 }

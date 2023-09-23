@@ -1,6 +1,6 @@
 namespace BuildingBlock.Domain.Repositories;
 
-public interface IOperationRepository<TEntity> where TEntity : GuidEntity
+public interface IOperationRepository<TEntity> where TEntity : Entity
 {
     Task AddAsync(TEntity entity);
 

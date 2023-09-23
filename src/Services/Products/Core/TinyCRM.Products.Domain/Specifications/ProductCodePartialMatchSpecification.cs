@@ -17,6 +17,6 @@ public class ProductCodePartialMatchSpecification : Specification<Product>
     {
         if (string.IsNullOrWhiteSpace(_code)) return product => true;
 
-        return product => product.Code.Contains(_code);
+        return product => product.Code.ToUpper().Contains(_code.ToUpper());
     }
 }

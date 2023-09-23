@@ -1,14 +1,14 @@
-using Microsoft.EntityFrameworkCore;
-using BuildingBlock.Domain;
 using System.Linq.Dynamic.Core;
+using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Specifications;
+using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
 public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEntity>
     where TDbContext : BaseDbContext
-    where TEntity : GuidEntity
+    where TEntity : Entity
 {
     private readonly TDbContext _dbContext;
     private DbSet<TEntity>? _dbSet;

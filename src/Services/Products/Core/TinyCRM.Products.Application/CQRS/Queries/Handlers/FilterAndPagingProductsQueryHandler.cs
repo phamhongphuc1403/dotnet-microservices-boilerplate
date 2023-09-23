@@ -13,8 +13,8 @@ public class
     FilterAndPagingProductsQueryHandler : IQueryHandler<FilterAndPagingProductsQuery,
         FilterAndPagingResultDto<ProductDto>>
 {
-    private readonly IReadOnlyRepository<Product> _repository;
     private readonly IMapper _mapper;
+    private readonly IReadOnlyRepository<Product> _repository;
 
     public FilterAndPagingProductsQueryHandler(
         IReadOnlyRepository<Product> repository,

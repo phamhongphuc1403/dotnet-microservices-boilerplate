@@ -7,9 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
-      <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
+
+
+    <ItemGroup>
+      <Folder Include="AccountAggregate\" />
     </ItemGroup>
+
+    </ItemGroup>
+
+
 
 
 </Project>

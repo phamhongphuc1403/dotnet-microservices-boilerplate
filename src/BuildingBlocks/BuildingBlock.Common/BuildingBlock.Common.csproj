@@ -7,15 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-      <PackageReference Include="Microsoft.OpenApi" Version="1.4.3" />
-      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+        <PackageReference Include="Microsoft.OpenApi" Version="1.4.3"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
-      <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj" />
+        <ProjectReference Include="..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj"/>
     </ItemGroup>
 
 </Project>

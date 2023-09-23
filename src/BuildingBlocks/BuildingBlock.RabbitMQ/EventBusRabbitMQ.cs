@@ -22,14 +22,15 @@ public class EventBusRabbitMq : IEventBus
     private static readonly JsonSerializerOptions SCaseInsensitiveOptions =
         new() { PropertyNameCaseInsensitive = true };
 
-    private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly ILogger<EventBusRabbitMq> _logger;
-    private readonly IEventBusSubscriptionsManager _subsManager;
-    private readonly IServiceProvider _serviceProvider;
+
+    private readonly IRabbitMQPersistentConnection _persistentConnection;
+    private readonly string _queueName;
     private readonly int _retryCount;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IEventBusSubscriptionsManager _subsManager;
 
     private IModel _consumerChannel;
-    private string _queueName;
 
     public EventBusRabbitMq(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMq> logger,
         IServiceProvider serviceProvider, IEventBusSubscriptionsManager subsManager, string queueName,
@@ -44,44 +45,9 @@ public class EventBusRabbitMq : IEventBus
         _retryCount = retryCount;
     }
 
-    private IModel CreateConsumerChannel()
-    {
-        if (!_persistentConnection.IsConnected)
-        {
-            _persistentConnection.TryConnect();
-        }
-
-        _logger.LogTrace("Creating RabbitMQ consumer channel");
-
-        var channel = _persistentConnection.CreateModel();
-
-        channel.ExchangeDeclare(exchange: BrokerName,
-            type: "direct");
-
-        channel.QueueDeclare(queue: _queueName,
-            durable: true,
-            exclusive: false,
-            autoDelete: false,
-            arguments: null);
-
-        channel.CallbackException += (_, ea) =>
-        {
-            _logger.LogWarning(ea.Exception, "Recreating RabbitMQ consumer channel");
-
-            _consumerChannel.Dispose();
-            _consumerChannel = CreateConsumerChannel();
-            StartBasicConsume();
-        };
-
-        return channel;
-    }
-
     public void Publish(IntegrationEvent @event)
     {
-        if (!_persistentConnection.IsConnected)
-        {
-            _persistentConnection.TryConnect();
-        }
+        if (!_persistentConnection.IsConnected) _persistentConnection.TryConnect();
 
         var policy = Policy.Handle<BrokerUnreachableException>()
             .Or<SocketException>()
@@ -101,7 +67,7 @@ public class EventBusRabbitMq : IEventBus
 
         _logger.LogInformation("Declaring RabbitMQ exchange to publish event: {EventId}", @event.Id);
 
-        channel.ExchangeDeclare(exchange: BrokerName, type: "direct");
+        channel.ExchangeDeclare(BrokerName, "direct");
 
         var body = JsonSerializer.SerializeToUtf8Bytes(@event, @event.GetType(), SIndentedOptions);
 
@@ -113,11 +79,11 @@ public class EventBusRabbitMq : IEventBus
             _logger.LogInformation("Publishing event to RabbitMQ: {EventId}", @event.Id);
 
             channel.BasicPublish(
-                exchange: BrokerName,
-                routingKey: eventName,
-                mandatory: true,
-                basicProperties: properties,
-                body: body);
+                BrokerName,
+                eventName,
+                true,
+                properties,
+                body);
         });
     }
 
@@ -135,19 +101,45 @@ public class EventBusRabbitMq : IEventBus
         StartBasicConsume();
     }
 
+    private IModel CreateConsumerChannel()
+    {
+        if (!_persistentConnection.IsConnected) _persistentConnection.TryConnect();
+
+        _logger.LogTrace("Creating RabbitMQ consumer channel");
+
+        var channel = _persistentConnection.CreateModel();
+
+        channel.ExchangeDeclare(BrokerName,
+            "direct");
+
+        channel.QueueDeclare(_queueName,
+            true,
+            false,
+            false,
+            null);
+
+        channel.CallbackException += (_, ea) =>
+        {
+            _logger.LogWarning(ea.Exception, "Recreating RabbitMQ consumer channel");
+
+            _consumerChannel.Dispose();
+            _consumerChannel = CreateConsumerChannel();
+            StartBasicConsume();
+        };
+
+        return channel;
+    }
+
     private void DoInternalSubscription(string eventName)
     {
         var containsKey = _subsManager.HasSubscriptionsForEvent(eventName);
         if (!containsKey)
         {
-            if (!_persistentConnection.IsConnected)
-            {
-                _persistentConnection.TryConnect();
-            }
+            if (!_persistentConnection.IsConnected) _persistentConnection.TryConnect();
 
-            _consumerChannel.QueueBind(queue: _queueName,
-                exchange: BrokerName,
-                routingKey: eventName);
+            _consumerChannel.QueueBind(_queueName,
+                BrokerName,
+                eventName);
         }
     }
 
@@ -160,9 +152,9 @@ public class EventBusRabbitMq : IEventBus
         consumer.Received += Consumer_Received;
 
         _consumerChannel.BasicConsume(
-            queue: _queueName,
-            autoAck: false,
-            consumer: consumer);
+            _queueName,
+            false,
+            consumer);
     }
 
     private async Task Consumer_Received(object sender, BasicDeliverEventArgs eventArgs)
@@ -179,7 +171,7 @@ public class EventBusRabbitMq : IEventBus
             _logger.LogWarning(ex, "Error Processing message \"{Message}\"", message);
         }
 
-        _consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
+        _consumerChannel.BasicAck(eventArgs.DeliveryTag, false);
     }
 
     private async Task ProcessEvent(string eventName, string message)
@@ -196,7 +188,8 @@ public class EventBusRabbitMq : IEventBus
 
                 if (handler == null) continue;
 
-                var eventType = _subsManager.GetEventTypeByName(eventName) ?? throw new ArgumentNullException(eventName);
+                var eventType = _subsManager.GetEventTypeByName(eventName) ??
+                                throw new ArgumentNullException(eventName);
 
                 var integrationEvent = JsonSerializer.Deserialize(message, eventType, SCaseInsensitiveOptions);
 

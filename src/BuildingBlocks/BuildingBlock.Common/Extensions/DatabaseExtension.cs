@@ -24,9 +24,6 @@ public static class DatabaseExtension
     {
         using var scope = services.BuildServiceProvider().CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<TDbContext>();
-        if ((await context.Database.GetPendingMigrationsAsync()).Any())
-        {
-            await context.Database.MigrateAsync();
-        }
+        if ((await context.Database.GetPendingMigrationsAsync()).Any()) await context.Database.MigrateAsync();
     }
 }

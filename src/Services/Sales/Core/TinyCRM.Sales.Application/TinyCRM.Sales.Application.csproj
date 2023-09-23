@@ -8,9 +8,9 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj" />
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
-        <ProjectReference Include="..\TinyCRM.Sales.Domain\TinyCRM.Sales.Domain.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
+        <ProjectReference Include="..\TinyCRM.Sales.Domain\TinyCRM.Sales.Domain.csproj"/>
     </ItemGroup>
 
 
@@ -20,7 +20,9 @@
 
 
     <ItemGroup>
-      <Folder Include="CQRS\" />
+        <Folder Include="CQRS\"/>
+        <Folder Include="CQRS\Commands\LeadCommands\" />
+        <Folder Include="CQRS\Queries\LeadQueries\" />
     </ItemGroup>
 
 

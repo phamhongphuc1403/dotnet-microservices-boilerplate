@@ -19,13 +19,14 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<FilterAndPagingResultDto<ProductDto>>> GetAllAsync([FromQuery] FilterAndPagingProductsDto dto)
+    public async Task<ActionResult<FilterAndPagingResultDto<ProductDto>>> GetAllAsync(
+        [FromQuery] FilterAndPagingProductsDto dto)
     {
         var products = await _mediator.Send(new FilterAndPagingProductsQuery(dto));
 
         return Ok(products);
     }
-    
+
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
     [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
@@ -35,14 +36,13 @@ public class ProductController : ControllerBase
 
         return Ok(product);
     }
-    
+
     [HttpPost]
     [ProducesResponseType(typeof(ProductDto), StatusCodes.Status201Created)]
     public async Task<ActionResult<ProductDto>> CreateAsync([FromBody] CreateOrEditProductDto dto)
     {
         var product = await _mediator.Send(new CreateProductCommand(dto));
 
-        return CreatedAtAction(nameof(GetByIdAsync), new {id = product.Id}, product);
+        return CreatedAtAction(nameof(GetByIdAsync), new { id = product.Id }, product);
     }
 }
-
