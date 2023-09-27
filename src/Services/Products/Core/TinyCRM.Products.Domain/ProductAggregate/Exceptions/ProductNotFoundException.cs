@@ -1,7 +1,7 @@
 using BuildingBlock.Domain.Exceptions;
-using TinyCRM.Products.Domain.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
 
-namespace TinyCRM.Products.Domain.Exceptions;
+namespace TinyCRM.Products.Domain.ProductAggregate.Exceptions;
 
 public class ProductNotFoundException : EntityNotFoundException
 {

@@ -1,7 +1,7 @@
 using BuildingBlock.Common.Extensions;
 using BuildingBlock.Common.Middlewares;
 using TinyCRM.Products.Application;
-using TinyCRM.Products.Domain.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
 using TinyCRM.Products.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

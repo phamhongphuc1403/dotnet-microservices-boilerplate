@@ -1,12 +1,14 @@
 using BuildingBlock.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using TinyCRM.Products.Domain.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
 
 namespace TinyCRM.Products.EntityFrameworkCore;
 
 public class ProductDbContext : BaseDbContext
 {
-    public ProductDbContext(DbContextOptions options) : base(options)
+    public ProductDbContext(DbContextOptions options, IHttpContextAccessor iHttpContextAccessor) : base(options,
+        iHttpContextAccessor)
     {
     }
 

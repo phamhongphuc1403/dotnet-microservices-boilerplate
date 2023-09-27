@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1"/>
         <PackageReference Include="Microsoft.OpenApi" Version="1.4.3"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8"/>

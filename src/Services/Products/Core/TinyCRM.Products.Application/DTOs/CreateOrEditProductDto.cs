@@ -1,4 +1,4 @@
-using TinyCRM.Products.Domain.Entities.Enums;
+using TinyCRM.Products.Domain.ProductAggregate.Entities.Enums;
 
 namespace TinyCRM.Products.Application.DTOs;
 

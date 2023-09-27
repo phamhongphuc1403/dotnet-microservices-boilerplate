@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
 using BuildingBlock.Domain.Specifications;
-using TinyCRM.Products.Domain.Entities;
-using TinyCRM.Products.Domain.Entities.Enums;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities.Enums;
 
-namespace TinyCRM.Products.Domain.Specifications;
+namespace TinyCRM.Products.Domain.ProductAggregate.Specifications;
 
 public class ProductTypeSpecification : Specification<Product>
 {
