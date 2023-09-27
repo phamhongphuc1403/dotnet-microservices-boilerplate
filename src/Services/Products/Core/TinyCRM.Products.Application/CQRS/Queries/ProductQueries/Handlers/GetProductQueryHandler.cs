@@ -2,13 +2,13 @@ using AutoMapper;
 using BuildingBlock.Application.CQRS;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
-using TinyCRM.Products.Application.CQRS.Queries.Requests;
+using TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
 using TinyCRM.Products.Application.DTOs;
-using TinyCRM.Products.Domain.Entities;
-using TinyCRM.Products.Domain.Exceptions;
-using TinyCRM.Products.Domain.Specifications;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Exceptions;
+using TinyCRM.Products.Domain.ProductAggregate.Specifications;
 
-namespace TinyCRM.Products.Application.CQRS.Queries.Handlers;
+namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Handlers;
 
 public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDto>
 {

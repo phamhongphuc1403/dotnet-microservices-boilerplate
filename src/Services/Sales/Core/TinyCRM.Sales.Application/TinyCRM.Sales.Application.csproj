@@ -21,7 +21,6 @@
 
     <ItemGroup>
         <Folder Include="CQRS\"/>
-        <Folder Include="CQRS\Commands\LeadCommands\"/>
         <Folder Include="CQRS\Queries\LeadQueries\"/>
     </ItemGroup>
 

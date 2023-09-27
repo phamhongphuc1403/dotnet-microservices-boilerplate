@@ -1,6 +1,6 @@
 using AutoMapper;
 using TinyCRM.Products.Application.DTOs;
-using TinyCRM.Products.Domain.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
 
 namespace TinyCRM.Products.EntityFrameworkCore;
 

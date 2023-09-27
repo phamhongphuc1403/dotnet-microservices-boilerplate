@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using BuildingBlock.Domain.Specifications;
-using TinyCRM.Products.Domain.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
 
-namespace TinyCRM.Products.Domain.Specifications;
+namespace TinyCRM.Products.Domain.ProductAggregate.Specifications;
 
 public class ProductIdSpecification : Specification<Product>
 {

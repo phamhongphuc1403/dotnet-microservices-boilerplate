@@ -10,4 +10,8 @@
         <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="ProductAggregate\"/>
+    </ItemGroup>
 </Project>

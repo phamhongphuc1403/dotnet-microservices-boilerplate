@@ -3,13 +3,13 @@ using BuildingBlock.Application.CQRS;
 using BuildingBlock.Application.EventBus.Interfaces;
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
-using TinyCRM.Products.Application.CQRS.Commands.Requests;
+using TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;
 using TinyCRM.Products.Application.DTOs;
-using TinyCRM.Products.Domain.Entities;
+using TinyCRM.Products.Domain.ProductAggregate.Entities;
 
-namespace TinyCRM.Products.Application.CQRS.Commands.Handlers;
+namespace TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Handlers;
 
-public class CreateProductCommandHandler : IQueryHandler<CreateProductCommand, ProductDto>
+public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, ProductDto>
 {
     private readonly IEventBus _eventBus;
     private readonly IMapper _mapper;

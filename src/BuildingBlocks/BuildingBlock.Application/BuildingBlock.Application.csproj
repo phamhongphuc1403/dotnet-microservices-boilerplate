@@ -10,4 +10,10 @@
         <ProjectReference Include="..\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
     </ItemGroup>
 
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.5.2"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0"/>
+    </ItemGroup>
+
 </Project>

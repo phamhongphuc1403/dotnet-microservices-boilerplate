@@ -1,11 +1,11 @@
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
-using TinyCRM.Products.Domain.Entities.Enums;
-using TinyCRM.Products.Domain.Exceptions;
-using TinyCRM.Products.Domain.Specifications;
+using TinyCRM.Products.Domain.ProductAggregate.Entities.Enums;
+using TinyCRM.Products.Domain.ProductAggregate.Exceptions;
+using TinyCRM.Products.Domain.ProductAggregate.Specifications;
 
-namespace TinyCRM.Products.Domain.Entities;
+namespace TinyCRM.Products.Domain.ProductAggregate.Entities;
 
 public class Product : Entity
 {

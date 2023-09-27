@@ -1,7 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Text.Json;
 using BuildingBlock.Domain.Exceptions;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -36,9 +36,9 @@ public static class ExceptionHandler
                     Detail = isDevelopment ? exception?.StackTrace : null
                 };
 
-                // if (exception is ValidationException validationException)
-                //     pd.Extensions.Add("errors",
-                //         validationException.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
+                if (exception is ValidationException validationException)
+                    pd.Extensions.Add("errors",
+                        validationException.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
 
                 pd.Extensions.Add("traceId", context.TraceIdentifier);
 

@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using BuildingBlock.Application;
 using BuildingBlock.EntityFrameworkCore;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,11 +22,14 @@ public static class DefaultExtensions
             });
 
         services
+            .AddHttpContextAccessor()
             .AddDatabase<TDbContext>(configuration)
             .AddMapper<TDbContext>()
             .AddCqrs<TApplicationAssemblyReference>()
             .AddDefaultOpenApi(configuration)
-            .AddEventBus(configuration);
+            .AddEventBus(configuration)
+            .AddValidatorsFromAssembly(typeof(TApplicationAssemblyReference).Assembly);
+
 
         await services.ApplyMigrationAsync<TDbContext>();
 
