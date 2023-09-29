@@ -31,7 +31,7 @@ public static class EventBusExtension
 
             var factory = new ConnectionFactory
             {
-                HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "tinycrm.rabbitmq",
+                HostName = configuration.GetRequiredConnectionString("RabbitMQ"),
                 DispatchConsumersAsync = true
             };
 
@@ -44,15 +44,15 @@ public static class EventBusExtension
             return new RabbitMQPersistentConnection(factory, logger, retryCount);
         });
 
-        services.AddSingleton<IEventBus, EventBusRabbitMq>(sp =>
+        services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
         {
             var subscriptionClientName = eventBusSection.GetRequiredValue("SubscriptionClientName");
             var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-            var logger = sp.GetRequiredService<ILogger<EventBusRabbitMq>>();
+            var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
             var eventBusSubscriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
             var retryCount = eventBusSection.GetValue("RetryCount", 5);
 
-            return new EventBusRabbitMq(rabbitMQPersistentConnection, logger, sp, eventBusSubscriptionsManager,
+            return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, sp, eventBusSubscriptionsManager,
                 subscriptionClientName, retryCount);
         });
 
