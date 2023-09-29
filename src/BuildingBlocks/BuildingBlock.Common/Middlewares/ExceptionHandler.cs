@@ -2,13 +2,13 @@ using System.Net;
 using System.Security.Authentication;
 using System.Text.Json;
 using BuildingBlock.Domain.Exceptions;
+using BuildingBlocks.Identity.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
-using TinyCRM.Identities.EntityFrameworkCore;
 
 namespace BuildingBlock.Common.Middlewares;
 
