@@ -1,9 +1,10 @@
 using BuildingBlock.Domain;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
-public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : BaseDbContext
+public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 {
     private readonly TDbContext _dbContext;
     private IDbContextTransaction? _transaction;

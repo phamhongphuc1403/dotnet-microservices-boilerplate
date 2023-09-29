@@ -10,12 +10,17 @@ services:
       dockerfile: APIGateway/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
+      - Routes__0__DownstreamHostAndPorts__0__Host=tinycrm.identity.api
+      - Routes__0__DownstreamHostAndPorts__0__Port=80
+      - SwaggerEndPoints__0__Config__0__Url=http://tinycrm.identity.api/swagger/v1/swagger.json
     depends_on:
       - tinycrm.products.api
       - tinycrm.sales.api
+      - tinycrm.identity.api
     links:
       - tinycrm.products.api
       - tinycrm.sales.api
+      - tinycrm.identity.api
   tinycrm.identity.api:
     image: tinycrm.identity
     ports:

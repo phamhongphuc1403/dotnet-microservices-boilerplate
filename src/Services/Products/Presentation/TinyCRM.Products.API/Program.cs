@@ -13,7 +13,7 @@ builder.Services.RegisterRepositories<Product, ProductDbContext>();
 
 var app = builder.Build();
 
-app.UseDefaultMiddleware(app.Environment);
+app.UseDefaultMiddlewares(app.Environment);
 
 app.MapControllers();
 

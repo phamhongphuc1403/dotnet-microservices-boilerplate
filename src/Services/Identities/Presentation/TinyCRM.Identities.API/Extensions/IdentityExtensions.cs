@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using TinyCRM.Identities.Application.Services;
-using TinyCRM.Identities.Application.Services.Interfaces;
 using TinyCRM.Identities.EntityFrameworkCore;
 using TinyCRM.Identities.EntityFrameworkCore.Entities;
 
@@ -29,11 +27,6 @@ public static class IdentityExtensions
             })
             .AddEntityFrameworkStores<IdentityAppDbContext>()
             .AddDefaultTokenProviders();
-
-        services.AddScoped<IIdentityService, IdentityService>();
-        services.AddScoped<ITokenService, TokenService>();
-
-        services.AddScoped<Func<IdentityAppDbContext>>(provider => () => provider.GetService<IdentityAppDbContext>()!);
 
         return services;
     }
