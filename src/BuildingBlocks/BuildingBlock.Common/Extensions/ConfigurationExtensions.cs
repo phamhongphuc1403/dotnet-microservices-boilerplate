@@ -15,4 +15,13 @@ public static class ConfigurationExtensions
         return configuration.GetConnectionString(name) ?? throw new InvalidOperationException(
             $"Configuration missing value for: {(configuration is IConfigurationSection s ? s.Path + ":ConnectionStrings:" + name : "ConnectionStrings:" + name)}");
     }
+
+    public static T BindAndGetConfig<T>(this IConfiguration configuration, string sectionName)
+    {
+        var config = configuration.GetSection(sectionName).Get<T>();
+        configuration.Bind(config);
+        if (config == null) throw new Exception($"{sectionName} configuration is not provided.");
+
+        return config;
+    }
 }

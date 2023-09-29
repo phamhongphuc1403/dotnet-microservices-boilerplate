@@ -13,7 +13,7 @@ using RabbitMQ.Client.Exceptions;
 
 namespace BuildingBlock.RabbitMQ;
 
-public class EventBusRabbitMq : IEventBus
+public class EventBusRabbitMQ : IEventBus
 {
     private const string BrokerName = "tinycrm_event_bus";
 
@@ -22,7 +22,7 @@ public class EventBusRabbitMq : IEventBus
     private static readonly JsonSerializerOptions SCaseInsensitiveOptions =
         new() { PropertyNameCaseInsensitive = true };
 
-    private readonly ILogger<EventBusRabbitMq> _logger;
+    private readonly ILogger<EventBusRabbitMQ> _logger;
 
     private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly string _queueName;
@@ -32,7 +32,7 @@ public class EventBusRabbitMq : IEventBus
 
     private IModel _consumerChannel;
 
-    public EventBusRabbitMq(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMq> logger,
+    public EventBusRabbitMQ(IRabbitMQPersistentConnection persistentConnection, ILogger<EventBusRabbitMQ> logger,
         IServiceProvider serviceProvider, IEventBusSubscriptionsManager subsManager, string queueName,
         int retryCount = 5)
     {

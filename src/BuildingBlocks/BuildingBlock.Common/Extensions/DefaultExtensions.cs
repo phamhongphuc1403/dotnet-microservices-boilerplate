@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using BuildingBlock.Application;
-using BuildingBlock.EntityFrameworkCore;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +11,7 @@ public static class DefaultExtensions
 {
     public static async Task<IServiceCollection> AddDefaultExtensions<TDbContext, TApplicationAssemblyReference>(
         this IServiceCollection services, IConfiguration configuration)
-        where TDbContext : BaseDbContext
+        where TDbContext : DbContext
         where TApplicationAssemblyReference : ApplicationAssemblyReference
     {
         services

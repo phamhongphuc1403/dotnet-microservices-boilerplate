@@ -16,6 +16,21 @@ services:
     links:
       - tinycrm.products.api
       - tinycrm.sales.api
+  tinycrm.identity.api:
+    image: tinycrm.identity
+    ports:
+      - "5003:80"
+    build:
+      context: .
+      dockerfile: Services/Identities/Presentation/TinyCRM.Identities.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Identities; Username=postgres; Password=password
+    depends_on:
+      tinycrm.db:
+        condition: service_healthy
+    links:
+      - tinycrm.db
   tinycrm.products.api:
     image: tinycrm.products
     ports:
@@ -25,8 +40,8 @@ services:
       dockerfile: Services/Products/Presentation/TinyCRM.Products.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Products; Username=postgres; Password=password
-      - RABBITMQ_HOST=tinycrm.rabbitmq
+      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Products; Username=postgres; Password=password
+      - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
     depends_on:
       tinycrm.db:
         condition: service_healthy
@@ -44,8 +59,8 @@ services:
       dockerfile: Services/Sales/Presentation/TinyCRM.Sales.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - CONNECTION_STRING=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sales; Username=postgres; Password=password
-      - RABBITMQ_HOST=tinycrm.rabbitmq
+      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sales; Username=postgres; Password=password
+      - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
     depends_on:
       tinycrm.db:
         condition: service_healthy
