@@ -4,6 +4,7 @@ using AutoMapper;
 using BuildingBlock.Domain.Utils;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identities.Application.Services.Interfaces;
+using TinyCRM.Identities.Domain.Exceptions;
 using TinyCRM.Identities.EntityFrameworkCore.Entities;
 
 namespace TinyCRM.Identities.EntityFrameworkCore;
@@ -25,13 +26,13 @@ public class IdentityService : IIdentityService
     public async Task<IEnumerable<Claim>> Login(string email, string password)
     {
         var user = Optional<ApplicationUser>.Of(await _userManager.FindByEmailAsync(email))
-            .ThrowIfNotPresent(new InvalidCredentialException()).Get();
+            .ThrowIfNotPresent(new UserNotFoundException(nameof(email), email)).Get();
 
         var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
 
         if (result.Succeeded)
             return await GetClaimsAsync(user);
-        throw new InvalidCredentialException();
+        throw new AuthenticationException("Email and password doesn't match");
     }
 
     private async Task<IEnumerable<Claim>> GetClaimsAsync(ApplicationUser user)
@@ -39,7 +40,6 @@ public class IdentityService : IIdentityService
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, user.Id),
-            new(ClaimTypes.Name, user.UserName!),
             new(ClaimTypes.Email, user.Email!)
         };
 

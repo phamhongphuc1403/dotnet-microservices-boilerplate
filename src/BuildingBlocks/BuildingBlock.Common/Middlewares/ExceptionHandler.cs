@@ -1,4 +1,5 @@
 using System.Net;
+using System.Security.Authentication;
 using System.Text.Json;
 using BuildingBlock.Domain.Exceptions;
 using FluentValidation;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using TinyCRM.Identities.EntityFrameworkCore;
 
 namespace BuildingBlock.Common.Middlewares;
 
@@ -29,18 +31,7 @@ public static class ExceptionHandler
                 response.StatusCode = statusCode;
                 response.ContentType = "application/json";
 
-                var pd = new ProblemDetails
-                {
-                    Title = GetMessage(exception, statusCode, isDevelopment),
-                    Status = statusCode,
-                    Detail = isDevelopment ? exception?.StackTrace : null
-                };
-
-                if (exception is ValidationException validationException)
-                    pd.Extensions.Add("errors",
-                        validationException.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
-
-                pd.Extensions.Add("traceId", context.TraceIdentifier);
+                var pd = GetResponseBody(exception, statusCode, isDevelopment, context);
 
                 await context.Response.WriteAsync(JsonSerializer.Serialize(pd));
             });
@@ -55,6 +46,7 @@ public static class ExceptionHandler
             NotImplementedException => (int)HttpStatusCode.NotImplemented,
             EntityConflictException => (int)HttpStatusCode.Conflict,
             ValidationException => (int)HttpStatusCode.BadRequest,
+            AuthenticationException => (int)HttpStatusCode.Unauthorized,
             _ => (int)HttpStatusCode.InternalServerError
         };
 
@@ -64,6 +56,37 @@ public static class ExceptionHandler
     private static string? GetMessage(Exception? exception, int statusCode, bool isDevelopment)
     {
         return exception is ValidationException ? "Validation error" :
-            isDevelopment && statusCode == 500 ? "An error occurred on the server." : exception?.Message;
+            !isDevelopment && statusCode == 500 ? "An error occurred on the server." : exception?.Message;
+    }
+
+    private static ProblemDetails GetResponseBody(Exception? exception, int statusCode, bool isDevelopment,
+        HttpContext context)
+    {
+        var message = GetMessage(exception, statusCode, isDevelopment);
+
+        var stackTrace = isDevelopment ? exception?.StackTrace : null;
+
+        var pd = new ProblemDetails
+        {
+            Title = message,
+            Status = statusCode,
+            Detail = stackTrace
+        };
+
+        switch (exception)
+        {
+            case ValidationException validationException:
+                pd.Extensions.Add("errors",
+                    validationException.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
+                break;
+            case IdentityException identityException:
+                pd.Extensions.Add("errors",
+                    identityException.Errors.Select(x => new { x.Code, x.Description }));
+                break;
+        }
+
+        pd.Extensions.Add("traceId", context.TraceIdentifier);
+
+        return pd;
     }
 }

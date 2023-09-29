@@ -13,13 +13,20 @@ var jwtSetting = builder.Configuration.BindAndGetConfig<JwtSetting>("Jwt");
 
 builder.Services.AddSingleton(jwtSetting);
 
-builder.Services.AddIdentityExtension();
+builder.Services
+    .AddIdentityExtension()
+    .RegisterIdentitySeeder()
+    .RegisterIdentityDbContext()
+    .RegisterIdentityServices()
+    ;
 
 builder.Services.AddAuthenticationExtension();
 
 var app = builder.Build();
 
-app.UseDefaultMiddleware(app.Environment);
+app.UseDefaultMiddlewares(app.Environment);
+
+await app.SeedDataAsync();
 
 app.MapControllers();
 
