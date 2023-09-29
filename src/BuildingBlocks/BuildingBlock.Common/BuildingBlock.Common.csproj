@@ -17,8 +17,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
-        <ProjectReference Include="..\..\Services\Identities\Infrastructure\TinyCRM.Identities.EntityFrameworkCore\TinyCRM.Identities.EntityFrameworkCore.csproj"/>
         <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj"/>
+        <ProjectReference Include="..\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj" />
     </ItemGroup>
 
 </Project>

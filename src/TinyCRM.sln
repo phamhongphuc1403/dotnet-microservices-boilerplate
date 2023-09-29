@@ -56,21 +56,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Application", "BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj", "{9A31EA61-B52D-4238-88C5-CF87CBFA82B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identities.API", "Services\Identities\Presentation\TinyCRM.Identities.API\TinyCRM.Identities.API.csproj", "{68840D65-8A2C-4A41-9D94-2AF56DD791FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.API", "Services\Identity\Presentation\TinyCRM.Identity.API\TinyCRM.Identity.API.csproj", "{68840D65-8A2C-4A41-9D94-2AF56DD791FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identities.Application", "Services\Identities\Core\TinyCRM.Identities.Application\TinyCRM.Identities.Application.csproj", "{2295B9F6-0725-4246-853D-07998409D6A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.Application", "Services\Identity\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj", "{2295B9F6-0725-4246-853D-07998409D6A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identities.Domain", "Services\Identities\Core\TinyCRM.Identities.Domain\TinyCRM.Identities.Domain.csproj", "{BF97C521-FEBD-434E-A10D-8CA98950BA34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.Domain", "Services\Identity\Core\TinyCRM.Identity.Domain\TinyCRM.Identity.Domain.csproj", "{BF97C521-FEBD-434E-A10D-8CA98950BA34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identities.EntityFrameworkCore", "Services\Identities\Infrastructure\TinyCRM.Identities.EntityFrameworkCore\TinyCRM.Identities.EntityFrameworkCore.csproj", "{C5839B2D-91F4-437C-AF71-788DC779A427}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.EntityFrameworkCore", "Services\Identity\Infrastructure\TinyCRM.Identity.EntityFrameworkCore\TinyCRM.Identity.EntityFrameworkCore.csproj", "{C5839B2D-91F4-437C-AF71-788DC779A427}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identities", "Identities", "{F7ABDCB6-7892-4EB7-B8F1-51D51A3A9C16}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{F7ABDCB6-7892-4EB7-B8F1-51D51A3A9C16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{34B3612F-C2C9-42FF-8A80-7AC0EA854413}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3D02CBF5-CF4B-4646-8E89-22B358135B8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6569A0BE-BD5F-44C6-A05A-4C01AC959F7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Identity", "BuildingBlocks\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj", "{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,6 +152,10 @@ Global
 		{C5839B2D-91F4-437C-AF71-788DC779A427}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5839B2D-91F4-437C-AF71-788DC779A427}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5839B2D-91F4-437C-AF71-788DC779A427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -184,6 +190,7 @@ Global
 		{2295B9F6-0725-4246-853D-07998409D6A2} = {34B3612F-C2C9-42FF-8A80-7AC0EA854413}
 		{BF97C521-FEBD-434E-A10D-8CA98950BA34} = {34B3612F-C2C9-42FF-8A80-7AC0EA854413}
 		{C5839B2D-91F4-437C-AF71-788DC779A427} = {6569A0BE-BD5F-44C6-A05A-4C01AC959F7D}
+		{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8} = {36900629-17B2-4AB4-8BA1-B8BD86695710}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD7BE055-5997-458D-BEE0-619101DD6E4F}
