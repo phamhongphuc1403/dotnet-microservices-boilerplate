@@ -23,7 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.API\BuildingBlock.API.csproj"/>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Presentation\BuildingBlock.API\BuildingBlock.API.csproj" />
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\TinyCRM.Identity.EntityFrameworkCore\TinyCRM.Identity.EntityFrameworkCore.csproj"/>
     </ItemGroup>

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{36900629-17B2-4AB4-8BA1-B8BD86695710}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Domain", "BuildingBlocks\BuildingBlock.Domain\BuildingBlock.Domain.csproj", "{0C755271-B2C3-4728-8AB5-8EE63666ED33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Domain", "BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj", "{0C755271-B2C3-4728-8AB5-8EE63666ED33}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E6F7A20E-6AB5-46FA-BA37-2E63D93B4661}"
 EndProject
@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Products.EntityFrameworkCore", "Services\Products\Infrastructure\TinyCRM.Products.EntityFrameworkCore\TinyCRM.Products.EntityFrameworkCore.csproj", "{6ABD3C77-321A-4CFD-8B57-A58A52AB7698}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.EntityFrameworkCore", "BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj", "{A395856B-8B26-40F9-8CC8-34D8DC92B60B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.EntityFrameworkCore", "BuildingBlocks\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj", "{A395856B-8B26-40F9-8CC8-34D8DC92B60B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{21370C15-0A19-4570-B1AE-6CCD18290E38}"
 EndProject
@@ -50,11 +50,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.API", "BuildingBlocks\BuildingBlock.API\BuildingBlock.API.csproj", "{7DDD3293-5C96-4DEF-AB54-E47F77A8384D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.API", "BuildingBlocks\Presentation\BuildingBlock.API\BuildingBlock.API.csproj", "{7DDD3293-5C96-4DEF-AB54-E47F77A8384D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{9E316D38-E54B-4BEC-8B70-E90B24C4499C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "BuildingBlocks\Infrastructure\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{9E316D38-E54B-4BEC-8B70-E90B24C4499C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Application", "BuildingBlocks\BuildingBlock.Application\BuildingBlock.Application.csproj", "{9A31EA61-B52D-4238-88C5-CF87CBFA82B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Application", "BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj", "{9A31EA61-B52D-4238-88C5-CF87CBFA82B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.API", "Services\Identity\Presentation\TinyCRM.Identity.API\TinyCRM.Identity.API.csproj", "{68840D65-8A2C-4A41-9D94-2AF56DD791FE}"
 EndProject
@@ -72,7 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6569A0BE-BD5F-44C6-A05A-4C01AC959F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Identity", "BuildingBlocks\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj", "{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Identity", "BuildingBlocks\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj", "{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{DA80DCB4-714B-4458-B8B7-3CE68AE28019}"
 EndProject
