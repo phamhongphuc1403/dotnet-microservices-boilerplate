@@ -2,7 +2,7 @@ using BuildingBlock.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BuildingBlock.Common.Middlewares;
+namespace BuildingBlock.API.Middlewares;
 
 public static class SeedDataMiddleware
 {

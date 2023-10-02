@@ -3,7 +3,7 @@ using BuildingBlock.Domain.Repositories;
 using BuildingBlock.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BuildingBlock.Common.Extensions;
+namespace BuildingBlock.API.Extensions;
 
 public static class RepositoryExtensions
 

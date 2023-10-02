@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="MediatR" Version="12.1.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10"/>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
             <PrivateAssets>all</PrivateAssets>
@@ -23,9 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.Common\BuildingBlock.Common.csproj"/>
-        <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj" />
-        <ProjectReference Include="..\..\Infrastructure\TinyCRM.Identity.EntityFrameworkCore\TinyCRM.Identity.EntityFrameworkCore.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\BuildingBlock.API\BuildingBlock.API.csproj"/>
+        <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\TinyCRM.Identity.EntityFrameworkCore\TinyCRM.Identity.EntityFrameworkCore.csproj"/>
     </ItemGroup>
 
 

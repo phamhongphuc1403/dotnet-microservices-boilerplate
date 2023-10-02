@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace BuildingBlock.Common.Extensions;
+namespace BuildingBlock.API.Extensions;
 
 public static class DefaultOpenApiExtension
 {

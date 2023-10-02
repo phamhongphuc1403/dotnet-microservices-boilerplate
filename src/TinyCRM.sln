@@ -50,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerComp
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Common", "BuildingBlocks\BuildingBlock.Common\BuildingBlock.Common.csproj", "{7DDD3293-5C96-4DEF-AB54-E47F77A8384D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.API", "BuildingBlocks\BuildingBlock.API\BuildingBlock.API.csproj", "{7DDD3293-5C96-4DEF-AB54-E47F77A8384D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "BuildingBlocks\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{9E316D38-E54B-4BEC-8B70-E90B24C4499C}"
 EndProject

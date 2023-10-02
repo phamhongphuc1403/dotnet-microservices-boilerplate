@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 
-namespace BuildingBlock.Common.Middlewares;
+namespace BuildingBlock.API.Middlewares;
 
 public static class DefaultMiddlewares
 {

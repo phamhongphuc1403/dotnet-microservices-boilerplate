@@ -1,5 +1,5 @@
-using BuildingBlock.Common.Extensions;
-using BuildingBlock.Common.Middlewares;
+using BuildingBlock.API.Extensions;
+using BuildingBlock.API.Middlewares;
 using Identities.API.Extensions;
 using TinyCRM.Identity.Application;
 using TinyCRM.Identity.EntityFrameworkCore;

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 
-namespace BuildingBlock.Common.Extensions;
+namespace BuildingBlock.API.Extensions;
 
 public static class EventBusExtension
 {

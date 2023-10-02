@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BuildingBlock.Common.Extensions;
+namespace BuildingBlock.API.Extensions;
 
 public static class MapperExtension
 {

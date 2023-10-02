@@ -1,5 +1,5 @@
-using BuildingBlock.Common.Extensions;
-using BuildingBlock.Common.Middlewares;
+using BuildingBlock.API.Extensions;
+using BuildingBlock.API.Middlewares;
 using TinyCRM.Products.Application;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;
 using TinyCRM.Products.EntityFrameworkCore;
