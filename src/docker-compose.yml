@@ -27,7 +27,7 @@ services:
       - "5003:80"
     build:
       context: .
-      dockerfile: Services/Identities/Presentation/TinyCRM.Identities.API/Dockerfile
+      dockerfile: Services/Identity/Presentation/TinyCRM.Identity.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Identities; Username=postgres; Password=password

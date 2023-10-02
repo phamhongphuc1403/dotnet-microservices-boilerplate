@@ -29,7 +29,7 @@ public class TokenService : ITokenService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-    
+
     public TokenValidationParameters ValidateToken()
     {
         return new TokenValidationParameters

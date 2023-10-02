@@ -16,9 +16,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\BuildingBlocks\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
-        <ProjectReference Include="..\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj"/>
-        <ProjectReference Include="..\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj" />
+        <ProjectReference Include="..\..\Core\BuildingBlock.Application\BuildingBlock.Application.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj" />
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj" />
     </ItemGroup>
 
 </Project>

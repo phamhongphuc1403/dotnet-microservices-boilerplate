@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
         <ProjectReference Include="..\..\Core\TinyCRM.Products.Application\TinyCRM.Products.Application.csproj"/>
         <ProjectReference Include="..\..\Core\TinyCRM.Products.Domain\TinyCRM.Products.Domain.csproj"/>
     </ItemGroup>

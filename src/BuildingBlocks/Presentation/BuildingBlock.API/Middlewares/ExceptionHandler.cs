@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
-namespace BuildingBlock.Common.Middlewares;
+namespace BuildingBlock.API.Middlewares;
 
 public static class ExceptionHandler
 {

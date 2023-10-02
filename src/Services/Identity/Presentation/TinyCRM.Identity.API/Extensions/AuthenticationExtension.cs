@@ -8,7 +8,7 @@ public static class AuthenticationExtension
     public static IServiceCollection AddAuthenticationExtension(this IServiceCollection services)
     {
         var tokenService = services.BuildServiceProvider().GetRequiredService<ITokenService>();
-        
+
         services.AddAuthentication(opt =>
         {
             opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
