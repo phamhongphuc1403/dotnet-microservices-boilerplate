@@ -1,4 +1,6 @@
+using BuildingBlock.API.Authentication;
 using BuildingBlock.API.GRPC;
+using BuildingBlock.API.GRPC.Services;
 using BuildingBlock.Application.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BuildingBlock.API.Extensions;
 
-public static class AuthenticationExtension
+public static class AuthExtension
 {
     public static IServiceCollection AddCurrentUser(this IServiceCollection services)
     {

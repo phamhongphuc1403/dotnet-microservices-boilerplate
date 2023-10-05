@@ -2,7 +2,7 @@ using System.Security.Claims;
 using BuildingBlock.Application.Identity;
 using Microsoft.AspNetCore.Http;
 
-namespace BuildingBlock.API;
+namespace BuildingBlock.API.Authentication;
 
 public class CurrentUser : ICurrentUser
 {

@@ -1,4 +1,4 @@
-namespace BuildingBlock.API.GRPC;
+namespace BuildingBlock.API.Authentication;
 
 public static class AuthenticationDefaults
 {
