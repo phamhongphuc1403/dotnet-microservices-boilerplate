@@ -23,13 +23,13 @@ public static class DefaultExtensions
 
         services
             .AddHttpContextAccessor()
+            .AddCurrentUser()
             .AddDatabase<TDbContext>(configuration)
             .AddMapper<TDbContext>()
             .AddCqrs<TApplicationAssemblyReference>()
             .AddDefaultOpenApi(configuration)
             .AddEventBus(configuration)
             .AddValidatorsFromAssembly(typeof(TApplicationAssemblyReference).Assembly);
-
 
         await services.ApplyMigrationAsync<TDbContext>();
 

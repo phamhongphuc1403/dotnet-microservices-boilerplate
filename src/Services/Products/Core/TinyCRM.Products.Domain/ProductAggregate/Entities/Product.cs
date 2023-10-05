@@ -7,7 +7,7 @@ using TinyCRM.Products.Domain.ProductAggregate.Specifications;
 
 namespace TinyCRM.Products.Domain.ProductAggregate.Entities;
 
-public class Product : Entity
+public class Product : AggregateRoot
 {
     private Product(string code, string name, double price, bool isAvailable, ProductType type)
     {

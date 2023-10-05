@@ -1,31 +1,28 @@
 using System.Security.Authentication;
 using System.Security.Claims;
-using AutoMapper;
 using BuildingBlock.Domain.Utils;
 using Microsoft.AspNetCore.Identity;
+using TinyCRM.Identities.Domain.Entities;
 using TinyCRM.Identities.Domain.Exceptions;
 using TinyCRM.Identity.Application.Services.Interfaces;
 using TinyCRM.Identity.EntityFrameworkCore.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore;
 
-public class IdentityService : IIdentityService
+public class AuthService : IAuthService
 {
-    private readonly IMapper _mapper;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IUserService _userService;
 
-    public IdentityService(UserManager<ApplicationUser> userManager, IMapper mapper,
-        SignInManager<ApplicationUser> signInManager)
+    public AuthService(SignInManager<ApplicationUser> signInManager, IUserService userService)
     {
-        _userManager = userManager;
-        _mapper = mapper;
         _signInManager = signInManager;
+        _userService = userService;
     }
 
     public async Task<IEnumerable<Claim>> Login(string email, string password)
     {
-        var user = Optional<ApplicationUser>.Of(await _userManager.FindByEmailAsync(email))
+        var user = Optional<User>.Of(await _userService.GetByEmailAsync(email))
             .ThrowIfNotPresent(new UserNotFoundException(nameof(email), email)).Get();
 
         var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
@@ -35,15 +32,15 @@ public class IdentityService : IIdentityService
         throw new AuthenticationException("Email and password doesn't match");
     }
 
-    private async Task<IEnumerable<Claim>> GetClaimsAsync(ApplicationUser user)
+    public async Task<IEnumerable<Claim>> GetClaimsAsync(User user)
     {
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, user.Id),
-            new(ClaimTypes.Email, user.Email!)
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email)
         };
 
-        var roles = await _userManager.GetRolesAsync(user);
+        var roles = await _userService.GetRolesAsync(user);
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

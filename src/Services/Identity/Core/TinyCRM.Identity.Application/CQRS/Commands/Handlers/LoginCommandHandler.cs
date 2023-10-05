@@ -7,18 +7,18 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;
 
 public class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResponseDto>
 {
-    private readonly IIdentityService _identityService;
+    private readonly IAuthService _authService;
     private readonly ITokenService _tokenService;
 
-    public LoginCommandHandler(IIdentityService identityService, ITokenService tokenService)
+    public LoginCommandHandler(IAuthService authService, ITokenService tokenService)
     {
-        _identityService = identityService;
+        _authService = authService;
         _tokenService = tokenService;
     }
 
     public async Task<LoginResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var claims = await _identityService.Login(request.Email, request.Password);
+        var claims = await _authService.Login(request.Email, request.Password);
 
         var accessToken = _tokenService.GenerateTokens(claims, 5);
 

@@ -3,7 +3,7 @@ using TinyCRM.Sales.Domain.LeadAggregate.Entities;
 
 namespace TinyCRM.Sales.Domain.AccountAggregate.Entities;
 
-public class Account : Entity
+public class Account : AggregateRoot
 {
     public string Name { get; private set; } = null!;
 

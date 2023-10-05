@@ -1,5 +1,6 @@
 using BuildingBlock.Application.DTOs;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;
 using TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
@@ -19,6 +20,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<FilterAndPagingResultDto<ProductDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingProductsDto dto)
     {
@@ -29,7 +31,6 @@ public class ProductController : ControllerBase
 
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
-    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<ProductDto>> GetByIdAsync(Guid id)
     {
         var product = await _mediator.Send(new GetProductQuery(id));

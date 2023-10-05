@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 await builder.Services.AddDefaultExtensions<ProductDbContext, ProductApplicationAssemblyReference>(
     builder.Configuration);
 
+builder.Services.AddGrpcAuthentication(builder.Configuration);
+
 builder.Services.RegisterRepositories<Product, ProductDbContext>();
 
 var app = builder.Build();

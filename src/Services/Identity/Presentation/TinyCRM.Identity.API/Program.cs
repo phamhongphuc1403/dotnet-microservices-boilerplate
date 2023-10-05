@@ -1,6 +1,7 @@
 using BuildingBlock.API.Extensions;
 using BuildingBlock.API.Middlewares;
 using Identities.API.Extensions;
+using Identities.API.GRPC.Services;
 using TinyCRM.Identity.Application;
 using TinyCRM.Identity.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ builder.Services
     .RegisterIdentityServices()
     ;
 
+builder.Services.AddGrpc();
+
 builder.Services.AddAuthenticationExtension();
 
 var app = builder.Build();
@@ -29,5 +32,7 @@ app.UseDefaultMiddlewares(app.Environment);
 await app.SeedDataAsync();
 
 app.MapControllers();
+
+app.MapGrpcService<AuthGrpcService>();
 
 app.Run();

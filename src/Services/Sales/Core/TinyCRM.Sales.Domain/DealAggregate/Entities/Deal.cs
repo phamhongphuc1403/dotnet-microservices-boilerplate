@@ -4,7 +4,7 @@ using TinyCRM.Sales.Domain.LeadAggregate.Entities;
 
 namespace TinyCRM.Sales.Domain.DealAggregate.Entities;
 
-public class Deal : Entity
+public class Deal : AggregateRoot
 {
     public string Title { get; private set; } = null!;
     public Guid LeadId { get; }

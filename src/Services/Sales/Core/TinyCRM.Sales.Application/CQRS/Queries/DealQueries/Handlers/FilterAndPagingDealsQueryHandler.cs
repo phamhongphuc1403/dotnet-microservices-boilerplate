@@ -27,7 +27,7 @@ public class
         var leadTitleSpecification = new DealTitleSpecification(query.Keyword);
 
         var leadStatusSpecification = new DealStatusSpecification(query.Status);
-   
+
         var specification = leadTitleSpecification.And(leadStatusSpecification);
 
         var (deals, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
