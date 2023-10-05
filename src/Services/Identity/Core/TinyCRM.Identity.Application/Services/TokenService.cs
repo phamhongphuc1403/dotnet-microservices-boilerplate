@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using TinyCRM.Identity.Application.Services.Interfaces;
+using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace TinyCRM.Identity.Application.Services;
 

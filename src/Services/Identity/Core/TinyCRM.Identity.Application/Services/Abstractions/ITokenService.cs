@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 
-namespace TinyCRM.Identity.Application.Services.Interfaces;
+namespace TinyCRM.Identity.Application.Services.Abstractions;
 
 public interface ITokenService
 {

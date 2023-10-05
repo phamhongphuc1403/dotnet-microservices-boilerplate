@@ -11,4 +11,9 @@ public class EntityNotFoundException : Exception
         $"{entity} with id: '{id}' is not found")
     {
     }
+
+    public EntityNotFoundException(string entity, string id) : base(
+        $"{entity} with id: '{id}' is not found")
+    {
+    }
 }

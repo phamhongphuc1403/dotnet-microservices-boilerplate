@@ -2,7 +2,7 @@ using BuildingBlock.Application;
 using BuildingBlock.Domain;
 using BuildingBlock.EntityFrameworkCore;
 using TinyCRM.Identity.Application.Services;
-using TinyCRM.Identity.Application.Services.Interfaces;
+using TinyCRM.Identity.Application.Services.Abstractions;
 using TinyCRM.Identity.EntityFrameworkCore;
 
 namespace Identities.API.Extensions;
@@ -13,7 +13,10 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserService, IdentityUserService>();
+        services.AddScoped<IPermissionService, IdentityPermissionService>();
+        services.AddScoped<IRoleService, IdentityRoleService>();
+        services.AddScoped<IIdentityService, IdentityService>();
 
         return services;
     }

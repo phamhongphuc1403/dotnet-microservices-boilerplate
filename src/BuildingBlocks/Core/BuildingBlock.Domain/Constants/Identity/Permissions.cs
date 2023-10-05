@@ -1,12 +1,12 @@
-namespace BuildingBlock.Domain.Constants;
+namespace BuildingBlock.Domain.Constants.Identity;
 
 public static class Permissions
 {
-    private const string GroupName = "Permissions";
+    public const string Prefix = "Permissions";
 
     public static class Accounts
     {
-        private const string Default = GroupName + ".Accounts";
+        private const string Default = Prefix + ".Accounts";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
@@ -15,7 +15,7 @@ public static class Permissions
 
     public static class Contacts
     {
-        private const string Default = GroupName + ".Contacts";
+        private const string Default = Prefix + ".Contacts";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
@@ -24,7 +24,7 @@ public static class Permissions
 
     public static class Leads
     {
-        private const string Default = GroupName + ".Leads";
+        private const string Default = Prefix + ".Leads";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
@@ -33,7 +33,7 @@ public static class Permissions
 
     public static class Deals
     {
-        private const string Default = GroupName + ".Deals";
+        private const string Default = Prefix + ".Deals";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
@@ -42,7 +42,7 @@ public static class Permissions
 
     public static class Products
     {
-        private const string Default = GroupName + ".Products";
+        private const string Default = Prefix + ".Products";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
@@ -51,7 +51,7 @@ public static class Permissions
 
     public static class ProductDeals
     {
-        private const string Default = GroupName + ".ProductDeals";
+        private const string Default = Prefix + ".ProductDeals";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string Edit = Default + ".Edit";
@@ -60,7 +60,7 @@ public static class Permissions
 
     public static class Users
     {
-        private const string Default = GroupName + ".Users";
+        private const string Default = Prefix + ".Users";
         public const string Read = Default + ".Read";
         public const string Create = Default + ".Create";
         public const string CreateAdmin = Default + ".CreateAdmin";

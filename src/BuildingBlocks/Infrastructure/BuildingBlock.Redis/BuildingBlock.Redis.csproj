@@ -4,19 +4,15 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>TinyCRM.Identities.Domain</RootNamespace>
     </PropertyGroup>
 
-
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.6.122"/>
     </ItemGroup>
 
-
     <ItemGroup>
-        <Folder Include="PermissionAggregate\"/>
-        <Folder Include="UserAggregate\"/>
+        <ProjectReference Include="..\..\Core\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
     </ItemGroup>
-
 
 </Project>

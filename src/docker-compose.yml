@@ -31,7 +31,8 @@ services:
       dockerfile: Services/Identity/Presentation/TinyCRM.Identity.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Identities; Username=postgres; Password=password
+      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Identity; Username=postgres; Password=password
+      - ConnectionStrings__Redis=tinycrm.redis
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
     depends_on:
@@ -50,6 +51,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Products; Username=postgres; Password=password
       - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
+      - ConnectionStrings__Redis=tinycrm.redis
       - GrpcUrls__Identity=http://tinycrm.identity.api:50051
     depends_on:
       tinycrm.db:
@@ -70,6 +72,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sales; Username=postgres; Password=password
       - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
+      - ConnectionStrings__Redis=tinycrm.redis
       - GrpcUrls__Identity=http://tinycrm.identity.api:50051
     depends_on:
       tinycrm.db:

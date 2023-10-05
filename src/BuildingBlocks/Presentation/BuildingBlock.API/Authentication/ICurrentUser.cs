@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace BuildingBlock.Application.Identity;
+namespace BuildingBlock.API.Authentication;
 
 public interface ICurrentUser
 {

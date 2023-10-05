@@ -1,8 +1,8 @@
-using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Application.EventBus.Abstractions;
 using BuildingBlock.Application.IntegrationEvents.Events;
 using BuildingBlock.Application.IntegrationEvents.Handlers;
 
-namespace BuildingBlock.Application.EventBus;
+namespace BuildingBlock.Application.EventBus.Implementations;
 
 public class EventBusSubscriptionsManager : IEventBusSubscriptionsManager
 {

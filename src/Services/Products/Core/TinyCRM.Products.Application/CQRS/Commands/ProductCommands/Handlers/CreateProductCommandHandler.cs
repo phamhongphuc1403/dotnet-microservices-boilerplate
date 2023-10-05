@@ -1,6 +1,6 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
-using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Application.EventBus.Abstractions;
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
 using TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;

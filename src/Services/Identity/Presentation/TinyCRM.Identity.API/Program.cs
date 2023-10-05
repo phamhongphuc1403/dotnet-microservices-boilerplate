@@ -33,6 +33,6 @@ await app.SeedDataAsync();
 
 app.MapControllers();
 
-app.MapGrpcService<AuthGrpcService>();
+app.MapGrpcService<GrpcAuthService>();
 
 app.Run();

@@ -29,7 +29,8 @@ public static class DefaultExtensions
             .AddCqrs<TApplicationAssemblyReference>()
             .AddDefaultOpenApi(configuration)
             .AddEventBus(configuration)
-            .AddValidatorsFromAssembly(typeof(TApplicationAssemblyReference).Assembly);
+            .AddValidatorsFromAssembly(typeof(TApplicationAssemblyReference).Assembly)
+            .AddInMemoryCache(configuration);
 
         await services.ApplyMigrationAsync<TDbContext>();
 

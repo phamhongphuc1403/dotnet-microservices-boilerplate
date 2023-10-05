@@ -1,6 +1,6 @@
 using BuildingBlock.Domain;
 
-namespace TinyCRM.Identities.Domain.Entities;
+namespace TinyCRM.Identities.Domain.UserAggregate.Entities;
 
 public class User : AggregateRoot
 {

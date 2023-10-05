@@ -1,6 +1,6 @@
 using BuildingBlock.API.Extensions;
 using BuildingBlock.API.Middlewares;
-using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Application.EventBus.Abstractions;
 using TinyCRM.Sales.Application;
 using TinyCRM.Sales.Application.IntegrationEvents.Events;
 using TinyCRM.Sales.Application.IntegrationEvents.Handlers;

@@ -1,11 +1,12 @@
 using System.Security.Claims;
 using System.Text.Encodings.Web;
+using BuildingBlock.API.Authentication;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace BuildingBlock.API.GRPC;
+namespace BuildingBlock.API.GRPC.Services;
 
 public class GrpcAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
@@ -33,7 +34,7 @@ public class GrpcAuthenticationHandler : AuthenticationHandler<AuthenticationSch
         {
             var claims = new List<Claim>();
 
-            using var response = _authProviderClient.GetClaims(new ClaimRequest(), new CallOptions(headers));
+            using var response = _authProviderClient.GetClaimsAsync(new ClaimRequest(), new CallOptions(headers));
 
             await foreach (var claim in response.ResponseStream.ReadAllAsync())
                 claims.Add(new Claim(claim.Type, claim.Value));

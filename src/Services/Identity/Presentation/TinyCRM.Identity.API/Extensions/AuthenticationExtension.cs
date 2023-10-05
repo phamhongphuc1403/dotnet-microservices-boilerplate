@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using TinyCRM.Identity.Application.Services.Interfaces;
+using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace Identities.API.Extensions;
 

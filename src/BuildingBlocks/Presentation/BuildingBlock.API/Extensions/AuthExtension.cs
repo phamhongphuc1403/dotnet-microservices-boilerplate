@@ -1,8 +1,9 @@
 using BuildingBlock.API.Authentication;
+using BuildingBlock.API.Authorization;
 using BuildingBlock.API.GRPC;
 using BuildingBlock.API.GRPC.Services;
-using BuildingBlock.Application.Identity;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -35,6 +36,14 @@ public static class AuthExtension
         services.AddAuthentication(AuthenticationDefaults.AuthenticationScheme)
             .AddScheme<AuthenticationSchemeOptions, GrpcAuthenticationHandler>(
                 AuthenticationDefaults.AuthenticationScheme, null);
+
+        return services;
+    }
+
+    public static IServiceCollection AddGrpcAuthorization(this IServiceCollection services)
+    {
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+        services.AddScoped<IAuthorizationHandler, GrpcPermissionAuthorizationHandler>();
 
         return services;
     }
