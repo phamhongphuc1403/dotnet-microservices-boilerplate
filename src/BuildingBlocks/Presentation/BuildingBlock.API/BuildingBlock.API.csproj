@@ -9,6 +9,12 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1"/>
+        <PackageReference Include="Grpc.AspNetCore" Version="2.57.0"/>
+        <PackageReference Include="Grpc.Net.Client" Version="2.57.0"/>
+        <PackageReference Include="Grpc.Tools" Version="2.58.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.OpenApi" Version="1.4.3"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8"/>
@@ -16,10 +22,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Core\BuildingBlock.Application\BuildingBlock.Application.csproj" />
-        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj" />
-        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj" />
-        <ProjectReference Include="..\..\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj" />
+        <ProjectReference Include="..\..\Core\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="GRPC\Protos\auth.proto"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Authentication\"/>
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option csharp_namespace = "BuildingBlock.API.GRPC";
+
+service AuthProvider {
+  rpc GetClaims(ClaimRequest) returns (stream ClaimResponse);
+  rpc GetPermissions(PermissionRequest) returns (PermissionResponse);
+}
+
+message ClaimRequest {
+}
+
+message PermissionRequest {
+  string roleId = 1;
+}
+
+message PermissionResponse {
+  repeated string permissions = 1;
+}
+
+message ClaimResponse {
+  string type = 1;
+  string value = 2;
+}

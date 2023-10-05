@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj" />
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
         <ProjectReference Include="..\TinyCRM.Products.Domain\TinyCRM.Products.Domain.csproj"/>
 
     </ItemGroup>

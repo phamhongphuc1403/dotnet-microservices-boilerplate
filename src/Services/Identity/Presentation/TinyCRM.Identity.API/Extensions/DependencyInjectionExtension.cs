@@ -11,8 +11,9 @@ public static class DependencyInjectionExtension
 {
     public static IServiceCollection RegisterIdentityServices(this IServiceCollection services)
     {
-        services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserService, UserService>();
 
         return services;
     }

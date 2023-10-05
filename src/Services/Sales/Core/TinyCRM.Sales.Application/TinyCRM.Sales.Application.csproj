@@ -8,8 +8,8 @@
 
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj" />
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj" />
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj"/>
         <ProjectReference Include="..\TinyCRM.Sales.Domain\TinyCRM.Sales.Domain.csproj"/>
     </ItemGroup>
 
