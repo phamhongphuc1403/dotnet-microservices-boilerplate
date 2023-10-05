@@ -28,14 +28,13 @@
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Presentation\BuildingBlock.API\BuildingBlock.API.csproj"/>
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\TinyCRM.Identity.EntityFrameworkCore\TinyCRM.Identity.EntityFrameworkCore.csproj"/>
-    </ItemGroup>
 
+
+    </ItemGroup>
 
     <ItemGroup>
         <Content Include="..\..\..\..\.dockerignore">
             <Link>.dockerignore</Link>
         </Content>
     </ItemGroup>
-
-
 </Project>
