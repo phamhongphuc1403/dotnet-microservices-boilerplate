@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using BuildingBlock.Domain.Specifications;
+using BuildingBlock.Domain.Specifications.Abstractions;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;
 
 namespace TinyCRM.Products.Domain.ProductAggregate.Specifications;

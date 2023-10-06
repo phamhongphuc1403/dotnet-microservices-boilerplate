@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using BuildingBlock.Application;
 using Microsoft.AspNetCore.Http;
 
 namespace BuildingBlock.API.Authentication;

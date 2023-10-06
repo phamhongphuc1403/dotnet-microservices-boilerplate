@@ -1,5 +1,5 @@
 using AutoMapper;
-using BuildingBlock.Application;
+using BuildingBlock.Application.CacheServices.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identity.Application.Services.Abstractions;

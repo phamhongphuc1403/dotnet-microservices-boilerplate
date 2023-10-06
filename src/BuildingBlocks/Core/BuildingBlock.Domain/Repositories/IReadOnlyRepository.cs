@@ -1,4 +1,4 @@
-using BuildingBlock.Domain.Specifications;
+using BuildingBlock.Domain.Specifications.Abstractions;
 
 namespace BuildingBlock.Domain.Repositories;
 

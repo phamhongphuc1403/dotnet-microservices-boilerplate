@@ -1,4 +1,6 @@
-namespace BuildingBlock.Application;
+using BuildingBlock.Application.CacheServices.Abstractions;
+
+namespace BuildingBlock.Application.CacheServices.Implementations;
 
 public class PermissionCacheService : IPermissionCacheService
 {

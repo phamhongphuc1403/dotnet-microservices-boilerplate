@@ -1,4 +1,4 @@
-﻿using BuildingBlock.Application;
+﻿using BuildingBlock.Application.CacheServices.Abstractions;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 

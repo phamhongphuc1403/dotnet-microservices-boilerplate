@@ -1,4 +1,4 @@
-using BuildingBlock.Application;
+using BuildingBlock.Application.CacheServices.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identity.Application.Services.Abstractions;
 using TinyCRM.Identity.Indentity.Entities;

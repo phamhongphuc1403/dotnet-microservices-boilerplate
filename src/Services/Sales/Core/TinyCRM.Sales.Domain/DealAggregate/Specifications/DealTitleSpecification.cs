@@ -1,10 +1,10 @@
 using System.Linq.Expressions;
-using BuildingBlock.Domain.Specifications;
+using BuildingBlock.Domain.Specifications.Abstractions;
 using TinyCRM.Sales.Domain.DealAggregate.Entities;
 
 namespace TinyCRM.Sales.Domain.DealAggregate.Specifications;
 
-public class DealTitleSpecification : Specification<Deal>, ISpecification<Deal>
+public class DealTitleSpecification : Specification<Deal>
 {
     private readonly string _title;
 
