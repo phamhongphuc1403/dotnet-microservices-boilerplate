@@ -1,39 +1,44 @@
+using BuildingBlock.Application;
 using BuildingBlock.Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
 public class BaseDbContext : DbContext
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ICurrentUser _currentUser;
 
-    protected BaseDbContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor) : base(options)
+    protected BaseDbContext(DbContextOptions options, ICurrentUser currentUser) : base(options)
     {
-        _httpContextAccessor = httpContextAccessor;
+        _currentUser = currentUser;
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        // Get all the entities that inherit from AuditableEntity
-        // and have a state of Added or Modified
-        var entries = ChangeTracker
-            .Entries()
+        var auditedEntities = ChangeTracker.Entries()
             .Where(e => e.Entity is Entity && e.State is EntityState.Added or EntityState.Modified);
 
-        foreach (var entityEntry in entries)
-            if (entityEntry.State == EntityState.Added)
+        foreach (var entity in auditedEntities)
+            if (entity.State == EntityState.Added)
             {
-                ((Entity)entityEntry.Entity).CreatedDate = DateTime.UtcNow;
-                ((Entity)entityEntry.Entity).CreatedBy =
-                    _httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "guest";
+                ((Entity)entity.Entity).CreatedAt = DateTime.UtcNow;
+                ((Entity)entity.Entity).CreatedBy = _currentUser.Email ?? "guest";
             }
             else
             {
-                ((Entity)entityEntry.Entity).UpdatedDate = DateTime.UtcNow;
-                ((Entity)entityEntry.Entity).UpdatedBy =
-                    _httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? "guest";
+                ((Entity)entity.Entity).UpdatedAt = DateTime.UtcNow;
+                ((Entity)entity.Entity).UpdatedBy = _currentUser.Email ?? "guest";
             }
+
+        var deletedEntities = ChangeTracker.Entries()
+            .Where(e => e.Entity is Entity && e.State == EntityState.Deleted);
+
+        foreach (var entity in deletedEntities)
+        {
+            entity.State = EntityState.Detached;
+            ((Entity)entity.Entity).DeletedAt = DateTime.UtcNow;
+            ((Entity)entity.Entity).DeletedBy = _currentUser.Email ?? "guest";
+        }
 
         return await base.SaveChangesAsync(cancellationToken);
     }

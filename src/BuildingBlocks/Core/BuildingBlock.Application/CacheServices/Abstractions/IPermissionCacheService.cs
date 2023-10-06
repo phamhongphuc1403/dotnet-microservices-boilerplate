@@ -1,4 +1,4 @@
-namespace BuildingBlock.Application;
+namespace BuildingBlock.Application.CacheServices.Abstractions;
 
 public interface IPermissionCacheService
 {

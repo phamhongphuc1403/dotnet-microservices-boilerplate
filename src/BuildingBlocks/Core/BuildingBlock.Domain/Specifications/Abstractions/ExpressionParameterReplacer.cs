@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace BuildingBlock.Domain.Specifications;
+namespace BuildingBlock.Domain.Specifications.Abstractions;
 
 public static class ExpressionParameterReplacer
 {

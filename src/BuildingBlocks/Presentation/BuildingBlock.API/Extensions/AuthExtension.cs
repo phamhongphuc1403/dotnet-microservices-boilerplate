@@ -2,6 +2,7 @@ using BuildingBlock.API.Authentication;
 using BuildingBlock.API.Authorization;
 using BuildingBlock.API.GRPC;
 using BuildingBlock.API.GRPC.Services;
+using BuildingBlock.Application;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;

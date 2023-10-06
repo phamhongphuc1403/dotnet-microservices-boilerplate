@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using BuildingBlock.API.Authorization;
-using BuildingBlock.Application;
+using BuildingBlock.Application.CacheServices.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BuildingBlock.API.GRPC.Services;

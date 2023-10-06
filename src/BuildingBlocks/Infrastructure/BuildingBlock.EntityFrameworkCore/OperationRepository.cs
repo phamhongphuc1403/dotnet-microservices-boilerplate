@@ -4,38 +4,38 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
-public class OperationRepository<TDbContext, TEntity> : IOperationRepository<TEntity>
+public class OperationRepository<TDbContext, TAggregateRoot> : IOperationRepository<TAggregateRoot>
     where TDbContext : BaseDbContext
-    where TEntity : Entity
+    where TAggregateRoot : AggregateRoot
 {
     private readonly TDbContext _dbContext;
-    private DbSet<TEntity>? _dbSet;
+    private DbSet<TAggregateRoot>? _dbSet;
 
     public OperationRepository(TDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
+    protected DbSet<TAggregateRoot> DbSet => _dbSet ??= _dbContext.Set<TAggregateRoot>();
 
-    public async Task AddAsync(TEntity entity)
+    public async Task AddAsync(TAggregateRoot entity)
     {
         await DbSet.AddAsync(entity);
     }
 
-    public async Task AddRangeAsync(IEnumerable<TEntity> entities)
+    public async Task AddRangeAsync(IEnumerable<TAggregateRoot> entities)
     {
         var guidEntities = entities.ToList();
 
         await DbSet.AddRangeAsync(guidEntities);
     }
 
-    public void Remove(TEntity entity)
+    public void Remove(TAggregateRoot entity)
     {
         DbSet.Remove(entity);
     }
 
-    public virtual void Update(TEntity entity)
+    public void Update(TAggregateRoot entity)
     {
         DbSet.Update(entity);
     }

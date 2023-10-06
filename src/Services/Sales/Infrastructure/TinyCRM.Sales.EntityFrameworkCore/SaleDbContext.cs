@@ -1,5 +1,5 @@
+using BuildingBlock.Application;
 using BuildingBlock.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Sales.Domain.DealAggregate.Entities;
 using TinyCRM.Sales.Domain.LeadAggregate.Entities;
@@ -9,8 +9,7 @@ namespace TinyCRM.Sales.EntityFrameworkCore;
 
 public class SaleDbContext : BaseDbContext
 {
-    public SaleDbContext(DbContextOptions options, IHttpContextAccessor httpContextAccessor) : base(options,
-        httpContextAccessor)
+    public SaleDbContext(DbContextOptions options, ICurrentUser currentUser) : base(options, currentUser)
     {
     }
 

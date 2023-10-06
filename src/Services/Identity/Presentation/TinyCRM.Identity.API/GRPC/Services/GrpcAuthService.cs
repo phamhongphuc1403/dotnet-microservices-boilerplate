@@ -1,5 +1,5 @@
-using BuildingBlock.API.Authentication;
 using BuildingBlock.API.GRPC;
+using BuildingBlock.Application;
 using BuildingBlock.Domain.Utils;
 using Grpc.Core;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;

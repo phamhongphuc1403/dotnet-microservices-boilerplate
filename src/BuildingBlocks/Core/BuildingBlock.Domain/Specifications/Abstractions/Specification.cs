@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace BuildingBlock.Domain.Specifications;
+namespace BuildingBlock.Domain.Specifications.Abstractions;
 
 public abstract class Specification<TEntity> : ISpecification<TEntity> where TEntity : Entity
 {

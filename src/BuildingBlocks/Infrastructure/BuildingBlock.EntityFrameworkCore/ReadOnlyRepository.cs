@@ -1,26 +1,27 @@
 using System.Linq.Dynamic.Core;
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
-using BuildingBlock.Domain.Specifications;
+using BuildingBlock.Domain.Specifications.Abstractions;
+using BuildingBlock.Domain.Specifications.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.EntityFrameworkCore;
 
-public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEntity>
+public class ReadOnlyRepository<TDbContext, TAggregateRoot> : IReadOnlyRepository<TAggregateRoot>
     where TDbContext : BaseDbContext
-    where TEntity : Entity
+    where TAggregateRoot : AggregateRoot
 {
     private readonly TDbContext _dbContext;
-    private DbSet<TEntity>? _dbSet;
+    private DbSet<TAggregateRoot>? _dbSet;
 
     public ReadOnlyRepository(TDbContext dbContext)
     {
         _dbContext = dbContext;
     }
 
-    protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
+    protected DbSet<TAggregateRoot> DbSet => _dbSet ??= _dbContext.Set<TAggregateRoot>();
 
-    public Task<TEntity?> GetAnyAsync(ISpecification<TEntity> specification,
+    public Task<TAggregateRoot?> GetAnyAsync(ISpecification<TAggregateRoot> specification,
         string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
@@ -32,7 +33,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return query.FirstOrDefaultAsync();
     }
 
-    public Task<List<TEntity>> GetAllAsync(ISpecification<TEntity> specification,
+    public Task<List<TAggregateRoot>> GetAllAsync(ISpecification<TAggregateRoot> specification,
         string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
@@ -44,12 +45,13 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return query.ToListAsync();
     }
 
-    public Task<bool> CheckIfExistAsync(ISpecification<TEntity> specification)
+    public Task<bool> CheckIfExistAsync(ISpecification<TAggregateRoot> specification)
     {
         return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
     }
 
-    public async Task<(List<TEntity>, int)> GetFilterAndPagingAsync(ISpecification<TEntity> specification, string sort,
+    public async Task<(List<TAggregateRoot>, int)> GetFilterAndPagingAsync(ISpecification<TAggregateRoot> specification,
+        string sort,
         int pageIndex,
         int pageSize, string? includeTables = null)
     {
@@ -68,17 +70,22 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return (await query.ToListAsync(), totalCount);
     }
 
-    private static IQueryable<TEntity> Filter(IQueryable<TEntity> query, ISpecification<TEntity> specification)
+    private static IQueryable<TAggregateRoot> Filter(IQueryable<TAggregateRoot> query,
+        ISpecification<TAggregateRoot> specification)
     {
-        return query.Where(specification.ToExpression());
+        var entityNotDeletedSpecification = new EntityDeletedSpecification<TAggregateRoot>(false);
+
+        var filteredSpecification = specification.And(entityNotDeletedSpecification);
+
+        return query.Where(filteredSpecification.ToExpression());
     }
 
-    private static IQueryable<TEntity> Sort(IQueryable<TEntity> query, string? sort)
+    private static IQueryable<TAggregateRoot> Sort(IQueryable<TAggregateRoot> query, string? sort)
     {
         return string.IsNullOrEmpty(sort) ? query.OrderBy("CreatedDate") : query.OrderBy(sort);
     }
 
-    private static IQueryable<TEntity> Include(IQueryable<TEntity> query, string? includeTables = null)
+    private static IQueryable<TAggregateRoot> Include(IQueryable<TAggregateRoot> query, string? includeTables = null)
     {
         if (string.IsNullOrEmpty(includeTables)) return query;
 

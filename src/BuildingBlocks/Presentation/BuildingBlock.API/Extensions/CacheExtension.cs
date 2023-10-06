@@ -1,4 +1,5 @@
-using BuildingBlock.Application;
+using BuildingBlock.Application.CacheServices.Abstractions;
+using BuildingBlock.Application.CacheServices.Implementations;
 using BuildingBlock.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

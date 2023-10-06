@@ -1,12 +1,12 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Specifications.Implementations;
 using BuildingBlock.Domain.Utils;
 using TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
 using TinyCRM.Products.Application.DTOs;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;
 using TinyCRM.Products.Domain.ProductAggregate.Exceptions;
-using TinyCRM.Products.Domain.ProductAggregate.Specifications;
 
 namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Handlers;
 
@@ -26,7 +26,7 @@ public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDto>
 
     public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var productIdSpecification = new ProductIdSpecification(request.Id);
+        var productIdSpecification = new EntityIdSpecification<Product>(request.Id);
 
         var product = Optional<Product>.Of(await _repository.GetAnyAsync(productIdSpecification))
             .ThrowIfNotPresent(new ProductNotFoundException(request.Id)).Get();
