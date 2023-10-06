@@ -21,7 +21,7 @@ public class ReadOnlyRepository<TDbContext, TAggregateRoot> : IReadOnlyRepositor
 
     protected DbSet<TAggregateRoot> DbSet => _dbSet ??= _dbContext.Set<TAggregateRoot>();
 
-    public Task<TAggregateRoot?> GetAnyAsync(ISpecification<TAggregateRoot> specification,
+    public Task<TAggregateRoot?> GetAnyAsync(ISpecification<TAggregateRoot>? specification = null,
         string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
@@ -33,7 +33,7 @@ public class ReadOnlyRepository<TDbContext, TAggregateRoot> : IReadOnlyRepositor
         return query.FirstOrDefaultAsync();
     }
 
-    public Task<List<TAggregateRoot>> GetAllAsync(ISpecification<TAggregateRoot> specification,
+    public Task<List<TAggregateRoot>> GetAllAsync(ISpecification<TAggregateRoot>? specification = null,
         string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
@@ -45,12 +45,17 @@ public class ReadOnlyRepository<TDbContext, TAggregateRoot> : IReadOnlyRepositor
         return query.ToListAsync();
     }
 
-    public Task<bool> CheckIfExistAsync(ISpecification<TAggregateRoot> specification)
+    public Task<bool> CheckIfExistAsync(ISpecification<TAggregateRoot>? specification = null)
     {
-        return DbSet.AsNoTracking().AnyAsync(specification.ToExpression());
+        var query = DbSet.AsNoTracking();
+
+        query = Filter(query, specification);
+
+        return query.AnyAsync();
     }
 
-    public async Task<(List<TAggregateRoot>, int)> GetFilterAndPagingAsync(ISpecification<TAggregateRoot> specification,
+    public async Task<(List<TAggregateRoot>, int)> GetFilterAndPagingAsync(
+        ISpecification<TAggregateRoot>? specification,
         string sort,
         int pageIndex,
         int pageSize, string? includeTables = null)
@@ -71,9 +76,11 @@ public class ReadOnlyRepository<TDbContext, TAggregateRoot> : IReadOnlyRepositor
     }
 
     private static IQueryable<TAggregateRoot> Filter(IQueryable<TAggregateRoot> query,
-        ISpecification<TAggregateRoot> specification)
+        ISpecification<TAggregateRoot>? specification)
     {
         var entityNotDeletedSpecification = new EntityDeletedSpecification<TAggregateRoot>(false);
+
+        if (specification == null) return query.Where(entityNotDeletedSpecification.ToExpression());
 
         var filteredSpecification = specification.And(entityNotDeletedSpecification);
 

@@ -19,7 +19,7 @@ builder.Services.AddTransient<ProductCreatedIntegrationEventHandler>();
 
 var app = builder.Build();
 
-app.UseDefaultMiddlewares(app.Environment);
+await app.UseDefaultMiddlewares(app.Environment);
 
 app.MapControllers();
 

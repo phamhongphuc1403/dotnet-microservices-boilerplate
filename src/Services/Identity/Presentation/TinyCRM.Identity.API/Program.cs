@@ -27,9 +27,7 @@ builder.Services.AddAuthenticationExtension();
 
 var app = builder.Build();
 
-app.UseDefaultMiddlewares(app.Environment);
-
-await app.SeedDataAsync();
+await app.UseDefaultMiddlewares(app.Environment);
 
 app.MapControllers();
 
