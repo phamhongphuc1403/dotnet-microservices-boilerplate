@@ -13,4 +13,10 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+        <Folder Include="PermissionAggregate\"/>
+        <Folder Include="UserAggregate\"/>
+    </ItemGroup>
+
+
 </Project>

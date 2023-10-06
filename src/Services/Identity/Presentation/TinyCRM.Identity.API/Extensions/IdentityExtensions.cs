@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identity.EntityFrameworkCore;
-using TinyCRM.Identity.EntityFrameworkCore.Entities;
+using TinyCRM.Identity.Indentity.Entities;
 
 namespace Identities.API.Extensions;
 
@@ -25,7 +25,7 @@ public static class IdentityExtensions
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             })
-            .AddEntityFrameworkStores<IdentityAppDbContext>()
+            .AddEntityFrameworkStores<IdentityDbContext>()
             .AddDefaultTokenProviders();
 
         return services;

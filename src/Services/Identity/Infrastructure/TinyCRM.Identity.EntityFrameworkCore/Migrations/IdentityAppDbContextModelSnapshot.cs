@@ -10,7 +10,7 @@ using TinyCRM.Identity.EntityFrameworkCore;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 {
-    [DbContext(typeof(IdentityAppDbContext))]
+    [DbContext(typeof(IdentityDbContext))]
     partial class IdentityAppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

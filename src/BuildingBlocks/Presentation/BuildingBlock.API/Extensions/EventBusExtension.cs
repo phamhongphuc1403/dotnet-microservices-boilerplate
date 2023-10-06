@@ -1,5 +1,5 @@
-using BuildingBlock.Application.EventBus;
-using BuildingBlock.Application.EventBus.Interfaces;
+using BuildingBlock.Application.EventBus.Abstractions;
+using BuildingBlock.Application.EventBus.Implementations;
 using BuildingBlock.RabbitMQ;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -2,7 +2,7 @@ using BuildingBlock.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using TinyCRM.Identity.EntityFrameworkCore.Entities;
+using TinyCRM.Identity.Indentity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore;
 
@@ -31,7 +31,7 @@ public class IdentitySeeder : IDataSeeder
             Email = "admin@123"
         };
 
-        var result = await _userManager.CreateAsync(user, "Admin@123");
+        await _userManager.CreateAsync(user, "Admin@123");
 
         _logger.LogInformation("Identity data seeded successfully!");
     }

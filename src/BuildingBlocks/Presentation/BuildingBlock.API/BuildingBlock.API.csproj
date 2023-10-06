@@ -17,6 +17,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.OpenApi" Version="1.4.3"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.6.122"/>
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.8"/>
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0"/>
     </ItemGroup>
@@ -25,6 +26,7 @@
         <ProjectReference Include="..\..\Core\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.Redis\BuildingBlock.Redis.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj"/>
     </ItemGroup>
 
@@ -32,8 +34,5 @@
         <Protobuf Include="GRPC\Protos\auth.proto"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Authentication\"/>
-    </ItemGroup>
 
 </Project>
