@@ -16,6 +16,6 @@ public class EntityDeletedSpecification<TEntity> : Specification<TEntity> where 
     {
         if (_showDeleted) return entity => true;
 
-        return entity => entity.DeletedAt != null;
+        return entity => entity.DeletedAt == null;
     }
 }

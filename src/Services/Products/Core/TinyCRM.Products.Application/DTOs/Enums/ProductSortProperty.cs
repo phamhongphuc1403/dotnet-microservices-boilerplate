@@ -2,7 +2,7 @@ namespace TinyCRM.Products.Application.DTOs.Enums;
 
 public enum ProductSortProperty
 {
-    CreatedDate,
+    CreatedAt,
     Code,
     Name,
     Price

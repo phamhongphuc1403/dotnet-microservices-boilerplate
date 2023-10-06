@@ -9,6 +9,10 @@ namespace TinyCRM.Products.Domain.ProductAggregate.Entities;
 
 public class Product : AggregateRoot
 {
+    public Product()
+    {
+        
+    }
     private Product(string code, string name, double price, bool isAvailable, ProductType type)
     {
         Code = code;
@@ -18,8 +22,8 @@ public class Product : AggregateRoot
         Type = type;
     }
 
-    public string Code { get; private set; }
-    public string Name { get; private set; }
+    public string Code { get; private set; } = null!;
+    public string Name { get; private set; } = null!;
     public double Price { get; private set; }
     public bool IsAvailable { get; private set; }
     public ProductType Type { get; private set; }
