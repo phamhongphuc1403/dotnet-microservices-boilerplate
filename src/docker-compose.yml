@@ -13,6 +13,12 @@ services:
       - Routes__0__DownstreamHostAndPorts__0__Host=tinycrm.identity.api
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - SwaggerEndPoints__0__Config__0__Url=http://tinycrm.identity.api/swagger/v1/swagger.json
+      - Routes__1__DownstreamHostAndPorts__0__Host=tinycrm.products.api
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - SwaggerEndPoints__1__Config__0__Url=http://tinycrm.products.api/swagger/v1/swagger.json
+      - Routes__2__DownstreamHostAndPorts__0__Host=tinycrm.sales.api
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - SwaggerEndPoints__2__Config__0__Url=http://tinycrm.sales.api/swagger/v1/swagger.json
     depends_on:
       - tinycrm.products.api
       - tinycrm.sales.api
