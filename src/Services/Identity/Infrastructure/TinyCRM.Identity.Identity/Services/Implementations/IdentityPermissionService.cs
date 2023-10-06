@@ -1,9 +1,10 @@
 using BuildingBlock.Application;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.EntityFrameworkCore.Entities;
+using TinyCRM.Identity.Indentity.Entities;
+using TinyCRM.Identity.Indentity.Services.Abstractions;
 
-namespace TinyCRM.Identity.EntityFrameworkCore;
+namespace TinyCRM.Identity.Indentity.Services.Implementations;
 
 public class IdentityPermissionService : IPermissionService
 {

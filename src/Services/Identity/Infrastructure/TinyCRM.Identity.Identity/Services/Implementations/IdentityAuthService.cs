@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
 using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.EntityFrameworkCore.Entities;
+using TinyCRM.Identity.Indentity.Entities;
 
-namespace TinyCRM.Identity.EntityFrameworkCore;
+namespace TinyCRM.Identity.Indentity.Services.Implementations;
 
-public class AuthService : IAuthService
+public class IdentityAuthService : IAuthService
 {
     private readonly IRoleService _roleService;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IUserService _userService;
 
-    public AuthService(SignInManager<ApplicationUser> signInManager, IUserService userService,
+    public IdentityAuthService(SignInManager<ApplicationUser> signInManager, IUserService userService,
         IRoleService roleService)
     {
         _signInManager = signInManager;

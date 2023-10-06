@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Identities.Domain.RoleAggregate.Exceptions;
 using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
-using TinyCRM.Identity.EntityFrameworkCore.Entities;
+using TinyCRM.Identity.Indentity.Entities;
+using TinyCRM.Identity.Indentity.Services.Abstractions;
 
-namespace TinyCRM.Identity.EntityFrameworkCore;
+namespace TinyCRM.Identity.Indentity.Services.Implementations;
 
 public class IdentityService : IIdentityService
 {

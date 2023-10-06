@@ -7,7 +7,7 @@ using TinyCRM.Identity.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-await builder.Services.AddDefaultExtensions<IdentityAppDbContext, IdentityApplicationAssemblyReference>(
+await builder.Services.AddDefaultExtensions<IdentityDbContext, IdentityApplicationAssemblyReference>(
     builder.Configuration);
 
 var jwtSetting = builder.Configuration.BindAndGetConfig<JwtSetting>("Jwt");

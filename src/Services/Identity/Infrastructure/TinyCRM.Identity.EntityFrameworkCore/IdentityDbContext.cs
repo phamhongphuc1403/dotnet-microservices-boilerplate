@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TinyCRM.Identity.EntityFrameworkCore.Entities;
 using TinyCRM.Identity.EntityFrameworkCore.EntityConfigurations;
+using TinyCRM.Identity.Indentity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore;
 
-public class IdentityAppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+public class IdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 {
-    public IdentityAppDbContext(DbContextOptions options) : base(options)
+    public IdentityDbContext(DbContextOptions options) : base(options)
     {
     }
 
