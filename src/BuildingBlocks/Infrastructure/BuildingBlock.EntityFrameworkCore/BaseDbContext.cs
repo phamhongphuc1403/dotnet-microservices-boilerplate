@@ -35,9 +35,10 @@ public class BaseDbContext : DbContext
 
         foreach (var entity in deletedEntities)
         {
-            entity.State = EntityState.Detached;
             ((Entity)entity.Entity).DeletedAt = DateTime.UtcNow;
             ((Entity)entity.Entity).DeletedBy = _currentUser.Email ?? "guest";
+
+            entity.State = EntityState.Modified;
         }
 
         return await base.SaveChangesAsync(cancellationToken);

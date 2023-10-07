@@ -5,7 +5,8 @@ namespace BuildingBlock.API.Middlewares;
 
 public static class DefaultMiddlewares
 {
-    public static async Task<IApplicationBuilder> UseDefaultMiddlewares(this IApplicationBuilder app, IHostEnvironment env)
+    public static async Task<IApplicationBuilder> UseDefaultMiddlewares(this IApplicationBuilder app,
+        IHostEnvironment env)
     {
         app.UseHttpExceptionHandler(env);
 

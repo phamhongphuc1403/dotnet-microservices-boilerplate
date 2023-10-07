@@ -11,7 +11,7 @@ namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Handlers;
 
 public class
     FilterAndPagingProductsQueryHandler : IQueryHandler<FilterAndPagingProductsQuery,
-        FilterAndPagingResultDto<ProductDto>>
+        FilterAndPagingResultDto<ProductSummaryDto>>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Product> _repository;
@@ -25,7 +25,7 @@ public class
         _mapper = mapper;
     }
 
-    public async Task<FilterAndPagingResultDto<ProductDto>> Handle(FilterAndPagingProductsQuery query,
+    public async Task<FilterAndPagingResultDto<ProductSummaryDto>> Handle(FilterAndPagingProductsQuery query,
         CancellationToken cancellationToken)
     {
         var productCodePartialMatchSpecification = new ProductCodePartialMatchSpecification(query.Keyword);
@@ -37,14 +37,13 @@ public class
         var productKeywordPartialMatchSpecification =
             productNamePartialMatchSpecification.Or(productCodePartialMatchSpecification);
 
-
         var specification = productKeywordPartialMatchSpecification.And(productTypeSpecification);
-
 
         var (products, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
             query.Sort, query.PageIndex, query.PageSize);
 
-        return new FilterAndPagingResultDto<ProductDto>(_mapper.Map<List<ProductDto>>(products), query.PageIndex,
+        return new FilterAndPagingResultDto<ProductSummaryDto>(_mapper.Map<List<ProductSummaryDto>>(products),
+            query.PageIndex,
             query.PageSize,
             totalCount);
     }
