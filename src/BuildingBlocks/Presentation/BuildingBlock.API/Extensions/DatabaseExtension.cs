@@ -1,3 +1,5 @@
+using BuildingBlock.Domain;
+using BuildingBlock.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,10 @@ public static class DatabaseExtension
             options.UseNpgsql(configuration.GetConnectionString("Postgres"));
             options.EnableSensitiveDataLogging();
         });
+
+        services.AddScoped<Func<DbContext>>(provider => () => provider.GetService<TDbContext>()!);
+        services.AddScoped<IUnitOfWork, UnitOfWork<TDbContext>>();
+
         return services;
     }
 

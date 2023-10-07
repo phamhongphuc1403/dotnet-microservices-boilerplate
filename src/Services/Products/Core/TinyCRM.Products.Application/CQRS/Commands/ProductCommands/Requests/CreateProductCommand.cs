@@ -3,7 +3,7 @@ using TinyCRM.Products.Application.DTOs;
 
 namespace TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;
 
-public class CreateProductCommand : CreateOrEditProductDto, ICommand<ProductDto>
+public class CreateProductCommand : CreateOrEditProductDto, ICommand<ProductDetailDto>
 {
     public CreateProductCommand(CreateOrEditProductDto dto)
     {

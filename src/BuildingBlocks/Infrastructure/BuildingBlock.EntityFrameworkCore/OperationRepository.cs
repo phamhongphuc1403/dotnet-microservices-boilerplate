@@ -35,6 +35,11 @@ public class OperationRepository<TDbContext, TAggregateRoot> : IOperationReposit
         DbSet.Remove(entity);
     }
 
+    public void RemoveRange(IEnumerable<TAggregateRoot> entities)
+    {
+        DbSet.RemoveRange(entities);
+    }
+
     public void Update(TAggregateRoot entity)
     {
         DbSet.Update(entity);

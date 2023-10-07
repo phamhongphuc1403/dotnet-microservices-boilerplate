@@ -4,7 +4,8 @@ using TinyCRM.Products.Application.DTOs;
 
 namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
 
-public class FilterAndPagingProductsQuery : FilterAndPagingProductsDto, IQuery<FilterAndPagingResultDto<ProductDto>>
+public class FilterAndPagingProductsQuery : FilterAndPagingProductsDto,
+    IQuery<FilterAndPagingResultDto<ProductSummaryDto>>
 {
     public FilterAndPagingProductsQuery(FilterAndPagingProductsDto dto)
     {

@@ -1,8 +1,7 @@
 using BuildingBlock.API.Extensions;
 using BuildingBlock.API.Middlewares;
-using BuildingBlock.Application;
+using TinyCRM.Products.API.Extensions;
 using TinyCRM.Products.Application;
-using TinyCRM.Products.Domain.ProductAggregate.Entities;
 using TinyCRM.Products.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 await builder.Services.AddDefaultExtensions<ProductDbContext, ProductApplicationAssemblyReference>(
     builder.Configuration);
 
-builder.Services.AddGrpcAuthentication(builder.Configuration);
-
-builder.Services.RegisterRepositories<Product, ProductDbContext>();
-
-builder.Services.AddScoped<IDataSeeder, ProductSeeder>();
+builder.Services.AddProductExtensions(builder.Configuration);
 
 var app = builder.Build();
 

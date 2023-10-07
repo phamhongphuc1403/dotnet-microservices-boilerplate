@@ -3,7 +3,7 @@ using TinyCRM.Products.Application.DTOs;
 
 namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
 
-public class GetProductQuery : IQuery<ProductDto>
+public class GetProductQuery : IQuery<ProductDetailDto>
 {
     public GetProductQuery(Guid id)
     {

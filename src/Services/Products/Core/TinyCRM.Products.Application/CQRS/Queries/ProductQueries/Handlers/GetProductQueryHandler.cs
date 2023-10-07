@@ -10,7 +10,7 @@ using TinyCRM.Products.Domain.ProductAggregate.Exceptions;
 
 namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Handlers;
 
-public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDto>
+public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDetailDto>
 {
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Product> _repository;
@@ -24,13 +24,13 @@ public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDto>
         _mapper = mapper;
     }
 
-    public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
+    public async Task<ProductDetailDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
         var productIdSpecification = new EntityIdSpecification<Product>(request.Id);
 
         var product = Optional<Product>.Of(await _repository.GetAnyAsync(productIdSpecification))
             .ThrowIfNotPresent(new ProductNotFoundException(request.Id)).Get();
 
-        return _mapper.Map<ProductDto>(product);
+        return _mapper.Map<ProductDetailDto>(product);
     }
 }
