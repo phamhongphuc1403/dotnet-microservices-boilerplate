@@ -1,7 +1,6 @@
 namespace TinyCRM.Identity.Application.DTOs;
 
-public class LoginResponseDto
+public class GenerateRefreshTokenRequestDto
 {
-    public string AccessToken { get; set; } = null!;
     public string RefreshToken { get; set; } = null!;
 }

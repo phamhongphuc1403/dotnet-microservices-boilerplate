@@ -11,8 +11,8 @@ using TinyCRM.Identity.EntityFrameworkCore;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 {
-    [DbContext(typeof(IdentityDbContext))]
-    [Migration("20231008085722_CreateUserRefreshTokensTable")]
+    [DbContext(typeof(AppDbContext))]
+    [Migration("20231008165348_CreateUserRefreshTokensTable")]
     partial class CreateUserRefreshTokensTable
     {
         /// <inheritdoc />
@@ -145,29 +145,11 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletedAt")
+                    b.Property<DateTime?>("RevokedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DeviceId")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("Token")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("UpdatedBy")
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")

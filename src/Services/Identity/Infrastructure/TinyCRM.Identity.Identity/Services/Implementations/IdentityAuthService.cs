@@ -23,15 +23,15 @@ public class IdentityAuthService : IAuthService
         _roleService = roleService;
     }
 
-    public async Task<IEnumerable<Claim>> Login(string email, string password)
+    public async Task<User> Login(string email, string password)
     {
         var user = Optional<User>.Of(await _userService.GetByEmailAsync(email))
             .ThrowIfNotPresent(new UserNotFoundException(nameof(email), email)).Get();
 
         var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
 
-        if (result.Succeeded)
-            return await GetClaimsAsync(user);
+        if (result.Succeeded) return user;
+
         throw new AuthenticationException("Email and password doesn't match");
     }
 

@@ -1,11 +1,19 @@
-using BuildingBlock.Domain;
-
 namespace TinyCRM.Identity.Identity.Entities;
 
-public class ApplicationRefreshToken : Entity
+public class ApplicationRefreshToken
 {
-    public string UserId { get; set; } = null!;
+    public ApplicationRefreshToken(string userId, string token)
+    {
+        UserId = userId;
+        Token = token;
+    }
+
+    public Guid Id { get; set; }
+    public string UserId { get; set; }
     public ApplicationUser ApplicationUser { get; set; } = null!;
-    public string Token { get; set; } = null!;
-    public string DeviceId { get; set; } = null!;
+    public string Token { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public DateTime? RevokedAt { get; set; }
 }

@@ -14,16 +14,16 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<ApplicationRef
         builder.Property(refreshToken => refreshToken.Token)
             .IsRequired();
 
-        builder.Property(refreshToken => refreshToken.DeviceId)
-            .HasMaxLength(256)
+        builder.HasKey(refreshToken => refreshToken.Id);
+
+        builder.Property(refreshToken => refreshToken.CreatedAt)
             .IsRequired();
 
         builder.HasOne(refreshToken => refreshToken.ApplicationUser)
             .WithMany(user => user.RefreshTokens)
             .HasForeignKey(refreshToken => refreshToken.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-        
-        builder.ToTable("UserRefreshTokens");
 
+        builder.ToTable("UserRefreshTokens");
     }
 }

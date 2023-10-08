@@ -15,6 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj"/>
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
     </ItemGroup>
 

@@ -23,7 +23,10 @@ public class IdentityService : IIdentityService
 
     public async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
     {
-        return Optional<ApplicationUser>.Of(await _userManager.FindByIdAsync(userId))
+        var user = await _userManager.Users.Include(user => user.RefreshTokens)
+            .FirstOrDefaultAsync(user => user.Id == userId);
+
+        return Optional<ApplicationUser>.Of(user)
             .ThrowIfNotPresent(new UserNotFoundException(userId)).Get();
     }
 

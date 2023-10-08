@@ -6,14 +6,16 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Sales/Presentation/TinyCRM.Sales.API/TinyCRM.Sales.API.csproj", "Services/Sales/Presentation/TinyCRM.Sales.API/"]
-COPY ["BuildingBlocks/BuildingBlock.Common/BuildingBlock.Common.csproj", "BuildingBlocks/BuildingBlock.Common/"]
-COPY ["BuildingBlocks/BuildingBlock.EntityFrameworkCore/BuildingBlock.EntityFrameworkCore.csproj", "BuildingBlocks/BuildingBlock.EntityFrameworkCore/"]
-COPY ["BuildingBlocks/BuildingBlock.Domain/BuildingBlock.Domain.csproj", "BuildingBlocks/BuildingBlock.Domain/"]
-COPY ["BuildingBlocks/BuildingBlock.Application/BuildingBlock.Application.csproj", "BuildingBlocks/BuildingBlock.Application/"]
-COPY ["BuildingBlocks/BuildingBlock.RabbitMQ/BuildingBlock.RabbitMQ.csproj", "BuildingBlocks/BuildingBlock.RabbitMQ/"]
+COPY ["BuildingBlocks/Infrastructure/BuildingBlocks.Identity/BuildingBlocks.Identity.csproj", "BuildingBlocks/Infrastructure/BuildingBlocks.Identity/"]
+COPY ["BuildingBlocks/Infrastructure/BuildingBlock.RabbitMQ/BuildingBlock.RabbitMQ.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.RabbitMQ/"]
+COPY ["BuildingBlocks/Core/BuildingBlock.Application/BuildingBlock.Application.csproj", "BuildingBlocks/Core/BuildingBlock.Application/"]
+COPY ["BuildingBlocks/Core/BuildingBlock.Domain/BuildingBlock.Domain.csproj", "BuildingBlocks/Core/BuildingBlock.Domain/"]
+COPY ["BuildingBlocks/Infrastructure/BuildingBlock.EntityFrameworkCore/BuildingBlock.EntityFrameworkCore.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.EntityFrameworkCore/"]
 COPY ["Services/Sales/Core/TinyCRM.Sales.Application/TinyCRM.Sales.Application.csproj", "Services/Sales/Core/TinyCRM.Sales.Application/"]
 COPY ["Services/Sales/Core/TinyCRM.Sales.Domain/TinyCRM.Sales.Domain.csproj", "Services/Sales/Core/TinyCRM.Sales.Domain/"]
 COPY ["Services/Sales/Infrastructure/TinyCRM.Sales.EntityFrameworkCore/TinyCRM.Sales.EntityFrameworkCore.csproj", "Services/Sales/Infrastructure/TinyCRM.Sales.EntityFrameworkCore/"]
+COPY ["BuildingBlocks/Presentation/BuildingBlock.API/BuildingBlock.API.csproj", "BuildingBlocks/Presentation/BuildingBlock.API/"]
+COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Redis/BuildingBlock.Redis.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Redis/"]
 RUN dotnet restore "Services/Sales/Presentation/TinyCRM.Sales.API/TinyCRM.Sales.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Sales/Presentation/TinyCRM.Sales.API"

@@ -22,7 +22,7 @@
 
     <ItemGroup>
         <Folder Include="Identity\"/>
-        <Folder Include="Repositories\" />
+        <Folder Include="Repositories\"/>
     </ItemGroup>
 
 

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 {
-    [DbContext(typeof(IdentityDbContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20230928173223_CreateIdentitiesTables")]
     partial class CreateIdentitiesTables
     {

@@ -1,8 +1,8 @@
 using BuildingBlock.Application;
 using BuildingBlock.Domain;
 using BuildingBlock.EntityFrameworkCore;
-using TinyCRM.Identity.Application.Services;
 using TinyCRM.Identity.Application.Services.Abstractions;
+using TinyCRM.Identity.Application.Services.Implementations;
 using TinyCRM.Identity.EntityFrameworkCore;
 using TinyCRM.Identity.Identity.Services.Abstractions;
 using TinyCRM.Identity.Identity.Services.Implementations;
@@ -32,8 +32,8 @@ public static class DependencyInjectionExtension
 
     public static IServiceCollection RegisterIdentityDbContext(this IServiceCollection services)
     {
-        services.AddScoped<Func<IdentityDbContext>>(provider => () => provider.GetService<IdentityDbContext>()!);
-        services.AddScoped<IUnitOfWork, UnitOfWork<IdentityDbContext>>();
+        services.AddScoped<Func<AppDbContext>>(provider => () => provider.GetService<AppDbContext>()!);
+        services.AddScoped<IUnitOfWork, UnitOfWork<AppDbContext>>();
 
         return services;
     }

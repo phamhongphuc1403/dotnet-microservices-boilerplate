@@ -10,7 +10,6 @@
     <ItemGroup>
         <Folder Include="CQRS\Queries\"/>
         <Folder Include="CQRS\Requests\"/>
-        <Folder Include="Services\Implementations\" />
     </ItemGroup>
 
     <ItemGroup>

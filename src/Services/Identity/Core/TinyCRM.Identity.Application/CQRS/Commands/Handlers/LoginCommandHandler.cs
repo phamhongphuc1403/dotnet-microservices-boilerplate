@@ -18,13 +18,18 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResponseDt
 
     public async Task<LoginResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var claims = await _authService.Login(request.Email, request.Password);
+        var user = await _authService.Login(request.Email, request.Password);
+
+        var claims = (await _authService.GetClaimsAsync(user)).ToList();
 
         var accessToken = _tokenService.GenerateAccessToken(claims);
 
+        var refreshToken = await _tokenService.GenerateRefreshTokenAsync(claims, user);
+
         return new LoginResponseDto
         {
-            AccessToken = accessToken
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
         };
     }
 }
