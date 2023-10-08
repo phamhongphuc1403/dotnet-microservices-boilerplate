@@ -28,6 +28,12 @@ public static class IdentityExtensions
             .AddEntityFrameworkStores<IdentityDbContext>()
             .AddDefaultTokenProviders();
 
+        services
+            .RegisterIdentitySeeder()
+            .RegisterIdentityDbContext()
+            .RegisterIdentityServices()
+            ;
+
         return services;
     }
 }

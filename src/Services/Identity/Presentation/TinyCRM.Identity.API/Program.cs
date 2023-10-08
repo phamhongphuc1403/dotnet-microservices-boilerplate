@@ -14,12 +14,7 @@ var jwtSetting = builder.Configuration.BindAndGetConfig<JwtSetting>("Jwt");
 
 builder.Services.AddSingleton(jwtSetting);
 
-builder.Services
-    .AddIdentityExtension()
-    .RegisterIdentitySeeder()
-    .RegisterIdentityDbContext()
-    .RegisterIdentityServices()
-    ;
+builder.Services.AddIdentityExtension();
 
 builder.Services.AddGrpc();
 

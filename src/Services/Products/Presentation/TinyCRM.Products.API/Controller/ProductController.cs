@@ -1,5 +1,7 @@
 using BuildingBlock.Application.DTOs;
+using BuildingBlock.Domain.Constants.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;
 using TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
@@ -19,6 +21,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = Permissions.Product.View)]
     public async Task<ActionResult<FilterAndPagingResultDto<ProductSummaryDto>>> GetAllAsync(
         [FromQuery] FilterAndPagingProductsDto dto)
     {
