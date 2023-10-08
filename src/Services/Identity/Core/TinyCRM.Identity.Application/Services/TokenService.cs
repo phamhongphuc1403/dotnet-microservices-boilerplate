@@ -15,9 +15,9 @@ public class TokenService : ITokenService
         _jwtSetting = jwtSetting;
     }
 
-    public string GenerateTokens(IEnumerable<Claim> claims, int expireMinutes)
+    private string GenerateToken(IEnumerable<Claim> claims, int expireMinutes, string securityKey)
     {
-        var key = Encoding.UTF8.GetBytes(_jwtSetting.Key);
+        var key = Encoding.UTF8.GetBytes(securityKey);
 
         var token = new JwtSecurityToken(
             _jwtSetting.Issuer,
@@ -30,6 +30,18 @@ public class TokenService : ITokenService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    public string GenerateAccessToken(IEnumerable<Claim> claims)
+    {
+        return GenerateToken(claims, _jwtSetting.AccessTokenExpireTime, _jwtSetting.AccessTokenSecurityKey);
+    }
+    
+    public string GenerateRefreshToken(IEnumerable<Claim> claims)
+    {
+        var refreshToken = GenerateToken(claims, _jwtSetting.RefreshTokenExpireTime, _jwtSetting.RefreshTokenSecurityKey);
+
+        return refreshToken;
+    }
+
     public TokenValidationParameters ValidateToken()
     {
         return new TokenValidationParameters
@@ -40,7 +52,7 @@ public class TokenService : ITokenService
             ValidateIssuerSigningKey = true,
             ValidIssuer = _jwtSetting.Issuer,
             ValidAudience = _jwtSetting.Audience,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.Key))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.AccessTokenSecurityKey))
         };
     }
 }

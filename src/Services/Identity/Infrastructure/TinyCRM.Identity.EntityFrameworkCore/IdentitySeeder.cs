@@ -2,7 +2,7 @@ using BuildingBlock.Application;
 using BuildingBlock.Domain.Constants.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using TinyCRM.Identity.Indentity.Entities;
+using TinyCRM.Identity.Identity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore;
 

@@ -20,7 +20,7 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResponseDt
     {
         var claims = await _authService.Login(request.Email, request.Password);
 
-        var accessToken = _tokenService.GenerateTokens(claims, 5);
+        var accessToken = _tokenService.GenerateAccessToken(claims);
 
         return new LoginResponseDto
         {

@@ -3,9 +3,9 @@ using BuildingBlock.Application.CacheServices.Abstractions;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.Indentity.Entities;
+using TinyCRM.Identity.Identity.Entities;
 
-namespace TinyCRM.Identity.Indentity.Services.Implementations;
+namespace TinyCRM.Identity.Identity.Services.Implementations;
 
 public class IdentityRoleService : IRoleService
 {

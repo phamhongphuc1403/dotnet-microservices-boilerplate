@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace TinyCRM.Identity.Indentity.Entities;
+namespace TinyCRM.Identity.Identity.Entities;
 
 public class ApplicationRole : IdentityRole
 {

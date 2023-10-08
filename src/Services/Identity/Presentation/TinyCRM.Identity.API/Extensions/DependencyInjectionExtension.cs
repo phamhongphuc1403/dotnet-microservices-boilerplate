@@ -4,8 +4,8 @@ using BuildingBlock.EntityFrameworkCore;
 using TinyCRM.Identity.Application.Services;
 using TinyCRM.Identity.Application.Services.Abstractions;
 using TinyCRM.Identity.EntityFrameworkCore;
-using TinyCRM.Identity.Indentity.Services.Abstractions;
-using TinyCRM.Identity.Indentity.Services.Implementations;
+using TinyCRM.Identity.Identity.Services.Abstractions;
+using TinyCRM.Identity.Identity.Services.Implementations;
 
 namespace Identities.API.Extensions;
 

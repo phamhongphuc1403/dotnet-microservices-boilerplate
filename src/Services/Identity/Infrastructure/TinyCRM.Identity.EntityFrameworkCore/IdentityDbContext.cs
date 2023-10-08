@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TinyCRM.Identity.EntityFrameworkCore.EntityConfigurations;
-using TinyCRM.Identity.Indentity.Entities;
+using TinyCRM.Identity.Identity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore;
 
 public class IdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
 {
+    public DbSet<ApplicationRefreshToken> ApplicationRefreshTokens { get; set; } = null!;
+    
     public IdentityDbContext(DbContextOptions options) : base(options)
     {
     }
