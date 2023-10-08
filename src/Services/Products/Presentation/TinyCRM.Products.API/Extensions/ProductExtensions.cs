@@ -15,6 +15,7 @@ public static class ProductExtensions
         IConfiguration configuration)
     {
         services.AddGrpcAuthentication(configuration);
+        services.AddGrpcAuthorization();
 
         services.AddScoped<IReadOnlyRepository<Product>, ReadOnlyRepository<ProductDbContext, Product>>();
         services.AddScoped<IOperationRepository<Product>, OperationRepository<ProductDbContext, Product>>();
