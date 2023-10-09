@@ -7,28 +7,34 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;
 
 public class GenerateRefreshTokenCommandHandler : ICommandHandler<GenerateRefreshTokenCommand, LoginResponseDto>
 {
+    private readonly IAuthService _authService;
     private readonly ITokenService _tokenService;
     private readonly IUserService _userService;
 
-    public GenerateRefreshTokenCommandHandler(ITokenService tokenService, IUserService userService)
+    public GenerateRefreshTokenCommandHandler(ITokenService tokenService, IAuthService authService,
+        IUserService userService)
     {
         _tokenService = tokenService;
+        _authService = authService;
         _userService = userService;
     }
 
     public async Task<LoginResponseDto> Handle(GenerateRefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
-        // var claimPrincipal = _tokenService.VerifyRefreshTokenAsync(request.RefreshToken);
-        //
-        // var userId = claimPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
-        //
-        // var user = await _userService.GetByIdAsync(userId);
-        //
-        // return new LoginResponseDto
-        // {
-        //     AccessToken = _tokenService.GenerateAccessToken(claimPrincipal.Claims),
-        //     RefreshToken = _tokenService.GenerateRefreshToken(claimPrincipal.Claims, user)
-        // };
+        var userId = _tokenService.VerifyRefreshToken(request.RefreshToken);
+
+        var user = await _userService.RevokeRefreshToken(userId, request.RefreshToken);
+
+        var claims = (await _authService.GetClaimsAsync(user)).ToList();
+
+        var accessToken = _tokenService.GenerateAccessToken(claims);
+
+        var refreshToken = await _tokenService.GenerateRefreshTokenAsync(claims, user);
+
+        return new LoginResponseDto
+        {
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
+        };
     }
 }

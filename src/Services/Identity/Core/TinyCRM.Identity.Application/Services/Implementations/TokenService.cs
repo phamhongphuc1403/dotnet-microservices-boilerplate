@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
@@ -33,20 +34,21 @@ public class TokenService : ITokenService
         return refreshToken;
     }
 
-    public async Task<ClaimsPrincipal> VerifyRefreshTokenAsync(string refreshToken)
+    public string VerifyRefreshToken(string refreshToken)
     {
-        throw new NotImplementedException();
-        // var tokenHandler = new JwtSecurityTokenHandler();
-        //
-        // var tokenClaimsPrincipal =
-        //     tokenHandler.ValidateToken(refreshToken, ValidateToken(_jwtSetting.RefreshTokenSecurityKey), out _);
-        //
-        // var userId = tokenClaimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
-        //
-        // _userService.CheckIfRefreshTokenIsValid(userId, refreshToken);
-        //
-        // var user = Optional<User>.Of(await _userService.GetByIdAsync(userId))
-        //     .ThrowIfNotPresent(new UserNotFoundException(userId)).Get();
+        try
+        {
+            var tokenClaimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(refreshToken,
+                ValidateToken(_jwtSetting.RefreshTokenSecurityKey), out _);
+
+            var userId = tokenClaimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
+
+            return userId;
+        }
+        catch (Exception ex)
+        {
+            throw new AuthenticationException(ex.Message);
+        }
     }
 
     public TokenValidationParameters ValidateToken(string securityKey)

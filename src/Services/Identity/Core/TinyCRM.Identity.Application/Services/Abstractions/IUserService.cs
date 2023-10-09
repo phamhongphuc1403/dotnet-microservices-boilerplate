@@ -7,5 +7,5 @@ public interface IUserService
     Task<User?> GetByEmailAsync(string email);
     Task<User?> GetByIdAsync(string id);
     Task AddRefreshTokenAsync(User user, string refreshToken);
-    Task CheckIfRefreshTokenIsValidAsync(string userId, string refreshToken);
+    Task<User> RevokeRefreshToken(string userId, string refreshToken);
 }

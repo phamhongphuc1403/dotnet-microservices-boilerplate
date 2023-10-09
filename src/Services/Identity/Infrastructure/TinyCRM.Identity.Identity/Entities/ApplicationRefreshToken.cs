@@ -16,4 +16,9 @@ public class ApplicationRefreshToken
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public DateTime? RevokedAt { get; set; }
+
+    public void Revoke()
+    {
+        RevokedAt = DateTime.UtcNow;
+    }
 }

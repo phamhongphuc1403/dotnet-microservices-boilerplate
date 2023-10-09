@@ -1,7 +1,7 @@
 using AutoMapper;
+using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identity.Application.Services.Abstractions;
 using TinyCRM.Identity.Identity.Entities;
@@ -12,17 +12,15 @@ namespace TinyCRM.Identity.Identity.Services.Implementations;
 public class IdentityUserService : IUserService
 {
     private readonly IIdentityService _identityService;
-    private readonly ILogger<IdentityUserService> _logger;
     private readonly IMapper _mapper;
     private readonly UserManager<ApplicationUser> _userManager;
 
     public IdentityUserService(UserManager<ApplicationUser> userManager, IMapper mapper,
-        IIdentityService identityService, ILogger<IdentityUserService> logger)
+        IIdentityService identityService)
     {
         _userManager = userManager;
         _mapper = mapper;
         _identityService = identityService;
-        _logger = logger;
     }
 
     public async Task<User?> GetByEmailAsync(string email)
@@ -52,9 +50,29 @@ public class IdentityUserService : IUserService
         if (!result.Succeeded) throw new IdentityException(result.Errors);
     }
 
-
-    public async Task CheckIfRefreshTokenIsValidAsync(string userId, string refreshToken)
+    public async Task<User> RevokeRefreshToken(string userId, string refreshToken)
     {
         var applicationUser = await _identityService.GetApplicationUserByIdAsync(userId);
+
+        var existingRefreshToken = VerifyTokenInDatabase(applicationUser, refreshToken);
+
+        existingRefreshToken.Revoke();
+
+        var result = await _userManager.UpdateAsync(applicationUser);
+
+        if (!result.Succeeded) throw new IdentityException(result.Errors);
+
+        return _mapper.Map<User>(applicationUser);
+    }
+
+    private static ApplicationRefreshToken VerifyTokenInDatabase(ApplicationUser user, string refreshToken)
+    {
+        var existingRefreshToken = Optional<ApplicationRefreshToken>
+            .Of(user.RefreshTokens.FirstOrDefault(rt => rt.Token == refreshToken))
+            .ThrowIfNotPresent(new Exception("token not found")).Get();
+
+        if (existingRefreshToken.RevokedAt != null) throw new Exception("Token is already revoked");
+
+        return existingRefreshToken;
     }
 }
