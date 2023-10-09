@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using TinyCRM.Identity.Application;
 using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace Identities.API.Extensions;
 
 public static class AuthenticationExtension
 {
-    public static IServiceCollection AddAuthenticationExtension(this IServiceCollection services)
+    public static IServiceCollection AddAuthenticationExtension(this IServiceCollection services, JwtSetting jwtSetting)
     {
         var tokenService = services.BuildServiceProvider().GetRequiredService<ITokenService>();
 
@@ -18,7 +19,7 @@ public static class AuthenticationExtension
         {
             options.SaveToken = true;
             options.RequireHttpsMetadata = false;
-            options.TokenValidationParameters = tokenService.ValidateToken();
+            options.TokenValidationParameters = tokenService.ValidateToken(jwtSetting.AccessTokenSecurityKey);
         });
 
         return services;

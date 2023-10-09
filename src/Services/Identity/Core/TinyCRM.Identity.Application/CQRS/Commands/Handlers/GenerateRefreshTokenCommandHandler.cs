@@ -5,20 +5,25 @@ using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;
 
-public class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResponseDto>
+public class GenerateRefreshTokenCommandHandler : ICommandHandler<GenerateRefreshTokenCommand, LoginResponseDto>
 {
     private readonly IAuthService _authService;
     private readonly ITokenService _tokenService;
+    private readonly IUserService _userService;
 
-    public LoginCommandHandler(IAuthService authService, ITokenService tokenService)
+    public GenerateRefreshTokenCommandHandler(ITokenService tokenService, IAuthService authService,
+        IUserService userService)
     {
-        _authService = authService;
         _tokenService = tokenService;
+        _authService = authService;
+        _userService = userService;
     }
 
-    public async Task<LoginResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<LoginResponseDto> Handle(GenerateRefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        var user = await _authService.Login(request.Email, request.Password);
+        var userId = _tokenService.VerifyRefreshToken(request.RefreshToken);
+
+        var user = await _userService.RevokeRefreshToken(userId, request.RefreshToken);
 
         var claims = (await _authService.GetClaimsAsync(user)).ToList();
 
