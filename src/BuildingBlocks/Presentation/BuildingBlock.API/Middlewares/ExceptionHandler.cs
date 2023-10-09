@@ -47,6 +47,7 @@ public static class ExceptionHandler
             EntityConflictException => (int)HttpStatusCode.Conflict,
             ValidationException => (int)HttpStatusCode.BadRequest,
             AuthenticationException => (int)HttpStatusCode.Unauthorized,
+            UnauthorizedException => (int)HttpStatusCode.Forbidden,
             _ => (int)HttpStatusCode.InternalServerError
         };
 

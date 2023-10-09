@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using TinyCRM.Identity.Application;
 using TinyCRM.Identity.EntityFrameworkCore;
 using TinyCRM.Identity.Identity.Entities;
 
@@ -6,7 +7,7 @@ namespace Identities.API.Extensions;
 
 public static class IdentityExtensions
 {
-    public static IServiceCollection AddIdentityExtension(this IServiceCollection services)
+    public static IServiceCollection AddIdentityExtension(this IServiceCollection services, JwtSetting jwtSetting)
     {
         services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -33,6 +34,8 @@ public static class IdentityExtensions
             .RegisterIdentityDbContext()
             .RegisterIdentityServices()
             ;
+
+        services.AddAuthenticationExtension(jwtSetting);
 
         return services;
     }
