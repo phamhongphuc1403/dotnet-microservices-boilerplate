@@ -1,14 +1,14 @@
 namespace BuildingBlock.Domain.Repositories;
 
-public interface IOperationRepository<TEntity> where TEntity : Entity
+public interface IOperationRepository<TAggregateRoot> where TAggregateRoot : AggregateRoot
 {
-    Task AddAsync(TEntity entity);
+    Task AddAsync(TAggregateRoot entity);
 
-    Task AddRangeAsync(IEnumerable<TEntity> entities);
+    Task AddRangeAsync(IEnumerable<TAggregateRoot> entities);
 
-    void Remove(TEntity entity);
+    void Remove(TAggregateRoot entity);
 
-    void RemoveRange(IEnumerable<TEntity> entities);
+    void RemoveRange(IEnumerable<TAggregateRoot> entities);
 
-    void Update(TEntity entity);
+    void Update(TAggregateRoot entity);
 }
