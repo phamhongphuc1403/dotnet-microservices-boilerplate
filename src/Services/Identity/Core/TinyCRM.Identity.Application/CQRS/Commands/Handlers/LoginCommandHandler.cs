@@ -1,6 +1,6 @@
 using BuildingBlock.Application.CQRS;
 using TinyCRM.Identity.Application.CQRS.Commands.Requests;
-using TinyCRM.Identity.Application.DTOs;
+using TinyCRM.Identity.Application.DTOs.UserDTOs;
 using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;

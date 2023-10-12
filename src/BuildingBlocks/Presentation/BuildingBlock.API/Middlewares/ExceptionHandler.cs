@@ -57,6 +57,7 @@ public static class ExceptionHandler
     private static string? GetMessage(Exception? exception, int statusCode, bool isDevelopment)
     {
         return exception is ValidationException ? "Validation error" :
+            exception is IdentityException ? "Identity error" :
             !isDevelopment && statusCode == 500 ? "An error occurred on the server." : exception?.Message;
     }
 

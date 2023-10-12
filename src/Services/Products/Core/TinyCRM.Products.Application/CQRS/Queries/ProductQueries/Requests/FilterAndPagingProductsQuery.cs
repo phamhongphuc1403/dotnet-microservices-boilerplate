@@ -17,5 +17,5 @@ public class FilterAndPagingProductsQuery : FilterAndPagingProductsDto,
         Type = dto.Type;
     }
 
-    public string Sort { get; private init; }
+    public string Sort { get; }
 }

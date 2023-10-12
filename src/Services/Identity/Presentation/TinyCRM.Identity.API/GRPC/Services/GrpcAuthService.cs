@@ -56,7 +56,7 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
         var user = Optional<User>.Of(await _userService.GetByIdAsync(permissionRequest.UserId))
             .ThrowIfNotPresent(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
 
-        var roles = await _roleService.GetRolesAsync(user);
+        var roles = await _roleService.GetManyAsync(user);
 
         var permissions = new List<string>();
 

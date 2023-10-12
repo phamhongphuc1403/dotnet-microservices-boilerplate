@@ -43,8 +43,6 @@ public class
             query.Sort, query.PageIndex, query.PageSize);
 
         return new FilterAndPagingResultDto<ProductSummaryDto>(_mapper.Map<List<ProductSummaryDto>>(products),
-            query.PageIndex,
-            query.PageSize,
-            totalCount);
+            query.PageIndex, query.PageSize, totalCount);
     }
 }
