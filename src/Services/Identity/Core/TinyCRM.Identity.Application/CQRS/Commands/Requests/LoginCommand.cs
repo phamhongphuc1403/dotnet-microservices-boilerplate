@@ -1,5 +1,5 @@
 using BuildingBlock.Application.CQRS;
-using TinyCRM.Identity.Application.DTOs;
+using TinyCRM.Identity.Application.DTOs.UserDTOs;
 
 namespace TinyCRM.Identity.Application.CQRS.Commands.Requests;
 

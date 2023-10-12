@@ -4,9 +4,9 @@ using TinyCRM.Identity.Identity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.Mapper;
 
-public class IdentityMapper : Profile
+public class UserMapper : Profile
 {
-    public IdentityMapper()
+    public UserMapper()
     {
         CreateMap<User, ApplicationUser>()
             .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))

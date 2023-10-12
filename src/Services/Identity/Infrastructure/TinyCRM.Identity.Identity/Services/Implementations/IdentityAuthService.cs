@@ -42,7 +42,7 @@ public class IdentityAuthService : IAuthService
             new(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
 
-        var roles = await _roleService.GetRolesAsync(user);
+        var roles = await _roleService.GetManyAsync(user);
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

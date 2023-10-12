@@ -15,5 +15,5 @@ public class EditProductCommand : CreateOrEditProductDto, ICommand<ProductDetail
         Type = dto.Type;
     }
 
-    public Guid Id { get; private init; }
+    public Guid Id { get; }
 }

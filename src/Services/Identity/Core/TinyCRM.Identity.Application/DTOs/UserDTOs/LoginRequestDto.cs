@@ -1,4 +1,4 @@
-﻿namespace TinyCRM.Identity.Application.DTOs;
+﻿namespace TinyCRM.Identity.Application.DTOs.UserDTOs;
 
 public class LoginRequestDto
 {
