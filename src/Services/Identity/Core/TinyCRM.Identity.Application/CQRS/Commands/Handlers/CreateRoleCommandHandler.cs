@@ -8,8 +8,8 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;
 
 public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand, RoleDto>
 {
-    private readonly IRoleService _roleService;
     private readonly IMapper _mapper;
+    private readonly IRoleService _roleService;
 
     public CreateRoleCommandHandler(IRoleService roleService, IMapper mapper)
     {

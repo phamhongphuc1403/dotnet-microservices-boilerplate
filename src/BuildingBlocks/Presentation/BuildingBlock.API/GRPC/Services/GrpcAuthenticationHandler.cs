@@ -1,8 +1,6 @@
-using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using BuildingBlock.API.Authentication;
-using BuildingBlock.Domain.Exceptions;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
@@ -26,7 +24,7 @@ public class GrpcAuthenticationHandler : AuthenticationHandler<AuthenticationSch
         if (Context.Request.Headers.ContainsKey("Authorization"))
             return Context.Request.Headers["Authorization"].ToString();
 
-        throw new AuthenticationException("Access token not provided!");
+        throw new Exception("Access token not provided!");
     }
 
     private async Task<List<Claim>> GetClaimsFromIdentityServiceAsync(Metadata headers)
@@ -46,8 +44,8 @@ public class GrpcAuthenticationHandler : AuthenticationHandler<AuthenticationSch
         {
             return ex.StatusCode switch
             {
-                StatusCode.Unauthenticated => throw new AuthenticationException("Invalid token!"),
-                StatusCode.NotFound => throw new EntityNotFoundException("User not found!"),
+                StatusCode.Unauthenticated => throw new Exception("Invalid token!"),
+                StatusCode.NotFound => throw new Exception("User not found!"),
                 StatusCode.Unavailable => throw new Exception("Identity service is down!"),
                 _ => throw new Exception("Unknown error when processing authentication!")
             };
@@ -56,16 +54,23 @@ public class GrpcAuthenticationHandler : AuthenticationHandler<AuthenticationSch
 
     protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        var accessToken = GetAccessTokenFromHeader();
-
-        var headers = new Metadata
+        try
         {
-            { "Authorization", accessToken }
-        };
+            var accessToken = GetAccessTokenFromHeader();
 
-        var claims = await GetClaimsFromIdentityServiceAsync(headers);
+            var headers = new Metadata
+            {
+                { "Authorization", accessToken }
+            };
 
-        return AuthenticateResult.Success(GetTicket(claims));
+            var claims = await GetClaimsFromIdentityServiceAsync(headers);
+
+            return AuthenticateResult.Success(GetTicket(claims));
+        }
+        catch (Exception exception)
+        {
+            return AuthenticateResult.Fail(exception.Message);
+        }
     }
 
     private AuthenticationTicket GetTicket(IEnumerable<Claim> claims)
