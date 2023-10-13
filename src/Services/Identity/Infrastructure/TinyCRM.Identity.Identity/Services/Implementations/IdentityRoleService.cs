@@ -1,8 +1,10 @@
 using AutoMapper;
 using BuildingBlock.Application.CacheServices.Abstractions;
+using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identities.Domain.RoleAggregate.Entities;
+using TinyCRM.Identities.Domain.RoleAggregate.Exceptions;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identity.Application.Services.Abstractions;
 using TinyCRM.Identity.Identity.Entities;
@@ -42,15 +44,20 @@ public class IdentityRoleService : IRoleService
 
     public async Task<Role> CreateAsync(string roleName)
     {
-        var applicationRole = new ApplicationRole
-        {
-            Name = roleName
-        };
+        await CheckValidOnCreate(roleName);
+
+        var applicationRole = new ApplicationRole(roleName);
 
         var result = await _roleManager.CreateAsync(applicationRole);
 
         if (!result.Succeeded) throw new IdentityException(result.Errors);
 
         return _mapper.Map<Role>(applicationRole);
+    }
+
+    private async Task CheckValidOnCreate(string roleName)
+    {
+        Optional<ApplicationRole>.Of(await _roleManager.FindByNameAsync(roleName))
+            .ThrowIfPresent(new RoleConflictException(roleName));
     }
 }
