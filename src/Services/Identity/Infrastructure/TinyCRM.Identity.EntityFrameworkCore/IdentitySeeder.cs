@@ -124,17 +124,11 @@ public class IdentitySeeder : IDataSeeder
 
         await ThrowIfRoleExist();
 
-        var adminRole = new ApplicationRole
-        {
-            Name = "admin"
-        };
+        var adminRole = new ApplicationRole("admin");
 
         await _roleManager.CreateAsync(adminRole);
 
-        var userRole = new ApplicationRole
-        {
-            Name = "user"
-        };
+        var userRole = new ApplicationRole("user");
 
         await _roleManager.CreateAsync(userRole);
 

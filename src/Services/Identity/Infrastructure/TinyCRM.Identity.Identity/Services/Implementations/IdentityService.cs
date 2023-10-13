@@ -35,7 +35,7 @@ public class IdentityService : IIdentityService
         var role = await _roleManager.Roles.Include(role => role.Claims)
             .FirstOrDefaultAsync(role => role.Name == roleName);
 
-        return Optional<ApplicationRole>.Of(role).ThrowIfNotPresent(new RoleNotFoundException("role name", roleName))
+        return Optional<ApplicationRole>.Of(role).ThrowIfNotPresent(new RoleNotFoundException(roleName))
             .Get();
     }
 }
