@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using BuildingBlock.API.Authorization;
 using BuildingBlock.Application.CacheServices.Abstractions;
-using BuildingBlock.Domain.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BuildingBlock.API.GRPC.Services;
@@ -25,16 +24,14 @@ public class GrpcPermissionAuthorizationHandler : AuthorizationHandler<Permissio
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (userId == null) throw new UnauthorizedException();
+        if (userId != null)
+        {
+            var permissions = await GetPermissionsAsync(userId);
 
-        var permissions = await GetPermissionsAsync(userId);
+            var isAuthorized = permissions.Contains(requirement.Permission);
 
-        var isAuthorized = permissions.Contains(requirement.Permission);
-
-        if (isAuthorized)
-            context.Succeed(requirement);
-        else
-            throw new UnauthorizedException();
+            if (isAuthorized) context.Succeed(requirement);
+        }
     }
 
     private async Task<List<string>?> GetCachedPermissionsAsync(string userId)
