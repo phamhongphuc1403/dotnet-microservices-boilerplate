@@ -44,6 +44,8 @@ services:
     depends_on:
       tinycrm.db:
         condition: service_healthy
+      tinycrm.redis:
+        condition: service_healthy
     links:
       - tinycrm.db
   tinycrm.products.api:
@@ -63,6 +65,8 @@ services:
       tinycrm.db:
         condition: service_healthy
       tinycrm.rabbitmq:
+        condition: service_healthy
+      tinycrm.redis:
         condition: service_healthy
     links:
       - tinycrm.db
@@ -85,6 +89,8 @@ services:
         condition: service_healthy
       tinycrm.rabbitmq:
         condition: service_healthy
+      tinycrm.redis:
+        condition: service_healthy
     links:
       - tinycrm.db
       - tinycrm.rabbitmq
@@ -105,6 +111,8 @@ services:
     image: redis
     ports:
       - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli","ping" ]
   tinycrm.rabbitmq:
     image: rabbitmq:3.12-management
     ports:
