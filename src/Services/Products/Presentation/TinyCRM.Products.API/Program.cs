@@ -13,21 +13,7 @@ builder.Services.AddProductExtensions(builder.Configuration);
 
 var app = builder.Build();
 
-// await app.UseDefaultMiddlewares(app.Environment);
-
-app.UseHttpExceptionHandler(app.Environment);
-
-app.UseSwagger();
-
-app.UseSwaggerUI();
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
-
-await app.SeedDataAsync();
+await app.UseDefaultMiddlewares(app.Environment);
 
 app.MapControllers();
 

@@ -35,8 +35,8 @@ public static class IdentityExtensions
             .RegisterIdentityServices()
             ;
 
-        services.AddAuthenticationExtension(jwtSetting);
-
+        services.AddIdentityAuthentication(jwtSetting);
+        services.AddIdentityAuthorization();
         return services;
     }
 }

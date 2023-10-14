@@ -8,11 +8,6 @@
 
 
     <ItemGroup>
-        <Folder Include="CQRS\Queries\"/>
-        <Folder Include="CQRS\Requests\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj"/>
         <ProjectReference Include="..\TinyCRM.Identity.Domain\TinyCRM.Identity.Domain.csproj"/>
     </ItemGroup>
@@ -22,5 +17,6 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0"/>
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0"/>
     </ItemGroup>
+
 
 </Project>
