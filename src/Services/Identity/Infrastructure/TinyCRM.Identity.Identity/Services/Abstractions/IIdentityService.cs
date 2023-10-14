@@ -4,6 +4,6 @@ namespace TinyCRM.Identity.Identity.Services.Abstractions;
 
 public interface IIdentityService
 {
-    Task<ApplicationUser> GetApplicationUserByIdAsync(string userId);
+    Task<ApplicationUser> GetApplicationUserByIdAsync(Guid userId);
     Task<ApplicationRole> GetApplicationRoleByNameAsync(string roleName);
 }

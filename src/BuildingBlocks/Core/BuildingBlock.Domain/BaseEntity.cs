@@ -40,7 +40,7 @@ public abstract class BaseEntity<TKey> : IBaseEntity<TKey>
 public abstract class DeleteEntity<TKey> : BaseEntity<TKey>, IDeleteEntity<TKey>
 {
     public DateTime? DeletedAt { get; set; }
-    public string? DeletedBy { get; set; } = null!;
+    public string? DeletedBy { get; set; }
 }
 
 public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
@@ -51,10 +51,18 @@ public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
     public string? UpdatedBy { get; set; } = null!;
 }
 
-public abstract class Entity : AuditEntity<Guid>
+public interface IAggregateRoot<TKey> : IEntity<TKey>
 {
 }
 
-public abstract class AggregateRoot : Entity
+public interface IEntity<TKey> : IAuditEntity<TKey>
+{
+}
+
+public abstract class Entity : AuditEntity<Guid>, IEntity<Guid>
+{
+}
+
+public abstract class AggregateRoot : Entity, IAggregateRoot<Guid>
 {
 }

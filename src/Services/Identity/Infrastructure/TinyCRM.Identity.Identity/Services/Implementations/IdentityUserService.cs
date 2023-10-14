@@ -30,16 +30,16 @@ public class IdentityUserService : IUserService
         return _mapper.Map<User>(applicationUser);
     }
 
-    public async Task<User?> GetByIdAsync(string id)
+    public async Task<User?> GetByIdAsync(Guid id)
     {
-        var user = await _userManager.FindByIdAsync(id);
+        var user = await _userManager.FindByIdAsync(id.ToString());
 
         return _mapper.Map<User>(user);
     }
 
     public async Task AddRefreshTokenAsync(User user, string refreshToken)
     {
-        var applicationUser = await _identityService.GetApplicationUserByIdAsync(user.Id.ToString());
+        var applicationUser = await _identityService.GetApplicationUserByIdAsync(user.Id);
 
         var applicationRefreshToken = new ApplicationRefreshToken(applicationUser.Id, refreshToken);
 
@@ -50,7 +50,7 @@ public class IdentityUserService : IUserService
         if (!result.Succeeded) throw new IdentityException(result.Errors);
     }
 
-    public async Task<User> RevokeRefreshToken(string userId, string refreshToken)
+    public async Task<User> RevokeRefreshToken(Guid userId, string refreshToken)
     {
         var applicationUser = await _identityService.GetApplicationUserByIdAsync(userId);
 
@@ -63,6 +63,25 @@ public class IdentityUserService : IUserService
         if (!result.Succeeded) throw new IdentityException(result.Errors);
 
         return _mapper.Map<User>(applicationUser);
+    }
+
+    public Task<IEnumerable<User>> FilterAndPagingUsers(string sort, int pageIndex, int pageSize,
+        string? includeTables = null)
+    {
+        // var query = _userManager.Users.AsQueryable();
+        //
+        // query = Filter(query, specification);
+        //
+        // var totalCount = await query.CountAsync();
+        //
+        // query = Include(query, includeTables);
+        //
+        // query = Sort(query, sort);
+        //
+        // query = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
+        //
+        // return (await query.ToListAsync(), totalCount);
+        throw new NotImplementedException();
     }
 
     private static ApplicationRefreshToken VerifyTokenInDatabase(ApplicationUser user, string refreshToken)

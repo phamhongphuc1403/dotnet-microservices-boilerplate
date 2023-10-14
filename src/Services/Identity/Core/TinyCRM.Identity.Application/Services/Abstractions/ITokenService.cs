@@ -9,5 +9,5 @@ public interface ITokenService
     string GenerateAccessToken(IEnumerable<Claim> claims);
     TokenValidationParameters ValidateToken(string securityKey);
     Task<string> GenerateRefreshTokenAsync(IEnumerable<Claim> claims, User user);
-    string VerifyRefreshToken(string refreshToken);
+    Guid VerifyRefreshToken(string refreshToken);
 }

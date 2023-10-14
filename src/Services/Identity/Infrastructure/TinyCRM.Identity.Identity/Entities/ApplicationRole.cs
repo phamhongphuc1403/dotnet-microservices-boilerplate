@@ -1,8 +1,9 @@
+using BuildingBlock.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace TinyCRM.Identity.Identity.Entities;
 
-public sealed class ApplicationRole : IdentityRole
+public sealed class ApplicationRole : IdentityRole<Guid>, IAggregateRoot<Guid>
 {
     public ApplicationRole(string roleName, string? email) : this(roleName)
     {
@@ -11,7 +12,7 @@ public sealed class ApplicationRole : IdentityRole
 
     public ApplicationRole(string roleName) : this()
     {
-        CreatedBy = "admin";
+        CreatedBy = "server";
         CreatedAt = DateTime.UtcNow;
         Name = roleName;
     }
@@ -20,7 +21,7 @@ public sealed class ApplicationRole : IdentityRole
     {
     }
 
-    public ICollection<IdentityRoleClaim<string>> Claims { get; set; } = null!;
+    public ICollection<IdentityRoleClaim<Guid>> Claims { get; set; } = null!;
 
     public string CreatedBy { get; set; } = null!;
 
@@ -29,4 +30,8 @@ public sealed class ApplicationRole : IdentityRole
     public DateTime? UpdatedAt { get; set; }
 
     public string? UpdatedBy { get; set; }
+
+    public DateTime? DeletedAt { get; set; }
+
+    public string? DeletedBy { get; set; }
 }

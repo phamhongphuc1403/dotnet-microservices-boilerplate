@@ -4,7 +4,7 @@ namespace BuildingBlock.Application;
 
 public interface ICurrentUser
 {
-    public string? Id { get; }
+    public Guid Id { get; }
     public string? Name { get; }
     public string? Email { get; }
     public bool IsAuthenticated { get; }

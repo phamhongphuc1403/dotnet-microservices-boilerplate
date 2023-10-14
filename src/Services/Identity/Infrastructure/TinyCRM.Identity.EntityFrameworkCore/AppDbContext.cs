@@ -5,7 +5,7 @@ using TinyCRM.Identity.Identity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore;
 
-public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
+public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
     public AppDbContext(DbContextOptions options) : base(options)
     {

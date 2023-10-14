@@ -35,7 +35,7 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
 
         var userId = _currentUser.Id;
 
-        var user = await _userService.GetByIdAsync(userId!);
+        var user = await _userService.GetByIdAsync(userId);
 
         if (user == null) throw new RpcException(new Status(StatusCode.NotFound, "User not found!"));
 
@@ -53,7 +53,7 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
     public override async Task<PermissionResponse> GetPermissionsAsync(PermissionRequest permissionRequest,
         ServerCallContext context)
     {
-        var user = Optional<User>.Of(await _userService.GetByIdAsync(permissionRequest.UserId))
+        var user = Optional<User>.Of(await _userService.GetByIdAsync(new Guid(permissionRequest.UserId)))
             .ThrowIfNotPresent(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
 
         var roles = await _roleService.GetManyAsync(user);

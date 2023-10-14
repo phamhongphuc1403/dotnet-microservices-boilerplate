@@ -5,7 +5,10 @@ namespace TinyCRM.Identity.Application.Services.Abstractions;
 public interface IUserService
 {
     Task<User?> GetByEmailAsync(string email);
-    Task<User?> GetByIdAsync(string id);
+    Task<User?> GetByIdAsync(Guid id);
     Task AddRefreshTokenAsync(User user, string refreshToken);
-    Task<User> RevokeRefreshToken(string userId, string refreshToken);
+    Task<User> RevokeRefreshToken(Guid userId, string refreshToken);
+
+    Task<IEnumerable<User>>
+        FilterAndPagingUsers(string sort, int pageIndex, int pageSize, string? includeTables = null);
 }
