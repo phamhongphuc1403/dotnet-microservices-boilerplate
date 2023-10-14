@@ -39,7 +39,8 @@ public class IdentityAuthService : IAuthService
     {
         var claims = new List<Claim>
         {
-            new(ClaimTypes.NameIdentifier, user.Id.ToString())
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Email, user.Email)
         };
 
         var roles = await _roleService.GetManyAsync(user);
