@@ -34,7 +34,7 @@ public class TokenService : ITokenService
         return refreshToken;
     }
 
-    public string VerifyRefreshToken(string refreshToken)
+    public Guid VerifyRefreshToken(string refreshToken)
     {
         try
         {
@@ -43,7 +43,7 @@ public class TokenService : ITokenService
 
             var userId = tokenClaimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
 
-            return userId;
+            return new Guid(userId);
         }
         catch (Exception ex)
         {

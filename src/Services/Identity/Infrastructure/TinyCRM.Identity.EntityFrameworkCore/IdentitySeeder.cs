@@ -55,12 +55,12 @@ public class IdentitySeeder : IDataSeeder
 
     private async Task GenerateRoleClaims(ApplicationRole adminRole, ApplicationRole userRole)
     {
-        adminRole.Claims = new List<IdentityRoleClaim<string>>();
-        userRole.Claims = new List<IdentityRoleClaim<string>>();
+        adminRole.Claims = new List<IdentityRoleClaim<Guid>>();
+        userRole.Claims = new List<IdentityRoleClaim<Guid>>();
 
         foreach (var permission in Permissions.AdminPermissions)
         {
-            var roleClaim = new IdentityRoleClaim<string>
+            var roleClaim = new IdentityRoleClaim<Guid>
             {
                 ClaimType = permission.Type,
                 ClaimValue = permission.Value
@@ -71,7 +71,7 @@ public class IdentitySeeder : IDataSeeder
 
         foreach (var permission in Permissions.UserPermissions)
         {
-            var roleClaim = new IdentityRoleClaim<string>
+            var roleClaim = new IdentityRoleClaim<Guid>
             {
                 ClaimType = permission.Type,
                 ClaimValue = permission.Value
@@ -98,19 +98,11 @@ public class IdentitySeeder : IDataSeeder
 
         await ThrowIfUserExist();
 
-        var admin = new ApplicationUser
-        {
-            UserName = "admin@123",
-            Email = "admin@123"
-        };
+        var admin = new ApplicationUser("admin@123");
 
         await _userManager.CreateAsync(admin, "Admin@123");
 
-        var user = new ApplicationUser
-        {
-            UserName = "user@123",
-            Email = "user@123"
-        };
+        var user = new ApplicationUser("user@123");
 
         await _userManager.CreateAsync(user, "User@123");
 

@@ -26,7 +26,7 @@ public class IdentityPermissionAuthorizationHandler : AuthorizationHandler<Permi
 
         if (userId == null) return;
 
-        var user = await _userService.GetByIdAsync(userId);
+        var user = await _userService.GetByIdAsync(new Guid(userId));
 
         if (user == null) return;
 

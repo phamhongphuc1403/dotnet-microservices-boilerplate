@@ -21,7 +21,7 @@ public class IdentityService : IIdentityService
         _roleManager = roleManager;
     }
 
-    public async Task<ApplicationUser> GetApplicationUserByIdAsync(string userId)
+    public async Task<ApplicationUser> GetApplicationUserByIdAsync(Guid userId)
     {
         var user = await _userManager.Users.Include(user => user.RefreshTokens)
             .FirstOrDefaultAsync(user => user.Id == userId);
