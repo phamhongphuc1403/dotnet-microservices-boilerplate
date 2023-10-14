@@ -6,7 +6,7 @@ namespace Identities.API.Extensions;
 
 public static class AuthenticationExtension
 {
-    public static IServiceCollection AddAuthenticationExtension(this IServiceCollection services, JwtSetting jwtSetting)
+    public static IServiceCollection AddIdentityAuthentication(this IServiceCollection services, JwtSetting jwtSetting)
     {
         var tokenService = services.BuildServiceProvider().GetRequiredService<ITokenService>();
 
