@@ -32,6 +32,7 @@ public class ProductController : ControllerBase
 
     [HttpGet("{id:guid}")]
     [ActionName(nameof(GetByIdAsync))]
+    [Authorize(Policy = Permissions.Product.View)]
     public async Task<ActionResult<ProductDetailDto>> GetByIdAsync(Guid id)
     {
         var product = await _mediator.Send(new GetProductQuery(id));
@@ -40,6 +41,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = Permissions.Product.Create)]
     public async Task<ActionResult<ProductDetailDto>> CreateAsync([FromBody] CreateOrEditProductDto dto)
     {
         var product = await _mediator.Send(new CreateProductCommand(dto));
@@ -48,6 +50,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = Permissions.Product.Edit)]
     public async Task<ActionResult<ProductDetailDto>> EditAsync([FromBody] CreateOrEditProductDto dto, Guid id)
     {
         var product = await _mediator.Send(new EditProductCommand(id, dto));
@@ -56,6 +59,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpDelete]
+    [Authorize(Policy = Permissions.Product.Delete)]
     public async Task<ActionResult> DeleteAsync(DeleteManyProductsDto dto)
     {
         await _mediator.Send(new DeleteManyProductsCommand(dto));
