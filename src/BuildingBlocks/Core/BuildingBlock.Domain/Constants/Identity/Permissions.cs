@@ -7,14 +7,26 @@ public static class Permissions
 {
     public const string Prefix = "Permissions";
 
-    public static readonly ImmutableList<Claim> PermissionsList = ImmutableList.Create(
+    public static readonly ImmutableList<Claim> AdminPermissions = ImmutableList.Create(
         // USER
-        new Claim(User.ViewPersonal, "Can view personal user profile"),
         new Claim(User.ViewAll, "Can view all user profiles"),
-        new Claim(User.EditPersonal, "Can edit personal user profile"),
         new Claim(User.EditAll, "Can edit all user profiles"),
         new Claim(User.DeleteAll, "Can delete all user profiles"),
         new Claim(User.Create, "Can create user"),
+        new Claim(User.ViewPersonal, "Can view personal user profile"),
+        new Claim(User.EditPersonal, "Can edit personal user profile"),
+
+        // ROLE
+        new Claim(Role.View, "Can view roles"),
+        new Claim(Role.Edit, "Can edit roles"),
+        new Claim(Role.Delete, "Can delete roles"),
+        new Claim(Role.Create, "Can create roles")
+    );
+
+    public static readonly List<Claim> UserPermissions = new()
+    {
+        new Claim(User.ViewPersonal, "Can view personal user profile"),
+        new Claim(User.EditPersonal, "Can edit personal user profile"),
 
         // ACCOUNT
         new Claim(Account.View, "Can view accounts"),
@@ -45,7 +57,7 @@ public static class Permissions
         new Claim(Product.Edit, "Can edit products"),
         new Claim(Product.Delete, "Can delete products"),
         new Claim(Product.Create, "Can create products")
-    );
+    };
 
     public static class Account
     {
@@ -101,5 +113,14 @@ public static class Permissions
         public const string EditPersonal = Default + ".EditPersonal";
         public const string EditAll = Default + ".EditAll";
         public const string DeleteAll = Default + ".DeleteAll";
+    }
+
+    public static class Role
+    {
+        private const string Default = Prefix + ".Role";
+        public const string View = Default + ".View";
+        public const string Create = Default + ".Create";
+        public const string Edit = Default + ".Edit";
+        public const string Delete = Default + ".Delete";
     }
 }

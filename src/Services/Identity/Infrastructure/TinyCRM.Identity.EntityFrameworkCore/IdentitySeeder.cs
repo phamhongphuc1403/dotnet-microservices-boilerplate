@@ -58,7 +58,7 @@ public class IdentitySeeder : IDataSeeder
         adminRole.Claims = new List<IdentityRoleClaim<string>>();
         userRole.Claims = new List<IdentityRoleClaim<string>>();
 
-        foreach (var permission in Permissions.PermissionsList)
+        foreach (var permission in Permissions.AdminPermissions)
         {
             var roleClaim = new IdentityRoleClaim<string>
             {
@@ -66,11 +66,19 @@ public class IdentitySeeder : IDataSeeder
                 ClaimValue = permission.Value
             };
 
-            if (permission.Type is Permissions.User.ViewAll or Permissions.User.EditAll or Permissions.User.DeleteAll
-                or Permissions.User.Create)
-                adminRole.Claims.Add(roleClaim);
-            else
-                userRole.Claims.Add(roleClaim);
+            adminRole.Claims.Add(roleClaim);
+        }
+
+        foreach (var permission in Permissions.UserPermissions)
+        {
+            var roleClaim = new IdentityRoleClaim<string>
+            {
+                ClaimType = permission.Type,
+                ClaimValue = permission.Value
+            };
+
+            adminRole.Claims.Add(roleClaim);
+            userRole.Claims.Add(roleClaim);
         }
 
         await _roleManager.UpdateAsync(adminRole);
