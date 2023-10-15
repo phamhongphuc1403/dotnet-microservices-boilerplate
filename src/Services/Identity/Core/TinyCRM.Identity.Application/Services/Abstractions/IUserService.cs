@@ -9,6 +9,6 @@ public interface IUserService
     Task AddRefreshTokenAsync(User user, string refreshToken);
     Task<User> RevokeRefreshToken(Guid userId, string refreshToken);
 
-    Task<IEnumerable<User>>
-        FilterAndPagingUsers(string sort, int pageIndex, int pageSize, string? includeTables = null);
+    public Task<(IEnumerable<User>, int)> FilterAndPagingUsers(string keyword, string sort, int pageIndex,
+        int pageSize);
 }

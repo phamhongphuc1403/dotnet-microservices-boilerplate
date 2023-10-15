@@ -1,4 +1,5 @@
 using AutoMapper;
+using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
@@ -14,13 +15,15 @@ public class IdentityUserService : IUserService
     private readonly IIdentityService _identityService;
     private readonly IMapper _mapper;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IReadOnlyRepository<ApplicationUser> _userReadOnlyRepository;
 
     public IdentityUserService(UserManager<ApplicationUser> userManager, IMapper mapper,
-        IIdentityService identityService)
+        IIdentityService identityService, IReadOnlyRepository<ApplicationUser> userReadOnlyRepository)
     {
         _userManager = userManager;
         _mapper = mapper;
         _identityService = identityService;
+        _userReadOnlyRepository = userReadOnlyRepository;
     }
 
     public async Task<User?> GetByEmailAsync(string email)
@@ -65,23 +68,17 @@ public class IdentityUserService : IUserService
         return _mapper.Map<User>(applicationUser);
     }
 
-    public Task<IEnumerable<User>> FilterAndPagingUsers(string sort, int pageIndex, int pageSize,
-        string? includeTables = null)
+    public async Task<(IEnumerable<User>, int)> FilterAndPagingUsers(string keyword, string sort, int pageIndex,
+        int pageSize)
     {
-        // var query = _userManager.Users.AsQueryable();
-        //
-        // query = Filter(query, specification);
-        //
-        // var totalCount = await query.CountAsync();
-        //
-        // query = Include(query, includeTables);
-        //
-        // query = Sort(query, sort);
-        //
-        // query = query.Skip(pageSize * (pageIndex - 1)).Take(pageSize);
-        //
-        // return (await query.ToListAsync(), totalCount);
-        throw new NotImplementedException();
+        var specification = new UserEmailPartialMatchSpecification(keyword);
+
+        var (applicationUsers, totalCount) = await _userReadOnlyRepository.GetFilterAndPagingAsync(specification, sort,
+            pageIndex, pageSize);
+
+        var user = _mapper.Map<IEnumerable<User>>(applicationUsers);
+
+        return (user, totalCount);
     }
 
     private static ApplicationRefreshToken VerifyTokenInDatabase(ApplicationUser user, string refreshToken)

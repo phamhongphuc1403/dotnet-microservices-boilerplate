@@ -1,9 +1,11 @@
 using BuildingBlock.Application;
 using BuildingBlock.Domain;
+using BuildingBlock.Domain.Repositories;
 using BuildingBlock.EntityFrameworkCore;
 using TinyCRM.Identity.Application.Services.Abstractions;
 using TinyCRM.Identity.Application.Services.Implementations;
 using TinyCRM.Identity.EntityFrameworkCore;
+using TinyCRM.Identity.Identity.Entities;
 using TinyCRM.Identity.Identity.Services.Abstractions;
 using TinyCRM.Identity.Identity.Services.Implementations;
 
@@ -26,6 +28,13 @@ public static class DependencyInjectionExtension
     public static IServiceCollection RegisterIdentitySeeder(this IServiceCollection services)
     {
         services.AddScoped<IDataSeeder, IdentitySeeder>();
+
+        return services;
+    }
+
+    public static IServiceCollection RegisterIdentityRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IReadOnlyRepository<ApplicationUser>, ReadOnlyRepository<AppDbContext, ApplicationUser>>();
 
         return services;
     }

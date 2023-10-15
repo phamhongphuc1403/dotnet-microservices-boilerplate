@@ -9,7 +9,7 @@ public class UserNotFoundException : EntityNotFoundException
     {
     }
 
-    public UserNotFoundException(string id) : base(nameof(User), id)
+    public UserNotFoundException(Guid id) : base(nameof(User), id)
     {
     }
 }

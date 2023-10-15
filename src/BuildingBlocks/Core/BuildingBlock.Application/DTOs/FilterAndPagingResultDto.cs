@@ -2,14 +2,14 @@ namespace BuildingBlock.Application.DTOs;
 
 public class FilterAndPagingResultDto<TDto>
 {
-    public FilterAndPagingResultDto(List<TDto> data, int pageIndex, int pageSize, int totalCount)
+    public FilterAndPagingResultDto(IEnumerable<TDto> data, int pageIndex, int pageSize, int totalCount)
     {
         Data = data;
         Meta = new MetaDto(pageIndex, pageSize, totalCount);
     }
 
     public MetaDto Meta { get; }
-    public List<TDto> Data { get; }
+    public IEnumerable<TDto> Data { get; }
 }
 
 public class MetaDto

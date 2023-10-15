@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TinyCRM.Identity.Identity.Entities;
 
-public sealed class ApplicationRole : IdentityRole<Guid>, IAggregateRoot<Guid>
+public sealed class ApplicationRole : IdentityRole<Guid>, IAggregateRoot
 {
     public ApplicationRole(string roleName, string? email) : this(roleName)
     {

@@ -3,7 +3,7 @@ using BuildingBlock.Domain.Specifications.Abstractions;
 
 namespace BuildingBlock.Domain.Specifications.Implementations;
 
-public class EntityDeletedSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
+public class EntityDeletedSpecification<TEntity> : Specification<TEntity> where TEntity : IEntity
 {
     private readonly bool _showDeleted;
 
