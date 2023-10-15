@@ -38,4 +38,22 @@ public class UserController : ControllerBase
 
         return Ok(user);
     }
+
+    [HttpGet("{id:guid}")]
+    [Authorize(Policy = Permissions.User.ViewAll)]
+    public async Task<ActionResult<UserDto>> GetUserById(Guid id)
+    {
+        var user = await _mediator.Send(new GetUserByIdQuery(id));
+
+        return Ok(user);
+    }
+
+    [HttpGet("me")]
+    [Authorize(Policy = Permissions.User.ViewPersonal)]
+    public async Task<ActionResult<UserDto>> GetCurrentUser()
+    {
+        var user = await _mediator.Send(new GetCurrentUserQuery());
+
+        return Ok(user);
+    }
 }
