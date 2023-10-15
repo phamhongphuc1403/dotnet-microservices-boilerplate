@@ -1,10 +1,12 @@
 using AutoMapper;
+using BuildingBlock.Application;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
+using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
 using TinyCRM.Identity.Identity.Common.Services.Abstractions;
 using TinyCRM.Identity.Identity.UserAggregate.Entities;
 using TinyCRM.Identity.Identity.UserAggregate.Specifications;
@@ -13,18 +15,21 @@ namespace TinyCRM.Identity.Identity.UserAggregate.DomainServices;
 
 public class IdentityUserDomainService : IUserDomainService
 {
+    private readonly ICurrentUser _currentUser;
     private readonly IIdentityService _identityService;
     private readonly IMapper _mapper;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IReadOnlyRepository<ApplicationUser> _userReadOnlyRepository;
 
     public IdentityUserDomainService(UserManager<ApplicationUser> userManager, IMapper mapper,
-        IIdentityService identityService, IReadOnlyRepository<ApplicationUser> userReadOnlyRepository)
+        IIdentityService identityService, IReadOnlyRepository<ApplicationUser> userReadOnlyRepository,
+        ICurrentUser currentUser)
     {
         _userManager = userManager;
         _mapper = mapper;
         _identityService = identityService;
         _userReadOnlyRepository = userReadOnlyRepository;
+        _currentUser = currentUser;
     }
 
     public async Task<User?> GetByEmailAsync(string email)
@@ -80,6 +85,25 @@ public class IdentityUserDomainService : IUserDomainService
         var user = _mapper.Map<IEnumerable<User>>(applicationUsers);
 
         return (user, totalCount);
+    }
+
+    public async Task<User> CreateAsync(string email, string password)
+    {
+        await CheckValidOnCreate(email);
+
+        var user = new ApplicationUser(email, _currentUser.Email);
+
+        var result = await _userManager.CreateAsync(user, password);
+
+        if (!result.Succeeded) throw new IdentityException(result.Errors);
+
+        return _mapper.Map<User>(user);
+    }
+
+    private async Task CheckValidOnCreate(string email)
+    {
+        Optional<ApplicationUser>.Of(await _userManager.FindByEmailAsync(email))
+            .ThrowIfPresent(new UserConflictException(email));
     }
 
     private static ApplicationRefreshToken VerifyTokenInDatabase(ApplicationUser user, string refreshToken)

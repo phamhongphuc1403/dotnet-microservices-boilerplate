@@ -11,4 +11,6 @@ public interface IUserDomainService
 
     public Task<(IEnumerable<User>, int)> FilterAndPagingUsers(string keyword, string sort, int pageIndex,
         int pageSize);
+
+    Task<User> CreateAsync(string email, string password);
 }
