@@ -1,18 +1,18 @@
 using BuildingBlock.Application.CacheServices.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.Identity.Entities;
-using TinyCRM.Identity.Identity.Services.Abstractions;
+using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identity.Identity.Common.Services.Abstractions;
+using TinyCRM.Identity.Identity.RoleAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity.Services.Implementations;
+namespace TinyCRM.Identity.Identity.PermissionAggregate.DomainServices;
 
-public class IdentityPermissionService : IPermissionService
+public class IdentityPermissionDomainService : IPermissionDomainService
 {
     private readonly IIdentityService _identityService;
     private readonly IPermissionCacheService _permissionCacheService;
     private readonly RoleManager<ApplicationRole> _roleManager;
 
-    public IdentityPermissionService(IPermissionCacheService permissionCacheService,
+    public IdentityPermissionDomainService(IPermissionCacheService permissionCacheService,
         RoleManager<ApplicationRole> roleManager, IIdentityService identityService)
     {
         _permissionCacheService = permissionCacheService;

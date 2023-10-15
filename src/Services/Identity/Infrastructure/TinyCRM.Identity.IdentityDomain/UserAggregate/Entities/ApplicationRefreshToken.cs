@@ -1,6 +1,6 @@
 using BuildingBlock.Domain;
 
-namespace TinyCRM.Identity.Identity.Entities;
+namespace TinyCRM.Identity.Identity.UserAggregate.Entities;
 
 public class ApplicationRefreshToken : IEntity
 {

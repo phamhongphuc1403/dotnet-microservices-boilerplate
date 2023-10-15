@@ -1,8 +1,8 @@
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Application.Services.Abstractions;
+namespace TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 
-public interface IUserService
+public interface IUserDomainService
 {
     Task<User?> GetByEmailAsync(string email);
     Task<User?> GetByIdAsync(Guid id);

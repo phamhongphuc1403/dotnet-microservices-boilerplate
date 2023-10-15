@@ -2,12 +2,18 @@ using BuildingBlock.Application;
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.EntityFrameworkCore;
-using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.Application.Services.Implementations;
+using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Application.Common.Services.Abstractions;
+using TinyCRM.Identity.Application.Common.Services.Implementations;
 using TinyCRM.Identity.EntityFrameworkCore;
-using TinyCRM.Identity.Identity.Entities;
-using TinyCRM.Identity.Identity.Services.Abstractions;
-using TinyCRM.Identity.Identity.Services.Implementations;
+using TinyCRM.Identity.Identity.Common.Services.Abstractions;
+using TinyCRM.Identity.Identity.Common.Services.Implementations;
+using TinyCRM.Identity.Identity.PermissionAggregate.DomainServices;
+using TinyCRM.Identity.Identity.RoleAggregate.DomainServices;
+using TinyCRM.Identity.Identity.UserAggregate.DomainServices;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
 
 namespace Identities.API.Extensions;
 
@@ -17,9 +23,9 @@ public static class DependencyInjectionExtension
     {
         services.AddScoped<IAuthService, IdentityAuthService>();
         services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IUserService, IdentityUserService>();
-        services.AddScoped<IPermissionService, IdentityPermissionService>();
-        services.AddScoped<IRoleService, IdentityRoleService>();
+        services.AddScoped<IUserDomainService, IdentityUserDomainService>();
+        services.AddScoped<IPermissionDomainService, IdentityPermissionDomainService>();
+        services.AddScoped<IRoleDomainService, IdentityRoleDomainService>();
         services.AddScoped<IIdentityService, IdentityService>();
 
         return services;

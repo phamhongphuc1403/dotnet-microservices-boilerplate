@@ -16,7 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
-        <ProjectReference Include="..\TinyCRM.Identity.Identity\TinyCRM.Identity.Identity.csproj"/>
+        <ProjectReference Include="..\TinyCRM.Identity.IdentityDomain\TinyCRM.Identity.IdentityDomain.csproj"/>
     </ItemGroup>
 
 

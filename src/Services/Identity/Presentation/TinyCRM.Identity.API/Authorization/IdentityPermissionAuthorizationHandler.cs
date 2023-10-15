@@ -1,22 +1,25 @@
 using System.Security.Claims;
 using BuildingBlock.API.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using TinyCRM.Identity.Application.Services.Abstractions;
+using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 
 namespace Identities.API.Authorization;
 
 public class IdentityPermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
-    private readonly IPermissionService _permissionService;
-    private readonly IRoleService _roleService;
-    private readonly IUserService _userService;
+    private readonly IPermissionDomainService _permissionDomainService;
+    private readonly IRoleDomainService _roleDomainService;
+    private readonly IUserDomainService _userDomainService;
 
-    public IdentityPermissionAuthorizationHandler(IPermissionService permissionService, IRoleService roleService,
-        IUserService userService)
+    public IdentityPermissionAuthorizationHandler(IPermissionDomainService permissionDomainService,
+        IRoleDomainService roleDomainService,
+        IUserDomainService userDomainService)
     {
-        _permissionService = permissionService;
-        _roleService = roleService;
-        _userService = userService;
+        _permissionDomainService = permissionDomainService;
+        _roleDomainService = roleDomainService;
+        _userDomainService = userDomainService;
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
@@ -26,17 +29,17 @@ public class IdentityPermissionAuthorizationHandler : AuthorizationHandler<Permi
 
         if (userId == null) return;
 
-        var user = await _userService.GetByIdAsync(new Guid(userId));
+        var user = await _userDomainService.GetByIdAsync(new Guid(userId));
 
         if (user == null) return;
 
-        var roles = await _roleService.GetManyAsync(user);
+        var roles = await _roleDomainService.GetManyAsync(user);
 
         var permissions = new List<string>();
 
         foreach (var role in roles)
         {
-            var rolePermissions = await _permissionService.GetPermissionsAsync(role);
+            var rolePermissions = await _permissionDomainService.GetPermissionsAsync(role);
 
             permissions.AddRange(rolePermissions);
         }

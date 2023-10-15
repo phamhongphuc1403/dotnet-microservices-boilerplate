@@ -19,4 +19,9 @@
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
     </ItemGroup>
 
+
+    <ItemGroup>
+        <Folder Include="Common\"/>
+    </ItemGroup>
+
 </Project>

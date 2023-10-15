@@ -154,7 +154,7 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TinyCRM.Identity.Identity.Entities.ApplicationRefreshToken", b =>
+            modelBuilder.Entity("TinyCRM.Identity.IdentityDomain.Entities.ApplicationRefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,7 +196,7 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
                     b.ToTable("UserRefreshTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TinyCRM.Identity.Identity.Entities.ApplicationRole", b =>
+            modelBuilder.Entity("TinyCRM.Identity.IdentityDomain.Entities.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,7 +247,7 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
                     b.ToTable("Roles", (string)null);
                 });
 
-            modelBuilder.Entity("TinyCRM.Identity.Identity.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -341,7 +341,7 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationRole", null)
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationRole", null)
                         .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -350,7 +350,7 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationUser", null)
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -359,7 +359,7 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationUser", null)
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -368,13 +368,13 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationRole", null)
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationUser", null)
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -383,16 +383,16 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationUser", null)
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TinyCRM.Identity.Identity.Entities.ApplicationRefreshToken", b =>
+            modelBuilder.Entity("TinyCRM.Identity.IdentityDomain.Entities.ApplicationRefreshToken", b =>
                 {
-                    b.HasOne("TinyCRM.Identity.Identity.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("RefreshTokens")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,12 +401,12 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Migrations
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("TinyCRM.Identity.Identity.Entities.ApplicationRole", b =>
+            modelBuilder.Entity("TinyCRM.Identity.IdentityDomain.Entities.ApplicationRole", b =>
                 {
                     b.Navigation("Claims");
                 });
 
-            modelBuilder.Entity("TinyCRM.Identity.Identity.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("TinyCRM.Identity.IdentityDomain.Entities.ApplicationUser", b =>
                 {
                     b.Navigation("RefreshTokens");
                 });

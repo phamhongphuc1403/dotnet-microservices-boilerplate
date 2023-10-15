@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using BuildingBlock.Domain.Specifications.Abstractions;
-using TinyCRM.Identity.Identity.Entities;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity;
+namespace TinyCRM.Identity.Identity.UserAggregate.Specifications;
 
 public class UserEmailPartialMatchSpecification : Specification<ApplicationUser>
 {

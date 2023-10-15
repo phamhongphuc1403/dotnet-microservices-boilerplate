@@ -3,20 +3,21 @@ using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
-using TinyCRM.Identity.Application.Services.Abstractions;
+using TinyCRM.Identity.Application.Common.Services.Abstractions;
 
-namespace TinyCRM.Identity.Application.Services.Implementations;
+namespace TinyCRM.Identity.Application.Common.Services.Implementations;
 
 public class TokenService : ITokenService
 {
     private readonly JwtSetting _jwtSetting;
-    private readonly IUserService _userService;
+    private readonly IUserDomainService _userDomainService;
 
-    public TokenService(JwtSetting jwtSetting, IUserService userService)
+    public TokenService(JwtSetting jwtSetting, IUserDomainService userDomainService)
     {
         _jwtSetting = jwtSetting;
-        _userService = userService;
+        _userDomainService = userDomainService;
     }
 
     public string GenerateAccessToken(IEnumerable<Claim> claims)
@@ -29,7 +30,7 @@ public class TokenService : ITokenService
         var refreshToken =
             GenerateToken(claims, _jwtSetting.RefreshTokenExpireTime, _jwtSetting.RefreshTokenSecurityKey);
 
-        await _userService.AddRefreshTokenAsync(user, refreshToken);
+        await _userDomainService.AddRefreshTokenAsync(user, refreshToken);
 
         return refreshToken;
     }

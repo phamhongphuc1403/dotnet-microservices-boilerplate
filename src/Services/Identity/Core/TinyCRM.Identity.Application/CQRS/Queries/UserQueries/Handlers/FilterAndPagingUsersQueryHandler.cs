@@ -1,9 +1,9 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
 using BuildingBlock.Application.DTOs;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Requests;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
-using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Handlers;
 
@@ -11,11 +11,11 @@ public class
     FilterAndPagingUsersQueryHandler : IQueryHandler<FilterAndPagingUsersQuery, FilterAndPagingResultDto<UserDto>>
 {
     private readonly IMapper _mapper;
-    private readonly IUserService _userService;
+    private readonly IUserDomainService _userDomainService;
 
-    public FilterAndPagingUsersQueryHandler(IUserService userService, IMapper mapper)
+    public FilterAndPagingUsersQueryHandler(IUserDomainService userDomainService, IMapper mapper)
     {
-        _userService = userService;
+        _userDomainService = userDomainService;
         _mapper = mapper;
     }
 
@@ -23,7 +23,8 @@ public class
         CancellationToken cancellationToken)
     {
         var (users, totalCount) =
-            await _userService.FilterAndPagingUsers(request.Keyword, request.Sort, request.PageIndex, request.PageSize);
+            await _userDomainService.FilterAndPagingUsers(request.Keyword, request.Sort, request.PageIndex,
+                request.PageSize);
 
         return new FilterAndPagingResultDto<UserDto>(_mapper.Map<IEnumerable<UserDto>>(users),
             request.PageIndex, request.PageSize, totalCount);

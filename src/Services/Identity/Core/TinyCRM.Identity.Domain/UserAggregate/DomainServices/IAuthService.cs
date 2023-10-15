@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Application.Services.Abstractions;
+namespace TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 
 public interface IAuthService
 {

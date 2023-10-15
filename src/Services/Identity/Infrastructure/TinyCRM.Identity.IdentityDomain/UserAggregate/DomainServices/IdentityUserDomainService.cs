@@ -3,21 +3,22 @@ using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
-using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.Identity.Entities;
-using TinyCRM.Identity.Identity.Services.Abstractions;
+using TinyCRM.Identity.Identity.Common.Services.Abstractions;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
+using TinyCRM.Identity.Identity.UserAggregate.Specifications;
 
-namespace TinyCRM.Identity.Identity.Services.Implementations;
+namespace TinyCRM.Identity.Identity.UserAggregate.DomainServices;
 
-public class IdentityUserService : IUserService
+public class IdentityUserDomainService : IUserDomainService
 {
     private readonly IIdentityService _identityService;
     private readonly IMapper _mapper;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IReadOnlyRepository<ApplicationUser> _userReadOnlyRepository;
 
-    public IdentityUserService(UserManager<ApplicationUser> userManager, IMapper mapper,
+    public IdentityUserDomainService(UserManager<ApplicationUser> userManager, IMapper mapper,
         IIdentityService identityService, IReadOnlyRepository<ApplicationUser> userReadOnlyRepository)
     {
         _userManager = userManager;

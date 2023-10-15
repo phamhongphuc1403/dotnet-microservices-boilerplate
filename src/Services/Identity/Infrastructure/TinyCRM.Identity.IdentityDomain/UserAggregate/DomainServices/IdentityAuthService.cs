@@ -2,30 +2,31 @@ using System.Security.Authentication;
 using System.Security.Claims;
 using BuildingBlock.Domain.Utils;
 using Microsoft.AspNetCore.Identity;
+using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
-using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.Identity.Entities;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity.Services.Implementations;
+namespace TinyCRM.Identity.Identity.UserAggregate.DomainServices;
 
 public class IdentityAuthService : IAuthService
 {
-    private readonly IRoleService _roleService;
+    private readonly IRoleDomainService _roleDomainService;
     private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly IUserService _userService;
+    private readonly IUserDomainService _userDomainService;
 
-    public IdentityAuthService(SignInManager<ApplicationUser> signInManager, IUserService userService,
-        IRoleService roleService)
+    public IdentityAuthService(SignInManager<ApplicationUser> signInManager, IUserDomainService userDomainService,
+        IRoleDomainService roleDomainService)
     {
         _signInManager = signInManager;
-        _userService = userService;
-        _roleService = roleService;
+        _userDomainService = userDomainService;
+        _roleDomainService = roleDomainService;
     }
 
     public async Task<User> Login(string email, string password)
     {
-        var user = Optional<User>.Of(await _userService.GetByEmailAsync(email))
+        var user = Optional<User>.Of(await _userDomainService.GetByEmailAsync(email))
             .ThrowIfNotPresent(new UserNotFoundException(nameof(email), email)).Get();
 
         var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
@@ -43,7 +44,7 @@ public class IdentityAuthService : IAuthService
             new(ClaimTypes.Email, user.Email)
         };
 
-        var roles = await _roleService.GetManyAsync(user);
+        var roles = await _roleDomainService.GetManyAsync(user);
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

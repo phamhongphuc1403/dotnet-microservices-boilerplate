@@ -2,8 +2,10 @@ using BuildingBlock.API.GRPC;
 using BuildingBlock.Application;
 using BuildingBlock.Domain.Utils;
 using Grpc.Core;
+using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
+using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
-using TinyCRM.Identity.Application.Services.Abstractions;
 
 namespace Identities.API.GRPC.Services;
 
@@ -11,19 +13,19 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
 {
     private readonly IAuthService _authService;
     private readonly ICurrentUser _currentUser;
-    private readonly IPermissionService _permissionService;
-    private readonly IRoleService _roleService;
-    private readonly IUserService _userService;
+    private readonly IPermissionDomainService _permissionDomainService;
+    private readonly IRoleDomainService _roleDomainService;
+    private readonly IUserDomainService _userDomainService;
 
     public GrpcAuthService(ICurrentUser currentUser, IAuthService authService,
-        IUserService userService, IRoleService roleService,
-        IPermissionService permissionService)
+        IUserDomainService userDomainService, IRoleDomainService roleDomainService,
+        IPermissionDomainService permissionDomainService)
     {
         _currentUser = currentUser;
         _authService = authService;
-        _userService = userService;
-        _roleService = roleService;
-        _permissionService = permissionService;
+        _userDomainService = userDomainService;
+        _roleDomainService = roleDomainService;
+        _permissionDomainService = permissionDomainService;
     }
 
     public override async Task GetClaimsAsync(ClaimRequest claimRequest,
@@ -35,7 +37,7 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
 
         var userId = _currentUser.Id;
 
-        var user = await _userService.GetByIdAsync(userId);
+        var user = await _userDomainService.GetByIdAsync(userId);
 
         if (user == null) throw new RpcException(new Status(StatusCode.NotFound, "User not found!"));
 
@@ -53,16 +55,16 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
     public override async Task<PermissionResponse> GetPermissionsAsync(PermissionRequest permissionRequest,
         ServerCallContext context)
     {
-        var user = Optional<User>.Of(await _userService.GetByIdAsync(new Guid(permissionRequest.UserId)))
+        var user = Optional<User>.Of(await _userDomainService.GetByIdAsync(new Guid(permissionRequest.UserId)))
             .ThrowIfNotPresent(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
 
-        var roles = await _roleService.GetManyAsync(user);
+        var roles = await _roleDomainService.GetManyAsync(user);
 
         var permissions = new List<string>();
 
         foreach (var role in roles)
         {
-            var rolePermissions = await _permissionService.GetPermissionsAsync(role);
+            var rolePermissions = await _permissionDomainService.GetPermissionsAsync(role);
 
             permissions.AddRange(rolePermissions);
         }
