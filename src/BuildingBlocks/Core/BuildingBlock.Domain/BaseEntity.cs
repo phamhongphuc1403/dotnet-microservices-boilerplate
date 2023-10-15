@@ -48,21 +48,21 @@ public abstract class AuditEntity<TKey> : DeleteEntity<TKey>, IAuditEntity<TKey>
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = null!;
     public DateTime? UpdatedAt { get; set; }
-    public string? UpdatedBy { get; set; } = null!;
+    public string? UpdatedBy { get; set; }
 }
 
-public interface IAggregateRoot<TKey> : IEntity<TKey>
+public interface IAggregateRoot : IEntity
 {
 }
 
-public interface IEntity<TKey> : IAuditEntity<TKey>
+public interface IEntity : IAuditEntity<Guid>
 {
 }
 
-public abstract class Entity : AuditEntity<Guid>, IEntity<Guid>
+public abstract class Entity : AuditEntity<Guid>, IEntity
 {
 }
 
-public abstract class AggregateRoot : Entity, IAggregateRoot<Guid>
+public abstract class AggregateRoot : Entity, IAggregateRoot
 {
 }

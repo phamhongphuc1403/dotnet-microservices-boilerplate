@@ -33,6 +33,7 @@ public static class IdentityExtensions
             .RegisterIdentitySeeder()
             .RegisterIdentityDbContext()
             .RegisterIdentityServices()
+            .RegisterIdentityRepositories()
             ;
 
         services.AddIdentityAuthentication(jwtSetting);

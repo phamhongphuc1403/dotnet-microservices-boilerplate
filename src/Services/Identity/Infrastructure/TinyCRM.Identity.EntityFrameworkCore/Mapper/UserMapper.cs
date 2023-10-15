@@ -1,5 +1,6 @@
 using AutoMapper;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Application.DTOs.UserDTOs;
 using TinyCRM.Identity.Identity.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.Mapper;
@@ -14,5 +15,6 @@ public class UserMapper : Profile
             // .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()))
             ;
         CreateMap<ApplicationUser, User>();
+        CreateMap<User, UserDto>();
     }
 }

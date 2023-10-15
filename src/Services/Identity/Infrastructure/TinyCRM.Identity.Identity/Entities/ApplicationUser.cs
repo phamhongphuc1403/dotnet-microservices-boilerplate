@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace TinyCRM.Identity.Identity.Entities;
 
-public sealed class ApplicationUser : IdentityUser<Guid>, IAggregateRoot<Guid>
+public sealed class ApplicationUser : IdentityUser<Guid>, IAggregateRoot
 {
     public ApplicationUser(string email, string? createdBy) : this(email)
     {

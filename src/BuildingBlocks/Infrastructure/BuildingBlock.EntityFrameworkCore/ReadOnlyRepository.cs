@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 namespace BuildingBlock.EntityFrameworkCore;
 
 public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEntity>
-    where TDbContext : BaseDbContext
-    where TEntity : Entity
+    where TDbContext : DbContext
+    where TEntity : class, IEntity
 {
     private readonly TDbContext _dbContext;
     private DbSet<TEntity>? _dbSet;

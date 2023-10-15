@@ -2,7 +2,7 @@ using BuildingBlock.Domain;
 
 namespace TinyCRM.Identity.Identity.Entities;
 
-public class ApplicationRefreshToken : IEntity<Guid>
+public class ApplicationRefreshToken : IEntity
 {
     public ApplicationRefreshToken(Guid userId, string token)
     {

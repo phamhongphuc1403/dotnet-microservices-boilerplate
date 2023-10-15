@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace BuildingBlock.Domain.Specifications.Abstractions;
 
-public class AndSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
+public class AndSpecification<TEntity> : Specification<TEntity> where TEntity : IEntity
 {
     private readonly ISpecification<TEntity> _left;
     private readonly ISpecification<TEntity> _right;
