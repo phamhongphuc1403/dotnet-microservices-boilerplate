@@ -1,9 +1,9 @@
 using TinyCRM.Identities.Domain.RoleAggregate.Entities;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Application.Services.Abstractions;
+namespace TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
 
-public interface IRoleService
+public interface IRoleDomainService
 {
     Task<IEnumerable<string>> GetManyAsync(User user);
 

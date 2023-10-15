@@ -5,15 +5,16 @@ using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
 using TinyCRM.Identities.Domain.RoleAggregate.Entities;
 using TinyCRM.Identities.Domain.RoleAggregate.Exceptions;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
-using TinyCRM.Identity.Application.Services.Abstractions;
-using TinyCRM.Identity.Identity.Entities;
+using TinyCRM.Identity.Identity.RoleAggregate.Entities;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity.Services.Implementations;
+namespace TinyCRM.Identity.Identity.RoleAggregate.DomainServices;
 
-public class IdentityRoleService : IRoleService
+public class IdentityRoleDomainService : IRoleDomainService
 {
     private readonly ICurrentUser _currentUser;
     private readonly IMapper _mapper;
@@ -21,7 +22,7 @@ public class IdentityRoleService : IRoleService
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public IdentityRoleService(UserManager<ApplicationUser> userManager, IMapper mapper,
+    public IdentityRoleDomainService(UserManager<ApplicationUser> userManager, IMapper mapper,
         IRoleCacheService roleCacheService, RoleManager<ApplicationRole> roleManager, ICurrentUser currentUser)
     {
         _userManager = userManager;

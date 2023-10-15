@@ -1,6 +1,7 @@
-using TinyCRM.Identity.Identity.Entities;
+using TinyCRM.Identity.Identity.RoleAggregate.Entities;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity.Services.Abstractions;
+namespace TinyCRM.Identity.Identity.Common.Services.Abstractions;
 
 public interface IIdentityService
 {

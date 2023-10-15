@@ -82,7 +82,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Redis", "BuildingBlocks\Infrastructure\BuildingBlock.Redis\BuildingBlock.Redis.csproj", "{9B1BBD9A-5422-4823-82F2-5DB6163A144A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.Identity", "Services\Identity\Infrastructure\TinyCRM.Identity.Identity\TinyCRM.Identity.Identity.csproj", "{44449388-AE96-4DE6-8688-E1D90E018211}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.IdentityDomain", "Services\Identity\Infrastructure\TinyCRM.Identity.IdentityDomain\TinyCRM.Identity.IdentityDomain.csproj", "{44449388-AE96-4DE6-8688-E1D90E018211}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

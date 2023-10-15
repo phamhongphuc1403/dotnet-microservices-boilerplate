@@ -1,7 +1,7 @@
 using AutoMapper;
 using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
-using TinyCRM.Identity.Identity.Entities;
+using TinyCRM.Identity.Identity.UserAggregate.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.Mapper;
 

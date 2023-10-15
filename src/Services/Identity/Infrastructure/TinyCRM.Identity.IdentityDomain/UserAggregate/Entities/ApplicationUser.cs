@@ -1,7 +1,7 @@
 using BuildingBlock.Domain;
 using Microsoft.AspNetCore.Identity;
 
-namespace TinyCRM.Identity.Identity.Entities;
+namespace TinyCRM.Identity.Identity.UserAggregate.Entities;
 
 public sealed class ApplicationUser : IdentityUser<Guid>, IAggregateRoot
 {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.Identity.Identity.Entities;
+using TinyCRM.Identity.Identity.RoleAggregate.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.EntityConfigurations;
 
