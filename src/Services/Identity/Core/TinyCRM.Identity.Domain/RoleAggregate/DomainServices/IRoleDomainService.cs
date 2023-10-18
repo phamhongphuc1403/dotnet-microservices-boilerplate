@@ -1,7 +1,7 @@
-using TinyCRM.Identities.Domain.RoleAggregate.Entities;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.RoleAggregate.Entities;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
 
-namespace TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
+namespace TinyCRM.Identity.Domain.RoleAggregate.DomainServices;
 
 public interface IRoleDomainService
 {

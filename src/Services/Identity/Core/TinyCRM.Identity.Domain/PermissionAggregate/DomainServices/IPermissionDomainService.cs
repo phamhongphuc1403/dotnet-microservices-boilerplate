@@ -1,4 +1,4 @@
-namespace TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
+namespace TinyCRM.Identity.Domain.PermissionAggregate.DomainServices;
 
 public interface IPermissionDomainService
 {

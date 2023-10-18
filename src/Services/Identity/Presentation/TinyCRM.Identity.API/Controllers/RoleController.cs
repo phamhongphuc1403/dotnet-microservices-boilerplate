@@ -2,7 +2,7 @@ using BuildingBlock.Domain.Constants.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TinyCRM.Identity.Application.CQRS.Commands.Requests;
+using TinyCRM.Identity.Application.CQRS.Commands.RoleCommands.Requests;
 using TinyCRM.Identity.Application.CQRS.Queries.RoleQueries.Requests;
 using TinyCRM.Identity.Application.DTOs.RoleDTOs;
 

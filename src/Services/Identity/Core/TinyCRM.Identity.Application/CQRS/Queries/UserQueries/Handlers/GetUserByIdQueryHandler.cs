@@ -1,11 +1,11 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
 using BuildingBlock.Domain.Utils;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
-using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
 using TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Requests;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.UserAggregate.Exceptions;
 
 namespace TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Handlers;
 

@@ -1,7 +1,7 @@
 using BuildingBlock.Application.CQRS;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
 
-namespace TinyCRM.Identity.Application.CQRS.Commands.Requests;
+namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 
 public class CreateUserCommand : CreateUserDto, ICommand<UserDto>
 {
@@ -9,5 +9,6 @@ public class CreateUserCommand : CreateUserDto, ICommand<UserDto>
     {
         Email = dto.Email;
         Password = dto.Password;
+        ConfirmPassword = dto.ConfirmPassword;
     }
 }

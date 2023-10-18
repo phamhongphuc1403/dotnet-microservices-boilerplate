@@ -3,9 +3,9 @@ using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
 using TinyCRM.Identity.Application.Common.Services.Abstractions;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
 
 namespace TinyCRM.Identity.Application.Common.Services.Implementations;
 

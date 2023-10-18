@@ -1,9 +1,9 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
 using BuildingBlock.Application.DTOs;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Requests;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
 
 namespace TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Handlers;
 

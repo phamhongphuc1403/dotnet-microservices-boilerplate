@@ -1,7 +1,7 @@
 using FluentValidation;
-using TinyCRM.Identity.Application.CQRS.Commands.Requests;
+using TinyCRM.Identity.Application.CQRS.Commands.RoleCommands.Requests;
 
-namespace TinyCRM.Identity.Application.CQRS.Commands.Validators;
+namespace TinyCRM.Identity.Application.CQRS.Commands.RoleCommands.Validators;
 
 public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
 {

@@ -1,9 +1,9 @@
 using System.Security.Claims;
 using BuildingBlock.API.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
-using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identity.Domain.RoleAggregate.DomainServices;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
 
 namespace Identities.API.Authorization;
 

@@ -1,8 +1,8 @@
 using BuildingBlock.Domain.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TinyCRM.Identities.Domain.RoleAggregate.Exceptions;
-using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
+using TinyCRM.Identity.Domain.RoleAggregate.Exceptions;
+using TinyCRM.Identity.Domain.UserAggregate.Exceptions;
 using TinyCRM.Identity.Identity.Common.Services.Abstractions;
 using TinyCRM.Identity.Identity.RoleAggregate.Entities;
 using TinyCRM.Identity.Identity.UserAggregate.Entities;

@@ -4,9 +4,9 @@ using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
-using TinyCRM.Identities.Domain.UserAggregate.Exceptions;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.UserAggregate.Exceptions;
 using TinyCRM.Identity.Identity.Common.Services.Abstractions;
 using TinyCRM.Identity.Identity.UserAggregate.Entities;
 using TinyCRM.Identity.Identity.UserAggregate.Specifications;
@@ -89,7 +89,7 @@ public class IdentityUserDomainService : IUserDomainService
 
     public async Task<User> CreateAsync(string email, string password)
     {
-        await CheckValidOnCreate(email);
+        await CheckIfEmailIsExisted(email);
 
         var user = new ApplicationUser(email, _currentUser.Email);
 
@@ -100,7 +100,7 @@ public class IdentityUserDomainService : IUserDomainService
         return _mapper.Map<User>(user);
     }
 
-    private async Task CheckValidOnCreate(string email)
+    private async Task CheckIfEmailIsExisted(string email)
     {
         Optional<ApplicationUser>.Of(await _userManager.FindByEmailAsync(email))
             .ThrowIfPresent(new UserConflictException(email));

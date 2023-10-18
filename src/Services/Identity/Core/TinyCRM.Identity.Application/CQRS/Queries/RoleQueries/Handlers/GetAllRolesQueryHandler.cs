@@ -1,8 +1,8 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
-using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
 using TinyCRM.Identity.Application.CQRS.Queries.RoleQueries.Requests;
 using TinyCRM.Identity.Application.DTOs.RoleDTOs;
+using TinyCRM.Identity.Domain.RoleAggregate.DomainServices;
 
 namespace TinyCRM.Identity.Application.CQRS.Queries.RoleQueries.Handlers;
 

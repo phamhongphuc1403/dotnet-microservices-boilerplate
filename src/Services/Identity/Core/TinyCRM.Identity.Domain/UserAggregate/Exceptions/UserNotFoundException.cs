@@ -1,7 +1,7 @@
 using BuildingBlock.Domain.Exceptions;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
 
-namespace TinyCRM.Identities.Domain.UserAggregate.Exceptions;
+namespace TinyCRM.Identity.Domain.UserAggregate.Exceptions;
 
 public class UserNotFoundException : EntityNotFoundException
 {

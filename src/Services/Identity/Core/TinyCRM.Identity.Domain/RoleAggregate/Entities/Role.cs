@@ -1,6 +1,6 @@
 using BuildingBlock.Domain;
 
-namespace TinyCRM.Identities.Domain.RoleAggregate.Entities;
+namespace TinyCRM.Identity.Domain.RoleAggregate.Entities;
 
 public class Role : Entity
 {

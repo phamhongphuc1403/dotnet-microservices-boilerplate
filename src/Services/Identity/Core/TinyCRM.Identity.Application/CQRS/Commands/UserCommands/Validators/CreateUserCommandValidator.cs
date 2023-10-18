@@ -1,7 +1,8 @@
 using FluentValidation;
-using TinyCRM.Identity.Application.CQRS.Commands.Requests;
+using TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
+using TinyCRM.Identity.Domain.Constants;
 
-namespace TinyCRM.Identity.Application.CQRS.Commands.Validators;
+namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Validators;
 
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
@@ -14,7 +15,7 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 
         RuleFor(x => x.Password)
             .NotEmpty()
-            .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$")
+            .Matches(Regex.Password)
             .WithMessage(
                 "Password must has the minimum of eight characters, at least one uppercase letter and one number");
     }

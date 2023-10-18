@@ -2,10 +2,10 @@ using BuildingBlock.API.GRPC;
 using BuildingBlock.Application;
 using BuildingBlock.Domain.Utils;
 using Grpc.Core;
-using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
-using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identity.Domain.RoleAggregate.DomainServices;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
 
 namespace Identities.API.GRPC.Services;
 

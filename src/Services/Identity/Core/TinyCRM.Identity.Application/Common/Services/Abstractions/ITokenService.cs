@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
-using TinyCRM.Identities.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.UserAggregate.Entities;
 
 namespace TinyCRM.Identity.Application.Common.Services.Abstractions;
 

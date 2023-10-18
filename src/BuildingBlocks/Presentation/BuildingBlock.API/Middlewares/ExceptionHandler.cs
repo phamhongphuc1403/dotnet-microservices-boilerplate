@@ -3,7 +3,6 @@ using System.Security.Authentication;
 using System.Text.Json;
 using BuildingBlock.Domain.Exceptions;
 using BuildingBlocks.Identity.Exceptions;
-using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +46,7 @@ public static class ExceptionHandler
             EntityConflictException => (int)HttpStatusCode.Conflict,
             ValidationException => (int)HttpStatusCode.BadRequest,
             AuthenticationException => (int)HttpStatusCode.Unauthorized,
+            FluentValidation.ValidationException => (int)HttpStatusCode.BadRequest,
             UnauthorizedException => (int)HttpStatusCode.Forbidden,
             _ => (int)HttpStatusCode.InternalServerError
         };
@@ -77,7 +77,7 @@ public static class ExceptionHandler
 
         switch (exception)
         {
-            case ValidationException validationException:
+            case FluentValidation.ValidationException validationException:
                 pd.Extensions.Add("errors",
                     validationException.Errors.Select(x => new { x.PropertyName, x.ErrorMessage }));
                 break;
