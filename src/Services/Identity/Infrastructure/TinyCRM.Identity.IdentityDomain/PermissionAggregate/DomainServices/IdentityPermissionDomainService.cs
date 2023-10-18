@@ -1,6 +1,6 @@
 using BuildingBlock.Application.CacheServices.Abstractions;
 using Microsoft.AspNetCore.Identity;
-using TinyCRM.Identities.Domain.PermissionAggregate.DomainServices;
+using TinyCRM.Identity.Domain.PermissionAggregate.DomainServices;
 using TinyCRM.Identity.Identity.Common.Services.Abstractions;
 using TinyCRM.Identity.Identity.RoleAggregate.Entities;
 

@@ -1,10 +1,10 @@
 using BuildingBlock.Application.CQRS;
-using TinyCRM.Identities.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identity.Application.Common.Services.Abstractions;
-using TinyCRM.Identity.Application.CQRS.Commands.Requests;
+using TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
+using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
 
-namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;
+namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Handlers;
 
 public class GenerateRefreshTokenCommandHandler : ICommandHandler<GenerateRefreshTokenCommand, LoginResponseDto>
 {

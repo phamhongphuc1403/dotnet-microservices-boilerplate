@@ -1,10 +1,10 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
-using TinyCRM.Identities.Domain.RoleAggregate.DomainServices;
-using TinyCRM.Identity.Application.CQRS.Commands.Requests;
+using TinyCRM.Identity.Application.CQRS.Commands.RoleCommands.Requests;
 using TinyCRM.Identity.Application.DTOs.RoleDTOs;
+using TinyCRM.Identity.Domain.RoleAggregate.DomainServices;
 
-namespace TinyCRM.Identity.Application.CQRS.Commands.Handlers;
+namespace TinyCRM.Identity.Application.CQRS.Commands.RoleCommands.Handlers;
 
 public class CreateRoleCommandHandler : ICommandHandler<CreateRoleCommand, RoleDto>
 {
