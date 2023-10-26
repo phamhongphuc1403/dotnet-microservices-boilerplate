@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.Identity.Identity.UserAggregate.Entities;
+using TinyCRM.Identity.IdentityDomain.UserAggregate.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.EntityConfigurations;
 
@@ -8,10 +8,8 @@ public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.HasIndex(user => user.Email).IsUnique();
-        builder.Property(user => user.NormalizedEmail).IsRequired();
-        builder.Property(user => user.UserName).IsRequired();
-        builder.Property(user => user.NormalizedUserName).IsRequired();
+        builder.HasIndex(user => user.NormalizedEmail).IsUnique().HasFilter("\"DeletedAt\" IS NULL");
+        builder.HasIndex(user => user.NormalizedUserName).IsUnique().HasFilter("\"DeletedAt\" IS NULL");
 
         builder.Property(user => user.Email)
             .HasMaxLength(320)

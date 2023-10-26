@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TinyCRM.Identity.Application;
 using TinyCRM.Identity.Application.Common.Services.Abstractions;
 
-namespace Identities.API.Extensions;
+namespace Identity.API.Extensions;
 
 public static class AuthenticationExtension
 {

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TinyCRM.Identity.Identity.UserAggregate.Entities;
+using TinyCRM.Identity.IdentityDomain.UserAggregate.Entities;
 
 namespace TinyCRM.Identity.EntityFrameworkCore.EntityConfigurations;
 
@@ -19,7 +19,7 @@ public class RefreshTokenConfiguration : IEntityTypeConfiguration<ApplicationRef
         builder.Property(refreshToken => refreshToken.CreatedAt)
             .IsRequired();
 
-        builder.HasOne(refreshToken => refreshToken.ApplicationUser)
+        builder.HasOne(refreshToken => refreshToken.User)
             .WithMany(user => user.RefreshTokens)
             .HasForeignKey(refreshToken => refreshToken.UserId)
             .OnDelete(DeleteBehavior.Cascade);

@@ -1,4 +1,4 @@
-using BuildingBlock.Domain.Constants.Identity;
+using BuildingBlock.Domain.Shared.Constants.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 

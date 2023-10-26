@@ -1,5 +1,4 @@
-using BuildingBlock.Application.CacheServices.Abstractions;
-using BuildingBlock.Application.CacheServices.Implementations;
+using BuildingBlock.Domain.Shared.Services;
 using BuildingBlock.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +14,6 @@ public static class CacheExtension
 
         services.AddSingleton<IConnectionMultiplexer>(multiplexer);
         services.AddScoped<ICacheService, RedisCacheService>();
-        services.AddScoped<IRoleCacheService, RoleCacheService>();
-        services.AddScoped<IPermissionCacheService, PermissionCacheService>();
 
         return services;
     }

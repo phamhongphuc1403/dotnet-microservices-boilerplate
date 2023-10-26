@@ -1,6 +1,6 @@
 using BuildingBlock.Application.CQRS;
-using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Shared.Services;
 using TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;
 using TinyCRM.Products.Domain.ProductAggregate.DomainServices;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;

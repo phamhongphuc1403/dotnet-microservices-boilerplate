@@ -4,7 +4,7 @@ using TinyCRM.Identity.Domain.Constants;
 
 namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Validators;
 
-public class ChangeUserPasswordCommandValidator : AbstractValidator<ChangeCurrentUserPasswordCommand>
+public class ChangeUserPasswordCommandValidator : AbstractValidator<ChangeCurrentPasswordCommand>
 {
     public ChangeUserPasswordCommandValidator()
     {
@@ -12,6 +12,6 @@ public class ChangeUserPasswordCommandValidator : AbstractValidator<ChangeCurren
             .NotEmpty()
             .Matches(Regex.Password)
             .WithMessage(
-                "new password must has the minimum of eight characters, at least one uppercase letter and one number");
+                "New password must has the minimum of eight characters, at least one uppercase letter and one number");
     }
 }

@@ -2,22 +2,26 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
+using BuildingBlock.Domain.Shared.Utils;
 using Microsoft.IdentityModel.Tokens;
 using TinyCRM.Identity.Application.Common.Services.Abstractions;
-using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
 using TinyCRM.Identity.Domain.UserAggregate.Entities;
+using TinyCRM.Identity.Domain.UserAggregate.Repositories;
 
 namespace TinyCRM.Identity.Application.Common.Services.Implementations;
 
 public class TokenService : ITokenService
 {
     private readonly JwtSetting _jwtSetting;
-    private readonly IUserDomainService _userDomainService;
+    private readonly IRefreshTokenReadOnlyRepository _refreshTokenReadOnlyRepository;
+    private readonly IUserReadOnlyRepository _userReadOnlyRepository;
 
-    public TokenService(JwtSetting jwtSetting, IUserDomainService userDomainService)
+    public TokenService(JwtSetting jwtSetting, IUserReadOnlyRepository userReadOnlyRepository,
+        IRefreshTokenReadOnlyRepository refreshTokenReadOnlyRepository)
     {
         _jwtSetting = jwtSetting;
-        _userDomainService = userDomainService;
+        _userReadOnlyRepository = userReadOnlyRepository;
+        _refreshTokenReadOnlyRepository = refreshTokenReadOnlyRepository;
     }
 
     public string GenerateAccessToken(IEnumerable<Claim> claims)
@@ -25,31 +29,45 @@ public class TokenService : ITokenService
         return GenerateToken(claims, _jwtSetting.AccessTokenExpireTime, _jwtSetting.AccessTokenSecurityKey);
     }
 
-    public async Task<string> GenerateRefreshTokenAsync(IEnumerable<Claim> claims, User user)
+    public string GenerateRefreshToken(IEnumerable<Claim> claims, User user)
     {
-        var refreshToken =
-            GenerateToken(claims, _jwtSetting.RefreshTokenExpireTime, _jwtSetting.RefreshTokenSecurityKey);
-
-        await _userDomainService.AddRefreshTokenAsync(user, refreshToken);
-
-        return refreshToken;
+        return GenerateToken(claims, _jwtSetting.RefreshTokenExpireTime, _jwtSetting.RefreshTokenSecurityKey);
     }
 
-    public Guid VerifyRefreshToken(string refreshToken)
+    public async Task<User> VerifyRefreshTokenAsync(string refreshToken)
     {
+        ClaimsPrincipal tokenClaimsPrincipal;
+
         try
         {
-            var tokenClaimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(refreshToken,
+            tokenClaimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(refreshToken,
                 ValidateToken(_jwtSetting.RefreshTokenSecurityKey), out _);
-
-            var userId = tokenClaimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!.Value;
-
-            return new Guid(userId);
         }
         catch (Exception ex)
         {
             throw new AuthenticationException(ex.Message);
         }
+
+        var user = await GetUserAsync(tokenClaimsPrincipal);
+
+        var existingRefreshToken = Optional<RefreshToken>
+            .Of(user.RefreshTokens.FirstOrDefault(rf => rf.Token == refreshToken))
+            .ThrowIfNotPresent(new AuthenticationException("Token not found")).Get();
+
+        if (existingRefreshToken.RevokedAt != null) throw new AuthenticationException("Token is already revoked");
+
+        existingRefreshToken.Revoke();
+
+        return user;
+    }
+
+    public async Task RevokeAllRefreshTokensAsync(User user)
+    {
+        var refreshTokens = (await _refreshTokenReadOnlyRepository.GetByUserId(user.Id)).ToList();
+
+        foreach (var refreshToken in refreshTokens) refreshToken.Revoke();
+
+        user.RefreshTokens = refreshTokens;
     }
 
     public TokenValidationParameters ValidateToken(string securityKey)
@@ -64,6 +82,15 @@ public class TokenService : ITokenService
             ValidAudience = _jwtSetting.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey))
         };
+    }
+
+    private async Task<User> GetUserAsync(ClaimsPrincipal tokenClaimsPrincipal)
+    {
+        var userId = new Guid(tokenClaimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!
+            .Value);
+
+        return Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(userId, "RefreshTokens"))
+            .ThrowIfNotPresent(new AuthenticationException($"user with id: '{userId}' is not found")).Get();
     }
 
     private string GenerateToken(IEnumerable<Claim> claims, int expireMinutes, string securityKey)

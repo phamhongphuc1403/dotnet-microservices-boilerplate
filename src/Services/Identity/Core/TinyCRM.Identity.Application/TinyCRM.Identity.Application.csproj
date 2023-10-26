@@ -17,11 +17,4 @@
         <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0"/>
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0"/>
     </ItemGroup>
-
-
-    <ItemGroup>
-        <Folder Include="Common\"/>
-        <Folder Include="CQRS\Commands\RoleCommands\"/>
-    </ItemGroup>
-
 </Project>

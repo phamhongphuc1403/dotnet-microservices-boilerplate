@@ -1,25 +1,24 @@
 using System.Security.Claims;
 using BuildingBlock.API.Authorization;
 using Microsoft.AspNetCore.Authorization;
-using TinyCRM.Identity.Domain.PermissionAggregate.DomainServices;
-using TinyCRM.Identity.Domain.RoleAggregate.DomainServices;
-using TinyCRM.Identity.Domain.UserAggregate.DomainServices;
+using TinyCRM.Identity.Domain.PermissionAggregate.Repositories;
+using TinyCRM.Identity.Domain.RoleAggregate.Repositories;
+using TinyCRM.Identity.Domain.UserAggregate.Repositories;
 
-namespace Identities.API.Authorization;
+namespace Identity.API.Authorization;
 
 public class IdentityPermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
-    private readonly IPermissionDomainService _permissionDomainService;
-    private readonly IRoleDomainService _roleDomainService;
-    private readonly IUserDomainService _userDomainService;
+    private readonly IPermissionReadOnlyRepository _permissionReadOnlyRepository;
+    private readonly IRoleReadOnlyRepository _roleReadOnlyRepository;
+    private readonly IUserReadOnlyRepository _userReadOnlyRepository;
 
-    public IdentityPermissionAuthorizationHandler(IPermissionDomainService permissionDomainService,
-        IRoleDomainService roleDomainService,
-        IUserDomainService userDomainService)
+    public IdentityPermissionAuthorizationHandler(IUserReadOnlyRepository userReadOnlyRepository,
+        IRoleReadOnlyRepository roleReadOnlyRepository, IPermissionReadOnlyRepository permissionReadOnlyRepository)
     {
-        _permissionDomainService = permissionDomainService;
-        _roleDomainService = roleDomainService;
-        _userDomainService = userDomainService;
+        _userReadOnlyRepository = userReadOnlyRepository;
+        _roleReadOnlyRepository = roleReadOnlyRepository;
+        _permissionReadOnlyRepository = permissionReadOnlyRepository;
     }
 
     protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context,
@@ -29,17 +28,17 @@ public class IdentityPermissionAuthorizationHandler : AuthorizationHandler<Permi
 
         if (userId == null) return;
 
-        var user = await _userDomainService.GetByIdAsync(new Guid(userId));
+        var user = await _userReadOnlyRepository.GetByIdAsync(new Guid(userId));
 
         if (user == null) return;
 
-        var roles = await _roleDomainService.GetManyAsync(user);
+        var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(user.Id);
 
         var permissions = new List<string>();
 
         foreach (var role in roles)
         {
-            var rolePermissions = await _permissionDomainService.GetPermissionsAsync(role);
+            var rolePermissions = await _permissionReadOnlyRepository.GetNamesByRoleNameAsync(role);
 
             permissions.AddRange(rolePermissions);
         }

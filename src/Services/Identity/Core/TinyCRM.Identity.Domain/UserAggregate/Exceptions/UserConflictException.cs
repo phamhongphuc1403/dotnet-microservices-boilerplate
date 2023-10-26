@@ -1,5 +1,5 @@
-using BuildingBlock.Domain.Constants.Identity;
 using BuildingBlock.Domain.Exceptions;
+using BuildingBlock.Domain.Shared.Constants.Identity;
 
 namespace TinyCRM.Identity.Domain.UserAggregate.Exceptions;
 

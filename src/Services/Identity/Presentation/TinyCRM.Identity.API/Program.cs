@@ -1,7 +1,7 @@
 using BuildingBlock.API.Extensions;
 using BuildingBlock.API.Middlewares;
-using Identities.API.Extensions;
-using Identities.API.GRPC.Services;
+using Identity.API.Extensions;
+using Identity.API.GRPC.Services;
 using TinyCRM.Identity.Application;
 using TinyCRM.Identity.EntityFrameworkCore;
 

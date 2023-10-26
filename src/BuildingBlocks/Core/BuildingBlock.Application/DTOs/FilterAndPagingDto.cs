@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using BuildingBlock.Domain.Constants;
+using BuildingBlock.Domain.Shared.Constants;
 
 namespace BuildingBlock.Application.DTOs;
 

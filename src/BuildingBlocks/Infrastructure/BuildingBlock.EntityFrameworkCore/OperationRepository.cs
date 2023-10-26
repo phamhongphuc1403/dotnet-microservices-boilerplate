@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace BuildingBlock.EntityFrameworkCore;
 
 public class OperationRepository<TDbContext, TAggregateRoot> : IOperationRepository<TAggregateRoot>
-    where TDbContext : BaseDbContext
-    where TAggregateRoot : AggregateRoot
+    where TDbContext : DbContext
+    where TAggregateRoot : class, IAggregateRoot
 {
     private readonly TDbContext _dbContext;
     private DbSet<TAggregateRoot>? _dbSet;

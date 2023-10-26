@@ -1,8 +1,8 @@
 using BuildingBlock.API.Authorization;
-using Identities.API.Authorization;
+using Identity.API.Authorization;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Identities.API.Extensions;
+namespace Identity.API.Extensions;
 
 public static class AuthorizationExtension
 {

@@ -1,6 +1,6 @@
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Shared.Utils;
 using BuildingBlock.Domain.Specifications.Implementations;
-using BuildingBlock.Domain.Utils;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;
 using TinyCRM.Products.Domain.ProductAggregate.Entities.Enums;
 using TinyCRM.Products.Domain.ProductAggregate.Exceptions;

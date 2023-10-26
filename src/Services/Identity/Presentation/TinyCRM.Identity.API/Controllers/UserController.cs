@@ -1,5 +1,5 @@
 using BuildingBlock.Application.DTOs;
-using BuildingBlock.Domain.Constants.Identity;
+using BuildingBlock.Domain.Shared.Constants.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +7,7 @@ using TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 using TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Requests;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
 
-namespace Identities.API.Controllers;
+namespace Identity.API.Controllers;
 
 [ApiController]
 [Route("api/users")]
@@ -61,16 +61,7 @@ public class UserController : ControllerBase
     [Authorize(Policy = Permissions.User.EditPersonal)]
     public async Task<ActionResult> ChangeUserPassword(ChangeCurrentUserPasswordDto dto)
     {
-        await _mediator.Send(new ChangeCurrentUserPasswordCommand(dto));
-
-        return NoContent();
-    }
-
-    [HttpPut("{id:guid}/reset-password")]
-    [Authorize(Policy = Permissions.User.EditAll)]
-    public async Task<ActionResult> ChangeUserPassword(Guid id, ResetUserPasswordDto dto)
-    {
-        await _mediator.Send(new ResetUserPasswordCommand(id, dto));
+        await _mediator.Send(new ChangeCurrentPasswordCommand(dto));
 
         return NoContent();
     }

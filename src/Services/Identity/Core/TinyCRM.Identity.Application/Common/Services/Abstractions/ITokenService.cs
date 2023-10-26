@@ -7,7 +7,12 @@ namespace TinyCRM.Identity.Application.Common.Services.Abstractions;
 public interface ITokenService
 {
     string GenerateAccessToken(IEnumerable<Claim> claims);
+
     TokenValidationParameters ValidateToken(string securityKey);
-    Task<string> GenerateRefreshTokenAsync(IEnumerable<Claim> claims, User user);
-    Guid VerifyRefreshToken(string refreshToken);
+
+    string GenerateRefreshToken(IEnumerable<Claim> claims, User user);
+
+    Task<User> VerifyRefreshTokenAsync(string refreshToken);
+
+    Task RevokeAllRefreshTokensAsync(User user);
 }

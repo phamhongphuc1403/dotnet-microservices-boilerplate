@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>TinyCRM.Identity.Identity</RootNamespace>
+        <RootNamespace>TinyCRM.Identity.IdentityDomain</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,12 +16,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj"/>
+
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
     </ItemGroup>
 
-
-    <ItemGroup>
-        <Folder Include="Common\"/>
-    </ItemGroup>
 
 </Project>

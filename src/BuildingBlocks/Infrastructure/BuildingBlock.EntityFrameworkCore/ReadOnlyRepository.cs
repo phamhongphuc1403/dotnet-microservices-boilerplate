@@ -2,7 +2,6 @@ using System.Linq.Dynamic.Core;
 using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
 using BuildingBlock.Domain.Specifications.Abstractions;
-using BuildingBlock.Domain.Specifications.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BuildingBlock.EntityFrameworkCore;
@@ -24,7 +23,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     public Task<TEntity?> GetAnyAsync(ISpecification<TEntity>? specification = null,
         string? includeTables = null)
     {
-        var query = DbSet.AsQueryable();
+        var query = DbSet.AsNoTracking();
 
         query = Filter(query, specification);
 
@@ -36,7 +35,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     public Task<List<TEntity>> GetAllAsync(ISpecification<TEntity>? specification = null,
         string? includeTables = null)
     {
-        var query = DbSet.AsQueryable();
+        var query = DbSet.AsNoTracking();
 
         query = Filter(query, specification);
 
@@ -47,7 +46,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
     public Task<bool> CheckIfExistAsync(ISpecification<TEntity>? specification = null)
     {
-        var query = DbSet.AsQueryable();
+        var query = DbSet.AsNoTracking();
 
         query = Filter(query, specification);
 
@@ -60,7 +59,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         int pageIndex,
         int pageSize, string? includeTables = null)
     {
-        var query = DbSet.AsQueryable();
+        var query = DbSet.AsNoTracking();
 
         query = Filter(query, specification);
 
@@ -78,13 +77,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
     private static IQueryable<TEntity> Filter(IQueryable<TEntity> query,
         ISpecification<TEntity>? specification)
     {
-        var entityNotDeletedSpecification = new EntityDeletedSpecification<TEntity>(false);
-
-        if (specification == null) return query.Where(entityNotDeletedSpecification.ToExpression());
-
-        var filteredSpecification = specification.And(entityNotDeletedSpecification);
-
-        return query.Where(filteredSpecification.ToExpression());
+        return specification != null ? query.Where(specification.ToExpression()) : query;
     }
 
     private static IQueryable<TEntity> Sort(IQueryable<TEntity> query, string? sort)

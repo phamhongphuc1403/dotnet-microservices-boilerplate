@@ -1,8 +1,8 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Shared.Utils;
 using BuildingBlock.Domain.Specifications.Implementations;
-using BuildingBlock.Domain.Utils;
 using TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
 using TinyCRM.Products.Application.DTOs;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;
