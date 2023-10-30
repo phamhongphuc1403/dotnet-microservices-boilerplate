@@ -1,5 +1,5 @@
 using BuildingBlock.Application.DTOs;
-using BuildingBlock.Domain.Constants.Identity;
+using BuildingBlock.Domain.Shared.Constants.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

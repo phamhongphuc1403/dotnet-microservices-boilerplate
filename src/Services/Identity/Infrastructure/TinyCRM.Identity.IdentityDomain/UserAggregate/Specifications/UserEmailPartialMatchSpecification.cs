@@ -1,8 +1,8 @@
 using System.Linq.Expressions;
 using BuildingBlock.Domain.Specifications.Abstractions;
-using TinyCRM.Identity.Identity.UserAggregate.Entities;
+using TinyCRM.Identity.IdentityDomain.UserAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity.UserAggregate.Specifications;
+namespace TinyCRM.Identity.IdentityDomain.UserAggregate.Specifications;
 
 public class UserEmailPartialMatchSpecification : Specification<ApplicationUser>
 {
@@ -17,6 +17,6 @@ public class UserEmailPartialMatchSpecification : Specification<ApplicationUser>
     {
         if (string.IsNullOrWhiteSpace(_email)) return user => true;
 
-        return user => user.Email!.ToUpper().Contains(_email.ToUpper());
+        return user => user.NormalizedEmail!.Contains(_email.ToUpper());
     }
 }

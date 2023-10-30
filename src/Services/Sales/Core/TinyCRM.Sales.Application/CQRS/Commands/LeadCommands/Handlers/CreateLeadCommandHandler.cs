@@ -1,7 +1,7 @@
 using AutoMapper;
 using BuildingBlock.Application.CQRS;
-using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Shared.Services;
 using TinyCRM.Sales.Application.CQRS.Commands.LeadCommands.Requests;
 using TinyCRM.Sales.Application.DTOs.LeadDTOs;
 using TinyCRM.Sales.Domain.LeadAggregate.Entities;

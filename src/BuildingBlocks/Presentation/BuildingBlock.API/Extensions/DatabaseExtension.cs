@@ -1,4 +1,4 @@
-using BuildingBlock.Domain;
+using BuildingBlock.Domain.Shared.Services;
 using BuildingBlock.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

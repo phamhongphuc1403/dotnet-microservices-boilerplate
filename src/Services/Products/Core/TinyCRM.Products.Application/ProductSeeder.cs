@@ -1,7 +1,7 @@
 using Bogus;
 using BuildingBlock.Application;
-using BuildingBlock.Domain;
 using BuildingBlock.Domain.Repositories;
+using BuildingBlock.Domain.Shared.Services;
 using Microsoft.Extensions.Logging;
 using TinyCRM.Products.Domain.ProductAggregate.Entities;
 using TinyCRM.Products.Domain.ProductAggregate.Entities.Enums;

@@ -1,6 +1,6 @@
 using System.Security.Claims;
 using BuildingBlock.API.Authorization;
-using BuildingBlock.Application.CacheServices.Abstractions;
+using BuildingBlock.Domain.Shared.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BuildingBlock.API.GRPC.Services;
@@ -8,14 +8,12 @@ namespace BuildingBlock.API.GRPC.Services;
 public class GrpcPermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
 {
     private readonly AuthProvider.AuthProviderClient _authProviderClient;
-    private readonly IPermissionCacheService _permissionCacheService;
-    private readonly IRoleCacheService _roleCacheService;
+    private readonly ICacheService _cacheService;
 
-    public GrpcPermissionAuthorizationHandler(IPermissionCacheService permissionCacheService,
-        IRoleCacheService roleCacheService, AuthProvider.AuthProviderClient authProviderClient)
+    public GrpcPermissionAuthorizationHandler(ICacheService cacheService,
+        AuthProvider.AuthProviderClient authProviderClient)
     {
-        _permissionCacheService = permissionCacheService;
-        _roleCacheService = roleCacheService;
+        _cacheService = cacheService;
         _authProviderClient = authProviderClient;
     }
 
@@ -34,9 +32,9 @@ public class GrpcPermissionAuthorizationHandler : AuthorizationHandler<Permissio
         }
     }
 
-    private async Task<List<string>?> GetCachedPermissionsAsync(string userId)
+    private async Task<IEnumerable<string>?> GetCachedPermissionsAsync(string userId)
     {
-        var roles = await _roleCacheService.GetAsync(userId);
+        var roles = await _cacheService.GetRecordAsync<IEnumerable<string>>(userId);
 
         if (roles == null) return null;
 
@@ -44,7 +42,7 @@ public class GrpcPermissionAuthorizationHandler : AuthorizationHandler<Permissio
 
         foreach (var role in roles)
         {
-            var rolePermissions = await _permissionCacheService.GetAsync(role);
+            var rolePermissions = await _cacheService.GetRecordAsync<IEnumerable<string>>(role);
 
             if (rolePermissions == null) return null;
             permissions.AddRange(rolePermissions);

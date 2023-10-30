@@ -11,18 +11,14 @@
         <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
+        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.5"/>
     </ItemGroup>
 
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\BuildingBlocks\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj"/>
         <ProjectReference Include="..\..\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj"/>
         <ProjectReference Include="..\TinyCRM.Identity.IdentityDomain\TinyCRM.Identity.IdentityDomain.csproj"/>
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <Folder Include="Identity\"/>
-        <Folder Include="Repositories\"/>
     </ItemGroup>
 
 

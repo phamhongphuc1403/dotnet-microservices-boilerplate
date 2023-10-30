@@ -6,4 +6,8 @@ public class EntityConflictException : Exception
         $"{entity} with {column}: '{value}' is already existed")
     {
     }
+
+    protected EntityConflictException(string message) : base(message)
+    {
+    }
 }

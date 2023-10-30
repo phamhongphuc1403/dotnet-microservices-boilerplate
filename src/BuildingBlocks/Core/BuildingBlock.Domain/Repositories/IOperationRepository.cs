@@ -1,6 +1,6 @@
 namespace BuildingBlock.Domain.Repositories;
 
-public interface IOperationRepository<TAggregateRoot> where TAggregateRoot : AggregateRoot
+public interface IOperationRepository<TAggregateRoot> where TAggregateRoot : IAggregateRoot
 {
     Task AddAsync(TAggregateRoot entity);
 

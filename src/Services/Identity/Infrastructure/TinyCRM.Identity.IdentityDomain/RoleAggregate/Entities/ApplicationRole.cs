@@ -1,27 +1,14 @@
 using BuildingBlock.Domain;
 using Microsoft.AspNetCore.Identity;
+using TinyCRM.Identity.IdentityDomain.PermissionAggregate.Entities;
 
-namespace TinyCRM.Identity.Identity.RoleAggregate.Entities;
+namespace TinyCRM.Identity.IdentityDomain.RoleAggregate.Entities;
 
 public sealed class ApplicationRole : IdentityRole<Guid>, IAggregateRoot
 {
-    public ApplicationRole(string roleName, string? email) : this(roleName)
-    {
-        if (email != null) CreatedBy = email;
-    }
+    public ICollection<ApplicationPermission> Permissions { get; set; } = null!;
 
-    public ApplicationRole(string roleName) : this()
-    {
-        CreatedBy = "server";
-        CreatedAt = DateTime.UtcNow;
-        Name = roleName;
-    }
-
-    public ApplicationRole()
-    {
-    }
-
-    public ICollection<IdentityRoleClaim<Guid>> Claims { get; set; } = null!;
+    public ICollection<ApplicationUserRole> UserRoles { get; set; } = null!;
 
     public string CreatedBy { get; set; } = null!;
 

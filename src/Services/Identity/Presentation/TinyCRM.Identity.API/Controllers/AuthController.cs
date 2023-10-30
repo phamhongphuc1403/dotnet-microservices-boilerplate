@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 using TinyCRM.Identity.Application.DTOs.UserDTOs;
 
-namespace Identities.API.Controllers;
+namespace Identity.API.Controllers;
 
 [ApiController]
 [Route("api/auth")]
@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<LoginResponseDto>> Login(LoginRequestDto dto)
+    public async Task<ActionResult<LoginResponseDto>> LoginAsync(LoginRequestDto dto)
     {
         var response = await _mediator.Send(new LoginCommand(dto));
 
@@ -25,7 +25,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh-token")]
-    public async Task<ActionResult<LoginResponseDto>> Login(GenerateRefreshTokenRequestDto dto)
+    public async Task<ActionResult<LoginResponseDto>> GenerateRefreshTokenAsync(GenerateRefreshTokenRequestDto dto)
     {
         var response = await _mediator.Send(new GenerateRefreshTokenCommand(dto));
 
