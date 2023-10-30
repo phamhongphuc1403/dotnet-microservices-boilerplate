@@ -22,7 +22,7 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Authorize(Policy = Permissions.User.ViewAll)]
-    public async Task<ActionResult<FilterAndPagingResultDto<UserDto>>> GetAllUsers(
+    public async Task<ActionResult<FilterAndPagingResultDto<UserDto>>> GetFilteredAndPagedUsersAsync(
         [FromQuery] FilterAndPagingUsersDto dto)
     {
         var users = await _mediator.Send(new FilterAndPagingUsersQuery(dto));
@@ -32,7 +32,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Authorize(Policy = Permissions.User.Create)]
-    public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto dto)
+    public async Task<ActionResult<UserDto>> CreateUserAsync(CreateUserDto dto)
     {
         var user = await _mediator.Send(new CreateUserCommand(dto));
 
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
 
     [HttpGet("{id:guid}")]
     [Authorize(Policy = Permissions.User.ViewAll)]
-    public async Task<ActionResult<UserDto>> GetUserById(Guid id)
+    public async Task<ActionResult<UserDto>> GetUserByIdAsync(Guid id)
     {
         var user = await _mediator.Send(new GetUserByIdQuery(id));
 
@@ -50,7 +50,7 @@ public class UserController : ControllerBase
 
     [HttpGet("me")]
     [Authorize(Policy = Permissions.User.ViewPersonal)]
-    public async Task<ActionResult<UserDto>> GetCurrentUser()
+    public async Task<ActionResult<UserDto>> GetCurrentUserAsync()
     {
         var user = await _mediator.Send(new GetCurrentUserQuery());
 
@@ -59,9 +59,18 @@ public class UserController : ControllerBase
 
     [HttpPut("me/change-password")]
     [Authorize(Policy = Permissions.User.EditPersonal)]
-    public async Task<ActionResult> ChangeUserPassword(ChangeCurrentUserPasswordDto dto)
+    public async Task<ActionResult> ChangeCurrentPasswordAsync(ChangeCurrentPasswordDto dto)
     {
         await _mediator.Send(new ChangeCurrentPasswordCommand(dto));
+
+        return NoContent();
+    }
+
+    [HttpPut("{id:guid}/change-password")]
+    [Authorize(Policy = Permissions.User.EditAll)]
+    public async Task<ActionResult> ChangeUserPasswordAsync(Guid id, ChangeUserPasswordDto dto)
+    {
+        await _mediator.Send(new ChangeUserPasswordCommand(id, dto));
 
         return NoContent();
     }

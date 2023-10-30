@@ -21,18 +21,26 @@ public class UserDomainService : IUserDomainService
         user.RefreshTokens.Add(new RefreshToken(refreshToken));
     }
 
-    public async Task<User> CreateAsync(string email, string password, string currentPassword)
+    public async Task<User> CreateAsync(string email, string password, string confirmPassword)
     {
-        await CheckValidOnCreate(email, password, currentPassword);
+        await CheckValidOnCreate(email, password, confirmPassword);
 
         var user = new User(email);
 
         return user;
     }
 
-    private async Task CheckValidOnCreate(string email, string password, string currentPassword)
+    public async Task<string> ResetPasswordAsync(User user, string password, string confirmPassword)
     {
-        Optional<string>.Of(password).ThrowIfNotEqual(currentPassword,
+        Optional<string>.Of(password).ThrowIfNotEqual(confirmPassword,
+            new ValidationException("Password and confirm password don't match"));
+
+        return await _userReadOnlyRepository.GetPasswordResetToken(user);
+    }
+
+    private async Task CheckValidOnCreate(string email, string password, string confirmPassword)
+    {
+        Optional<string>.Of(password).ThrowIfNotEqual(confirmPassword,
             new ValidationException("Password and confirm password don't match"));
 
         await CheckIfEmailIsExisted(email);
