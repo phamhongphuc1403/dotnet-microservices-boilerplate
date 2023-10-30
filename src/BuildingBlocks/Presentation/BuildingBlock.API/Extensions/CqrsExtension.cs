@@ -11,8 +11,10 @@ public static class CqrsExtension
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblyContaining(typeof(TApplicationAssemblyReference));
-            cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            cfg.AddOpenBehavior(typeof(ConvertToNullBehavior<,>));
+            cfg.AddOpenBehavior(typeof(CommandResponseValidationBehavior<,>));
+            cfg.AddOpenBehavior(typeof(CommandValidationBehavior<,>));
+            cfg.AddOpenBehavior(typeof(CommandResponseConvertToNullBehavior<,>));
+            cfg.AddOpenBehavior(typeof(CommandConvertToNullBehavior<,>));
         });
 
         return services;
