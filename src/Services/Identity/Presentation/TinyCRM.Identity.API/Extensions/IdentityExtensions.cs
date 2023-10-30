@@ -30,6 +30,8 @@ public static class IdentityExtensions
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+        services.Configure<DataProtectionTokenProviderOptions>(opts => opts.TokenLifespan = TimeSpan.FromMinutes(30));
+
         services
             .RegisterIdentitySeeder()
             .RegisterIdentityDbContext()

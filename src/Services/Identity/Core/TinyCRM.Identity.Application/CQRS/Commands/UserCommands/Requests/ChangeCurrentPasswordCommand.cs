@@ -3,9 +3,9 @@ using TinyCRM.Identity.Application.DTOs.UserDTOs;
 
 namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 
-public class ChangeCurrentPasswordCommand : ChangeCurrentUserPasswordDto, ICommand
+public class ChangeCurrentPasswordCommand : ChangeCurrentPasswordDto, ICommand
 {
-    public ChangeCurrentPasswordCommand(ChangeCurrentUserPasswordDto dto)
+    public ChangeCurrentPasswordCommand(ChangeCurrentPasswordDto dto)
     {
         CurrentPassword = dto.CurrentPassword;
         NewPassword = dto.NewPassword;

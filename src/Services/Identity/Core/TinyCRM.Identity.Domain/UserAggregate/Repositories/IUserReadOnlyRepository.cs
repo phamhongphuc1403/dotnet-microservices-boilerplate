@@ -14,4 +14,6 @@ public interface IUserReadOnlyRepository
     Task<bool> CheckIfEmailExistAsync(string email);
 
     Task<bool> CheckPasswordAsync(User user, string password);
+
+    Task<string> GetPasswordResetToken(User user);
 }

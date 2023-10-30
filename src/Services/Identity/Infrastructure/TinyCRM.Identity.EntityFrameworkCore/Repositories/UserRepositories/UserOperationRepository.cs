@@ -63,6 +63,15 @@ public class UserOperationRepository : IUserOperationRepository
         return result.Succeeded;
     }
 
+    public async Task ResetPasswordAsync(User user, string token, string newPassword)
+    {
+        var applicationUser = await GetApplicationUserAsync(user);
+
+        var result = await _userManager.ResetPasswordAsync(applicationUser, token, newPassword);
+
+        if (!result.Succeeded) throw new IdentityException(result.Errors);
+    }
+
     private async Task<ApplicationUser> GetApplicationUserAsync(User user)
     {
         var applicationUser = await _userManager.FindByIdAsync(user.Id.ToString());
