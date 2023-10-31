@@ -6,11 +6,8 @@ namespace TinyCRM.Identity.Application.CQRS.Queries.UserQueries.Requests;
 
 public class FilterAndPagingUsersQuery : FilterAndPagingUsersDto, IQuery<FilterAndPagingResultDto<UserDto>>
 {
-    public FilterAndPagingUsersQuery(FilterAndPagingUsersDto dto)
+    public FilterAndPagingUsersQuery(FilterAndPagingUsersDto dto) : base(dto)
     {
-        Keyword = dto.Keyword;
-        PageSize = dto.PageSize;
-        PageIndex = dto.PageIndex;
         Sort = dto.ConvertSort();
     }
 

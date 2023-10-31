@@ -5,6 +5,17 @@ namespace BuildingBlock.Application.DTOs;
 
 public class FilterAndPagingDto<TEnum>
 {
+    protected FilterAndPagingDto()
+    {
+    }
+
+    protected FilterAndPagingDto(FilterAndPagingDto<TEnum> dto)
+    {
+        Keyword = dto.Keyword;
+        PageSize = dto.PageSize;
+        PageIndex = dto.PageIndex;
+    }
+
     [StringLength(100, ErrorMessage = "Keyword cannot exceed 100 characters.")]
     public string Keyword { get; set; } = DefaultPaginationParameters.Keyword;
 

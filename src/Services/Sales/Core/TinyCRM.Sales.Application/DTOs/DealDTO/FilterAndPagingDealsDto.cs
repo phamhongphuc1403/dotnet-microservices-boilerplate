@@ -6,5 +6,18 @@ namespace TinyCRM.Sales.Application.DTOs.DealDTO;
 
 public class FilterAndPagingDealsDto : FilterAndPagingDto<DealSortProperty>
 {
+    protected FilterAndPagingDealsDto(FilterAndPagingDealsDto dto)
+    {
+        Keyword = dto.Keyword;
+        PageIndex = dto.PageIndex;
+        PageSize = dto.PageSize;
+        IsDescending = dto.IsDescending;
+        Status = dto.Status;
+    }
+
+    public FilterAndPagingDealsDto()
+    {
+    }
+
     public DealStatus? Status { get; set; }
 }

@@ -5,8 +5,7 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.RoleCommands.Requests;
 
 public class CreateRoleCommand : CreateOrEditRoleDto, ICommand<RoleDto>
 {
-    public CreateRoleCommand(CreateOrEditRoleDto dto)
+    public CreateRoleCommand(CreateOrEditRoleDto dto) : base(dto)
     {
-        Name = dto.Name;
     }
 }

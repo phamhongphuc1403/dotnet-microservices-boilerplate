@@ -5,9 +5,7 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 
 public class LoginCommand : LoginRequestDto, ICommand<LoginResponseDto>
 {
-    public LoginCommand(LoginRequestDto dto)
+    public LoginCommand(LoginRequestDto dto) : base(dto)
     {
-        Email = dto.Email;
-        Password = dto.Password;
     }
 }

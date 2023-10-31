@@ -6,14 +6,9 @@ namespace TinyCRM.Sales.Application.CQRS.Queries.DealQueries.Requests;
 
 public class FilterAndPagingDealsQuery : FilterAndPagingDealsDto, IQuery<FilterAndPagingResultDto<DealDto>>
 {
-    public FilterAndPagingDealsQuery(FilterAndPagingDealsDto dto)
+    public FilterAndPagingDealsQuery(FilterAndPagingDealsDto dto) : base(dto)
     {
-        Keyword = dto.Keyword;
-        PageIndex = dto.PageIndex;
-        PageSize = dto.PageSize;
-        IsDescending = dto.IsDescending;
         Sort = dto.ConvertSort();
-        Status = dto.Status;
     }
 
     public string Sort { get; private init; }

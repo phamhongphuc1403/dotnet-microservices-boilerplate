@@ -5,10 +5,7 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 
 public class CreateUserCommand : CreateUserDto, ICommand<UserDto>
 {
-    public CreateUserCommand(CreateUserDto dto)
+    public CreateUserCommand(CreateUserDto dto) : base(dto)
     {
-        Email = dto.Email;
-        Password = dto.Password;
-        ConfirmPassword = dto.ConfirmPassword;
     }
 }
