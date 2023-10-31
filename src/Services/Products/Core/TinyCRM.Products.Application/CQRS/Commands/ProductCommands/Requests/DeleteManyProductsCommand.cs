@@ -5,8 +5,7 @@ namespace TinyCRM.Products.Application.CQRS.Commands.ProductCommands.Requests;
 
 public class DeleteManyProductsCommand : DeleteManyProductsDto, ICommand
 {
-    public DeleteManyProductsCommand(DeleteManyProductsDto dto)
+    public DeleteManyProductsCommand(DeleteManyProductsDto dto) : base(dto)
     {
-        Ids = dto.Ids;
     }
 }

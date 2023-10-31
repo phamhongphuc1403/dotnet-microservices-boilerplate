@@ -5,8 +5,7 @@ namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 
 public class GenerateRefreshTokenCommand : GenerateRefreshTokenRequestDto, ICommand<LoginResponseDto>
 {
-    public GenerateRefreshTokenCommand(GenerateRefreshTokenRequestDto dto)
+    public GenerateRefreshTokenCommand(GenerateRefreshTokenRequestDto dto) : base(dto)
     {
-        RefreshToken = dto.RefreshToken;
     }
 }
