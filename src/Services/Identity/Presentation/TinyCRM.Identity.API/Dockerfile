@@ -16,7 +16,7 @@ COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Redis/BuildingBlock.Redis.csp
 COPY ["Services/Identity/Core/TinyCRM.Identity.Application/TinyCRM.Identity.Application.csproj", "Services/Identity/Core/TinyCRM.Identity.Application/"]
 COPY ["Services/Identity/Core/TinyCRM.Identity.Domain/TinyCRM.Identity.Domain.csproj", "Services/Identity/Core/TinyCRM.Identity.Domain/"]
 COPY ["Services/Identity/Infrastructure/TinyCRM.Identity.EntityFrameworkCore/TinyCRM.Identity.EntityFrameworkCore.csproj", "Services/Identity/Infrastructure/TinyCRM.Identity.EntityFrameworkCore/"]
-COPY ["Services/Identity/Infrastructure/TinyCRM.Identity.Identity/TinyCRM.Identity.Identity.csproj", "Services/Identity/Infrastructure/TinyCRM.Identity.Identity/"]
+COPY ["Services/Identity/Infrastructure/TinyCRM.Identity.IdentityDomain/TinyCRM.Identity.IdentityDomain.csproj", "Services/Identity/Infrastructure/TinyCRM.Identity.IdentityDomain/"]
 RUN dotnet restore "Services/Identity/Presentation/TinyCRM.Identity.API/TinyCRM.Identity.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Identity/Presentation/TinyCRM.Identity.API"
