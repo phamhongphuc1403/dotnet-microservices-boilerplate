@@ -1,5 +1,4 @@
 using AutoMapper;
-using BuildingBlock.Domain.Shared.Services;
 using BuildingBlock.Domain.Shared.Utils;
 using BuildingBlocks.Identity.Exceptions;
 using Microsoft.AspNetCore.Identity;
@@ -12,16 +11,13 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Repositories.RoleRepositories;
 
 public class RoleOperationRepository : IRoleOperationRepository
 {
-    private readonly ICacheService _cacheService;
     private readonly IMapper _mapper;
     private readonly RoleManager<ApplicationRole> _roleManager;
 
-    public RoleOperationRepository(RoleManager<ApplicationRole> roleManager, IMapper mapper,
-        ICacheService cacheService)
+    public RoleOperationRepository(RoleManager<ApplicationRole> roleManager, IMapper mapper)
     {
         _roleManager = roleManager;
         _mapper = mapper;
-        _cacheService = cacheService;
     }
 
     public async Task CreateAsync(Role role)
@@ -42,8 +38,6 @@ public class RoleOperationRepository : IRoleOperationRepository
         var result = await _roleManager.UpdateAsync(applicationRole);
 
         if (!result.Succeeded) throw new IdentityException(result.Errors);
-
-        await _cacheService.RemoveRecordAsync(role.Name);
     }
 
     private async Task<ApplicationRole> GetApplicationRoleAsync(Role role)

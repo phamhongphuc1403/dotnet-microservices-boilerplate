@@ -15,6 +15,8 @@ using TinyCRM.Identity.Domain.UserAggregate.DomainServices.Abstractions;
 using TinyCRM.Identity.Domain.UserAggregate.DomainServices.Implementations;
 using TinyCRM.Identity.Domain.UserAggregate.Repositories;
 using TinyCRM.Identity.EntityFrameworkCore;
+using TinyCRM.Identity.EntityFrameworkCore.CachedRepositories.CachedPermissionRepositories;
+using TinyCRM.Identity.EntityFrameworkCore.CachedRepositories.CachedRoleRepositories;
 using TinyCRM.Identity.EntityFrameworkCore.Repositories.PermissionRepositories;
 using TinyCRM.Identity.EntityFrameworkCore.Repositories.RoleRepositories;
 using TinyCRM.Identity.EntityFrameworkCore.Repositories.UserRepositories;
@@ -63,9 +65,15 @@ public static class DependencyInjectionExtension
         services.AddScoped<IPermissionReadOnlyRepository, PermissionReadOnlyRepository>();
         services.AddScoped<IPermissionOperationRepository, PermissionOperationRepository>();
 
+        services.Decorate<IPermissionOperationRepository, CachedPermissionOperationRepository>();
+        services.Decorate<IPermissionReadOnlyRepository, CachedPermissionReadOnlyRepository>();
+
         services.AddScoped<IReadOnlyRepository<ApplicationRole>, ReadOnlyRepository<AppDbContext, ApplicationRole>>();
         services.AddScoped<IRoleReadOnlyRepository, RoleReadOnlyRepository>();
         services.AddScoped<IRoleOperationRepository, RoleOperationRepository>();
+
+        services.Decorate<IRoleReadOnlyRepository, CachedRoleReadOnlyRepository>();
+        services.Decorate<IRoleOperationRepository, CachedRoleOperationRepository>();
 
         services
             .AddScoped<IReadOnlyRepository<ApplicationUserRole>,
