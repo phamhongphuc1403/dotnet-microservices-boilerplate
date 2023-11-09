@@ -34,9 +34,10 @@ public class ChangeUserPasswordCommandHandler : ICommandHandler<ChangeUserPasswo
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(request.UserId))
             .ThrowIfNotPresent(new UserNotFoundException(request.UserId)).Get();
 
-        var token = await _userDomainService.ResetPasswordAsync(user, request.Password, request.ConfirmPassword);
+        var token = await _userDomainService.ResetPasswordAsync(user, request.Dto.Password,
+            request.Dto.ConfirmPassword);
 
-        await _userOperationRepository.ResetPasswordAsync(user, token, request.Password);
+        await _userOperationRepository.ResetPasswordAsync(user, token, request.Dto.Password);
 
         await _tokenService.RevokeAllRefreshTokensAsync(user);
 

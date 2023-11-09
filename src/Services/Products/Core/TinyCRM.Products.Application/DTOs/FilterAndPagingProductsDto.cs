@@ -6,18 +6,5 @@ namespace TinyCRM.Products.Application.DTOs;
 
 public class FilterAndPagingProductsDto : FilterAndPagingDto<ProductSortProperty>
 {
-    protected FilterAndPagingProductsDto(FilterAndPagingProductsDto dto)
-    {
-        Keyword = dto.Keyword;
-        PageIndex = dto.PageIndex;
-        PageSize = dto.PageSize;
-        IsDescending = dto.IsDescending;
-        Type = dto.Type;
-    }
-
-    public FilterAndPagingProductsDto()
-    {
-    }
-
     public ProductType? Type { get; set; }
 }

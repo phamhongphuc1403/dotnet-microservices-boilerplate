@@ -8,7 +8,7 @@ public class ChangeUserPasswordCommandValidator : AbstractValidator<ChangeUserPa
 {
     public ChangeUserPasswordCommandValidator()
     {
-        RuleFor(x => x.Password)
+        RuleFor(x => x.Dto.Password)
             .NotEmpty()
             .Matches(Regex.Password)
             .WithMessage(

@@ -3,12 +3,6 @@ using TinyCRM.Products.Application.DTOs;
 
 namespace TinyCRM.Products.Application.CQRS.Queries.ProductQueries.Requests;
 
-public class GetProductQuery : IQuery<ProductDetailDto>
+public record GetProductQuery(Guid ProductId) : IQuery<ProductDetailDto>
 {
-    public GetProductQuery(Guid id)
-    {
-        Id = id;
-    }
-
-    public Guid Id { get; }
 }

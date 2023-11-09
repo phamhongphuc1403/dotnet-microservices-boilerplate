@@ -28,7 +28,7 @@ public class GenerateRefreshTokenCommandHandler : ICommandHandler<GenerateRefres
 
     public async Task<LoginResponseDto> Handle(GenerateRefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        var user = await _tokenService.VerifyRefreshTokenAsync(request.RefreshToken);
+        var user = await _tokenService.VerifyRefreshTokenAsync(request.Dto.RefreshToken);
 
         var claims = (await _authService.GetClaimsAsync(user)).ToList();
 

@@ -1,20 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using BuildingBlock.Domain.Shared.Constants;
 
 namespace BuildingBlock.Application.DTOs;
 
 public class FilterAndPagingDto<TEnum>
 {
-    protected FilterAndPagingDto()
-    {
-    }
-
-    protected FilterAndPagingDto(FilterAndPagingDto<TEnum> dto)
-    {
-        Keyword = dto.Keyword;
-        PageSize = dto.PageSize;
-        PageIndex = dto.PageIndex;
-    }
+    private TEnum? _sortBy;
 
     [StringLength(100, ErrorMessage = "Keyword cannot exceed 100 characters.")]
     public string Keyword { get; set; } = DefaultPaginationParameters.Keyword;
@@ -27,9 +19,19 @@ public class FilterAndPagingDto<TEnum>
 
     public bool IsDescending { get; set; } = DefaultPaginationParameters.IsDescending;
 
-    public virtual TEnum? SortBy { get; set; }
+    public TEnum? SortBy
+    {
+        get => _sortBy;
+        set
+        {
+            _sortBy = value;
+            Sort = ConvertSort();
+        }
+    }
 
-    public string ConvertSort()
+    [JsonIgnore] public string Sort { get; private set; } = string.Empty;
+
+    private string ConvertSort()
     {
         if (SortBy == null) return string.Empty;
 

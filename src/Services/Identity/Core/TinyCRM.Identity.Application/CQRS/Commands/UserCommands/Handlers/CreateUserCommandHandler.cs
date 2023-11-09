@@ -26,9 +26,10 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, UserD
 
     public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userDomainService.CreateAsync(request.Email, request.Password, request.ConfirmPassword);
+        var user = await _userDomainService.CreateAsync(request.Dto.Email, request.Dto.Password,
+            request.Dto.ConfirmPassword);
 
-        await _userOperationRepository.CreateAsync(user, request.Password);
+        await _userOperationRepository.CreateAsync(user, request.Dto.Password);
 
         await _unitOfWork.SaveChangesAsync();
 

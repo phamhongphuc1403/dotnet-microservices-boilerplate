@@ -7,17 +7,17 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
 {
     public CreateProductCommandValidator()
     {
-        RuleFor(product => product.Code)
+        RuleFor(product => product.Dto.Code)
             .NotEmpty()
-            .When(product => string.IsNullOrWhiteSpace(product.Code))
+            .When(product => string.IsNullOrWhiteSpace(product.Dto.Code))
             .MaximumLength(256);
 
-        RuleFor(product => product.Name)
+        RuleFor(product => product.Dto.Name)
             .NotEmpty()
-            .When(product => string.IsNullOrWhiteSpace(product.Name))
+            .When(product => string.IsNullOrWhiteSpace(product.Dto.Name))
             .MaximumLength(256);
 
-        RuleFor(product => product.Price)
+        RuleFor(product => product.Dto.Price)
             .InclusiveBetween(0, double.MaxValue);
     }
 }

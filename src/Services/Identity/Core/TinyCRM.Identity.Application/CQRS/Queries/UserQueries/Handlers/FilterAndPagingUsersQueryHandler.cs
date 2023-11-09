@@ -24,10 +24,11 @@ public class
         CancellationToken cancellationToken)
     {
         var (users, totalCount) =
-            await _userReadOnlyRepository.FilterAndPagingUsers(request.Keyword, request.Sort, request.PageIndex,
-                request.PageSize);
+            await _userReadOnlyRepository.FilterAndPagingUsers(request.Dto.Keyword, request.Dto.Sort,
+                request.Dto.PageIndex,
+                request.Dto.PageSize);
 
         return new FilterAndPagingResultDto<UserDto>(_mapper.Map<IEnumerable<UserDto>>(users),
-            request.PageIndex, request.PageSize, totalCount);
+            request.Dto.PageIndex, request.Dto.PageSize, totalCount);
     }
 }

@@ -8,12 +8,12 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
     public CreateUserCommandValidator()
     {
-        RuleFor(x => x.Email)
+        RuleFor(x => x.Dto.Email)
             .NotEmpty()
             .EmailAddress()
             .MaximumLength(320);
 
-        RuleFor(x => x.Password)
+        RuleFor(x => x.Dto.Password)
             .NotEmpty()
             .Matches(Regex.Password)
             .WithMessage(

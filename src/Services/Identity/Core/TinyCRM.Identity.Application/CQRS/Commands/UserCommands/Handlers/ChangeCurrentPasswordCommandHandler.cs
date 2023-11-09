@@ -37,8 +37,8 @@ public class ChangeCurrentPasswordCommandHandler : ICommandHandler<ChangeCurrent
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(_currentUser.Id))
             .ThrowIfNotPresent(new UserNotFoundException(_currentUser.Id)).Get();
 
-        await _authService.ChangePasswordAsync(user, request.CurrentPassword, request.NewPassword,
-            request.ConfirmPassword);
+        await _authService.ChangePasswordAsync(user, request.Dto.CurrentPassword, request.Dto.NewPassword,
+            request.Dto.ConfirmPassword);
 
         await _unitOfWork.SaveChangesAsync();
 
