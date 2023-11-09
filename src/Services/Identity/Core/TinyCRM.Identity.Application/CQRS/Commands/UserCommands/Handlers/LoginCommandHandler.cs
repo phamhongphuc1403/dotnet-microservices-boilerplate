@@ -28,7 +28,7 @@ public class LoginCommandHandler : ICommandHandler<LoginCommand, LoginResponseDt
 
     public async Task<LoginResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await _authService.Login(request.Email, request.Password);
+        var user = await _authService.Login(request.Dto.Email, request.Dto.Password);
 
         var claims = (await _authService.GetClaimsAsync(user)).ToList();
 

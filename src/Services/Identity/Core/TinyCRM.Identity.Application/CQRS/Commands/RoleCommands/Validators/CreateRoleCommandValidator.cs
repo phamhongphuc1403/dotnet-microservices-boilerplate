@@ -7,7 +7,7 @@ public class CreateRoleCommandValidator : AbstractValidator<CreateRoleCommand>
 {
     public CreateRoleCommandValidator()
     {
-        RuleFor(role => role.Name)
+        RuleFor(role => role.Dto.Name)
             .NotEmpty()
             .MaximumLength(256);
     }

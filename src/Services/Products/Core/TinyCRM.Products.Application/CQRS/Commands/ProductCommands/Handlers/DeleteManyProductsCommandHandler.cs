@@ -23,7 +23,7 @@ public class DeleteManyProductsCommandHandler : ICommandHandler<DeleteManyProduc
 
     public async Task Handle(DeleteManyProductsCommand request, CancellationToken cancellationToken)
     {
-        var products = await _productDomainService.RemoveManyAsync(request.Ids);
+        var products = await _productDomainService.RemoveManyAsync(request.Dto.Ids);
 
         _operationRepository.RemoveRange(products);
 

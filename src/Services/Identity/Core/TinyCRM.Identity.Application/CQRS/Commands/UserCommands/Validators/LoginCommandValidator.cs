@@ -7,14 +7,14 @@ public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
     {
-        RuleFor(user => user.Email)
+        RuleFor(user => user.Dto.Email)
             .NotEmpty()
-            .When(user => string.IsNullOrWhiteSpace(user.Email))
+            .When(user => string.IsNullOrWhiteSpace(user.Dto.Email))
             ;
 
-        RuleFor(user => user.Password)
+        RuleFor(user => user.Dto.Password)
             .NotEmpty()
-            .When(user => string.IsNullOrWhiteSpace(user.Password))
+            .When(user => string.IsNullOrWhiteSpace(user.Dto.Password))
             ;
     }
 }

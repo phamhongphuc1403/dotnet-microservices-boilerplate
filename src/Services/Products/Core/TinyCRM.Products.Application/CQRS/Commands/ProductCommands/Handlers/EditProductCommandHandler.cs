@@ -27,8 +27,9 @@ public class EditProductCommandHandler : ICommandHandler<EditProductCommand, Pro
 
     public async Task<ProductDetailDto> Handle(EditProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productDomainService.EditAsync(request.Id, request.Code, request.Name, request.Price,
-            request.IsAvailable, request.Type);
+        var product = await _productDomainService.EditAsync(request.ProductId, request.Dto.Code, request.Dto.Name,
+            request.Dto.Price,
+            request.Dto.IsAvailable, request.Dto.Type);
 
         _operationRepository.Update(product);
 

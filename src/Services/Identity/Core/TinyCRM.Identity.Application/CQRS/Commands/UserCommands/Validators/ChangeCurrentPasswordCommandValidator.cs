@@ -8,7 +8,7 @@ public class ChangeCurrentPasswordCommandValidator : AbstractValidator<ChangeCur
 {
     public ChangeCurrentPasswordCommandValidator()
     {
-        RuleFor(x => x.NewPassword)
+        RuleFor(x => x.Dto.NewPassword)
             .NotEmpty()
             .Matches(Regex.Password)
             .WithMessage(

@@ -27,8 +27,8 @@ public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand,
 
     public async Task<ProductDetailDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _productService.CreateAsync(request.Code, request.Name, request.Price, request.IsAvailable,
-            request.Type);
+        var product = await _productService.CreateAsync(request.Dto.Code, request.Dto.Name, request.Dto.Price,
+            request.Dto.IsAvailable, request.Dto.Type);
 
         await _operationRepository.AddAsync(product);
 

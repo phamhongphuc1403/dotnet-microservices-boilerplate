@@ -28,11 +28,11 @@ public class
     public async Task<FilterAndPagingResultDto<ProductSummaryDto>> Handle(FilterAndPagingProductsQuery query,
         CancellationToken cancellationToken)
     {
-        var productCodePartialMatchSpecification = new ProductCodePartialMatchSpecification(query.Keyword);
+        var productCodePartialMatchSpecification = new ProductCodePartialMatchSpecification(query.Dto.Keyword);
 
-        var productNamePartialMatchSpecification = new ProductNamePartialMatchSpecification(query.Keyword);
+        var productNamePartialMatchSpecification = new ProductNamePartialMatchSpecification(query.Dto.Keyword);
 
-        var productTypeSpecification = new ProductTypeSpecification(query.Type);
+        var productTypeSpecification = new ProductTypeSpecification(query.Dto.Type);
 
         var productKeywordPartialMatchSpecification =
             productNamePartialMatchSpecification.Or(productCodePartialMatchSpecification);
@@ -40,9 +40,9 @@ public class
         var specification = productKeywordPartialMatchSpecification.And(productTypeSpecification);
 
         var (products, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
-            query.Sort, query.PageIndex, query.PageSize);
+            query.Dto.Sort, query.Dto.PageIndex, query.Dto.PageSize);
 
         return new FilterAndPagingResultDto<ProductSummaryDto>(_mapper.Map<List<ProductSummaryDto>>(products),
-            query.PageIndex, query.PageSize, totalCount);
+            query.Dto.PageIndex, query.Dto.PageSize, totalCount);
     }
 }

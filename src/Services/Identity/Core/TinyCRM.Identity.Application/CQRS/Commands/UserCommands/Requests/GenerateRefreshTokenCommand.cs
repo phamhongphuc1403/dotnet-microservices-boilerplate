@@ -3,9 +3,4 @@ using TinyCRM.Identity.Application.DTOs.UserDTOs;
 
 namespace TinyCRM.Identity.Application.CQRS.Commands.UserCommands.Requests;
 
-public class GenerateRefreshTokenCommand : GenerateRefreshTokenRequestDto, ICommand<LoginResponseDto>
-{
-    public GenerateRefreshTokenCommand(GenerateRefreshTokenRequestDto dto) : base(dto)
-    {
-    }
-}
+public record GenerateRefreshTokenCommand(GenerateRefreshTokenRequestDto Dto) : ICommand<LoginResponseDto>;

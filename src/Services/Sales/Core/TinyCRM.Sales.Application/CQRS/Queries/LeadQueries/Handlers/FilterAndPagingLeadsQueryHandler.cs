@@ -24,16 +24,16 @@ public class
     public async Task<FilterAndPagingResultDto<LeadDto>> Handle(FilterAndPagingLeadsQuery query,
         CancellationToken cancellationToken)
     {
-        var leadTitleSpecification = new LeadTitleSpecification(query.Keyword);
+        var leadTitleSpecification = new LeadTitleSpecification(query.Dto.Keyword);
 
-        var leadStatusSpecification = new LeadStatusSpecification(query.Status);
+        var leadStatusSpecification = new LeadStatusSpecification(query.Dto.Status);
 
         var specification = leadTitleSpecification.And(leadStatusSpecification);
 
         var (deals, totalCount) = await _repository.GetFilterAndPagingAsync(specification,
-            query.Sort, query.PageIndex, query.PageSize);
+            query.Dto.Sort, query.Dto.PageIndex, query.Dto.PageSize);
 
-        return new FilterAndPagingResultDto<LeadDto>(_mapper.Map<List<LeadDto>>(deals), query.PageIndex, query.PageSize,
-            totalCount);
+        return new FilterAndPagingResultDto<LeadDto>(_mapper.Map<List<LeadDto>>(deals), query.Dto.PageIndex,
+            query.Dto.PageSize, totalCount);
     }
 }

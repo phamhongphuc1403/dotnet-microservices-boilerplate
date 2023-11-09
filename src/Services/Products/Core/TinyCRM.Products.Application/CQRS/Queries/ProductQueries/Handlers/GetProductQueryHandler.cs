@@ -15,21 +15,18 @@ public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDeta
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Product> _repository;
 
-    public GetProductQueryHandler(
-        IReadOnlyRepository<Product> repository,
-        IMapper mapper
-    )
+    public GetProductQueryHandler(IReadOnlyRepository<Product> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
 
-    public async Task<ProductDetailDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
+    public async Task<ProductDetailDto> Handle(GetProductQuery query, CancellationToken cancellationToken)
     {
-        var productIdSpecification = new EntityIdSpecification<Product>(request.Id);
+        var productIdSpecification = new EntityIdSpecification<Product>(query.ProductId);
 
         var product = Optional<Product>.Of(await _repository.GetAnyAsync(productIdSpecification))
-            .ThrowIfNotPresent(new ProductNotFoundException(request.Id)).Get();
+            .ThrowIfNotPresent(new ProductNotFoundException(query.ProductId)).Get();
 
         return _mapper.Map<ProductDetailDto>(product);
     }
