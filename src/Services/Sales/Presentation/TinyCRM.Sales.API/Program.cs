@@ -1,4 +1,5 @@
 using BuildingBlock.API.Extensions;
+using BuildingBlock.API.Hosts;
 using BuildingBlock.API.Middlewares;
 using BuildingBlock.Application.EventBus.Abstractions;
 using BuildingBlock.Domain.Repositories;
@@ -21,6 +22,9 @@ builder.Services.AddScoped<IOperationRepository<Deal>, OperationRepository<SaleD
 builder.Services.AddScoped<IReadOnlyRepository<Deal>, ReadOnlyRepository<SaleDbContext, Deal>>();
 
 builder.Services.AddTransient<ProductCreatedIntegrationEventHandler>();
+
+
+builder.Host.UseDefaultHosts(builder.Configuration);
 
 var app = builder.Build();
 

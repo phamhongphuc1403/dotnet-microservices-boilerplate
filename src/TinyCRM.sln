@@ -84,6 +84,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Redis", "Buil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.IdentityDomain", "Services\Identity\Infrastructure\TinyCRM.Identity.IdentityDomain\TinyCRM.Identity.IdentityDomain.csproj", "{44449388-AE96-4DE6-8688-E1D90E018211}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.Serilog", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.Serilog\BuildingBlock.Infrastructure.Serilog.csproj", "{19F3D47E-3A6D-430B-836F-E50B0267C61F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +176,10 @@ Global
 		{44449388-AE96-4DE6-8688-E1D90E018211}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44449388-AE96-4DE6-8688-E1D90E018211}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44449388-AE96-4DE6-8688-E1D90E018211}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19F3D47E-3A6D-430B-836F-E50B0267C61F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19F3D47E-3A6D-430B-836F-E50B0267C61F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19F3D47E-3A6D-430B-836F-E50B0267C61F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19F3D47E-3A6D-430B-836F-E50B0267C61F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -214,6 +220,7 @@ Global
 		{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8} = {83D93C5D-FCF1-4DD3-8505-A517E41309CB}
 		{9B1BBD9A-5422-4823-82F2-5DB6163A144A} = {83D93C5D-FCF1-4DD3-8505-A517E41309CB}
 		{44449388-AE96-4DE6-8688-E1D90E018211} = {6569A0BE-BD5F-44C6-A05A-4C01AC959F7D}
+		{19F3D47E-3A6D-430B-836F-E50B0267C61F} = {83D93C5D-FCF1-4DD3-8505-A517E41309CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD7BE055-5997-458D-BEE0-619101DD6E4F}
