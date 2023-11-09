@@ -1,4 +1,5 @@
 using BuildingBlock.API.Extensions;
+using BuildingBlock.API.Hosts;
 using BuildingBlock.API.Middlewares;
 using Identity.API.Extensions;
 using Identity.API.GRPC.Services;
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 await builder.Services.AddDefaultExtensions<AppDbContext, IdentityApplicationAssemblyReference>(
     builder.Configuration);
+
+builder.Host.UseDefaultHosts(builder.Configuration);
 
 var jwtSetting = builder.Configuration.BindAndGetConfig<JwtSetting>("Jwt");
 

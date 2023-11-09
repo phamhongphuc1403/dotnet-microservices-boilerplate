@@ -26,12 +26,12 @@ public class TokenService : ITokenService
 
     public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        return GenerateToken(claims, _jwtSetting.AccessTokenExpireTime, _jwtSetting.AccessTokenSecurityKey);
+        return GenerateToken(claims, _jwtSetting.AccessTokenLifeTimeInMinute, _jwtSetting.AccessTokenSecurityKey);
     }
 
     public string GenerateRefreshToken(IEnumerable<Claim> claims, User user)
     {
-        return GenerateToken(claims, _jwtSetting.RefreshTokenExpireTime, _jwtSetting.RefreshTokenSecurityKey);
+        return GenerateToken(claims, _jwtSetting.RefreshTokenLifeTimeInMinute, _jwtSetting.RefreshTokenSecurityKey);
     }
 
     public async Task<User> VerifyRefreshTokenAsync(string refreshToken)

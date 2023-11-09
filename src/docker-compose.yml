@@ -41,11 +41,14 @@ services:
       - ConnectionStrings__Redis=tinycrm.redis
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
+      - Serilog__SeqServerUrl=http://tinycrm.seq:5341
     depends_on:
       tinycrm.db:
         condition: service_healthy
       tinycrm.redis:
         condition: service_healthy
+      tinycrm.seq:
+        condition: service_started
     links:
       - tinycrm.db
   tinycrm.products.api:
@@ -61,6 +64,7 @@ services:
       - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
       - ConnectionStrings__Redis=tinycrm.redis
       - GrpcUrls__Identity=http://tinycrm.identity.api:50051
+      - Serilog__SeqServerUrl=http://tinycrm.seq.:5341
     depends_on:
       tinycrm.db:
         condition: service_healthy
@@ -68,6 +72,8 @@ services:
         condition: service_healthy
       tinycrm.redis:
         condition: service_healthy
+      tinycrm.seq:
+        condition: service_started
     links:
       - tinycrm.db
       - tinycrm.rabbitmq
@@ -84,6 +90,7 @@ services:
       - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
       - ConnectionStrings__Redis=tinycrm.redis
       - GrpcUrls__Identity=http://tinycrm.identity.api:50051
+      - Serilog__SeqServerUrl=http://tinycrm.seq.:5341
     depends_on:
       tinycrm.db:
         condition: service_healthy
@@ -91,6 +98,8 @@ services:
         condition: service_healthy
       tinycrm.redis:
         condition: service_healthy
+      tinycrm.seq:
+        condition: service_started
     links:
       - tinycrm.db
       - tinycrm.rabbitmq
@@ -105,7 +114,7 @@ services:
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
-      timeout: 5s
+      timeout: 0s
       retries: 5
   tinycrm.redis:
     image: redis
@@ -114,7 +123,7 @@ services:
     healthcheck:
       test: [ "CMD", "redis-cli","ping" ]
       interval: 10s
-      timeout: 5s
+      timeout: 0s
       retries: 5
   tinycrm.rabbitmq:
     image: rabbitmq:3.12-management
@@ -124,7 +133,15 @@ services:
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
-      timeout: 30s
-      retries: 3
+      timeout: 0s
+      retries: 5
+  tinycrm.seq:
+    image: datalust/seq:latest
+    ports:
+      - "8080:80"
+      - "5341:5341"
+    environment:
+      - ACCEPT_EULA=Y
+  
 volumes:
   crmdata:

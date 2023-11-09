@@ -1,4 +1,5 @@
 using BuildingBlock.API.Extensions;
+using BuildingBlock.API.Hosts;
 using BuildingBlock.API.Middlewares;
 using TinyCRM.Products.API.Extensions;
 using TinyCRM.Products.Application;
@@ -10,6 +11,8 @@ await builder.Services.AddDefaultExtensions<ProductDbContext, ProductApplication
     builder.Configuration);
 
 builder.Services.AddProductExtensions(builder.Configuration);
+
+builder.Host.UseDefaultHosts(builder.Configuration);
 
 var app = builder.Build();
 
