@@ -1,6 +1,5 @@
 using AutoMapper;
 using BuildingBlock.Domain.Repositories;
-using BuildingBlock.Domain.Shared.Services;
 using TinyCRM.Identity.Domain.RoleAggregate.Entities;
 using TinyCRM.Identity.Domain.RoleAggregate.Repositories;
 using TinyCRM.Identity.IdentityDomain.RoleAggregate.Entities;
@@ -11,27 +10,19 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Repositories.RoleRepositories;
 public class RoleReadOnlyRepository : IRoleReadOnlyRepository
 {
     private readonly IMapper _mapper;
-    private readonly ICacheService _roleCacheService;
     private readonly IReadOnlyRepository<ApplicationRole> _roleReadOnlyRepository;
 
-
-    public RoleReadOnlyRepository(IReadOnlyRepository<ApplicationRole> roleReadOnlyRepository,
-        IMapper mapper,
-        ICacheService roleCacheService)
+    public RoleReadOnlyRepository(IReadOnlyRepository<ApplicationRole> roleReadOnlyRepository, IMapper mapper)
     {
         _roleReadOnlyRepository = roleReadOnlyRepository;
         _mapper = mapper;
-        _roleCacheService = roleCacheService;
     }
 
     public async Task<IEnumerable<string>> GetNameByUserIdAsync(Guid userId)
     {
-        return await _roleCacheService.GetOrSetRecordAsync(userId.ToString(), async () =>
-        {
-            var applicationRoles = await GetByUserIdAsync(userId);
+        var applicationRoles = await GetByUserIdAsync(userId);
 
-            return applicationRoles.Select(role => role.Name).ToList();
-        }, TimeSpan.FromMinutes(30));
+        return applicationRoles.Select(role => role.Name).ToList();
     }
 
     public async Task<IEnumerable<Role>> GetByUserIdAsync(Guid userId)

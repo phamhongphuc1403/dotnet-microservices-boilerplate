@@ -20,8 +20,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
     protected DbSet<TEntity> DbSet => _dbSet ??= _dbContext.Set<TEntity>();
 
-    public Task<TEntity?> GetAnyAsync(ISpecification<TEntity>? specification = null,
-        string? includeTables = null)
+    public Task<TEntity?> GetAnyAsync(ISpecification<TEntity>? specification = null, string? includeTables = null)
     {
         var query = DbSet.AsNoTracking();
 
@@ -74,8 +73,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
         return (await query.ToListAsync(), totalCount);
     }
 
-    private static IQueryable<TEntity> Filter(IQueryable<TEntity> query,
-        ISpecification<TEntity>? specification)
+    private static IQueryable<TEntity> Filter(IQueryable<TEntity> query, ISpecification<TEntity>? specification)
     {
         return specification != null ? query.Where(specification.ToExpression()) : query;
     }

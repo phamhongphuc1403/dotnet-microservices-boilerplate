@@ -1,6 +1,5 @@
 using AutoMapper;
 using BuildingBlock.Domain.Repositories;
-using BuildingBlock.Domain.Shared.Services;
 using TinyCRM.Identity.Domain.PermissionAggregate.Entities;
 using TinyCRM.Identity.Domain.PermissionAggregate.Repositories;
 using TinyCRM.Identity.IdentityDomain.PermissionAggregate.Entities;
@@ -10,26 +9,21 @@ namespace TinyCRM.Identity.EntityFrameworkCore.Repositories.PermissionRepositori
 
 public class PermissionReadOnlyRepository : IPermissionReadOnlyRepository
 {
-    private readonly ICacheService _cacheService;
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<ApplicationPermission> _permissionReadOnlyRepository;
 
     public PermissionReadOnlyRepository(IReadOnlyRepository<ApplicationPermission> permissionReadOnlyRepository,
-        IMapper mapper, ICacheService permissionCacheService)
+        IMapper mapper)
     {
         _permissionReadOnlyRepository = permissionReadOnlyRepository;
         _mapper = mapper;
-        _cacheService = permissionCacheService;
     }
 
     public async Task<IEnumerable<string>> GetNamesByRoleNameAsync(string roleName)
     {
-        return await _cacheService.GetOrSetRecordAsync<IEnumerable<string>>(roleName, async () =>
-        {
-            var dbRolePermissions = await GetAllByRoleNameAsync(roleName);
+        var dbRolePermissions = await GetAllByRoleNameAsync(roleName);
 
-            return dbRolePermissions.Select(permission => permission.Name).ToList();
-        }, TimeSpan.FromMinutes(30));
+        return dbRolePermissions.Select(permission => permission.Name).ToList();
     }
 
     public async Task<IEnumerable<Permission>> GetAllByRoleNameAsync(string roleName)
