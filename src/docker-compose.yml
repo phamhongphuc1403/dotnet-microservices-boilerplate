@@ -1,8 +1,9 @@
 version: '3.4'
 
 services:
-  tinycrm.api-gateway:
-    image: tinycrm.api-gateway
+  api-gateway:
+    container_name: boilerplate.api-gateway
+    image: boilerplate.api-gateway
     ports:
       - "3000:80"
     build:
@@ -10,113 +11,118 @@ services:
       dockerfile: APIGateway/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - Routes__0__DownstreamHostAndPorts__0__Host=tinycrm.identity.api
+      - Routes__0__DownstreamHostAndPorts__0__Host=boilerplate.identity.api
       - Routes__0__DownstreamHostAndPorts__0__Port=80
-      - SwaggerEndPoints__0__Config__0__Url=http://tinycrm.identity.api/swagger/v1/swagger.json
-      - Routes__1__DownstreamHostAndPorts__0__Host=tinycrm.products.api
+      - SwaggerEndPoints__0__Config__0__Url=http://boilerplate.identity.api/swagger/v1/swagger.json
+      - Routes__1__DownstreamHostAndPorts__0__Host=boilerplate.products.api
       - Routes__1__DownstreamHostAndPorts__0__Port=80
-      - SwaggerEndPoints__1__Config__0__Url=http://tinycrm.products.api/swagger/v1/swagger.json
-      - Routes__2__DownstreamHostAndPorts__0__Host=tinycrm.sales.api
+      - SwaggerEndPoints__1__Config__0__Url=http://boilerplate.products.api/swagger/v1/swagger.json
+      - Routes__2__DownstreamHostAndPorts__0__Host=boilerplate.sales.api
       - Routes__2__DownstreamHostAndPorts__0__Port=80
-      - SwaggerEndPoints__2__Config__0__Url=http://tinycrm.sales.api/swagger/v1/swagger.json
+      - SwaggerEndPoints__2__Config__0__Url=http://boilerplate.sales.api/swagger/v1/swagger.json
     depends_on:
-      - tinycrm.products.api
-      - tinycrm.sales.api
-      - tinycrm.identity.api
+      - identity-service
+      - product-service
+      - sale-service
     links:
-      - tinycrm.products.api
-      - tinycrm.sales.api
-      - tinycrm.identity.api
-  tinycrm.identity.api:
-    image: tinycrm.identity
+      - identity-service
+      - product-service
+      - sale-service
+  identity-service:
+    container_name: boilerplate.identity.api
+    image: boilerplate.identity
     ports:
       - "5003:80"
       - "50051:50051"
     build:
       context: .
-      dockerfile: Services/Identity/Presentation/TinyCRM.Identity.API/Dockerfile
+      dockerfile: Services/Identity/Presentation/IdentityManagement.Presentation.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Identity; Username=postgres; Password=password
-      - ConnectionStrings__Redis=tinycrm.redis
+      - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Identity; Username=postgres; Password=password
+      - ConnectionStrings__Redis=boilerplate.redis
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
-      - Serilog__SeqServerUrl=http://tinycrm.seq:5341
+      - Serilog__SeqServerUrl=http://boilerplate.seq:5341
     depends_on:
-      tinycrm.db:
+      db:
         condition: service_healthy
-      tinycrm.redis:
+      redis:
         condition: service_healthy
-      tinycrm.seq:
+      seq:
         condition: service_started
     links:
-      - tinycrm.db
-  tinycrm.products.api:
-    image: tinycrm.products
+      - db
+  product-service:
+    container_name: boilerplate.product.api
+    image: boilerplate.products
     ports:
       - "5001:80"
     build:
       context: .
-      dockerfile: Services/Products/Presentation/TinyCRM.Products.API/Dockerfile
+      dockerfile: Services/Products/Presentation/ProductManagement.Presentation.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Products; Username=postgres; Password=password
-      - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
-      - ConnectionStrings__Redis=tinycrm.redis
-      - GrpcUrls__Identity=http://tinycrm.identity.api:50051
-      - Serilog__SeqServerUrl=http://tinycrm.seq.:5341
+      - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Products; Username=postgres; Password=password
+      - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
+      - ConnectionStrings__Redis=boilerplate.redis
+      - GrpcUrls__Identity=http://boilerplate.identity.api:50051
+      - Serilog__SeqServerUrl=http://boilerplate.seq.:5341
     depends_on:
-      tinycrm.db:
+      db:
         condition: service_healthy
-      tinycrm.rabbitmq:
+      rabbitmq:
         condition: service_healthy
-      tinycrm.redis:
+      redis:
         condition: service_healthy
-      tinycrm.seq:
+      seq:
         condition: service_started
     links:
-      - tinycrm.db
-      - tinycrm.rabbitmq
-  tinycrm.sales.api:
-    image: tinycrm.sales
+      - db
+      - rabbitmq
+  sale-service:
+    container_name: boilerplate.sales.api
+    image: boilerplate.sales
     ports:
       - "5002:80"
     build:
       context: .
-      dockerfile: Services/Sales/Presentation/TinyCRM.Sales.API/Dockerfile
+      dockerfile: Services/Sales/Presentation/SaleManagement.Presentation.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=tinycrm.db; Port=5432; Database=TinyCRM.Sales; Username=postgres; Password=password
-      - ConnectionStrings__RabbitMQ=tinycrm.rabbitmq
-      - ConnectionStrings__Redis=tinycrm.redis
-      - GrpcUrls__Identity=http://tinycrm.identity.api:50051
-      - Serilog__SeqServerUrl=http://tinycrm.seq.:5341
+      - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Sales; Username=postgres; Password=password
+      - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
+      - ConnectionStrings__Redis=boilerplate.redis
+      - GrpcUrls__Identity=http://boilerplate.identity.api:50051
+      - Serilog__SeqServerUrl=http://boilerplate.seq.:5341
     depends_on:
-      tinycrm.db:
+      db:
         condition: service_healthy
-      tinycrm.rabbitmq:
+      rabbitmq:
         condition: service_healthy
-      tinycrm.redis:
+      redis:
         condition: service_healthy
-      tinycrm.seq:
+      seq:
         condition: service_started
     links:
-      - tinycrm.db
-      - tinycrm.rabbitmq
-  tinycrm.db:
+      - db
+      - rabbitmq
+  db:
+    container_name: boilerplate.db
     image: postgres:latest
     environment:
       - POSTGRES_PASSWORD=password
     ports:
       - "5432:5432"
     volumes:
-      - crmdata:/var/opt/postgresql
+      - data:/var/opt/postgresql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 10s
       timeout: 0s
       retries: 5
-  tinycrm.redis:
+  redis:
+    container_name: boilerplate.redis
     image: redis
     ports:
       - "6379:6379"
@@ -125,7 +131,8 @@ services:
       interval: 10s
       timeout: 0s
       retries: 5
-  tinycrm.rabbitmq:
+  rabbitmq:
+    container_name: boilerplate.rabbitmq
     image: rabbitmq:3.12-management
     ports:
       - "15672:15672"
@@ -135,13 +142,13 @@ services:
       interval: 10s
       timeout: 0s
       retries: 5
-  tinycrm.seq:
+  seq:
+    container_name: boilerplate.seq
     image: datalust/seq:latest
     ports:
       - "8080:80"
       - "5341:5341"
     environment:
       - ACCEPT_EULA=Y
-  
 volumes:
-  crmdata:
+  data:

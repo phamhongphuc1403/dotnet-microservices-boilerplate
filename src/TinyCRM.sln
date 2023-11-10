@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{36900629-17B2-4AB4-8BA1-B8BD86695710}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Domain", "BuildingBlocks\Core\BuildingBlock.Domain\BuildingBlock.Domain.csproj", "{0C755271-B2C3-4728-8AB5-8EE63666ED33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Core.Domain", "BuildingBlocks\Core\BuildingBlock.Core.Domain\BuildingBlock.Core.Domain.csproj", "{0C755271-B2C3-4728-8AB5-8EE63666ED33}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E6F7A20E-6AB5-46FA-BA37-2E63D93B4661}"
 EndProject
@@ -13,19 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{10
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{48551DB2-DA5D-481F-B6C7-3C4373BAB214}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Products.API", "Services\Products\Presentation\TinyCRM.Products.API\TinyCRM.Products.API.csproj", "{E8E61E18-3913-4E0D-9A5F-7E337E1FAE4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.Presentation.API", "Services\Products\Presentation\ProductManagement.Presentation.API\ProductManagement.Presentation.API.csproj", "{E8E61E18-3913-4E0D-9A5F-7E337E1FAE4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DD4554BB-C854-441F-9BAC-7A27C07F6E97}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Products.Application", "Services\Products\Core\TinyCRM.Products.Application\TinyCRM.Products.Application.csproj", "{5BA8D984-AD04-4B9F-8A6C-61D61DBCAD48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.Core.Application", "Services\Products\Core\ProductManagement.Core.Application\ProductManagement.Core.Application.csproj", "{5BA8D984-AD04-4B9F-8A6C-61D61DBCAD48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Products.Domain", "Services\Products\Core\TinyCRM.Products.Domain\TinyCRM.Products.Domain.csproj", "{51EC404C-8F3A-4EAB-93E7-26D8105EA3D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.Core.Domain", "Services\Products\Core\ProductManagement.Core.Domain\ProductManagement.Core.Domain.csproj", "{51EC404C-8F3A-4EAB-93E7-26D8105EA3D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{13ACEA21-B126-41E9-B35E-AAB147F2FE4F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Products.EntityFrameworkCore", "Services\Products\Infrastructure\TinyCRM.Products.EntityFrameworkCore\TinyCRM.Products.EntityFrameworkCore.csproj", "{6ABD3C77-321A-4CFD-8B57-A58A52AB7698}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagement.Infrastructure.EntityFrameworkCore", "Services\Products\Infrastructure\ProductManagement.Infrastructure.EntityFrameworkCore\ProductManagement.Infrastructure.EntityFrameworkCore.csproj", "{6ABD3C77-321A-4CFD-8B57-A58A52AB7698}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.EntityFrameworkCore", "BuildingBlocks\Infrastructure\BuildingBlock.EntityFrameworkCore\BuildingBlock.EntityFrameworkCore.csproj", "{A395856B-8B26-40F9-8CC8-34D8DC92B60B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuildingBlock.Infrastructure.EntityFrameworkCore", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.EntityFrameworkCore\BuildingBlock.Infrastructure.EntityFrameworkCore.csproj", "{A395856B-8B26-40F9-8CC8-34D8DC92B60B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APIGateway", "APIGateway\APIGateway.csproj", "{21370C15-0A19-4570-B1AE-6CCD18290E38}"
 EndProject
@@ -33,36 +33,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sales", "Sales", "{79B78A98
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{3ED0DFE3-F289-412A-80DA-06285AB42E6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Sales.API", "Services\Sales\Presentation\TinyCRM.Sales.API\TinyCRM.Sales.API.csproj", "{0D304855-E242-4D8C-A173-FC35DA236AED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleManagement.Presentation.API", "Services\Sales\Presentation\SaleManagement.Presentation.API\SaleManagement.Presentation.API.csproj", "{0D304855-E242-4D8C-A173-FC35DA236AED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{7DC85928-C843-42E5-A8A8-B962CE387985}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Sales.Application", "Services\Sales\Core\TinyCRM.Sales.Application\TinyCRM.Sales.Application.csproj", "{50E2DAE4-6137-4028-B885-808310187E47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleManagement.Core.Application", "Services\Sales\Core\SaleManagement.Core.Application\SaleManagement.Core.Application.csproj", "{50E2DAE4-6137-4028-B885-808310187E47}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Sales.Domain", "Services\Sales\Core\TinyCRM.Sales.Domain\TinyCRM.Sales.Domain.csproj", "{631A22BC-AC4C-4EC7-88C6-9901EA74E86C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleManagement.Core.Domain", "Services\Sales\Core\SaleManagement.Core.Domain\SaleManagement.Core.Domain.csproj", "{631A22BC-AC4C-4EC7-88C6-9901EA74E86C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{02C681E7-D0DB-4A7E-B8AD-A45F75216877}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TinyCRM.Sales.EntityFrameworkCore", "Services\Sales\Infrastructure\TinyCRM.Sales.EntityFrameworkCore\TinyCRM.Sales.EntityFrameworkCore.csproj", "{0AEF4F47-AF5B-45F5-86F3-868B68091B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaleManagement.Infrastructure.EntityFrameworkCore", "Services\Sales\Infrastructure\SaleManagement.Infrastructure.EntityFrameworkCore\SaleManagement.Infrastructure.EntityFrameworkCore.csproj", "{0AEF4F47-AF5B-45F5-86F3-868B68091B90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DockerCompose", "DockerCompose", "{63B658D7-3949-494D-A453-9594DFE3E261}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.API", "BuildingBlocks\Presentation\BuildingBlock.API\BuildingBlock.API.csproj", "{7DDD3293-5C96-4DEF-AB54-E47F77A8384D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Presentation.API", "BuildingBlocks\Presentation\BuildingBlock.Presentation.API\BuildingBlock.Presentation.API.csproj", "{7DDD3293-5C96-4DEF-AB54-E47F77A8384D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.RabbitMQ", "BuildingBlocks\Infrastructure\BuildingBlock.RabbitMQ\BuildingBlock.RabbitMQ.csproj", "{9E316D38-E54B-4BEC-8B70-E90B24C4499C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.RabbitMQ", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.RabbitMQ\BuildingBlock.Infrastructure.RabbitMQ.csproj", "{9E316D38-E54B-4BEC-8B70-E90B24C4499C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Application", "BuildingBlocks\Core\BuildingBlock.Application\BuildingBlock.Application.csproj", "{9A31EA61-B52D-4238-88C5-CF87CBFA82B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Core.Application", "BuildingBlocks\Core\BuildingBlock.Core.Application\BuildingBlock.Core.Application.csproj", "{9A31EA61-B52D-4238-88C5-CF87CBFA82B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.API", "Services\Identity\Presentation\TinyCRM.Identity.API\TinyCRM.Identity.API.csproj", "{68840D65-8A2C-4A41-9D94-2AF56DD791FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Presentation.API", "Services\Identity\Presentation\IdentityManagement.Presentation.API\IdentityManagement.Presentation.API.csproj", "{68840D65-8A2C-4A41-9D94-2AF56DD791FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.Application", "Services\Identity\Core\TinyCRM.Identity.Application\TinyCRM.Identity.Application.csproj", "{2295B9F6-0725-4246-853D-07998409D6A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Core.Application", "Services\Identity\Core\IdentityManagement.Core.Application\IdentityManagement.Core.Application.csproj", "{2295B9F6-0725-4246-853D-07998409D6A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.Domain", "Services\Identity\Core\TinyCRM.Identity.Domain\TinyCRM.Identity.Domain.csproj", "{BF97C521-FEBD-434E-A10D-8CA98950BA34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identitymanagement.Core.Domain", "Services\Identity\Core\Identitymanagement.Core.Domain\Identitymanagement.Core.Domain.csproj", "{BF97C521-FEBD-434E-A10D-8CA98950BA34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.EntityFrameworkCore", "Services\Identity\Infrastructure\TinyCRM.Identity.EntityFrameworkCore\TinyCRM.Identity.EntityFrameworkCore.csproj", "{C5839B2D-91F4-437C-AF71-788DC779A427}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Infrastructure.EntityFrameworkCore", "Services\Identity\Infrastructure\IdentityManagement.Infrastructure.EntityFrameworkCore\IdentityManagement.Infrastructure.EntityFrameworkCore.csproj", "{C5839B2D-91F4-437C-AF71-788DC779A427}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{F7ABDCB6-7892-4EB7-B8F1-51D51A3A9C16}"
 EndProject
@@ -72,7 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{6569A0BE-BD5F-44C6-A05A-4C01AC959F7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Identity", "BuildingBlocks\Infrastructure\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj", "{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.Identity", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.Identity\BuildingBlock.Infrastructure.Identity.csproj", "{C2618201-6CD0-4FCF-BB82-29BA5DCF63E8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{DA80DCB4-714B-4458-B8B7-3CE68AE28019}"
 EndProject
@@ -80,9 +80,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{040048BC-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{83D93C5D-FCF1-4DD3-8505-A517E41309CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Redis", "BuildingBlocks\Infrastructure\BuildingBlock.Redis\BuildingBlock.Redis.csproj", "{9B1BBD9A-5422-4823-82F2-5DB6163A144A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.Redis", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.Redis\BuildingBlock.Infrastructure.Redis.csproj", "{9B1BBD9A-5422-4823-82F2-5DB6163A144A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyCRM.Identity.IdentityDomain", "Services\Identity\Infrastructure\TinyCRM.Identity.IdentityDomain\TinyCRM.Identity.IdentityDomain.csproj", "{44449388-AE96-4DE6-8688-E1D90E018211}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Infrastructure.Identity", "Services\Identity\Infrastructure\IdentityManagement.Infrastructure.Identity\IdentityManagement.Infrastructure.Identity.csproj", "{44449388-AE96-4DE6-8688-E1D90E018211}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.Serilog", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.Serilog\BuildingBlock.Infrastructure.Serilog.csproj", "{19F3D47E-3A6D-430B-836F-E50B0267C61F}"
 EndProject
