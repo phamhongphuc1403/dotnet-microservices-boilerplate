@@ -16,29 +16,32 @@ public class BaseDbContext : DbContext
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var auditedEntities = ChangeTracker.Entries()
-            .Where(e => e.Entity is Entity && e.State is EntityState.Added or EntityState.Modified);
+            .Where(e => e is
+                { Entity: IEntity, State: EntityState.Added or EntityState.Modified or EntityState.Deleted });
 
-        foreach (var entity in auditedEntities)
-            if (entity.State == EntityState.Added)
-            {
-                ((Entity)entity.Entity).CreatedAt = DateTime.UtcNow;
-                ((Entity)entity.Entity).CreatedBy = _currentUser.Email ?? "guest";
-            }
-            else
-            {
-                ((Entity)entity.Entity).UpdatedAt = DateTime.UtcNow;
-                ((Entity)entity.Entity).UpdatedBy = _currentUser.Email ?? "guest";
-            }
-
-        var deletedEntities = ChangeTracker.Entries()
-            .Where(e => e.Entity is Entity && e.State == EntityState.Deleted);
-
-        foreach (var entity in deletedEntities)
+        foreach (var auditableEntity in auditedEntities)
         {
-            ((Entity)entity.Entity).DeletedAt = DateTime.UtcNow;
-            ((Entity)entity.Entity).DeletedBy = _currentUser.Email ?? "guest";
+            var iEntity = (IEntity)auditableEntity.Entity;
+            var utcNow = DateTime.UtcNow;
+            var email = _currentUser.Email ?? "guest";
 
-            entity.State = EntityState.Modified;
+            switch (auditableEntity.State)
+            {
+                case EntityState.Added:
+                    iEntity.CreatedAt = utcNow;
+                    iEntity.CreatedBy = email;
+                    break;
+                case EntityState.Modified:
+                    iEntity.UpdatedAt = utcNow;
+                    iEntity.UpdatedBy = email;
+                    break;
+                case EntityState.Deleted:
+                    iEntity.DeletedAt = utcNow;
+                    iEntity.DeletedBy = email;
+
+                    auditableEntity.State = EntityState.Modified;
+                    break;
+            }
         }
 
         return await base.SaveChangesAsync(cancellationToken);
