@@ -52,7 +52,7 @@ public class TokenService : ITokenService
 
         var existingRefreshToken = Optional<RefreshToken>
             .Of(user.RefreshTokens.FirstOrDefault(rf => rf.Token == refreshToken))
-            .ThrowIfNotPresent(new AuthenticationException("Token not found")).Get();
+            .ThrowIfNotExist(new AuthenticationException("Token not found")).Get();
 
         if (existingRefreshToken.RevokedAt != null) throw new AuthenticationException("Token is already revoked");
 
@@ -90,7 +90,7 @@ public class TokenService : ITokenService
             .Value);
 
         return Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(userId, "RefreshTokens"))
-            .ThrowIfNotPresent(new AuthenticationException($"user with id: '{userId}' is not found")).Get();
+            .ThrowIfNotExist(new AuthenticationException($"user with id: '{userId}' is not found")).Get();
     }
 
     private string GenerateToken(IEnumerable<Claim> claims, int expireMinutes, string securityKey)

@@ -21,6 +21,6 @@ public class PermissionDomainService : IPermissionDomainService
         var permissionNames = await _permissionReadOnlyRepository.GetNamesByRoleNameAsync(role.Name);
 
         Optional<bool>.Of(permissionNames.Any(x => x == permission.Name))
-            .ThrowIfPresent(new RolePermissionConflictException(permission.Name, role.Name));
+            .ThrowIfExist(new RolePermissionConflictException(permission.Name, role.Name));
     }
 }

@@ -43,7 +43,7 @@ public class PermissionSeeder : IDataSeeder
         if (adminPermission.Any()) return;
 
         var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("admin"))
-            .ThrowIfNotPresent(new RoleNotFoundException("admin")).Get();
+            .ThrowIfNotExist(new RoleNotFoundException("admin")).Get();
 
         foreach (var newPermission in Permissions.AdminPermissions.Select(permission =>
                      new Permission(permission.Type, permission.Value)))
@@ -60,7 +60,7 @@ public class PermissionSeeder : IDataSeeder
         if (userPermission.Any()) return;
 
         var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("user"))
-            .ThrowIfNotPresent(new RoleNotFoundException("user")).Get();
+            .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
 
         foreach (var newPermission in Permissions.UserPermissions.Select(permission =>
                      new Permission(permission.Type, permission.Value)))

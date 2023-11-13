@@ -23,7 +23,7 @@ public class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, UserDto>
     public async Task<UserDto> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
     {
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(request.UserId))
-            .ThrowIfNotPresent(new UserNotFoundException(request.UserId)).Get();
+            .ThrowIfNotExist(new UserNotFoundException(request.UserId)).Get();
 
         return _mapper.Map<UserDto>(user);
     }

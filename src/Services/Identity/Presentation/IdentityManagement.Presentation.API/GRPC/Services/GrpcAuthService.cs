@@ -56,7 +56,7 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
         ServerCallContext context)
     {
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(new Guid(permissionRequest.UserId)))
-            .ThrowIfNotPresent(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
+            .ThrowIfNotExist(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
 
         var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(user.Id);
 

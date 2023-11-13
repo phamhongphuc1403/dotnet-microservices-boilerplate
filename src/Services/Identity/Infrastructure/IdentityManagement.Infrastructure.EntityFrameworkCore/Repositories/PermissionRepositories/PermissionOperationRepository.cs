@@ -35,6 +35,6 @@ public class PermissionOperationRepository : IPermissionOperationRepository
     private async Task<ApplicationRole> GetApplicationRoleAsync(Role role)
     {
         return Optional<ApplicationRole>.Of(await _roleManager.FindByNameAsync(role.Name))
-            .ThrowIfNotPresent(new RoleNotFoundException(role.Name)).Get();
+            .ThrowIfNotExist(new RoleNotFoundException(role.Name)).Get();
     }
 }

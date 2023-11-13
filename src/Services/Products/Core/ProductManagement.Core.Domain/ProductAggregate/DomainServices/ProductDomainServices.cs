@@ -34,20 +34,19 @@ public class ProductDomainService : IProductDomainService
         product.Price = price;
         product.IsAvailable = isAvailable;
         product.Type = type;
+        product.UpdatedAt = null;
+        product.UpdatedBy = null;
 
         return product;
     }
 
-    public async Task<IEnumerable<Product>> RemoveManyAsync(IEnumerable<Guid> ids)
+    public async Task<IEnumerable<Product>> DeleteManyAsync(IEnumerable<Guid> ids)
     {
         List<Product> products = new();
 
         foreach (var id in ids)
         {
-            var productIdSpecification = new EntityIdSpecification<Product>(id);
-
-            var product = Optional<Product>.Of(await _readOnlyRepository.GetAnyAsync(productIdSpecification))
-                .ThrowIfNotPresent(new ProductNotFoundException(id)).Get();
+            var product = await CheckValidOnDeleteAsync(id);
 
             products.Add(product);
         }
@@ -55,24 +54,34 @@ public class ProductDomainService : IProductDomainService
         return products;
     }
 
+    private Task<Product> CheckValidOnDeleteAsync(Guid id)
+    {
+        return GetOrThrowAsync(id);
+    }
+
     private async Task CheckValidOnCreateAsync(string code)
+    {
+        await ThrowIfExistAsync(code);
+    }
+
+    private async Task ThrowIfExistAsync(string code)
     {
         var productCodeSpecification = new ProductCodeExactMatchSpecification(code);
 
         Optional<bool>.Of(await _readOnlyRepository.CheckIfExistAsync(productCodeSpecification))
-            .ThrowIfPresent(new ProductConflictExceptionException(nameof(code), code));
+            .ThrowIfExist(new ProductConflictExceptionException(nameof(code), code));
     }
 
     private async Task<Product> CheckValidOnEditAsync(Guid id, string code)
     {
-        var product = await CheckIdExistOnEditAsync(id);
+        var product = await GetOrThrowAsync(id);
 
-        await CheckCodeExistOnEditAsync(id, code);
+        await ThrowIfExistAsync(id, code);
 
         return product;
     }
 
-    private async Task CheckCodeExistOnEditAsync(Guid id, string code)
+    private async Task ThrowIfExistAsync(Guid id, string code)
     {
         var productCodeSpecification = new ProductCodeExactMatchSpecification(code);
 
@@ -81,14 +90,14 @@ public class ProductDomainService : IProductDomainService
         var specification = productCodeSpecification.And(productIdNotEqualSpecification);
 
         Optional<bool>.Of(await _readOnlyRepository.CheckIfExistAsync(specification))
-            .ThrowIfPresent(new ProductConflictExceptionException(nameof(code), code));
+            .ThrowIfExist(new ProductConflictExceptionException(nameof(code), code));
     }
 
-    private async Task<Product> CheckIdExistOnEditAsync(Guid id)
+    private async Task<Product> GetOrThrowAsync(Guid id)
     {
         var productIdSpecification = new EntityIdSpecification<Product>(id);
 
         return Optional<Product>.Of(await _readOnlyRepository.GetAnyAsync(productIdSpecification))
-            .ThrowIfNotPresent(new ProductNotFoundException(id)).Get();
+            .ThrowIfNotExist(new ProductNotFoundException(id)).Get();
     }
 }

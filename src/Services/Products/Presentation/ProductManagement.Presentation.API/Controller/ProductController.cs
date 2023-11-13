@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductManagement.Core.Application.CQRS.Commands.ProductCommands.Requests;
 using ProductManagement.Core.Application.CQRS.Queries.ProductQueries.Requests;
-using ProductManagement.Core.Application.DTOs;
+using ProductManagement.Core.Application.DTOs.ProductDTOs;
 
 namespace ProductManagement.Presentation.API.Controller;
 

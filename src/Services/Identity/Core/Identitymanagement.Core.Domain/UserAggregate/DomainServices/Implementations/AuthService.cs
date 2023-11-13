@@ -65,7 +65,7 @@ public class AuthService : IAuthService
             new ValidationException("Password and confirmation password do not match"));
 
         Optional<bool>.Of(await _userReadOnlyRepository.CheckPasswordAsync(user, currentPassword))
-            .ThrowIfNotPresent(new ValidationException("Invalid password"));
+            .ThrowIfNotExist(new ValidationException("Invalid password"));
 
         if (currentPassword == newPassword)
             throw new ValidationException("New password must be different from current password");

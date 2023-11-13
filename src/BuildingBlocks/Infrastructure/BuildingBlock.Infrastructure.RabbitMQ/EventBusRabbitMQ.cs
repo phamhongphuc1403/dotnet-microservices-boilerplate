@@ -197,7 +197,7 @@ public class EventBusRabbitMQ : IEventBus
 
                 await Task.Yield();
 
-                await (Task)concreteType.GetMethod("Handle")?.Invoke(handler, new[] { integrationEvent })!;
+                await (Task)concreteType.GetMethod("HandleAsync")?.Invoke(handler, new[] { integrationEvent })!;
             }
         }
         else

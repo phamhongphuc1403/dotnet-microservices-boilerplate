@@ -1,5 +1,5 @@
 using AutoMapper;
-using ProductManagement.Core.Application.DTOs;
+using ProductManagement.Core.Application.DTOs.ProductDTOs;
 using ProductManagement.Core.Domain.ProductAggregate.Entities;
 
 namespace ProductManagement.Infrastructure.EntityFrameworkCore;

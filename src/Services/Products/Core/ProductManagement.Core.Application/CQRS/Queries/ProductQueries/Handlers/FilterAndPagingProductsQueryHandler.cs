@@ -3,7 +3,7 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Application.DTOs;
 using BuildingBlock.Core.Domain.Repositories;
 using ProductManagement.Core.Application.CQRS.Queries.ProductQueries.Requests;
-using ProductManagement.Core.Application.DTOs;
+using ProductManagement.Core.Application.DTOs.ProductDTOs;
 using ProductManagement.Core.Domain.ProductAggregate.Entities;
 using ProductManagement.Core.Domain.ProductAggregate.Specifications;
 

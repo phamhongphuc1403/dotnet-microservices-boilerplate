@@ -76,7 +76,7 @@ public class UserOperationRepository : IUserOperationRepository
     {
         var applicationUser = await _userManager.FindByIdAsync(user.Id.ToString());
 
-        Optional<ApplicationUser>.Of(applicationUser).ThrowIfNotPresent(new UserNotFoundException(user.Id));
+        Optional<ApplicationUser>.Of(applicationUser).ThrowIfNotExist(new UserNotFoundException(user.Id));
 
         _mapper.Map(user, applicationUser);
 

@@ -10,4 +10,8 @@ public class EntityConflictException : Exception
     protected EntityConflictException(string message) : base(message)
     {
     }
+
+    protected EntityConflictException(Guid id) : base($"Entity with id: '{id}' is already existed")
+    {
+    }
 }
