@@ -6,9 +6,9 @@ public interface IOperationRepository<TAggregateRoot> where TAggregateRoot : IAg
 
     Task AddRangeAsync(IEnumerable<TAggregateRoot> entities);
 
-    void Remove(TAggregateRoot entity);
+    void Delete(TAggregateRoot entity);
 
-    void RemoveRange(IEnumerable<TAggregateRoot> entities);
+    void DeleteRange(IEnumerable<TAggregateRoot> entities);
 
     void Update(TAggregateRoot entity);
 }

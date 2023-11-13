@@ -14,7 +14,7 @@ public class Optional<T>
         return new Optional<T>(instance);
     }
 
-    public Optional<T> ThrowIfPresent(Exception exception)
+    public Optional<T> ThrowIfExist(Exception exception)
     {
         if ((_instance is bool && _instance.Equals(true)) || (_instance is not bool && _instance != null))
             throw exception;
@@ -22,7 +22,7 @@ public class Optional<T>
         return this;
     }
 
-    public Optional<T> ThrowIfNotPresent(Exception exception)
+    public Optional<T> ThrowIfNotExist(Exception exception)
     {
         if ((_instance is bool && _instance.Equals(false)) || _instance == null) throw exception;
 

@@ -8,11 +8,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Core.Domain\BuildingBlock.Core.Domain.csproj"/>
-    </ItemGroup>
 
 
-    <ItemGroup>
-        <Folder Include="AccountAggregate\"/>
     </ItemGroup>
 
 

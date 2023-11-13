@@ -35,7 +35,7 @@ public class ChangeCurrentPasswordCommandHandler : ICommandHandler<ChangeCurrent
     public async Task Handle(ChangeCurrentPasswordCommand request, CancellationToken cancellationToken)
     {
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(_currentUser.Id))
-            .ThrowIfNotPresent(new UserNotFoundException(_currentUser.Id)).Get();
+            .ThrowIfNotExist(new UserNotFoundException(_currentUser.Id)).Get();
 
         await _authService.ChangePasswordAsync(user, request.Dto.CurrentPassword, request.Dto.NewPassword,
             request.Dto.ConfirmPassword);

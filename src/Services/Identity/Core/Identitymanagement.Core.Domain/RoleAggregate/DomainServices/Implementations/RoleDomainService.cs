@@ -36,12 +36,12 @@ public class RoleDomainService : IRoleDomainService
     private async Task CheckValidOnAddUser(Role role, User user)
     {
         Optional<UserRole>.Of(await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(role.Id, user.Id))
-            .ThrowIfPresent(new UserRoleConflictException(role.Id, user.Id));
+            .ThrowIfExist(new UserRoleConflictException(role.Id, user.Id));
     }
 
     private async Task CheckValidOnCreate(string roleName)
     {
         Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync(roleName))
-            .ThrowIfPresent(new RoleConflictException(roleName));
+            .ThrowIfExist(new RoleConflictException(roleName));
     }
 }

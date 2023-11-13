@@ -1,32 +1,33 @@
 using BuildingBlock.Core.Application.IntegrationEvents.Handlers;
-using MediatR;
-using Microsoft.Extensions.Logging;
+using BuildingBlock.Core.Domain.Repositories;
+using BuildingBlock.Core.Domain.Shared.Services;
 using SaleManagement.Core.Application.IntegrationEvents.Events;
+using SaleManagement.Core.Domain.ProductAggregate.DomainServices.Abstractions;
+using SaleManagement.Core.Domain.ProductAggregate.Entities;
 
 namespace SaleManagement.Core.Application.IntegrationEvents.Handlers;
 
 public class ProductCreatedIntegrationEventHandler : IIntegrationEventHandler<ProductCreatedIntegrationEvent>
 {
-    private readonly ILogger<ProductCreatedIntegrationEventHandler> _logger;
-    private readonly IMediator _mediator;
+    private readonly IProductDomainService _productDomainService;
+    private readonly IOperationRepository<Product> _productOperationRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ProductCreatedIntegrationEventHandler(
-        IMediator mediator,
-        ILogger<ProductCreatedIntegrationEventHandler> logger
-    )
+    public ProductCreatedIntegrationEventHandler(IOperationRepository<Product> productOperationRepository,
+        IUnitOfWork unitOfWork, IProductDomainService productDomainService)
     {
-        _mediator = mediator;
-        _logger = logger;
+        _productOperationRepository = productOperationRepository;
+        _unitOfWork = unitOfWork;
+        _productDomainService = productDomainService;
     }
 
-    public Task Handle(ProductCreatedIntegrationEvent @event)
+    public async Task HandleAsync(ProductCreatedIntegrationEvent @event)
     {
-        using (_logger.BeginScope(new List<KeyValuePair<string, object>> { new("IntegrationEventContext", @event.Id) }))
-        {
-            _logger.LogInformation("Handling integration event: {IntegrationEventId} - ({@IntegrationEvent})",
-                @event.Id, @event);
-        }
+        var product = await _productDomainService.CreateAsync(@event.ProductId, @event.ProductCode, @event.ProductName,
+            @event.ProductPrice, @event.ProductIsAvailable, @event.ProductType, @event.CreatedAt, @event.CreatedBy);
 
-        return Task.CompletedTask;
+        await _productOperationRepository.AddAsync(product);
+
+        await _unitOfWork.SaveChangesAsync();
     }
 }

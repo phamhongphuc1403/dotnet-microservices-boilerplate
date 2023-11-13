@@ -4,7 +4,7 @@ using BuildingBlock.Core.Domain.Repositories;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using BuildingBlock.Core.Domain.Specifications.Implementations;
 using ProductManagement.Core.Application.CQRS.Queries.ProductQueries.Requests;
-using ProductManagement.Core.Application.DTOs;
+using ProductManagement.Core.Application.DTOs.ProductDTOs;
 using ProductManagement.Core.Domain.ProductAggregate.Entities;
 using ProductManagement.Core.Domain.ProductAggregate.Exceptions;
 
@@ -26,7 +26,7 @@ public class GetProductQueryHandler : IQueryHandler<GetProductQuery, ProductDeta
         var productIdSpecification = new EntityIdSpecification<Product>(query.ProductId);
 
         var product = Optional<Product>.Of(await _repository.GetAnyAsync(productIdSpecification))
-            .ThrowIfNotPresent(new ProductNotFoundException(query.ProductId)).Get();
+            .ThrowIfNotExist(new ProductNotFoundException(query.ProductId)).Get();
 
         return _mapper.Map<ProductDetailDto>(product);
     }

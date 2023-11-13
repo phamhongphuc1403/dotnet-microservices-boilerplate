@@ -54,7 +54,7 @@ services:
     links:
       - db
   product-service:
-    container_name: boilerplate.product.api
+    container_name: boilerplate.products.api
     image: boilerplate.products
     ports:
       - "5001:80"
@@ -76,6 +76,8 @@ services:
       redis:
         condition: service_healthy
       seq:
+        condition: service_started
+      sale-service:
         condition: service_started
     links:
       - db

@@ -49,6 +49,6 @@ public class UserDomainService : IUserDomainService
     private async Task CheckIfEmailIsExisted(string email)
     {
         Optional<bool>.Of(await _userReadOnlyRepository.CheckIfEmailExistAsync(email))
-            .ThrowIfPresent(new UserConflictException(email));
+            .ThrowIfExist(new UserConflictException(email));
     }
 }

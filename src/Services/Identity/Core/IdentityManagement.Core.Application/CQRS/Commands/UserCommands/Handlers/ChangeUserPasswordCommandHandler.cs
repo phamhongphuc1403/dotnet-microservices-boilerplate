@@ -32,7 +32,7 @@ public class ChangeUserPasswordCommandHandler : ICommandHandler<ChangeUserPasswo
     public async Task Handle(ChangeUserPasswordCommand request, CancellationToken cancellationToken)
     {
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(request.UserId))
-            .ThrowIfNotPresent(new UserNotFoundException(request.UserId)).Get();
+            .ThrowIfNotExist(new UserNotFoundException(request.UserId)).Get();
 
         var token = await _userDomainService.ResetPasswordAsync(user, request.Dto.Password,
             request.Dto.ConfirmPassword);

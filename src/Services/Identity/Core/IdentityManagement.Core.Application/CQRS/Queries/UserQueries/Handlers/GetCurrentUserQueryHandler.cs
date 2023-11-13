@@ -27,7 +27,7 @@ public class GetCurrentUserQueryHandler : IQueryHandler<GetCurrentUserQuery, Use
     public async Task<UserDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(_currentUser.Id))
-            .ThrowIfNotPresent(new UserNotFoundException(_currentUser.Id)).Get();
+            .ThrowIfNotExist(new UserNotFoundException(_currentUser.Id)).Get();
 
         return _mapper.Map<UserDto>(user);
     }

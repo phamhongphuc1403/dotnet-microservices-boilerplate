@@ -41,10 +41,10 @@ public class UserRoleSeeder : IDataSeeder
         _logger.LogInformation("Start seeding user roles");
 
         var admin = Optional<User>.Of(await _userReadOnlyRepository.GetByEmailAsync("admin@123"))
-            .ThrowIfNotPresent(new UserNotFoundException("email", "admin@123")).Get();
+            .ThrowIfNotExist(new UserNotFoundException("email", "admin@123")).Get();
 
         var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("admin"))
-            .ThrowIfNotPresent(new RoleNotFoundException("admin")).Get();
+            .ThrowIfNotExist(new RoleNotFoundException("admin")).Get();
 
         if (await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(admin.Id, adminRole.Id) == null)
         {
@@ -54,10 +54,10 @@ public class UserRoleSeeder : IDataSeeder
         }
 
         var user = Optional<User>.Of(await _userReadOnlyRepository.GetByEmailAsync("user@123"))
-            .ThrowIfNotPresent(new UserNotFoundException("email", "admin@123")).Get();
+            .ThrowIfNotExist(new UserNotFoundException("email", "admin@123")).Get();
 
         var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("user"))
-            .ThrowIfNotPresent(new RoleNotFoundException("user")).Get();
+            .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
 
         if (await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(user.Id, userRole.Id) == null)
         {

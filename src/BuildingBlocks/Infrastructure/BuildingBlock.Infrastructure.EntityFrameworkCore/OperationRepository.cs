@@ -30,12 +30,12 @@ public class OperationRepository<TDbContext, TAggregateRoot> : IOperationReposit
         await DbSet.AddRangeAsync(guidEntities);
     }
 
-    public void Remove(TAggregateRoot entity)
+    public void Delete(TAggregateRoot entity)
     {
         DbSet.Remove(entity);
     }
 
-    public void RemoveRange(IEnumerable<TAggregateRoot> entities)
+    public void DeleteRange(IEnumerable<TAggregateRoot> entities)
     {
         DbSet.RemoveRange(entities);
     }

@@ -1,8 +1,10 @@
 using Bogus;
 using BuildingBlock.Core.Application;
+using BuildingBlock.Core.Application.EventBus.Abstractions;
 using BuildingBlock.Core.Domain.Repositories;
 using BuildingBlock.Core.Domain.Shared.Services;
 using Microsoft.Extensions.Logging;
+using ProductManagement.Core.Application.IntegrationEvents.Events;
 using ProductManagement.Core.Domain.ProductAggregate.Entities;
 using ProductManagement.Core.Domain.ProductAggregate.Entities.Enums;
 
@@ -10,17 +12,20 @@ namespace ProductManagement.Core.Application;
 
 public class ProductSeeder : IDataSeeder
 {
+    private readonly IEventBus _eventBus;
     private readonly ILogger<ProductSeeder> _logger;
     private readonly IOperationRepository<Product> _operationRepository;
     private readonly IReadOnlyRepository<Product> _readonlyRepository;
     private readonly IUnitOfWork _unitOfWork;
 
     public ProductSeeder(IOperationRepository<Product> operationRepository,
-        IReadOnlyRepository<Product> readonlyRepository, IUnitOfWork unitOfWork, ILogger<ProductSeeder> logger)
+        IReadOnlyRepository<Product> readonlyRepository, IUnitOfWork unitOfWork, ILogger<ProductSeeder> logger,
+        IEventBus eventBus)
     {
         _operationRepository = operationRepository;
         _unitOfWork = unitOfWork;
         _logger = logger;
+        _eventBus = eventBus;
         _readonlyRepository = readonlyRepository;
     }
 
@@ -32,11 +37,15 @@ public class ProductSeeder : IDataSeeder
             return;
         }
 
-        var products = GenerateProducts();
+        var products = GenerateProducts().ToList();
 
         await _operationRepository.AddRangeAsync(products);
 
         await _unitOfWork.SaveChangesAsync();
+
+        foreach (var product in products)
+            _eventBus.Publish(new ProductCreatedIntegrationEvent(product.Id, product.Code, product.Name,
+                product.Price, product.IsAvailable, product.Type, product.CreatedAt, "guest"));
 
         _logger.LogInformation("Product data seeded successfully!");
     }
@@ -50,7 +59,7 @@ public class ProductSeeder : IDataSeeder
             .RuleFor(product => product.Price, f => f.Random.Double(100, 10000))
             .RuleFor(product => product.IsAvailable, f => f.Random.Bool())
             .RuleFor(product => product.Type, f => f.PickRandom<ProductType>())
-            .RuleFor(product => product.CreatedAt, f => f.Date.Past());
+            .RuleFor(product => product.CreatedAt, f => DateTime.UtcNow);
 
         return faker.Generate(50);
     }
