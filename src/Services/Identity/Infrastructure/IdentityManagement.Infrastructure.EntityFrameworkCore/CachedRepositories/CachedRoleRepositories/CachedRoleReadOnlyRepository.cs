@@ -1,6 +1,6 @@
 using BuildingBlock.Core.Domain.Shared.Services;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 
 namespace IdentityManagement.Infrastructure.EntityFrameworkCore.CachedRepositories.CachedRoleRepositories;
 

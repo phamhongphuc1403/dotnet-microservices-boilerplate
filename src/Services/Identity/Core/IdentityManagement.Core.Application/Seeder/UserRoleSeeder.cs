@@ -1,13 +1,13 @@
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
-using Identitymanagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
-using Identitymanagement.Core.Domain.RoleAggregate.Exceptions;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Exceptions;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Seeder;
@@ -35,6 +35,8 @@ public class UserRoleSeeder : IDataSeeder
         _unitOfWork = unitOfWork;
         _roleOperationRepository = roleOperationRepository;
     }
+
+    public int ExecutionOrder => 2;
 
     public async Task SeedDataAsync()
     {

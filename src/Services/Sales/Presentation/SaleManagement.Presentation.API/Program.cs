@@ -5,12 +5,15 @@ using BuildingBlock.Presentation.API.Middlewares;
 using SaleManagement.Core.Application;
 using SaleManagement.Core.Application.IntegrationEvents.Events;
 using SaleManagement.Core.Application.IntegrationEvents.Handlers;
+using SaleManagement.Core.Domain;
 using SaleManagement.Infrastructure.EntityFrameworkCore;
 using SaleManagement.Presentation.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-await builder.Services.AddDefaultExtensions<SaleDbContext, SaleApplicationAssemblyReference>(builder.Configuration);
+await builder.Services
+    .AddDefaultExtensions<SaleApplicationAssemblyReference, SaleDomainAssemblyReference, SaleDbContext>(
+        builder.Configuration);
 
 builder.Services.AddSaleExtensions(builder.Configuration);
 

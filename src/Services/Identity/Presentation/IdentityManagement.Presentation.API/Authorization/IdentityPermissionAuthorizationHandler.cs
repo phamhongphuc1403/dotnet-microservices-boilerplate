@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using BuildingBlock.Presentation.API.Authorization;
-using Identitymanagement.Core.Domain.PermissionAggregate.Repositories;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
 namespace IdentityManagement.Presentation.API.Authorization;

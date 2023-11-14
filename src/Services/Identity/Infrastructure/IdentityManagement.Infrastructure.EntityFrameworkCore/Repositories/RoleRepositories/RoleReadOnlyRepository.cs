@@ -1,7 +1,7 @@
 using AutoMapper;
 using BuildingBlock.Core.Domain.Repositories;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Specifications;
 

@@ -2,11 +2,11 @@ using BuildingBlock.API.GRPC;
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using Grpc.Core;
-using Identitymanagement.Core.Domain.PermissionAggregate.Repositories;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
-using Identitymanagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
 namespace IdentityManagement.Presentation.API.GRPC.Services;
 

@@ -3,8 +3,8 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Domain.Shared.Services;
 using IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Requests;
 using IdentityManagement.Core.Application.DTOs.UserDTOs;
-using Identitymanagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
 namespace IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Handlers;
 

@@ -1,6 +1,6 @@
 using AutoMapper;
 using IdentityManagement.Core.Application.DTOs.RoleDTOs;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
 
 namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Mapper;

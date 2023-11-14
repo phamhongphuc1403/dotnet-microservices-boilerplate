@@ -1,5 +1,5 @@
 using AutoMapper;
-using Identitymanagement.Core.Domain.PermissionAggregate.Entities;
+using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.PermissionAggregate.Entities;
 
 namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Mapper;

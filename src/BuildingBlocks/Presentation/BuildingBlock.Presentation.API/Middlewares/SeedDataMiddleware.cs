@@ -9,8 +9,10 @@ public static class SeedDataMiddleware
     public static async Task SeedDataAsync(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
-        var seeders = scope.ServiceProvider.GetRequiredService<IEnumerable<IDataSeeder>>();
+        var seeders = scope.ServiceProvider.GetRequiredService<IEnumerable<IDataSeeder>>().ToList();
 
-        foreach (var seeder in seeders) await seeder.SeedDataAsync();
+        var orderedSeeders = seeders.OrderBy(seeder => seeder.ExecutionOrder);
+
+        foreach (var seeder in orderedSeeders) await seeder.SeedDataAsync();
     }
 }

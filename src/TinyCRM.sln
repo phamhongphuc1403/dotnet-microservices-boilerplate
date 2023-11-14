@@ -60,7 +60,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Presenta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Core.Application", "Services\Identity\Core\IdentityManagement.Core.Application\IdentityManagement.Core.Application.csproj", "{2295B9F6-0725-4246-853D-07998409D6A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identitymanagement.Core.Domain", "Services\Identity\Core\Identitymanagement.Core.Domain\Identitymanagement.Core.Domain.csproj", "{BF97C521-FEBD-434E-A10D-8CA98950BA34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Core.Domain", "Services\Identity\Core\IdentityManagement.Core.Domain\IdentityManagement.Core.Domain.csproj", "{BF97C521-FEBD-434E-A10D-8CA98950BA34}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.Infrastructure.EntityFrameworkCore", "Services\Identity\Infrastructure\IdentityManagement.Infrastructure.EntityFrameworkCore\IdentityManagement.Infrastructure.EntityFrameworkCore.csproj", "{C5839B2D-91F4-437C-AF71-788DC779A427}"
 EndProject
