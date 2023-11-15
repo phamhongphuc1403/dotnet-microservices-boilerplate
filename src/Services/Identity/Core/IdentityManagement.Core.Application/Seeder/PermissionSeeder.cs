@@ -2,12 +2,12 @@ using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Constants.Identity;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
-using Identitymanagement.Core.Domain.PermissionAggregate.DomainServices.Abstractions;
-using Identitymanagement.Core.Domain.PermissionAggregate.Entities;
-using Identitymanagement.Core.Domain.PermissionAggregate.Repositories;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
-using Identitymanagement.Core.Domain.RoleAggregate.Exceptions;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.PermissionAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
+using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Seeder;
@@ -33,6 +33,8 @@ public class PermissionSeeder : IDataSeeder
         _permissionOperationRepository = permissionOperationRepository;
         _permissionDomainService = permissionDomainService;
     }
+
+    public int ExecutionOrder => 2;
 
     public async Task SeedDataAsync()
     {

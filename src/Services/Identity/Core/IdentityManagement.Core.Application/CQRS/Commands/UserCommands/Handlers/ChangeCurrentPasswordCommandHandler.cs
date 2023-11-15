@@ -4,10 +4,10 @@ using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using IdentityManagement.Core.Application.Common.Services.Abstractions;
 using IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Requests;
-using Identitymanagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Exceptions;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
 namespace IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Handlers;
 

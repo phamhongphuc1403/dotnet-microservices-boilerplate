@@ -4,9 +4,9 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using IdentityManagement.Core.Application.CQRS.Queries.UserQueries.Requests;
 using IdentityManagement.Core.Application.DTOs.UserDTOs;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Exceptions;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
 namespace IdentityManagement.Core.Application.CQRS.Queries.UserQueries.Handlers;
 

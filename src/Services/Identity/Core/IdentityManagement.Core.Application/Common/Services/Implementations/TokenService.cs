@@ -4,8 +4,8 @@ using System.Security.Claims;
 using System.Text;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using IdentityManagement.Core.Application.Common.Services.Abstractions;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityManagement.Core.Application.Common.Services.Implementations;

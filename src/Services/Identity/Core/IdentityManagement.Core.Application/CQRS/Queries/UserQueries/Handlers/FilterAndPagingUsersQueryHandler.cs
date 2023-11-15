@@ -3,7 +3,7 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Application.DTOs;
 using IdentityManagement.Core.Application.CQRS.Queries.UserQueries.Requests;
 using IdentityManagement.Core.Application.DTOs.UserDTOs;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
 namespace IdentityManagement.Core.Application.CQRS.Queries.UserQueries.Handlers;
 

@@ -3,8 +3,8 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Domain.Shared.Services;
 using IdentityManagement.Core.Application.CQRS.Commands.RoleCommands.Requests;
 using IdentityManagement.Core.Application.DTOs.RoleDTOs;
-using Identitymanagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 
 namespace IdentityManagement.Core.Application.CQRS.Commands.RoleCommands.Handlers;
 

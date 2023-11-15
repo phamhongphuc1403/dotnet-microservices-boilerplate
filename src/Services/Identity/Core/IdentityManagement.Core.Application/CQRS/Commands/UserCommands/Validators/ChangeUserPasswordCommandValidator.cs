@@ -1,6 +1,6 @@
 using FluentValidation;
 using IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Requests;
-using Identitymanagement.Core.Domain.Constants;
+using IdentityManagement.Core.Domain.Constants;
 
 namespace IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Validators;
 

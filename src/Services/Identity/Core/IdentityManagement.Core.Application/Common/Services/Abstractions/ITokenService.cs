@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityManagement.Core.Application.Common.Services.Abstractions;

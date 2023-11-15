@@ -29,6 +29,8 @@ public class ProductSeeder : IDataSeeder
         _readonlyRepository = readonlyRepository;
     }
 
+    public int ExecutionOrder => 1;
+
     public async Task SeedDataAsync()
     {
         if (await _readonlyRepository.CheckIfExistAsync())

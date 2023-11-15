@@ -1,7 +1,7 @@
 using AutoMapper;
 using BuildingBlock.Core.Domain.Repositories;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using IdentityManagement.Infrastructure.Identity.UserAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.UserAggregate.Specifications;
 using Microsoft.AspNetCore.Identity;

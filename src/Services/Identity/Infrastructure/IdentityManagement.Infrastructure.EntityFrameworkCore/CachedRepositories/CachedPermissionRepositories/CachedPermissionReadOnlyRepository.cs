@@ -1,6 +1,6 @@
 using BuildingBlock.Core.Domain.Shared.Services;
-using Identitymanagement.Core.Domain.PermissionAggregate.Entities;
-using Identitymanagement.Core.Domain.PermissionAggregate.Repositories;
+using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
+using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
 
 namespace IdentityManagement.Infrastructure.EntityFrameworkCore.CachedRepositories.CachedPermissionRepositories;
 

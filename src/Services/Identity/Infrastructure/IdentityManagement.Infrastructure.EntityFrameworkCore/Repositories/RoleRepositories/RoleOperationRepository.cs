@@ -1,9 +1,9 @@
 using AutoMapper;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using BuildingBlock.Infrastructure.Identity.Exceptions;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
-using Identitymanagement.Core.Domain.RoleAggregate.Exceptions;
-using Identitymanagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
+using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
 using Microsoft.AspNetCore.Identity;
 

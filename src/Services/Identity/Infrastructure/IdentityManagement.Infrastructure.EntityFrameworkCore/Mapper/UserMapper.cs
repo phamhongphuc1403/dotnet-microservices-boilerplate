@@ -1,6 +1,6 @@
 using AutoMapper;
 using IdentityManagement.Core.Application.DTOs.UserDTOs;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.UserAggregate.Entities;
 
 namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Mapper;

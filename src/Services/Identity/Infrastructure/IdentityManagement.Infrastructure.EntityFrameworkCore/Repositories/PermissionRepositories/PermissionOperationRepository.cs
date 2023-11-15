@@ -2,10 +2,10 @@ using System.Security.Claims;
 using AutoMapper;
 using BuildingBlock.Core.Domain.Shared.Utils;
 using BuildingBlock.Infrastructure.Identity.Exceptions;
-using Identitymanagement.Core.Domain.PermissionAggregate.Entities;
-using Identitymanagement.Core.Domain.PermissionAggregate.Repositories;
-using Identitymanagement.Core.Domain.RoleAggregate.Entities;
-using Identitymanagement.Core.Domain.RoleAggregate.Exceptions;
+using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
+using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
 using Microsoft.AspNetCore.Identity;
 

@@ -1,7 +1,7 @@
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Services;
-using Identitymanagement.Core.Domain.UserAggregate.Entities;
-using Identitymanagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
+using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Seeder;
@@ -21,6 +21,8 @@ public class UserSeeder : IDataSeeder
         _logger = logger;
         _unitOfWork = unitOfWork;
     }
+
+    public int ExecutionOrder => 1;
 
     public async Task SeedDataAsync()
     {

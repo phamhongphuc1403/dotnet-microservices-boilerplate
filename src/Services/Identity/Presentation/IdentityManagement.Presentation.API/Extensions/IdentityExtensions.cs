@@ -1,5 +1,7 @@
+using BuildingBlock.Presentation.API.Extensions;
 using IdentityManagement.Core.Application;
 using IdentityManagement.Infrastructure.EntityFrameworkCore;
+using IdentityManagement.Infrastructure.Identity;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.UserAggregate.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -33,14 +35,10 @@ public static class IdentityExtensions
         services.Configure<DataProtectionTokenProviderOptions>(opts => opts.TokenLifespan = TimeSpan.FromMinutes(30));
 
         services
-            .RegisterIdentitySeeder()
-            .RegisterIdentityDbContext()
-            .RegisterIdentityServices()
-            .RegisterIdentityRepositories()
-            ;
+            .RegisterDefaultRepositories<IdentityDomainAssemblyReference, AppDbContext>()
+            .AddIdentityAuthentication(jwtSetting)
+            .AddIdentityAuthorization();
 
-        services.AddIdentityAuthentication(jwtSetting);
-        services.AddIdentityAuthorization();
         return services;
     }
 }
