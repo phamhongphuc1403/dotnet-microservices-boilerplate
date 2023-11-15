@@ -16,10 +16,7 @@ public class
     private readonly IMapper _mapper;
     private readonly IReadOnlyRepository<Product> _repository;
 
-    public FilterAndPagingProductsQueryHandler(
-        IReadOnlyRepository<Product> repository,
-        IMapper mapper
-    )
+    public FilterAndPagingProductsQueryHandler(IReadOnlyRepository<Product> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
