@@ -80,7 +80,7 @@ public class ReadOnlyRepository<TDbContext, TEntity> : IReadOnlyRepository<TEnti
 
     private static IQueryable<TEntity> Sort(IQueryable<TEntity> query, string? sort)
     {
-        return string.IsNullOrEmpty(sort) ? query.OrderBy("CreatedAt") : query.OrderBy(sort);
+        return string.IsNullOrEmpty(sort) ? query : query.OrderBy(sort);
     }
 
     private static IQueryable<TEntity> Include(IQueryable<TEntity> query, string? includeTables = null)

@@ -29,13 +29,13 @@ public class FilterAndPagingDto<TEnum>
         }
     }
 
-    [JsonIgnore] public string Sort { get; private set; } = string.Empty;
+    [JsonIgnore] public string Sort { get; private set; } = "CreatedAt desc";
 
     private string ConvertSort()
     {
-        if (SortBy == null) return string.Empty;
+        if (_sortBy == null) return Sort;
 
-        var sort = SortBy.ToString();
+        var sort = _sortBy.ToString();
 
         sort = IsDescending ? $"{sort} desc" : $"{sort} asc";
 
