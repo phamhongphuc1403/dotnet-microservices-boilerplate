@@ -15,7 +15,7 @@ namespace BuildingBlock.Infrastructure.RabbitMQ;
 
 public class EventBusRabbitMQ : IEventBus
 {
-    private const string BrokerName = "tinycrm_event_bus";
+    private const string BrokerName = "event_bus";
 
     private static readonly JsonSerializerOptions SIndentedOptions = new() { WriteIndented = true };
 

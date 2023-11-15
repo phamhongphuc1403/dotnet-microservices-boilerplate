@@ -8,7 +8,7 @@ using ProductManagement.Infrastructure.EntityFrameworkCore;
 
 #nullable disable
 
-namespace TinyCRM.Products.EntityFrameworkCore.Migrations
+namespace ProductManagement.Infrastructure.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
     partial class ProductDbContextModelSnapshot : ModelSnapshot
@@ -72,7 +72,7 @@ namespace TinyCRM.Products.EntityFrameworkCore.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 #pragma warning restore 612, 618
         }
