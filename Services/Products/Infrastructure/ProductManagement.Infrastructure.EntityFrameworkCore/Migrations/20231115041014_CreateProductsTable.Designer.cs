@@ -6,14 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ProductManagement.Infrastructure.EntityFrameworkCore;
-using TinyCRM.Products.EntityFrameworkCore;
 
 #nullable disable
 
-namespace TinyCRM.Products.EntityFrameworkCore.Migrations
+namespace ProductManagement.Infrastructure.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20231006170019_CreateProductsTable")]
+    [Migration("20231115041014_CreateProductsTable")]
     partial class CreateProductsTable
     {
         /// <inheritdoc />

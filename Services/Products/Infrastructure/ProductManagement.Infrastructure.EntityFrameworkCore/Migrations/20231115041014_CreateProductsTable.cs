@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TinyCRM.Products.EntityFrameworkCore.Migrations
+namespace ProductManagement.Infrastructure.EntityFrameworkCore.Migrations
 {
     /// <inheritdoc />
     public partial class CreateProductsTable : Migration

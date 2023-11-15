@@ -21,7 +21,7 @@ public static class DefaultOpenApiExtension
         services.AddSwaggerGen(option =>
         {
             var document = openApi.GetRequiredSection("Document");
-            var title = $"TinyCRM.{document["Title"]}";
+            var title = document["Title"];
             var version = document["Version"] ?? "v1";
 
             option.SwaggerDoc(version, new OpenApiInfo
