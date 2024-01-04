@@ -101,6 +101,18 @@ public class EventBusRabbitMQ : IEventBus
         StartBasicConsume();
     }
 
+    public void Subscribe(Type eventType, Type eventHandlerType)
+    {
+        var eventName = eventType.Name;
+        DoInternalSubscription(eventName);
+
+        _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName, eventHandlerType);
+
+        _subsManager.AddSubscription(eventType, eventHandlerType);
+
+        StartBasicConsume();
+    }
+
     private IModel CreateConsumerChannel()
     {
         if (!_persistentConnection.IsConnected) _persistentConnection.TryConnect();

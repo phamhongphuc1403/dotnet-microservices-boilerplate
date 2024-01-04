@@ -1,8 +1,8 @@
 using BuildingBlock.Core.Application.DTOs;
-using BuildingBlock.Core.Domain.Shared.Constants.Identity;
-using IdentityManagement.Core.Application.CQRS.Commands.UserCommands.Requests;
-using IdentityManagement.Core.Application.CQRS.Queries.UserQueries.Requests;
-using IdentityManagement.Core.Application.DTOs.UserDTOs;
+using BuildingBlock.Core.Domain.Shared.Constants;
+using IdentityManagement.Core.Application.Users.CQRS.Commands.Requests;
+using IdentityManagement.Core.Application.Users.CQRS.Queries.Requests;
+using IdentityManagement.Core.Application.Users.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Authorize(Policy = Permissions.User.ViewAll)]
-    public async Task<ActionResult<FilterAndPagingResultDto<UserDto>>> GetFilteredAndPagedUsersAsync(
+    public async Task<ActionResult<FilterAndPagingResultDto<UserDetailDto>>> GetFilteredAndPagedUsersAsync(
         [FromQuery] FilterAndPagingUsersDto dto)
     {
         var users = await _mediator.Send(new FilterAndPagingUsersQuery(dto));
@@ -32,7 +32,7 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Authorize(Policy = Permissions.User.Create)]
-    public async Task<ActionResult<UserDto>> CreateUserAsync(CreateUserDto dto)
+    public async Task<ActionResult<UserDetailDto>> CreateUserAsync(CreateUserDto dto)
     {
         var user = await _mediator.Send(new CreateUserCommand(dto));
 
@@ -41,7 +41,7 @@ public class UserController : ControllerBase
 
     [HttpGet("{id:guid}")]
     [Authorize(Policy = Permissions.User.ViewAll)]
-    public async Task<ActionResult<UserDto>> GetUserByIdAsync(Guid id)
+    public async Task<ActionResult<UserDetailDto>> GetUserByIdAsync(Guid id)
     {
         var user = await _mediator.Send(new GetUserByIdQuery(id));
 
@@ -50,7 +50,7 @@ public class UserController : ControllerBase
 
     [HttpGet("me")]
     [Authorize(Policy = Permissions.User.ViewPersonal)]
-    public async Task<ActionResult<UserDto>> GetCurrentUserAsync()
+    public async Task<ActionResult<UserSummaryDto>> GetCurrentUserAsync()
     {
         var user = await _mediator.Send(new GetCurrentUserQuery());
 
@@ -71,6 +71,15 @@ public class UserController : ControllerBase
     public async Task<ActionResult> ChangeUserPasswordAsync(Guid id, ChangeUserPasswordDto dto)
     {
         await _mediator.Send(new ChangeUserPasswordCommand(id, dto));
+
+        return NoContent();
+    }
+
+    [HttpDelete("{userId:guid}")]
+    [Authorize(Policy = Permissions.User.DeleteAll)]
+    public async Task<ActionResult> DeleteUserAsync(Guid userId)
+    {
+        await _mediator.Send(new DeleteUserCommand(userId));
 
         return NoContent();
     }

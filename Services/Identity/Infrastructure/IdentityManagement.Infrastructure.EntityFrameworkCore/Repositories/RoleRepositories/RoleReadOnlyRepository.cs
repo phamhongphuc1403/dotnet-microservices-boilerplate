@@ -1,5 +1,6 @@
 using AutoMapper;
 using BuildingBlock.Core.Domain.Repositories;
+using IdentityManagement.Core.Application.Roles.DTOs;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
@@ -20,18 +21,18 @@ public class RoleReadOnlyRepository : IRoleReadOnlyRepository
 
     public async Task<IEnumerable<string>> GetNameByUserIdAsync(Guid userId)
     {
-        var applicationRoles = await GetByUserIdAsync(userId);
+        var roleUserIdSpecification = new RoleUserIdSpecification(userId);
 
-        return applicationRoles.Select(role => role.Name).ToList();
+        var roleNames = await _roleReadOnlyRepository.GetAllAsync<RoleNameDto>(roleUserIdSpecification);
+
+        return roleNames.Select(role => role.Name).ToList();
     }
 
-    public async Task<IEnumerable<Role>> GetByUserIdAsync(Guid userId)
+    public Task<List<Role>> GetByUserIdAsync(Guid userId)
     {
         var roleUserIdSpecification = new RoleUserIdSpecification(userId);
 
-        var applicationRoles = await _roleReadOnlyRepository.GetAllAsync(roleUserIdSpecification);
-
-        return _mapper.Map<IEnumerable<Role>>(applicationRoles);
+        return _roleReadOnlyRepository.GetAllAsync<Role>(roleUserIdSpecification);
     }
 
     public async Task<Role?> GetByNameAsync(string roleName, string? includeTables = null)

@@ -20,6 +20,15 @@ public class EventBusSubscriptionsManager : IEventBusSubscriptionsManager
         if (!_eventTypes.Contains(typeof(T))) _eventTypes.Add(typeof(T));
     }
 
+    public void AddSubscription(Type eventType, Type eventHandlerType)
+    {
+        var eventName = eventType.Name;
+
+        DoAddSubscription(eventHandlerType, eventName);
+
+        if (!_eventTypes.Contains(eventType)) _eventTypes.Add(eventType);
+    }
+
     public IEnumerable<Type> GetHandlersForEvent<T>() where T : IntegrationEvent
     {
         var key = GetEventKey<T>();

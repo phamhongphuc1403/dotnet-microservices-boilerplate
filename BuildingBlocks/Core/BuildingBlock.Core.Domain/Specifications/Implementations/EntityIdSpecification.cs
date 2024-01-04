@@ -3,7 +3,7 @@ using BuildingBlock.Core.Domain.Specifications.Abstractions;
 
 namespace BuildingBlock.Core.Domain.Specifications.Implementations;
 
-public class EntityIdSpecification<TEntity> : Specification<TEntity> where TEntity : Entity
+public class EntityIdSpecification<TEntity> : Specification<TEntity> where TEntity : IEntity
 {
     private readonly Guid _id;
 

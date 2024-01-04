@@ -1,5 +1,5 @@
-using IdentityManagement.Core.Application;
-using IdentityManagement.Core.Application.Common.Services.Abstractions;
+using IdentityManagement.Core.Application.Shared;
+using IdentityManagement.Core.Application.Shared.Services.Abstractions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace IdentityManagement.Presentation.API.Extensions;

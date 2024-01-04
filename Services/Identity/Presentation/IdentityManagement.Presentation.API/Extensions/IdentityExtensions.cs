@@ -1,5 +1,5 @@
 using BuildingBlock.Presentation.API.Extensions;
-using IdentityManagement.Core.Application;
+using IdentityManagement.Core.Application.Shared;
 using IdentityManagement.Infrastructure.EntityFrameworkCore;
 using IdentityManagement.Infrastructure.Identity;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;

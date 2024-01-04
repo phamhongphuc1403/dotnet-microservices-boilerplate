@@ -1,14 +1,16 @@
+using BuildingBlock.Core.Domain.Shared.Constants;
+
 namespace BuildingBlock.Core.Domain.Shared.Services;
 
 public interface ICacheService
 {
-    Task<T?> GetRecordAsync<T>(string id);
+    Task<T?> GetRecordAsync<T>(RecordKey key);
 
-    Task<bool> SetRecordAsync<T>(string id, T data, TimeSpan expireTime);
+    Task<bool> SetRecordAsync<T>(RecordKey key, T data, TimeSpan expireTime);
 
-    Task<bool> RemoveRecordAsync(string id);
+    Task<bool> RemoveRecordAsync(RecordKey key);
 
     Task ClearAllDbsAsync();
 
-    Task<T> GetOrSetRecordAsync<T>(string key, Func<Task<T>> asyncFunc, TimeSpan expireTime);
+    Task<T> GetOrSetRecordAsync<T>(RecordKey key, Func<Task<T>> asyncFunc, TimeSpan expireTime);
 }

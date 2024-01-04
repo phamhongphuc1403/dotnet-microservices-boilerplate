@@ -1,5 +1,7 @@
 using System.Security.Claims;
 using BuildingBlock.API.GRPC;
+using BuildingBlock.Core.Domain.Exceptions;
+using BuildingBlock.Core.Domain.Shared.Constants;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Presentation.API.Authorization;
 using Microsoft.AspNetCore.Authorization;
@@ -25,17 +27,34 @@ public class GrpcPermissionAuthorizationHandler : AuthorizationHandler<Permissio
 
         if (userId != null)
         {
+            // if (!await IsUserEmailConfirmedAsync(userId))
+            //     throw new UnauthorizedException("User email is not confirmed.");
+
             var permissions = await GetPermissionsAsync(userId);
 
-            var isAuthorized = permissions.Contains(requirement.Permission);
+            if (!permissions.Contains(requirement.Permission)) throw new UnauthorizedException();
 
-            if (isAuthorized) context.Succeed(requirement);
+            context.Succeed(requirement);
         }
+    }
+
+    private async Task<bool> IsUserEmailConfirmedAsync(string userId)
+    {
+        var cachedUserEmailConfirmation =
+            await _cacheService.GetRecordAsync<bool?>(CacheKeyRegistry.GetEmailConfirmationByUserIdKey(userId));
+
+        if (cachedUserEmailConfirmation != null) return cachedUserEmailConfirmation.Value;
+
+        var grpcUserEmailConfirmationResponse =
+            _authProviderClient.CheckEmailConfirmationAsync(new EmailConfirmationRequest { UserId = userId });
+
+        return grpcUserEmailConfirmationResponse.IsConfirmed;
     }
 
     private async Task<IEnumerable<string>?> GetCachedPermissionsAsync(string userId)
     {
-        var roles = await _cacheService.GetRecordAsync<IEnumerable<string>>(userId);
+        var roles =
+            await _cacheService.GetRecordAsync<IEnumerable<string>>(CacheKeyRegistry.GetRolesByUserIdKey(userId));
 
         if (roles == null) return null;
 
@@ -43,7 +62,9 @@ public class GrpcPermissionAuthorizationHandler : AuthorizationHandler<Permissio
 
         foreach (var role in roles)
         {
-            var rolePermissions = await _cacheService.GetRecordAsync<IEnumerable<string>>(role);
+            var rolePermissions =
+                await _cacheService.GetRecordAsync<IEnumerable<string>>(
+                    CacheKeyRegistry.GetPermissionsByRoleNameKey(role));
 
             if (rolePermissions == null) return null;
             permissions.AddRange(rolePermissions);

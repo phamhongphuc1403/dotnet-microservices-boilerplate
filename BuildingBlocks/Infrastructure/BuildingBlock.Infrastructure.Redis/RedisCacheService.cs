@@ -1,4 +1,5 @@
-﻿using BuildingBlock.Core.Domain.Shared.Services;
+﻿using BuildingBlock.Core.Domain.Shared.Constants;
+using BuildingBlock.Core.Domain.Shared.Services;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
@@ -15,25 +16,25 @@ public class RedisCacheService : ICacheService
         _db = redis.GetDatabase();
     }
 
-    public async Task<T?> GetRecordAsync<T>(string id)
+    public async Task<T?> GetRecordAsync<T>(RecordKey key)
     {
-        var stringData = await _db.StringGetAsync(NormalizeId(id));
+        var stringData = await _db.StringGetAsync(key.Value);
 
         return string.IsNullOrWhiteSpace(stringData)
             ? default
             : JsonConvert.DeserializeObject<T>(stringData.ToString());
     }
 
-    public Task<bool> SetRecordAsync<T>(string id, T data, TimeSpan expireTime)
+    public Task<bool> SetRecordAsync<T>(RecordKey key, T data, TimeSpan expireTime)
     {
         var serializedData = JsonConvert.SerializeObject(data);
 
-        return _db.StringSetAsync(NormalizeId(id), serializedData, expireTime, When.Always);
+        return _db.StringSetAsync(key.Value, serializedData, expireTime, When.Always);
     }
 
-    public Task<bool> RemoveRecordAsync(string id)
+    public Task<bool> RemoveRecordAsync(RecordKey key)
     {
-        return _db.KeyDeleteAsync(NormalizeId(id));
+        return _db.KeyDeleteAsync(key.Value);
     }
 
     public async Task ClearAllDbsAsync()
@@ -47,7 +48,7 @@ public class RedisCacheService : ICacheService
         }
     }
 
-    public async Task<T> GetOrSetRecordAsync<T>(string key, Func<Task<T>> asyncFunc, TimeSpan expireTime)
+    public async Task<T> GetOrSetRecordAsync<T>(RecordKey key, Func<Task<T>> asyncFunc, TimeSpan expireTime)
     {
         var cachedRecords = await GetRecordAsync<T?>(key);
 
@@ -58,10 +59,5 @@ public class RedisCacheService : ICacheService
         await SetRecordAsync(key, dbRecords, expireTime);
 
         return dbRecords;
-    }
-
-    private static string NormalizeId(string id)
-    {
-        return id.ToUpper();
     }
 }

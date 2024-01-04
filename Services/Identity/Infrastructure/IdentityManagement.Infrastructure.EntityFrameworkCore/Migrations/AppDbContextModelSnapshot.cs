@@ -209,8 +209,14 @@ namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CoverUrl")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedAt")
@@ -240,6 +246,11 @@ namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(320)
+                        .HasColumnType("character varying(320)");
+
                     b.Property<string>("NormalizedEmail")
                         .IsRequired()
                         .HasMaxLength(320)
@@ -255,7 +266,8 @@ namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
@@ -287,6 +299,10 @@ namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
+                        .HasFilter("\"DeletedAt\" IS NULL");
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique()
                         .HasFilter("\"DeletedAt\" IS NULL");
 
                     b.ToTable("Users", (string)null);

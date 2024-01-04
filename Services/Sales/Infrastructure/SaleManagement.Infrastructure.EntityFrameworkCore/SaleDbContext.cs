@@ -1,5 +1,6 @@
 using BuildingBlock.Core.Application;
 using BuildingBlock.Infrastructure.EntityFrameworkCore;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SaleManagement.Core.Domain.ProductAggregate.Entities;
 
@@ -7,7 +8,8 @@ namespace SaleManagement.Infrastructure.EntityFrameworkCore;
 
 public class SaleDbContext : BaseDbContext
 {
-    public SaleDbContext(DbContextOptions options, ICurrentUser currentUser) : base(options, currentUser)
+    public SaleDbContext(DbContextOptions options, ICurrentUser currentUser, IMediator mediator) : base(options,
+        currentUser, mediator)
     {
     }
 

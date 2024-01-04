@@ -2,6 +2,7 @@ using BuildingBlock.Presentation.API.Extensions;
 using BuildingBlock.Presentation.API.Hosts;
 using BuildingBlock.Presentation.API.Middlewares;
 using IdentityManagement.Core.Application;
+using IdentityManagement.Core.Application.Shared;
 using IdentityManagement.Core.Domain;
 using IdentityManagement.Infrastructure.EntityFrameworkCore;
 using IdentityManagement.Presentation.API.Extensions;
@@ -25,7 +26,7 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-await app.UseDefaultMiddlewares(app.Environment);
+await app.UseDefaultMiddlewares<IdentityApplicationAssemblyReference>(app.Environment, builder.Configuration);
 
 app.MapControllers();
 
