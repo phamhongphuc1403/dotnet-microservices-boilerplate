@@ -14,25 +14,15 @@ services:
       - Routes__0__DownstreamHostAndPorts__0__Host=boilerplate.identity.api
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - SwaggerEndPoints__0__Config__0__Url=http://boilerplate.identity.api/swagger/v1/swagger.json
-      - Routes__1__DownstreamHostAndPorts__0__Host=boilerplate.products.api
-      - Routes__1__DownstreamHostAndPorts__0__Port=80
-      - SwaggerEndPoints__1__Config__0__Url=http://boilerplate.products.api/swagger/v1/swagger.json
-      - Routes__2__DownstreamHostAndPorts__0__Host=boilerplate.sales.api
-      - Routes__2__DownstreamHostAndPorts__0__Port=80
-      - SwaggerEndPoints__2__Config__0__Url=http://boilerplate.sales.api/swagger/v1/swagger.json
     depends_on:
       - identity-service
-      - product-service
-      - sale-service
     links:
       - identity-service
-      - product-service
-      - sale-service
   identity-service:
     container_name: boilerplate.identity.api
     image: boilerplate.identity
     ports:
-      - "5003:80"
+      - "5001:80"
       - "50051:50051"
     build:
       context: .
@@ -41,6 +31,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Identity; Username=postgres; Password=password
       - ConnectionStrings__Redis=boilerplate.redis
+      - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
       - Serilog__SeqServerUrl=http://boilerplate.seq:5341
@@ -53,62 +44,6 @@ services:
         condition: service_started
     links:
       - db
-  product-service:
-    container_name: boilerplate.products.api
-    image: boilerplate.products
-    ports:
-      - "5001:80"
-    build:
-      context: .
-      dockerfile: Services/Products/Presentation/ProductManagement.Presentation.API/Dockerfile
-    environment:
-      - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Products; Username=postgres; Password=password
-      - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
-      - ConnectionStrings__Redis=boilerplate.redis
-      - GrpcUrls__Identity=http://boilerplate.identity.api:50051
-      - Serilog__SeqServerUrl=http://boilerplate.seq.:5341
-    depends_on:
-      db:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      seq:
-        condition: service_started
-      sale-service:
-        condition: service_started
-    links:
-      - db
-      - rabbitmq
-  sale-service:
-    container_name: boilerplate.sales.api
-    image: boilerplate.sales
-    ports:
-      - "5002:80"
-    build:
-      context: .
-      dockerfile: Services/Sales/Presentation/SaleManagement.Presentation.API/Dockerfile
-    environment:
-      - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Sales; Username=postgres; Password=password
-      - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
-      - ConnectionStrings__Redis=boilerplate.redis
-      - GrpcUrls__Identity=http://boilerplate.identity.api:50051
-      - Serilog__SeqServerUrl=http://boilerplate.seq.:5341
-    depends_on:
-      db:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      seq:
-        condition: service_started
-    links:
-      - db
-      - rabbitmq
   db:
     container_name: boilerplate.db
     image: postgres:latest
