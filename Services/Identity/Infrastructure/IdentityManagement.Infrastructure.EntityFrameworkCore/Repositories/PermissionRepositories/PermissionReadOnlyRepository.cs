@@ -1,5 +1,6 @@
 using AutoMapper;
 using BuildingBlock.Core.Domain.Repositories;
+using IdentityManagement.Core.Application.Permissions.DTOs;
 using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
 using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
 using IdentityManagement.Infrastructure.Identity.PermissionAggregate.Entities;
@@ -21,17 +22,19 @@ public class PermissionReadOnlyRepository : IPermissionReadOnlyRepository
 
     public async Task<IEnumerable<string>> GetNamesByRoleNameAsync(string roleName)
     {
-        var dbRolePermissions = await GetAllByRoleNameAsync(roleName);
+        var permissionRoleNameSpecification = new PermissionRoleNameSpecification(roleName);
 
-        return dbRolePermissions.Select(permission => permission.Name).ToList();
+        var permissionNames =
+            await _permissionReadOnlyRepository.GetAllAsync<PermissionNameDto>(permissionRoleNameSpecification);
+
+        var roles = permissionNames.Select(permissionName => permissionName.Name);
+        return roles;
     }
 
-    public async Task<IEnumerable<Permission>> GetAllByRoleNameAsync(string roleName)
+    public Task<List<Permission>> GetAllByRoleNameAsync(string roleName)
     {
         var permissionRoleNameSpecification = new PermissionRoleNameSpecification(roleName);
 
-        var applicationPermissions = await _permissionReadOnlyRepository.GetAllAsync(permissionRoleNameSpecification);
-
-        return _mapper.Map<IEnumerable<Permission>>(applicationPermissions);
+        return _permissionReadOnlyRepository.GetAllAsync<Permission>(permissionRoleNameSpecification);
     }
 }

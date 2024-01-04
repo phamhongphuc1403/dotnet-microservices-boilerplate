@@ -71,4 +71,14 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
 
         return new PermissionResponse { Permissions = { permissions } };
     }
+
+    public override async Task<EmailConfirmationResponse> CheckEmailConfirmationAsync(
+        EmailConfirmationRequest emailVerificationRequest, ServerCallContext context)
+    {
+        var user = Optional<User>
+            .Of(await _userReadOnlyRepository.GetByIdAsync(new Guid(emailVerificationRequest.UserId)))
+            .ThrowIfNotExist(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
+
+        return new EmailConfirmationResponse { IsConfirmed = user.EmailConfirmed };
+    }
 }

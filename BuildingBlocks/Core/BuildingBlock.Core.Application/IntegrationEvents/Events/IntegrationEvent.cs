@@ -21,3 +21,5 @@ public record IntegrationEvent
 
     [JsonInclude] public DateTime CreationDate { get; private init; }
 }
+
+public record EntityCreatedIntegrationEvent(DateTime CreatedAt, string CreatedBy) : IntegrationEvent;

@@ -46,34 +46,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public async Task<int> CommitAsync(CancellationToken cancellationToken = default)
     {
-        var auditableEntities = ChangeTracker.Entries()
+        var auditedEntities = ChangeTracker.Entries()
             .Where(e => e is
                 { Entity: IEntity, State: EntityState.Added or EntityState.Modified or EntityState.Deleted });
 
-        foreach (var auditableEntity in auditableEntities)
-        {
-            var iEntity = (IEntity)auditableEntity.Entity;
-            var utcNow = DateTime.UtcNow;
-            var email = _currentUser.Email ?? "guest";
-
-            switch (auditableEntity.State)
-            {
-                case EntityState.Added:
-                    iEntity.CreatedAt = utcNow;
-                    iEntity.CreatedBy = email;
-                    break;
-                case EntityState.Modified:
-                    iEntity.UpdatedAt = utcNow;
-                    iEntity.UpdatedBy = email;
-                    break;
-                case EntityState.Deleted:
-                    iEntity.DeletedAt = utcNow;
-                    iEntity.DeletedBy = email;
-
-                    auditableEntity.State = EntityState.Modified;
-                    break;
-            }
-        }
+        auditedEntities.SetAuditProperties(_currentUser);
 
         return await base.SaveChangesAsync(cancellationToken);
     }

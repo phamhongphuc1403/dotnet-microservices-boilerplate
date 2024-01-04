@@ -11,6 +11,8 @@ public interface IEventBusSubscriptionsManager
         where T : IntegrationEvent
         where TH : IIntegrationEventHandler<T>;
 
+    void AddSubscription(Type eventType, Type eventHandlerType);
+
     bool HasSubscriptionsForEvent<T>() where T : IntegrationEvent;
 
     bool HasSubscriptionsForEvent(string eventName);

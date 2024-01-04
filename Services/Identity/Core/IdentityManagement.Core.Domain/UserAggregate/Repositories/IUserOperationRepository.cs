@@ -13,4 +13,6 @@ public interface IUserOperationRepository
     Task<bool> PasswordSignInAsync(User user, string password);
 
     Task ResetPasswordAsync(User user, string token, string newPassword);
+
+    Task DeleteAsync(User user);
 }

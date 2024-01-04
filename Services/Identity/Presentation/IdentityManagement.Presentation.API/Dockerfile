@@ -15,7 +15,7 @@ COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.RabbitMQ/Build
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Redis/BuildingBlock.Infrastructure.Redis.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Redis/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Identity/BuildingBlock.Infrastructure.Identity.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Identity/"]
 COPY ["Services/Identity/Core/IdentityManagement.Core.Application/IdentityManagement.Core.Application.csproj", "Services/Identity/Core/IdentityManagement.Core.Application/"]
-COPY ["Services/Identity/Core/Identitymanagement.Core.Domain/Identitymanagement.Core.Domain.csproj", "Services/Identity/Core/Identitymanagement.Core.Domain/"]
+COPY ["Services/Identity/Core/IdentityManagement.Core.Domain/IdentityManagement.Core.Domain.csproj", "Services/Identity/Core/IdentityManagement.Core.Domain/"]
 COPY ["Services/Identity/Infrastructure/IdentityManagement.Infrastructure.EntityFrameworkCore/IdentityManagement.Infrastructure.EntityFrameworkCore.csproj", "Services/Identity/Infrastructure/IdentityManagement.Infrastructure.EntityFrameworkCore/"]
 COPY ["Services/Identity/Infrastructure/IdentityManagement.Infrastructure.Identity/IdentityManagement.Infrastructure.Identity.csproj", "Services/Identity/Infrastructure/IdentityManagement.Infrastructure.Identity/"]
 RUN dotnet restore "Services/Identity/Presentation/IdentityManagement.Presentation.API/IdentityManagement.Presentation.API.csproj"

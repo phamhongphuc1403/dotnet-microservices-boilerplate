@@ -5,6 +5,7 @@ option csharp_namespace = "BuildingBlock.API.GRPC";
 service AuthProvider {
   rpc GetClaimsAsync(ClaimRequest) returns (stream ClaimResponse);
   rpc GetPermissionsAsync(PermissionRequest) returns (PermissionResponse);
+  rpc CheckEmailConfirmationAsync(EmailConfirmationRequest) returns (EmailConfirmationResponse);
 }
 
 message ClaimRequest {
@@ -21,4 +22,12 @@ message PermissionResponse {
 message ClaimResponse {
   string type = 1;
   string value = 2;
+}
+
+message EmailConfirmationRequest {
+  string userId = 1;
+}
+
+message EmailConfirmationResponse {
+  bool isConfirmed = 1;
 }

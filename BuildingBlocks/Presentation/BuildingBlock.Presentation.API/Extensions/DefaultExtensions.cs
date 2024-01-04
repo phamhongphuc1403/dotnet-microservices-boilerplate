@@ -24,11 +24,12 @@ public static class DefaultExtensions
             });
 
         services
+            .AddApplicationCors(configuration)
             .AddHttpContextAccessor()
             .AddCurrentUser()
             .AddDatabase<TDbContext>(configuration)
             .AddMapper<TDbContext>()
-            .AddCqrs<TApplicationAssemblyReference>()
+            .AddCqrs<TApplicationAssemblyReference, TDomainAssemblyReference>()
             .AddDefaultOpenApi(configuration)
             .AddEventBus(configuration)
             .AddValidatorsFromAssembly(typeof(TApplicationAssemblyReference).Assembly)

@@ -1,4 +1,5 @@
 using AutoMapper;
+using IdentityManagement.Core.Application.Permissions.DTOs;
 using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.PermissionAggregate.Entities;
 
@@ -15,5 +16,9 @@ public class PermissionMapper : Profile
         CreateMap<Permission, ApplicationPermission>()
             .ForMember(dest => dest.ClaimType, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.ClaimValue, opt => opt.MapFrom(src => src.Description));
+
+        CreateMap<ApplicationPermission, PermissionNameDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.ClaimType))
+            ;
     }
 }

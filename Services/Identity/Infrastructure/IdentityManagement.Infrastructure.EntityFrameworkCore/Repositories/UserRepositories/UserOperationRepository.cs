@@ -72,6 +72,15 @@ public class UserOperationRepository : IUserOperationRepository
         if (!result.Succeeded) throw new IdentityException(result.Errors);
     }
 
+    public async Task DeleteAsync(User user)
+    {
+        var applicationUser = await GetApplicationUserAsync(user);
+
+        var result = await _userManager.DeleteAsync(applicationUser);
+
+        if (!result.Succeeded) throw new IdentityException(result.Errors);
+    }
+
     private async Task<ApplicationUser> GetApplicationUserAsync(User user)
     {
         var applicationUser = await _userManager.FindByIdAsync(user.Id.ToString());

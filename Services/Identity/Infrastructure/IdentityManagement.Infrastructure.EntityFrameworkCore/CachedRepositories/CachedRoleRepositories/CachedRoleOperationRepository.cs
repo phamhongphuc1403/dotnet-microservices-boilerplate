@@ -1,3 +1,4 @@
+using BuildingBlock.Core.Domain.Shared.Constants;
 using BuildingBlock.Core.Domain.Shared.Services;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
@@ -24,6 +25,6 @@ public class CachedRoleOperationRepository : IRoleOperationRepository
     {
         await _roleOperationRepository.UpdateAsync(role);
 
-        await _cacheService.RemoveRecordAsync(role.Name);
+        await _cacheService.RemoveRecordAsync(CacheKeyRegistry.GetPermissionsByRoleNameKey(role.Name));
     }
 }

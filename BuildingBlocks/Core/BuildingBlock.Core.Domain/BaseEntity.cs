@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
+using BuildingBlock.Core.Domain.DomainEvents;
 
 namespace BuildingBlock.Core.Domain;
 
@@ -61,8 +63,69 @@ public interface IEntity : IAuditEntity<Guid>
 
 public abstract class Entity : AuditEntity<Guid>, IEntity
 {
+    public void Delete(DateTime? deletedAt, string? deletedBy)
+    {
+        DeletedAt ??= deletedAt;
+        DeletedBy ??= deletedBy;
+
+        var entityProperties = GetType().GetProperties();
+
+        foreach (var entityProperty in entityProperties)
+            if (IsAGenericList(entityProperty.PropertyType))
+                DeleteProperty(entityProperty, deletedAt, deletedBy);
+    }
+
+    private void DeleteProperty(PropertyInfo propertyInfo, DateTime? deletedAt, string? deletedBy)
+    {
+        var propertyValues = GetPropertyValues(propertyInfo);
+
+        var deleteMethod = GetDeleteMethod(propertyInfo);
+
+        if (deleteMethod == null) return;
+
+        foreach (var value in propertyValues)
+        {
+            object?[] parameters = { deletedAt, deletedBy };
+            deleteMethod.Invoke(value, parameters);
+        }
+    }
+
+    private static MethodInfo? GetDeleteMethod(PropertyInfo propertyInfo)
+    {
+        var elementType = propertyInfo.PropertyType.GetGenericArguments()[0];
+
+        return elementType.GetMethod("Delete");
+    }
+
+    private IEnumerable<object?> GetPropertyValues(PropertyInfo propertyInfo)
+    {
+        var values = propertyInfo.GetValue(this);
+
+        return values is null ? new List<object?>() : (IEnumerable<object?>)values;
+    }
+
+    private static bool IsAGenericList(Type type)
+    {
+        return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+    }
 }
 
 public abstract class AggregateRoot : Entity, IAggregateRoot
 {
+    public List<IDomainEvent> DomainEvents { get; } = new();
+
+    public void AddDomainEvent(IDomainEvent domainEvent)
+    {
+        DomainEvents.Add(domainEvent);
+    }
+
+    public void RemoveDomainEvent(IDomainEvent domainEvent)
+    {
+        DomainEvents.Remove(domainEvent);
+    }
+
+    public void ClearDomainEvents()
+    {
+        DomainEvents.Clear();
+    }
 }

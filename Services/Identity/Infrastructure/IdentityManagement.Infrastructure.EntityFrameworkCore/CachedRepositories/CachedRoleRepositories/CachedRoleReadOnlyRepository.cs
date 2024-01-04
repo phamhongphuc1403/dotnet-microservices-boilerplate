@@ -1,3 +1,4 @@
+using BuildingBlock.Core.Domain.Shared.Constants;
 using BuildingBlock.Core.Domain.Shared.Services;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
@@ -17,11 +18,11 @@ public class CachedRoleReadOnlyRepository : IRoleReadOnlyRepository
 
     public async Task<IEnumerable<string>> GetNameByUserIdAsync(Guid userId)
     {
-        return await _cacheService.GetOrSetRecordAsync(userId.ToString(),
+        return await _cacheService.GetOrSetRecordAsync(CacheKeyRegistry.GetRolesByUserIdKey(userId.ToString()),
             async () => await _roleReadOnlyRepository.GetNameByUserIdAsync(userId), TimeSpan.FromMinutes(30));
     }
 
-    public Task<IEnumerable<Role>> GetByUserIdAsync(Guid userId)
+    public Task<List<Role>> GetByUserIdAsync(Guid userId)
     {
         return _roleReadOnlyRepository.GetByUserIdAsync(userId);
     }

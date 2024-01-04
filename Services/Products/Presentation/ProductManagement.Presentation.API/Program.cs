@@ -18,7 +18,8 @@ builder.Host.UseDefaultHosts(builder.Configuration);
 
 var app = builder.Build();
 
-await app.UseDefaultMiddlewares(app.Environment);
+await app.UseDefaultMiddlewares<ProductApplicationAssemblyReference>(app.Environment, builder.Configuration);
+
 
 app.MapControllers();
 

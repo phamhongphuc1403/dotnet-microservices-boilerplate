@@ -1,3 +1,4 @@
+using BuildingBlock.Core.Domain.Shared.Constants;
 using BuildingBlock.Core.Domain.Shared.Services;
 using IdentityManagement.Core.Domain.PermissionAggregate.Entities;
 using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
@@ -21,6 +22,6 @@ public class CachedPermissionOperationRepository : IPermissionOperationRepositor
     {
         await _permissionOperationRepository.AddRoleAsync(permission, role);
 
-        await _cacheService.RemoveRecordAsync(role.Name);
+        await _cacheService.RemoveRecordAsync(CacheKeyRegistry.GetPermissionsByRoleNameKey(role.Name));
     }
 }

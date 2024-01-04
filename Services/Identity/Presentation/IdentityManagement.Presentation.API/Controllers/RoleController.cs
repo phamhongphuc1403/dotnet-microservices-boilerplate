@@ -1,6 +1,6 @@
-using BuildingBlock.Core.Domain.Shared.Constants.Identity;
-using IdentityManagement.Core.Application.CQRS.Commands.RoleCommands.Requests;
-using IdentityManagement.Core.Application.DTOs.RoleDTOs;
+using BuildingBlock.Core.Domain.Shared.Constants;
+using IdentityManagement.Core.Application.Roles.CQRS.Commands.Requests;
+using IdentityManagement.Core.Application.Roles.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

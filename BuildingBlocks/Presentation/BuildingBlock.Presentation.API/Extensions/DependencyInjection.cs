@@ -22,7 +22,7 @@ public static partial class DependencyInjection
         foreach (var classType in classesToRegister)
         {
             var interfaceType = classType.GetInterfaces()
-                .FirstOrDefault(type => type.Name == $"I{classType.Name}");
+                .FirstOrDefault(type => Service().IsMatch(type.Name));
 
             if (interfaceType != null) services.AddScoped(interfaceType, classType);
         }
@@ -127,9 +127,12 @@ public static partial class DependencyInjection
     {
         var applicationAssembly = typeof(TApplicationAssemblyReference).Assembly;
 
-        var seederClasses = applicationAssembly.GetTypes().Where(type => Seeder().IsMatch(type.Name) && type.IsClass);
+        var seederClasses =
+            applicationAssembly.GetTypes().Where(type => Seeder().IsMatch(type.Name) && type.IsClass);
 
-        foreach (var seederClass in seederClasses) services.AddTransient(typeof(IDataSeeder), seederClass);
+        foreach (var seederClass in seederClasses)
+            if (seederClass.GetInterface("IDataSeeder") != null)
+                services.AddScoped(typeof(IDataSeeder), seederClass);
 
         return services;
     }
@@ -145,9 +148,8 @@ public static partial class DependencyInjection
         var unitOfWorkClass = dbContextAssembly.GetTypes()
             .FirstOrDefault(type => type.Name.Contains("UnitOfWork") && type.IsClass);
 
-        if (unitOfWorkClass == null) return services;
-
-        services.AddScoped(typeof(IUnitOfWork), unitOfWorkClass);
+        if (unitOfWorkClass != null && unitOfWorkClass.GetInterface("IUnitOfWork") != null)
+            services.AddScoped(typeof(IUnitOfWork), unitOfWorkClass);
 
         return services;
     }
