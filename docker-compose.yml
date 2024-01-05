@@ -14,10 +14,12 @@ services:
       - Routes__0__DownstreamHostAndPorts__0__Host=boilerplate.identity.api
       - Routes__0__DownstreamHostAndPorts__0__Port=80
       - SwaggerEndPoints__0__Config__0__Url=http://boilerplate.identity.api/swagger/v1/swagger.json
-    depends_on:
-      - identity-service
+      - Routes__1__DownstreamHostAndPorts__0__Host=boilerplate.shared.api
+      - Routes__1__DownstreamHostAndPorts__0__Port=80
+      - SwaggerEndPoints__1__Config__0__Url=http://boilerplate.shared.api/swagger/v1/swagger.json
     links:
       - identity-service
+      - shared-service
   identity-service:
     container_name: boilerplate.identity.api
     image: boilerplate.identity
@@ -44,6 +46,26 @@ services:
         condition: service_started
     links:
       - db
+  shared-service:
+    container_name: boilerplate.shared.api
+    image: boilerplate.api-gateway
+    ports:
+      - "5002:80"
+    build:
+      context: .
+      dockerfile: Services/Shared/Presentation/Shared.Presentation.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Redis=boilerplate.redis
+      - GrpcUrls__Identity=http://boilerplate.identity.api:50051
+      - Serilog__SeqServerUrl=http://boilerplate.seq.:5341
+      - CloudStorage__ConnectionString=
+      - CloudStorage__Location=
+    depends_on:
+      redis:
+        condition: service_healthy
+      seq:
+        condition: service_started
   db:
     container_name: boilerplate.db
     image: postgres:latest
