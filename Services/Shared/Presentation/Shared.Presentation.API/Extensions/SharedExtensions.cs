@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using BuildingBlock.Presentation.API.Extensions;
+using BuildingBlock.Presentation.API.Utilities;
 using CloudinaryDotNet;
 using FluentValidation;
 using Shared.Core.Application;

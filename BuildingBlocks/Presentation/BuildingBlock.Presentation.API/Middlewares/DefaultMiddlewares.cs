@@ -1,5 +1,5 @@
 using BuildingBlock.Core.Application;
-using BuildingBlock.Presentation.API.Extensions;
+using BuildingBlock.Presentation.API.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;

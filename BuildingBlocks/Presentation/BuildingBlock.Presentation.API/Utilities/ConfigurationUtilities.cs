@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Configuration;
 
-namespace BuildingBlock.Presentation.API.Extensions;
+namespace BuildingBlock.Presentation.API.Utilities;
 
-public static class ConfigurationExtensions
+public static class ConfigurationUtilities
 {
     public static string GetRequiredValue(this IConfiguration configuration, string name)
     {
@@ -19,9 +19,24 @@ public static class ConfigurationExtensions
     public static T BindAndGetConfig<T>(this IConfiguration configuration, string sectionName)
     {
         var config = configuration.GetSection(sectionName).Get<T>();
-        configuration.Bind(config);
+
         if (config == null) throw new Exception($"{sectionName} configuration is not provided.");
 
+        CheckForNullProperties(config, sectionName);
+
         return config;
+    }
+
+    private static void CheckForNullProperties(object obj, string sectionName)
+    {
+        var properties = obj.GetType().GetProperties();
+
+        foreach (var property in properties)
+        {
+            var value = property.GetValue(obj, null);
+
+            if (value == null)
+                throw new Exception($"Property '{property.Name}' in section '{sectionName}' is missing.");
+        }
     }
 }

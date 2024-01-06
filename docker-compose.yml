@@ -31,12 +31,22 @@ services:
       dockerfile: Services/Identity/Presentation/IdentityManagement.Presentation.API/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:80
-      - ConnectionStrings__Postgres=Host=boilerplate.db; Port=5432; Database=Identity; Username=postgres; Password=password
       - ConnectionStrings__Redis=boilerplate.redis
       - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
-      - Serilog__SeqServerUrl=http://boilerplate.seq:5341
+      - Serilog__WriteTo__1__Args__serverUrl=http://boilerplate.seq:5341
+      - Database__Host=boilerplate.db
+      - Database__Port=5432
+      - Database__Database=Identity
+      - Database__Username=postgres
+      - Database__Password=password
+      - EventBus__HostName=boilerplate.rabbitmq
+      - EventBus__UserName=guest
+      - EventBus__Password=guest
+      - EventBus__RetryCount=5
+      - EventBus__SubscriptionClientName=Identity
+      - EventBus__Port=5672
     depends_on:
       db:
         condition: service_healthy
@@ -58,9 +68,9 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Redis=boilerplate.redis
       - GrpcUrls__Identity=http://boilerplate.identity.api:50051
-      - Serilog__SeqServerUrl=http://boilerplate.seq.:5341
       - CloudStorage__ConnectionString=
       - CloudStorage__Location=
+      - Serilog__WriteTo__1__Args__serverUrl=http://boilerplate.seq:5341
     depends_on:
       redis:
         condition: service_healthy

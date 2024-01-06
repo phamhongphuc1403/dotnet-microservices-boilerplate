@@ -12,26 +12,28 @@ namespace IdentityManagement.Core.Application.Shared.Services.Implementations;
 
 public class TokenService : ITokenService
 {
-    private readonly JwtSetting _jwtSetting;
+    private readonly JwtConfiguration _jwtConfiguration;
     private readonly IRefreshTokenReadOnlyRepository _refreshTokenReadOnlyRepository;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
 
-    public TokenService(JwtSetting jwtSetting, IUserReadOnlyRepository userReadOnlyRepository,
+    public TokenService(JwtConfiguration jwtConfiguration, IUserReadOnlyRepository userReadOnlyRepository,
         IRefreshTokenReadOnlyRepository refreshTokenReadOnlyRepository)
     {
-        _jwtSetting = jwtSetting;
+        _jwtConfiguration = jwtConfiguration;
         _userReadOnlyRepository = userReadOnlyRepository;
         _refreshTokenReadOnlyRepository = refreshTokenReadOnlyRepository;
     }
 
     public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
-        return GenerateToken(claims, _jwtSetting.AccessTokenLifeTimeInMinute, _jwtSetting.AccessTokenSecurityKey);
+        return GenerateToken(claims, _jwtConfiguration.AccessTokenLifeTimeInMinute,
+            _jwtConfiguration.AccessTokenSecurityKey);
     }
 
     public string GenerateRefreshToken(IEnumerable<Claim> claims, User user)
     {
-        return GenerateToken(claims, _jwtSetting.RefreshTokenLifeTimeInMinute, _jwtSetting.RefreshTokenSecurityKey);
+        return GenerateToken(claims, _jwtConfiguration.RefreshTokenLifeTimeInMinute,
+            _jwtConfiguration.RefreshTokenSecurityKey);
     }
 
     public async Task<User> VerifyRefreshTokenAsync(string refreshToken)
@@ -41,7 +43,7 @@ public class TokenService : ITokenService
         try
         {
             tokenClaimsPrincipal = new JwtSecurityTokenHandler().ValidateToken(refreshToken,
-                ValidateToken(_jwtSetting.RefreshTokenSecurityKey), out _);
+                ValidateToken(_jwtConfiguration.RefreshTokenSecurityKey), out _);
         }
         catch (Exception ex)
         {
@@ -78,8 +80,8 @@ public class TokenService : ITokenService
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = _jwtSetting.Issuer,
-            ValidAudience = _jwtSetting.Audience,
+            ValidIssuer = _jwtConfiguration.Issuer,
+            ValidAudience = _jwtConfiguration.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securityKey))
         };
     }
@@ -98,8 +100,8 @@ public class TokenService : ITokenService
         var key = Encoding.UTF8.GetBytes(securityKey);
 
         var token = new JwtSecurityToken(
-            _jwtSetting.Issuer,
-            _jwtSetting.Audience,
+            _jwtConfiguration.Issuer,
+            _jwtConfiguration.Audience,
             claims,
             expires: DateTime.UtcNow.AddMinutes(expireMinutes),
             signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)

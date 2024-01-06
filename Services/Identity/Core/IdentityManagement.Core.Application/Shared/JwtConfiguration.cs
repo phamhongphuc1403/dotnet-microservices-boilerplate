@@ -1,6 +1,6 @@
 namespace IdentityManagement.Core.Application.Shared;
 
-public class JwtSetting
+public class JwtConfiguration
 {
     public string Audience { get; set; } = null!;
     public string Issuer { get; set; } = null!;
