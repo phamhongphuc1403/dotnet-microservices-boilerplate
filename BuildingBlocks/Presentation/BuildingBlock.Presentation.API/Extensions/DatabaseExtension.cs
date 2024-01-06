@@ -1,5 +1,7 @@
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Infrastructure.EntityFrameworkCore;
+using BuildingBlock.Presentation.API.Configurations;
+using BuildingBlock.Presentation.API.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,9 +13,11 @@ public static class DatabaseExtension
     public static IServiceCollection AddDatabase<TDbContext>(this IServiceCollection services,
         IConfiguration configuration) where TDbContext : DbContext
     {
+        var databaseConfiguration = configuration.BindAndGetConfig<DatabaseConfiguration>("Database");
+
         services.AddDbContext<TDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("Postgres"));
+            options.UseNpgsql(databaseConfiguration.ToString());
             options.EnableSensitiveDataLogging();
         });
 

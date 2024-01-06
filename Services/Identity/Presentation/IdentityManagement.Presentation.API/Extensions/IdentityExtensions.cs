@@ -10,7 +10,8 @@ namespace IdentityManagement.Presentation.API.Extensions;
 
 public static class IdentityExtensions
 {
-    public static IServiceCollection AddIdentityExtension(this IServiceCollection services, JwtSetting jwtSetting)
+    public static IServiceCollection AddIdentityExtension(this IServiceCollection services,
+        JwtConfiguration jwtConfiguration)
     {
         services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
@@ -36,7 +37,7 @@ public static class IdentityExtensions
 
         services
             .RegisterDefaultRepositories<IdentityDomainAssemblyReference, AppDbContext>()
-            .AddIdentityAuthentication(jwtSetting)
+            .AddIdentityAuthentication(jwtConfiguration)
             .AddIdentityAuthorization();
 
         return services;

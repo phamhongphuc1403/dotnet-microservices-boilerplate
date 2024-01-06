@@ -1,5 +1,5 @@
-using BuildingBlock.Presentation.API.Extensions;
 using BuildingBlock.Presentation.API.Middlewares;
+using BuildingBlock.Presentation.API.Utilities;
 
 namespace Shared.Presentation.API.Middlewares;
 

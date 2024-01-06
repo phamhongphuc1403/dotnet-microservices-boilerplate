@@ -1,5 +1,6 @@
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Infrastructure.Redis;
+using BuildingBlock.Presentation.API.Utilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;

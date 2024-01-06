@@ -6,7 +6,8 @@ namespace IdentityManagement.Presentation.API.Extensions;
 
 public static class AuthenticationExtension
 {
-    public static IServiceCollection AddIdentityAuthentication(this IServiceCollection services, JwtSetting jwtSetting)
+    public static IServiceCollection AddIdentityAuthentication(this IServiceCollection services,
+        JwtConfiguration jwtConfiguration)
     {
         var tokenService = services.BuildServiceProvider().GetRequiredService<ITokenService>();
 
@@ -19,7 +20,7 @@ public static class AuthenticationExtension
         {
             options.SaveToken = true;
             options.RequireHttpsMetadata = false;
-            options.TokenValidationParameters = tokenService.ValidateToken(jwtSetting.AccessTokenSecurityKey);
+            options.TokenValidationParameters = tokenService.ValidateToken(jwtConfiguration.AccessTokenSecurityKey);
         });
 
         return services;

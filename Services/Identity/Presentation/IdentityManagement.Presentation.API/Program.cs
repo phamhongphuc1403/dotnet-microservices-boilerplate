@@ -1,6 +1,7 @@
 using BuildingBlock.Presentation.API.Extensions;
 using BuildingBlock.Presentation.API.Hosts;
 using BuildingBlock.Presentation.API.Middlewares;
+using BuildingBlock.Presentation.API.Utilities;
 using IdentityManagement.Core.Application;
 using IdentityManagement.Core.Application.Shared;
 using IdentityManagement.Core.Domain;
@@ -16,7 +17,7 @@ await builder.Services
 
 builder.Host.UseDefaultHosts(builder.Configuration);
 
-var jwtSetting = builder.Configuration.BindAndGetConfig<JwtSetting>("Jwt");
+var jwtSetting = builder.Configuration.BindAndGetConfig<JwtConfiguration>("Jwt");
 
 builder.Services.AddSingleton(jwtSetting);
 
