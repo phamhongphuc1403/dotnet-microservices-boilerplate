@@ -7,6 +7,7 @@ using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Specifications;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Permissions.Seeders;
@@ -43,7 +44,9 @@ public class PermissionSeeder : IDataSeeder
 
         if (adminPermission.Any()) return;
 
-        var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("admin"))
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
+
+        var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
             .ThrowIfNotExist(new RoleNotFoundException("admin")).Get();
 
         foreach (var newPermission in BuildingBlock.Core.Domain.Shared.Constants.Permissions.AdminPermissions.Select(
@@ -61,7 +64,9 @@ public class PermissionSeeder : IDataSeeder
 
         if (userPermission.Any()) return;
 
-        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("user"))
+        roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("user");
+
+        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
             .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
 
         foreach (var newPermission in BuildingBlock.Core.Domain.Shared.Constants.Permissions.UserPermissions.Select(

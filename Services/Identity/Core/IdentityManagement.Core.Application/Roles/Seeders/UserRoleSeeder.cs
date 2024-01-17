@@ -5,9 +5,11 @@ using IdentityManagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Specifications;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Specifications;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Roles.Seeders;
@@ -42,10 +44,15 @@ public class UserRoleSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding user roles");
 
-        var admin = Optional<User>.Of(await _userReadOnlyRepository.GetByEmailAsync("admin@123"))
+        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("admin@123");
+
+        var admin = Optional<User>
+            .Of(await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true))
             .ThrowIfNotExist(new UserNotFoundException("email", "admin@123")).Get();
 
-        var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("admin"))
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
+
+        var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
             .ThrowIfNotExist(new RoleNotFoundException("admin")).Get();
 
         if (await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(admin.Id, adminRole.Id) == null)
@@ -55,10 +62,15 @@ public class UserRoleSeeder : IDataSeeder
             await _roleOperationRepository.UpdateAsync(adminRole);
         }
 
-        var user = Optional<User>.Of(await _userReadOnlyRepository.GetByEmailAsync("user@123", null, true))
+        userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("user@123");
+
+        var user = Optional<User>
+            .Of(await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true))
             .ThrowIfNotExist(new UserNotFoundException("email", "user@123")).Get();
 
-        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("user"))
+        roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("user");
+
+        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
             .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
 
         if (await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(user.Id, userRole.Id) == null)

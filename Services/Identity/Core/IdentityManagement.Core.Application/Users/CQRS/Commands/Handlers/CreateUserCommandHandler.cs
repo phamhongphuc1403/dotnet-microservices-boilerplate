@@ -3,6 +3,7 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Application.EventBus.Abstractions;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using IdentityManagement.Core.Application.Users.CQRS.Commands.Requests;
 using IdentityManagement.Core.Application.Users.DTOs;
 using IdentityManagement.Core.Application.Users.IntegrationEvents.Events;
@@ -10,7 +11,9 @@ using IdentityManagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Specifications;
 using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
 namespace IdentityManagement.Core.Application.Users.CQRS.Commands.Handlers;
@@ -50,7 +53,9 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, UserD
 
         await _userOperationRepository.CreateAsync(user, request.Dto.Password);
 
-        var role = Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync("user"))
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
+
+        var role = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
             .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
 
         await _roleDomainService.AddUserAsync(role, user);
@@ -59,7 +64,9 @@ public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand, UserD
 
         await _unitOfWork.SaveChangesAsync();
 
-        var userCreationDto = await _userReadOnlyRepository.GetByIdAsync<UserCreationDto>(user.Id);
+        var userIdSpecification = new EntityIdSpecification<User>(user.Id);
+
+        var userCreationDto = await _userReadOnlyRepository.GetAnyAsync<UserCreationDto>(userIdSpecification);
 
         _eventBus.Publish(new UserCreatedIntegrationEvent(user.Id, user.Name, user.AvatarUrl, user.CoverUrl,
             userCreationDto!.CreatedAt, userCreationDto.CreatedBy));

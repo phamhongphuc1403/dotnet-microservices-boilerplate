@@ -2,6 +2,7 @@ using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using IdentityManagement.Core.Application.Shared.Services.Abstractions;
 using IdentityManagement.Core.Application.Users.CQRS.Commands.Requests;
 using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
@@ -34,7 +35,9 @@ public class ChangeCurrentPasswordCommandHandler : ICommandHandler<ChangeCurrent
 
     public async Task Handle(ChangeCurrentPasswordCommand request, CancellationToken cancellationToken)
     {
-        var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(_currentUser.Id))
+        var userIdSpecification = new EntityIdSpecification<User>(_currentUser.Id);
+
+        var user = Optional<User>.Of(await _userReadOnlyRepository.GetAnyAsync(userIdSpecification))
             .ThrowIfNotExist(new UserNotFoundException(_currentUser.Id)).Get();
 
         await _authService.ChangePasswordAsync(user, request.Dto.CurrentPassword, request.Dto.NewPassword,

@@ -3,6 +3,7 @@ using IdentityManagement.Core.Domain.RoleAggregate.DomainServices.Abstractions;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Specifications;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 
 namespace IdentityManagement.Core.Domain.RoleAggregate.DomainServices.Implementations;
@@ -41,7 +42,9 @@ public class RoleDomainService : IRoleDomainService
 
     private async Task CheckValidOnCreate(string roleName)
     {
-        Optional<Role>.Of(await _roleReadOnlyRepository.GetByNameAsync(roleName))
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification(roleName);
+
+        Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
             .ThrowIfExist(new RoleConflictException(roleName));
     }
 }

@@ -2,6 +2,7 @@ using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Application.EventBus.Abstractions;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using IdentityManagement.Core.Application.Users.CQRS.Commands.Requests;
 using IdentityManagement.Core.Application.Users.DTOs;
 using IdentityManagement.Core.Application.Users.IntegrationEvents.Events;
@@ -32,7 +33,9 @@ public class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
 
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(request.UserId))
+        var userIdSpecification = new EntityIdSpecification<User>(request.UserId);
+
+        var user = Optional<User>.Of(await _userReadOnlyRepository.GetAnyAsync(userIdSpecification))
             .ThrowIfNotExist(new UserNotFoundException(request.UserId)).Get();
 
         await _userDomainService.DeleteAsync(user);
@@ -42,7 +45,7 @@ public class DeleteUserCommandHandler : ICommandHandler<DeleteUserCommand>
         await _unitOfWork.SaveChangesAsync();
 
         var userDeletionDto = Optional<UserDeletionDto>
-            .Of(await _userReadOnlyRepository.GetByIdAsync<UserDeletionDto>(request.UserId, null, true)).Get();
+            .Of(await _userReadOnlyRepository.GetAnyAsync<UserDeletionDto>(userIdSpecification, null, true)).Get();
 
         _eventBus.Publish(
             new UserDeletedIntegrationEvent(user.Id, userDeletionDto.DeletedAt, userDeletionDto.DeletedBy));

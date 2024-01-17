@@ -1,7 +1,9 @@
 using System.Security.Claims;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using BuildingBlock.Presentation.API.Authorization;
 using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
@@ -28,11 +30,13 @@ public class IdentityPermissionAuthorizationHandler : AuthorizationHandler<Permi
 
         if (userId == null) return;
 
-        var user = await _userReadOnlyRepository.GetByIdAsync(new Guid(userId));
+        var userIdSpecification = new EntityIdSpecification<User>(new Guid(userId));
 
-        if (user == null) return;
+        var isUserExist = await _userReadOnlyRepository.CheckIfExistAsync(userIdSpecification);
 
-        var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(user.Id);
+        if (isUserExist is false) return;
+
+        var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(new Guid(userId));
 
         var permissions = new List<string>();
 
