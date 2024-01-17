@@ -23,6 +23,7 @@ public class UserMapper : Profile
         CreateMap<ApplicationUser, UserCreationDto>();
         CreateMap<ApplicationUser, UserDeletionDto>();
         CreateMap<ApplicationUser, User>();
+        CreateMap<ApplicationUser, UserDetailDto>();
 
         CreateMap<UserCreationDto, UserDetailDto>();
     }

@@ -1,10 +1,12 @@
 using System.Security.Claims;
 using BuildingBlock.Core.Domain.Exceptions;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Specifications;
 
 namespace IdentityManagement.Core.Domain.UserAggregate.DomainServices.Implementations;
 
@@ -14,8 +16,9 @@ public class AuthService : IAuthService
     private readonly IUserOperationRepository _userOperationRepository;
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
 
-    public AuthService(IUserOperationRepository userOperationRepository,
-        IUserReadOnlyRepository userReadOnlyRepository, IRoleReadOnlyRepository roleReadOnlyRepository)
+
+    public AuthService(IUserOperationRepository userOperationRepository, IUserReadOnlyRepository userReadOnlyRepository,
+        IRoleReadOnlyRepository roleReadOnlyRepository)
     {
         _userOperationRepository = userOperationRepository;
         _userReadOnlyRepository = userReadOnlyRepository;
@@ -24,7 +27,9 @@ public class AuthService : IAuthService
 
     public async Task<User> Login(string email, string password)
     {
-        var user = await _userReadOnlyRepository.GetByEmailAsync(email);
+        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification(email);
+
+        var user = await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification);
 
         if (user == null) throw new ValidationException("Invalid email or password");
 
@@ -43,9 +48,11 @@ public class AuthService : IAuthService
             new(ClaimTypes.Email, user.Email)
         };
 
-        var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(user.Id);
+        var roleUserIdSpecification = new RoleUserIdSpecification(user.Id);
 
-        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        var roles = await _roleReadOnlyRepository.GetAllAsync(roleUserIdSpecification);
+
+        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 
         return claims;
     }

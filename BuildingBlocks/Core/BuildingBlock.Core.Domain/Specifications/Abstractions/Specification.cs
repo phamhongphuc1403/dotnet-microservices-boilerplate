@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using AutoMapper;
 
 namespace BuildingBlock.Core.Domain.Specifications.Abstractions;
 
@@ -14,5 +15,10 @@ public abstract class Specification<TEntity> : ISpecification<TEntity> where TEn
     public Specification<TEntity> Or(Specification<TEntity> specification)
     {
         return new OrSpecification<TEntity>(this, specification);
+    }
+
+    public Specification<T> ConvertTo<T>(IMapper mapper) where T : IEntity
+    {
+        return new ConvertedSpecification<TEntity, T>(this, mapper);
     }
 }

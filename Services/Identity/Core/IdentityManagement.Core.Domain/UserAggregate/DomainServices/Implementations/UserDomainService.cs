@@ -1,10 +1,13 @@
 using BuildingBlock.Core.Domain.Exceptions;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
+using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Specifications;
 
 namespace IdentityManagement.Core.Domain.UserAggregate.DomainServices.Implementations;
 
@@ -50,7 +53,9 @@ public class UserDomainService : IUserDomainService
 
     private async Task CheckValidOnDeleteAsync(User user)
     {
-        var roles = await _roleReadOnlyRepository.GetByUserIdAsync(user.Id);
+        var roleIdSpecification = new EntityIdSpecification<Role>(user.Id);
+
+        var roles = await _roleReadOnlyRepository.GetAllAsync(roleIdSpecification);
 
         if (roles.Any(role => role.Name == "admin")) throw new ValidationException("Admin user can not be deleted");
     }
@@ -66,13 +71,17 @@ public class UserDomainService : IUserDomainService
 
     private async Task ThrowIfPhoneNumberIsExistAsync(string phoneNumber)
     {
-        Optional<bool>.Of(await _userReadOnlyRepository.CheckIfPhoneNumberIsExistAsync(phoneNumber))
+        var userPhoneNumberExactMatchSpecification = new UserPhoneNumberExactMatchSpecification(phoneNumber);
+
+        Optional<bool>.Of(await _userReadOnlyRepository.CheckIfExistAsync(userPhoneNumberExactMatchSpecification))
             .ThrowIfExist(new UserConflictException("phone number", phoneNumber));
     }
 
     private async Task ThrowIfEmailIsExistAsync(string email)
     {
-        Optional<bool>.Of(await _userReadOnlyRepository.CheckIfEmailIsExistAsync(email))
+        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification(email);
+
+        Optional<bool>.Of(await _userReadOnlyRepository.CheckIfExistAsync(userEmailExactMatchSpecification))
             .ThrowIfExist(new UserConflictException("email", email));
     }
 

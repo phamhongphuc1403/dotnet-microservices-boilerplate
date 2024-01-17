@@ -5,6 +5,7 @@ using IdentityManagement.Core.Application.Users.DTOs;
 using IdentityManagement.Core.Application.Users.IntegrationEvents.Events;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Specifications;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Users.Seeders;
@@ -33,12 +34,16 @@ public class UserSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding users");
 
-        var admin = await _userReadOnlyRepository.GetByEmailAsync("admin@123", null, true);
+        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("admin@123");
+
+        var admin = await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true);
 
         if (admin == null)
             await _userOperationRepository.CreateAsync(new User("admin@123", "Admin"), "Admin@123");
 
-        var user = await _userReadOnlyRepository.GetByEmailAsync("user@123", null, true);
+        userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("user@123");
+
+        var user = await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true);
 
         if (user == null)
         {
@@ -48,7 +53,8 @@ public class UserSeeder : IDataSeeder
 
             await _unitOfWork.SaveChangesAsync();
 
-            var userCreationDto = await _userReadOnlyRepository.GetByEmailAsync<UserCreationDto>("user@123");
+            var userCreationDto =
+                await _userReadOnlyRepository.GetAnyAsync<UserCreationDto>(userEmailExactMatchSpecification);
 
             _eventBus.Publish(new UserCreatedIntegrationEvent(user.Id, user.Name, user.AvatarUrl, user.CoverUrl,
                 userCreationDto!.CreatedAt, userCreationDto.CreatedBy));

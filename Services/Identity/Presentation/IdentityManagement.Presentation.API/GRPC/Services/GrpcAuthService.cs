@@ -1,7 +1,9 @@
 using BuildingBlock.API.GRPC;
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using Grpc.Core;
+using IdentityManagement.Core.Application.Users.DTOs;
 using IdentityManagement.Core.Domain.PermissionAggregate.Repositories;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
@@ -36,9 +38,9 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
         if (!_currentUser.IsAuthenticated)
             throw new RpcException(new Status(StatusCode.Unauthenticated, "User is not authenticated"));
 
-        var userId = _currentUser.Id;
+        var userIdSpecification = new EntityIdSpecification<User>(_currentUser.Id);
 
-        var user = await _userReadOnlyRepository.GetByIdAsync(userId);
+        var user = await _userReadOnlyRepository.GetAnyAsync(userIdSpecification);
 
         if (user == null) throw new RpcException(new Status(StatusCode.NotFound, "User not found!"));
 
@@ -55,10 +57,14 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
     public override async Task<PermissionResponse> GetPermissionsAsync(PermissionRequest permissionRequest,
         ServerCallContext context)
     {
-        var user = Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(new Guid(permissionRequest.UserId)))
+        var userId = new Guid(permissionRequest.UserId);
+
+        var userIdSpecification = new EntityIdSpecification<User>(userId);
+
+        Optional<bool>.Of(await _userReadOnlyRepository.CheckIfExistAsync(userIdSpecification))
             .ThrowIfNotExist(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
 
-        var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(user.Id);
+        var roles = await _roleReadOnlyRepository.GetNameByUserIdAsync(userId);
 
         var permissions = new List<string>();
 
@@ -75,10 +81,12 @@ public class GrpcAuthService : AuthProvider.AuthProviderBase
     public override async Task<EmailConfirmationResponse> CheckEmailConfirmationAsync(
         EmailConfirmationRequest emailVerificationRequest, ServerCallContext context)
     {
-        var user = Optional<User>
-            .Of(await _userReadOnlyRepository.GetByIdAsync(new Guid(emailVerificationRequest.UserId)))
+        var userIdSpecification = new EntityIdSpecification<User>(new Guid(emailVerificationRequest.UserId));
+
+        var userEmailConfirmedDto = Optional<UserEmailConfirmedDto>
+            .Of(await _userReadOnlyRepository.GetAnyAsync<UserEmailConfirmedDto>(userIdSpecification))
             .ThrowIfNotExist(new RpcException(new Status(StatusCode.NotFound, "User not found!"))).Get();
 
-        return new EmailConfirmationResponse { IsConfirmed = user.EmailConfirmed };
+        return new EmailConfirmationResponse { IsConfirmed = userEmailConfirmedDto.EmailConfirmed };
     }
 }

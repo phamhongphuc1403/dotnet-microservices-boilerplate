@@ -2,6 +2,7 @@ using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Services;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Specifications;
 using Microsoft.Extensions.Logging;
 
 namespace IdentityManagement.Core.Application.Roles.Seeders;
@@ -28,11 +29,15 @@ public class RoleSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding roles");
 
-        var admin = await _roleReadOnlyRepository.GetByNameAsync("admin");
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
+
+        var admin = await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification);
 
         if (admin == null) await _roleOperationRepository.CreateAsync(new Role("admin"));
 
-        var user = await _roleReadOnlyRepository.GetByNameAsync("user");
+        roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
+
+        var user = await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification);
 
         if (user == null) await _roleOperationRepository.CreateAsync(new Role("user"));
 

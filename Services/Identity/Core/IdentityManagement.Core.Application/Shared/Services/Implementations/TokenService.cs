@@ -3,9 +3,11 @@ using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using IdentityManagement.Core.Application.Shared.Services.Abstractions;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
+using IdentityManagement.Core.Domain.UserAggregate.Specifications;
 using Microsoft.IdentityModel.Tokens;
 
 namespace IdentityManagement.Core.Application.Shared.Services.Implementations;
@@ -65,7 +67,13 @@ public class TokenService : ITokenService
 
     public async Task RevokeAllRefreshTokensAsync(User user)
     {
-        var refreshTokens = (await _refreshTokenReadOnlyRepository.GetByUserId(user.Id)).ToList();
+        var refreshTokenUserIdSpecification = new RefreshTokenUserIdSpecification(user.Id);
+
+        var refreshTokenRevokedAtIsNullSpecification = new RefreshTokenRevokedAtIsNullSpecification();
+
+        var specification = refreshTokenRevokedAtIsNullSpecification.And(refreshTokenUserIdSpecification);
+
+        var refreshTokens = (await _refreshTokenReadOnlyRepository.GetAllAsync(specification)).ToList();
 
         foreach (var refreshToken in refreshTokens) refreshToken.Revoke();
 
@@ -91,7 +99,9 @@ public class TokenService : ITokenService
         var userId = new Guid(tokenClaimsPrincipal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)!
             .Value);
 
-        return Optional<User>.Of(await _userReadOnlyRepository.GetByIdAsync(userId, "RefreshTokens"))
+        var userIdSpecification = new EntityIdSpecification<User>(userId);
+
+        return Optional<User>.Of(await _userReadOnlyRepository.GetAnyAsync(userIdSpecification, "RefreshTokens"))
             .ThrowIfNotExist(new AuthenticationException($"user with id: '{userId}' is not found")).Get();
     }
 

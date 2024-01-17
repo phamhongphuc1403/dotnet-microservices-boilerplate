@@ -1,8 +1,10 @@
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Application.CQRS;
 using BuildingBlock.Core.Domain.Shared.Utils;
+using BuildingBlock.Core.Domain.Specifications.Implementations;
 using IdentityManagement.Core.Application.Users.CQRS.Queries.Requests;
 using IdentityManagement.Core.Application.Users.DTOs;
+using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 
@@ -21,7 +23,10 @@ public class GetCurrentUserQueryHandler : IQueryHandler<GetCurrentUserQuery, Use
 
     public async Task<UserSummaryDto> Handle(GetCurrentUserQuery request, CancellationToken cancellationToken)
     {
-        return Optional<UserSummaryDto>.Of(await _userReadOnlyRepository.GetByIdAsync<UserSummaryDto>(_currentUser.Id))
+        var userIdSpecification = new EntityIdSpecification<User>(_currentUser.Id);
+
+        return Optional<UserSummaryDto>
+            .Of(await _userReadOnlyRepository.GetAnyAsync<UserSummaryDto>(userIdSpecification))
             .ThrowIfNotExist(new UserNotFoundException(_currentUser.Id)).Get();
     }
 }
