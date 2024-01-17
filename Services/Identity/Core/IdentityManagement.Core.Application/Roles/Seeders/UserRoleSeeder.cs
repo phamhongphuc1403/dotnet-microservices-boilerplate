@@ -44,44 +44,38 @@ public class UserRoleSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding user roles");
 
-        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("admin@123");
+        await SeedUserRoleAsync("admin@123", "admin");
 
-        var admin = Optional<User>
-            .Of(await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true))
-            .ThrowIfNotExist(new UserNotFoundException("email", "admin@123")).Get();
-
-        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
-
-        var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
-            .ThrowIfNotExist(new RoleNotFoundException("admin")).Get();
-
-        if (await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(admin.Id, adminRole.Id) == null)
-        {
-            await _roleDomainService.AddUserAsync(adminRole, admin);
-
-            await _roleOperationRepository.UpdateAsync(adminRole);
-        }
-
-        userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("user@123");
-
-        var user = Optional<User>
-            .Of(await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true))
-            .ThrowIfNotExist(new UserNotFoundException("email", "user@123")).Get();
-
-        roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("user");
-
-        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
-            .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
-
-        if (await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(user.Id, userRole.Id) == null)
-        {
-            await _roleDomainService.AddUserAsync(userRole, user);
-
-            await _roleOperationRepository.UpdateAsync(userRole);
-        }
+        await SeedUserRoleAsync("user@123", "user");
 
         await _unitOfWork.SaveChangesAsync();
 
         _logger.LogInformation("Seed user roles successfully");
+    }
+
+    private async Task SeedUserRoleAsync(string email, string roleName)
+    {
+        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification(email);
+
+        var user = Optional<User>
+            .Of(await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true))
+            .ThrowIfNotExist(new UserNotFoundException("email", email)).Get();
+
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification(roleName);
+
+        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
+            .ThrowIfNotExist(new RoleNotFoundException(roleName)).Get();
+
+        var userRoleUserIdSpecification = new UserRoleUserIdSpecification(user.Id);
+
+        var userRoleRoleIdSpecification = new UserRoleRoleIdSpecification(userRole.Id);
+
+        var specification = userRoleUserIdSpecification.And(userRoleRoleIdSpecification);
+
+        if (await _userRoleReadOnlyRepository.CheckIfExistAsync(specification)) return;
+
+        await _roleDomainService.AddUserAsync(userRole, user);
+
+        await _roleOperationRepository.UpdateAsync(userRole);
     }
 }

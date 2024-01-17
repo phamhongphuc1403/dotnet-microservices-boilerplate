@@ -96,7 +96,7 @@ public class UserReadOnlyRepository : IUserReadOnlyRepository
         return _userManager.CheckPasswordAsync(applicationUser, password);
     }
 
-    public Task<string> GetPasswordResetToken(User user)
+    public Task<string> GeneratePasswordResetTokenAsync(User user)
     {
         var applicationUser = _mapper.Map<ApplicationUser>(user);
 

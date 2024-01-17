@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+using System.Security.Claims;
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Domain.Shared.Services;
 using BuildingBlock.Core.Domain.Shared.Utils;
@@ -40,48 +42,31 @@ public class PermissionSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding permissions");
 
-        var adminPermission = await _permissionReadOnlyRepository.GetNamesByRoleNameAsync("admin");
+        await SeedPermissionAsync("admin", BuildingBlock.Core.Domain.Shared.Constants.Permissions.AdminPermissions);
 
-        if (adminPermission.Any()) return;
-
-        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
-
-        var adminRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
-            .ThrowIfNotExist(new RoleNotFoundException("admin")).Get();
-
-        foreach (var newPermission in BuildingBlock.Core.Domain.Shared.Constants.Permissions.AdminPermissions.Select(
-                     permission =>
-                         new Permission(permission.Type, permission.Value)))
-        {
-            await _permissionDomainService.CheckValidOnAddRoleAsync(newPermission, adminRole);
-
-            await _permissionOperationRepository.AddRoleAsync(newPermission, adminRole);
-
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        var userPermission = await _permissionReadOnlyRepository.GetNamesByRoleNameAsync("user");
-
-        if (userPermission.Any()) return;
-
-        roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("user");
-
-        var userRole = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
-            .ThrowIfNotExist(new RoleNotFoundException("user")).Get();
-
-        foreach (var newPermission in BuildingBlock.Core.Domain.Shared.Constants.Permissions.UserPermissions.Select(
-                     permission =>
-                         new Permission(permission.Type, permission.Value)))
-        {
-            await _permissionDomainService.CheckValidOnAddRoleAsync(newPermission, userRole);
-
-            await _permissionOperationRepository.AddRoleAsync(newPermission, userRole);
-
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        await _unitOfWork.SaveChangesAsync();
+        await SeedPermissionAsync("user", BuildingBlock.Core.Domain.Shared.Constants.Permissions.UserPermissions);
 
         _logger.LogInformation("Seed permission successfully");
+    }
+
+    private async Task SeedPermissionAsync(string roleName, ImmutableList<Claim> permissions)
+    {
+        var currentRolePermissions = await _permissionReadOnlyRepository.GetNamesByRoleNameAsync(roleName);
+
+        if (currentRolePermissions.Any()) return;
+
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification(roleName);
+
+        var role = Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
+            .ThrowIfNotExist(new RoleNotFoundException(roleName)).Get();
+
+        foreach (var permission in permissions.Select(permission => new Permission(permission.Type, permission.Value)))
+        {
+            await _permissionDomainService.CheckValidOnAddRoleAsync(permission, role);
+
+            await _permissionOperationRepository.AddRoleAsync(permission, role);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
     }
 }

@@ -11,6 +11,6 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
             .CheckEmailValidation();
 
         RuleFor(command => command.Dto.Password)
-            .CheckPasswordValidation();
+            .CheckPasswordValidation(command => command.Dto.ConfirmPassword);
     }
 }

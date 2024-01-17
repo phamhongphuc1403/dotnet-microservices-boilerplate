@@ -20,7 +20,7 @@ public class PermissionDomainService : IPermissionDomainService
     {
         var permissionNames = await _permissionReadOnlyRepository.GetNamesByRoleNameAsync(role.Name);
 
-        Optional<bool>.Of(permissionNames.Any(x => x == permission.Name))
+        Optional<bool>.Of(permissionNames.Any(permissionName => permissionName == permission.Name))
             .ThrowIfExist(new RolePermissionConflictException(permission.Name, role.Name));
     }
 }

@@ -7,7 +7,7 @@ public class ChangeUserPasswordCommandValidator : AbstractValidator<ChangeUserPa
 {
     public ChangeUserPasswordCommandValidator()
     {
-        RuleFor(x => x.Dto.Password)
-            .CheckPasswordValidation();
+        RuleFor(command => command.Dto.Password)
+            .CheckPasswordValidation(command => command.Dto.ConfirmPassword);
     }
 }

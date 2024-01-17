@@ -1,8 +1,8 @@
+using BuildingBlock.Core.Domain.Repositories;
 using IdentityManagement.Core.Domain.RoleAggregate.Entities;
 
 namespace IdentityManagement.Core.Domain.RoleAggregate.Repositories;
 
-public interface IUserRoleReadOnlyRepository
+public interface IUserRoleReadOnlyRepository : IReadOnlyRepository<UserRole>
 {
-    Task<UserRole?> GetByUserIdAndRoleIdAsync(Guid userId, Guid roleId);
 }

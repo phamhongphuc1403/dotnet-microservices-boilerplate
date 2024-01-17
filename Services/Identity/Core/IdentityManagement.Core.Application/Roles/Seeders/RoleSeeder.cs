@@ -29,20 +29,23 @@ public class RoleSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding roles");
 
-        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
+        await SeedRoleAsync("admin");
 
-        var admin = await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification);
-
-        if (admin == null) await _roleOperationRepository.CreateAsync(new Role("admin"));
-
-        roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
-
-        var user = await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification);
-
-        if (user == null) await _roleOperationRepository.CreateAsync(new Role("user"));
+        await SeedRoleAsync("user");
 
         await _unitOfWork.SaveChangesAsync();
 
         _logger.LogInformation("Seed roles successfully");
+    }
+
+    private async Task SeedRoleAsync(string role)
+    {
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification(role);
+
+        var admin = await _roleReadOnlyRepository.CheckIfExistAsync(roleNameExactMatchSpecification);
+
+        if (admin) return;
+
+        await _roleOperationRepository.CreateAsync(new Role(role));
     }
 }

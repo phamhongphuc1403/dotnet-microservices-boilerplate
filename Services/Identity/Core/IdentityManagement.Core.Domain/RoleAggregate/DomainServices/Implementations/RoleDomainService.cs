@@ -36,7 +36,13 @@ public class RoleDomainService : IRoleDomainService
 
     private async Task CheckValidOnAddUser(Role role, User user)
     {
-        Optional<UserRole>.Of(await _userRoleReadOnlyRepository.GetByUserIdAndRoleIdAsync(role.Id, user.Id))
+        var userRoleUserIdSpecification = new UserRoleUserIdSpecification(user.Id);
+
+        var userRoleRoleIdSpecification = new UserRoleRoleIdSpecification(role.Id);
+
+        var specification = userRoleUserIdSpecification.And(userRoleRoleIdSpecification);
+
+        Optional<bool>.Of(await _userRoleReadOnlyRepository.CheckIfExistAsync(specification))
             .ThrowIfExist(new UserRoleConflictException(role.Id, user.Id));
     }
 
@@ -44,7 +50,7 @@ public class RoleDomainService : IRoleDomainService
     {
         var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification(roleName);
 
-        Optional<Role>.Of(await _roleReadOnlyRepository.GetAnyAsync(roleNameExactMatchSpecification))
+        Optional<bool>.Of(await _roleReadOnlyRepository.CheckIfExistAsync(roleNameExactMatchSpecification))
             .ThrowIfExist(new RoleConflictException(roleName));
     }
 }

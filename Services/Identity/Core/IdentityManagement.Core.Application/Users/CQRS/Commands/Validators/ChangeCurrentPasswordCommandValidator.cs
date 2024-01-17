@@ -8,6 +8,6 @@ public class ChangeCurrentPasswordCommandValidator : AbstractValidator<ChangeCur
     public ChangeCurrentPasswordCommandValidator()
     {
         RuleFor(x => x.Dto.NewPassword)
-            .CheckPasswordValidation();
+            .CheckPasswordValidation(command => command.Dto.ConfirmPassword);
     }
 }

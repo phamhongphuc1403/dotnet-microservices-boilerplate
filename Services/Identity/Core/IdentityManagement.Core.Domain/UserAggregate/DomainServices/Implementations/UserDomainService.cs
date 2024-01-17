@@ -1,8 +1,8 @@
 using BuildingBlock.Core.Domain.Exceptions;
 using BuildingBlock.Core.Domain.Shared.Utils;
-using BuildingBlock.Core.Domain.Specifications.Implementations;
-using IdentityManagement.Core.Domain.RoleAggregate.Entities;
+using IdentityManagement.Core.Domain.RoleAggregate.Exceptions;
 using IdentityManagement.Core.Domain.RoleAggregate.Repositories;
+using IdentityManagement.Core.Domain.RoleAggregate.Specifications;
 using IdentityManagement.Core.Domain.UserAggregate.DomainServices.Abstractions;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Exceptions;
@@ -31,19 +31,11 @@ public class UserDomainService : IUserDomainService
     public async Task<User> CreateAsync(string email, string name, string password,
         string confirmPassword)
     {
-        await CheckValidOnCreate(email, password, confirmPassword);
+        await CheckValidOnCreate(email);
 
         var user = new User(email, name);
 
         return user;
-    }
-
-    public async Task<string> ResetPasswordAsync(User user, string password, string confirmPassword)
-    {
-        Optional<string>.Of(password).ThrowIfNotEqual(confirmPassword,
-            new ValidationException("Password and confirm password don't match"));
-
-        return await _userReadOnlyRepository.GetPasswordResetToken(user);
     }
 
     public async Task DeleteAsync(User user)
@@ -53,17 +45,19 @@ public class UserDomainService : IUserDomainService
 
     private async Task CheckValidOnDeleteAsync(User user)
     {
-        var roleIdSpecification = new EntityIdSpecification<Role>(user.Id);
+        var roleIdSpecification = new RoleUserIdSpecification(user.Id);
 
-        var roles = await _roleReadOnlyRepository.GetAllAsync(roleIdSpecification);
+        var roleNameExactMatchSpecification = new RoleNameExactMatchSpecification("admin");
 
-        if (roles.Any(role => role.Name == "admin")) throw new ValidationException("Admin user can not be deleted");
+        var specification = roleIdSpecification.And(roleNameExactMatchSpecification);
+
+        var role = await _roleReadOnlyRepository.CheckIfExistAsync(specification);
+
+        if (role) throw new ValidationException("User with admin role can not be deleted");
     }
 
-    private async Task CheckValidOnCreate(string email, string password, string confirmPassword)
+    private async Task CheckValidOnCreate(string email)
     {
-        ThrowIfPasswordIsNotMatch(password, confirmPassword);
-
         // await ThrowIfPhoneNumberIsExistAsync(phoneNumber);
 
         await ThrowIfEmailIsExistAsync(email);
@@ -83,11 +77,5 @@ public class UserDomainService : IUserDomainService
 
         Optional<bool>.Of(await _userReadOnlyRepository.CheckIfExistAsync(userEmailExactMatchSpecification))
             .ThrowIfExist(new UserConflictException("email", email));
-    }
-
-    private static void ThrowIfPasswordIsNotMatch(string password, string confirmPassword)
-    {
-        Optional<string>.Of(password).ThrowIfNotEqual(confirmPassword,
-            new ValidationException("Password and confirm password don't match"));
     }
 }
