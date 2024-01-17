@@ -1,8 +1,6 @@
 using BuildingBlock.Core.Application;
 using BuildingBlock.Core.Application.EventBus.Abstractions;
 using BuildingBlock.Core.Domain.Shared.Services;
-using IdentityManagement.Core.Application.Users.DTOs;
-using IdentityManagement.Core.Application.Users.IntegrationEvents.Events;
 using IdentityManagement.Core.Domain.UserAggregate.Entities;
 using IdentityManagement.Core.Domain.UserAggregate.Repositories;
 using IdentityManagement.Core.Domain.UserAggregate.Specifications;
@@ -34,36 +32,21 @@ public class UserSeeder : IDataSeeder
     {
         _logger.LogInformation("Start seeding users");
 
-        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("admin@123");
+        await SeedUserAsync("admin@123", "Admin", "Admin@123");
 
-        var admin = await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true);
+        await SeedUserAsync("user@123", "User", "User@123");
 
-        if (admin == null)
-            await _userOperationRepository.CreateAsync(new User("admin@123", "Admin"), "Admin@123");
-
-        userEmailExactMatchSpecification = new UserEmailExactMatchSpecification("user@123");
-
-        var user = await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification, null, true);
-
-        if (user == null)
-        {
-            user = new User("user@123", "User");
-
-            await _userOperationRepository.CreateAsync(user, "User@123");
-
-            await _unitOfWork.SaveChangesAsync();
-
-            var userCreationDto =
-                await _userReadOnlyRepository.GetAnyAsync<UserCreationDto>(userEmailExactMatchSpecification);
-
-            _eventBus.Publish(new UserCreatedIntegrationEvent(user.Id, user.Name, user.AvatarUrl, user.CoverUrl,
-                userCreationDto!.CreatedAt, userCreationDto.CreatedBy));
-        }
-        else
-        {
-            await _unitOfWork.SaveChangesAsync();
-        }
+        await _unitOfWork.SaveChangesAsync();
 
         _logger.LogInformation("Seed users successfully");
+    }
+
+    private async Task SeedUserAsync(string email, string name, string password)
+    {
+        var userEmailExactMatchSpecification = new UserEmailExactMatchSpecification(email);
+
+        var admin = await _userReadOnlyRepository.CheckIfExistAsync(userEmailExactMatchSpecification, true);
+
+        if (admin is false) await _userOperationRepository.CreateAsync(new User(email, name), password);
     }
 }

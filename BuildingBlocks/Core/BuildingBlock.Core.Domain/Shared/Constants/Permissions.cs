@@ -26,8 +26,8 @@ public static class Permissions
         new Claim(File.Upload, "Can upload files")
     );
 
-    public static readonly List<Claim> UserPermissions = new()
-    {
+    public static readonly ImmutableList<Claim> UserPermissions = ImmutableList.Create(
+        // USER
         new Claim(User.ViewPersonal, "Can view personal user profile"),
         new Claim(User.EditPersonal, "Can edit personal user profile"),
 
@@ -39,7 +39,7 @@ public static class Permissions
 
         // FILE
         new Claim(File.Upload, "Can upload files")
-    };
+    );
 
     public static class Product
     {

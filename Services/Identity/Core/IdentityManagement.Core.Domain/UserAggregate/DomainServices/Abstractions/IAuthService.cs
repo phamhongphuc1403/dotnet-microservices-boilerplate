@@ -9,5 +9,5 @@ public interface IAuthService
 
     Task<IEnumerable<Claim>> GetClaimsAsync(User user);
 
-    Task ChangePasswordAsync(User user, string currentPassword, string newPassword, string confirmPassword);
+    Task ChangePasswordAsync(User user, string currentPassword, string newPassword);
 }

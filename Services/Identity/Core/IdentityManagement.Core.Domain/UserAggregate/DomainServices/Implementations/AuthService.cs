@@ -31,7 +31,7 @@ public class AuthService : IAuthService
 
         var user = await _userReadOnlyRepository.GetAnyAsync(userEmailExactMatchSpecification);
 
-        if (user == null) throw new ValidationException("Invalid email or password");
+        if (user is null) throw new ValidationException("Invalid email or password");
 
         var result = await _userOperationRepository.PasswordSignInAsync(user, password);
 
@@ -57,24 +57,16 @@ public class AuthService : IAuthService
         return claims;
     }
 
-    public async Task ChangePasswordAsync(User user, string currentPassword, string newPassword,
-        string confirmPassword)
+    public async Task ChangePasswordAsync(User user, string currentPassword, string newPassword)
     {
-        await CheckValidOnChangePassword(user, currentPassword, newPassword, confirmPassword);
+        await CheckValidOnChangePassword(user, currentPassword);
 
         await _userOperationRepository.ChangePasswordAsync(user, currentPassword, newPassword);
     }
 
-    private async Task CheckValidOnChangePassword(User user, string currentPassword,
-        string newPassword, string confirmPassword)
+    private async Task CheckValidOnChangePassword(User user, string currentPassword)
     {
-        Optional<string>.Of(newPassword).ThrowIfNotEqual(confirmPassword,
-            new ValidationException("Password and confirmation password do not match"));
-
         Optional<bool>.Of(await _userReadOnlyRepository.CheckPasswordAsync(user, currentPassword))
             .ThrowIfNotExist(new ValidationException("Invalid password"));
-
-        if (currentPassword == newPassword)
-            throw new ValidationException("New password must be different from current password");
     }
 }
