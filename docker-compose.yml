@@ -47,6 +47,11 @@ services:
       - EventBus__RetryCount=5
       - EventBus__SubscriptionClientName=Identity
       - EventBus__Port=5672
+      - Email__DisplayName=
+      - Email__Host=smtp.gmail.com
+      - Email__Port=465
+      - Email__UserName=
+      - Email__Password=
     depends_on:
       db:
         condition: service_healthy

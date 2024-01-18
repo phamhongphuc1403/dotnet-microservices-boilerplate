@@ -1,4 +1,4 @@
-namespace BuildingBlock.Core.Domain.ValueObject;
+namespace BuildingBlock.Core.Domain.ValueObject.Abstractions;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {

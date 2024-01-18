@@ -25,6 +25,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Core\BuildingBlock.Core.Application\BuildingBlock.Core.Application.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\BuildingBlock.Infrastructure.Mailkit\BuildingBlock.Infrastructure.Mailkit.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\BuildingBlock.Infrastructure.Serilog\BuildingBlock.Infrastructure.Serilog.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\BuildingBlock.Infrastructure.EntityFrameworkCore\BuildingBlock.Infrastructure.EntityFrameworkCore.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\BuildingBlock.Infrastructure.RabbitMQ\BuildingBlock.Infrastructure.RabbitMQ.csproj"/>
