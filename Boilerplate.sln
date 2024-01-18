@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Infrastructure.Cloud
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Presentation.API", "Services\Shared\Presentation\Shared.Presentation.API\Shared.Presentation.API.csproj", "{EF4C64F9-EA3A-4C5A-AA88-6AFB9801843F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlock.Infrastructure.Mailkit", "BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.Mailkit\BuildingBlock.Infrastructure.Mailkit.csproj", "{77F2C3E5-970B-46B3-B368-A0E618D79B54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +144,10 @@ Global
 		{EF4C64F9-EA3A-4C5A-AA88-6AFB9801843F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF4C64F9-EA3A-4C5A-AA88-6AFB9801843F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF4C64F9-EA3A-4C5A-AA88-6AFB9801843F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77F2C3E5-970B-46B3-B368-A0E618D79B54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F2C3E5-970B-46B3-B368-A0E618D79B54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F2C3E5-970B-46B3-B368-A0E618D79B54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F2C3E5-970B-46B3-B368-A0E618D79B54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +180,7 @@ Global
 		{D9B2DDA1-B7BB-4EFB-B9B3-E7D425591370} = {AA9BBED4-6298-48E9-A906-FD0649BF7F40}
 		{1B31CA52-2A9E-4946-80A4-60DF14AB4384} = {DDCA55C8-1647-4CC0-BAE2-9EB328A4A3F7}
 		{EF4C64F9-EA3A-4C5A-AA88-6AFB9801843F} = {BB275227-6AC9-483D-AFDF-A9A74D818F19}
+		{77F2C3E5-970B-46B3-B368-A0E618D79B54} = {83D93C5D-FCF1-4DD3-8505-A517E41309CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AD7BE055-5997-458D-BEE0-619101DD6E4F}

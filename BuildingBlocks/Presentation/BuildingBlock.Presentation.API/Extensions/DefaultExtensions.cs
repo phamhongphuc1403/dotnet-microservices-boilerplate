@@ -33,7 +33,8 @@ public static class DefaultExtensions
             .AddDefaultOpenApi(configuration)
             .AddEventBus(configuration)
             .AddValidatorsFromAssembly(typeof(TApplicationAssemblyReference).Assembly)
-            .AddInMemoryCache(configuration);
+            .AddInMemoryCache(configuration)
+            .AddEmail(configuration);
 
         services
             .RegisterSeeders<TApplicationAssemblyReference>()
