@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationManagement.Core.Application.Notifications.CQRS.Commands.Requests;
 using NotificationManagement.Core.Application.Notifications.DTOs;
+using NotificationManagement.Infrastructure.Firebase.CQRS.Commands.Requests;
+using NotificationManagement.Infrastructure.Firebase.DTOs;
 
 namespace NotificationManagement.Presentation.API.Controllers;
 
@@ -23,6 +25,15 @@ public class NotificationController : ControllerBase
     public async Task<ActionResult> SendAsync([FromBody] SendNotificationDto dto)
     {
         await _mediator.Send(new SendNotificationCommand(dto));
+
+        return NoContent();
+    }
+
+    [HttpPost("device-tokens")]
+    [Authorize]
+    public async Task<ActionResult> RegisterDeviceTokenAsync([FromQuery] RegisterDeviceTokenDto dto)
+    {
+        await _mediator.Send(new RegisterDeviceTokenCommand(dto));
 
         return NoContent();
     }

@@ -1,6 +1,7 @@
 using BuildingBlock.Core.Domain.Repositories;
 using BuildingBlock.Infrastructure.EntityFrameworkCore;
 using BuildingBlock.Presentation.API.Extensions;
+using BuildingBlock.Presentation.API.Utilities;
 using NotificationManagement.Core.Application.Notifications;
 using NotificationManagement.Infrastructure.EntityFrameworkCore;
 using NotificationManagement.Infrastructure.Firebase;
@@ -16,7 +17,7 @@ public static class NotificationExtensions
         services.AddGrpcAuthentication(configuration);
         services.AddGrpcAuthorization();
 
-        services.AddFirebase();
+        services.AddFirebase(configuration.GetRequiredValue("Firebase:PrivateKeyFile"));
 
         services.AddScoped<INotificationService, FirebaseCloudMessagingNotificationService>();
 
@@ -24,7 +25,12 @@ public static class NotificationExtensions
         services
             .AddScoped<IOperationRepository<DeviceToken>, OperationRepository<NotificationDbContext, DeviceToken>>();
 
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssemblyContaining(typeof(FirebaseCloudMessagingNotificationService));
+        });
 
+        services.RegisterServices<FirebaseCloudMessagingNotificationService>();
         return services;
     }
 }

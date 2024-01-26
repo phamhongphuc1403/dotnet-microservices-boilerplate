@@ -40,9 +40,9 @@ public class FirebaseCloudMessagingNotificationService : INotificationService
         await SendAsync(deviceTokens, notification);
     }
 
-    private async Task SendAsync(List<DeviceToken> deviceTokens, NotificationMessage notification)
+    private async Task SendAsync(IReadOnlyList<DeviceToken> deviceTokens, NotificationMessage notification)
     {
-        var tokens = (IReadOnlyList<string>)deviceTokens.Select(deviceToken => deviceToken.Token);
+        IReadOnlyList<string> tokens = deviceTokens.Select(x => x.Token).ToList();
 
         var message = new MulticastMessage
         {
@@ -59,7 +59,8 @@ public class FirebaseCloudMessagingNotificationService : INotificationService
         if (response.FailureCount > 0) await HandleFailureDeviceTokens(response.Responses, deviceTokens);
     }
 
-    private async Task HandleFailureDeviceTokens(IReadOnlyList<SendResponse> responses, List<DeviceToken> deviceTokens)
+    private async Task HandleFailureDeviceTokens(IReadOnlyList<SendResponse> responses,
+        IReadOnlyList<DeviceToken> deviceTokens)
     {
         var failedTokens = new List<string>();
 
@@ -74,7 +75,7 @@ public class FirebaseCloudMessagingNotificationService : INotificationService
 
         await _unitOfWork.SaveChangesAsync();
 
-        _logger.LogError($"List of tokens that caused failures: {failedTokens}");
+        _logger.LogError($"List of tokens that caused failures: {string.Join(", ", failedTokens)}");
     }
 
     private Task<List<DeviceToken>> GetDeviceTokensAsync(Guid userId)
@@ -92,8 +93,8 @@ public class FirebaseCloudMessagingNotificationService : INotificationService
         {
             var deviceTokenUserIdSpecification = new DeviceTokenUserIdSpecification(userId);
 
-            specification = specification == null
-                ? specification = deviceTokenUserIdSpecification
+            specification = specification is null
+                ? deviceTokenUserIdSpecification
                 : specification.Or(deviceTokenUserIdSpecification);
         }
 

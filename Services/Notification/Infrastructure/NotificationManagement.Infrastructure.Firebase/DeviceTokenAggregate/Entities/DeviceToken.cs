@@ -4,9 +4,10 @@ namespace NotificationManagement.Infrastructure.Firebase.DeviceTokenAggregate.En
 
 public class DeviceToken : AggregateRoot
 {
-    public DeviceToken(string token)
+    public DeviceToken(string token, Guid userId)
     {
         Token = token;
+        UserId = userId;
     }
 
     public Guid UserId { get; set; }
