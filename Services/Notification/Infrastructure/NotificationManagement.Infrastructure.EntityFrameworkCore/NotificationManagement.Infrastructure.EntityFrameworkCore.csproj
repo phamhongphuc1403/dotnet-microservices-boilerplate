@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\BuildingBlocks\Infrastructure\BuildingBlock.Infrastructure.EntityFrameworkCore\BuildingBlock.Infrastructure.EntityFrameworkCore.csproj" />
+      <ProjectReference Include="..\..\Core\NotificationManagement.Core.Application\NotificationManagement.Core.Application.csproj" />
+      <ProjectReference Include="..\NotificationManagement.Infrastructure.Firebase\NotificationManagement.Infrastructure.Firebase.csproj" />
+    </ItemGroup>
+
+
+
+</Project>

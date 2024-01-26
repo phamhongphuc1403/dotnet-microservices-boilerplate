@@ -9,20 +9,8 @@
 
 
     <ItemGroup>
-        <PackageReference Include="MediatR" Version="12.1.1"/>
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Core.Domain\BuildingBlock.Core.Domain.csproj"/>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Presentation\BuildingBlock.Presentation.API\BuildingBlock.Presentation.API.csproj"/>
-        <ProjectReference Include="..\..\Core\Shared.Core.Application\Shared.Core.Application.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\Shared.Infrastructure.Cloudinary\Shared.Infrastructure.Cloudinary.csproj"/>
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <Folder Include="Uploads\"/>
     </ItemGroup>
 
 

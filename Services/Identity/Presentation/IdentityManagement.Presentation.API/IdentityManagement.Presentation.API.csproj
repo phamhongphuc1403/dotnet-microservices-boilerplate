@@ -22,10 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Core.Application\BuildingBlock.Core.Application.csproj"/>
-        <ProjectReference Include="..\..\..\..\BuildingBlocks\Core\BuildingBlock.Core.Domain\BuildingBlock.Core.Domain.csproj"/>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Presentation\BuildingBlock.Presentation.API\BuildingBlock.Presentation.API.csproj"/>
-        <ProjectReference Include="..\..\Core\IdentityManagement.Core.Application\IdentityManagement.Core.Application.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\IdentityManagement.Infrastructure.EntityFrameworkCore\IdentityManagement.Infrastructure.EntityFrameworkCore.csproj"/>
 
 

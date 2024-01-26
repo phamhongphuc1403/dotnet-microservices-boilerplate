@@ -21,7 +21,8 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<ApplicationUserRol
         builder.Property(userRole => userRole.Id)
             .ValueGeneratedOnAdd();
 
-        builder.HasIndex(e => new { e.UserId, e.RoleId })
-            .IsUnique();
+        builder.HasIndex(userRole => new { userRole.UserId, userRole.RoleId })
+            .IsUnique()
+            .HasFilter("\"DeletedAt\" IS NULL");
     }
 }
