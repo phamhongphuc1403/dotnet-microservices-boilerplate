@@ -1,4 +1,4 @@
-using BuildingBlock.Core.Application.Email;
+using BuildingBlock.Core.Application.Services.EmailService;
 using BuildingBlock.Infrastructure.Mailkit;
 using BuildingBlock.Presentation.API.Utilities;
 using Microsoft.Extensions.Configuration;

@@ -63,7 +63,8 @@ namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId", "ClaimType")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" IS NULL");
 
                     b.ToTable("RoleClaims", (string)null);
                 });
@@ -153,7 +154,8 @@ namespace IdentityManagement.Infrastructure.EntityFrameworkCore.Migrations
                     b.HasIndex("RoleId");
 
                     b.HasIndex("UserId", "RoleId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("\"DeletedAt\" IS NULL");
 
                     b.ToTable("UserRoles", (string)null);
                 });

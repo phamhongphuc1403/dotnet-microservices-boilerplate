@@ -23,7 +23,10 @@ public static class Permissions
         new Claim(Role.Create, "Can create roles"),
 
         // FILE
-        new Claim(File.Upload, "Can upload files")
+        new Claim(File.Upload, "Can upload files"),
+
+        //NOTIFICATION
+        new Claim(Notification.Push, "Can push notification")
     );
 
     public static readonly ImmutableList<Claim> UserPermissions = ImmutableList.Create(
@@ -74,5 +77,11 @@ public static class Permissions
     {
         private const string Default = Prefix + ".File";
         public const string Upload = Default + ".Upload";
+    }
+
+    public static class Notification
+    {
+        private const string Default = Prefix + ".Notification";
+        public const string Push = Default + ".Push";
     }
 }

@@ -8,7 +8,9 @@ public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
 {
     public void Configure(EntityTypeBuilder<ApplicationRole> builder)
     {
-        builder.HasIndex(user => user.NormalizedName).IsUnique().HasFilter("\"DeletedAt\" IS NULL");
+        builder.HasIndex(user => user.NormalizedName)
+            .IsUnique()
+            .HasFilter("\"DeletedAt\" IS NULL");
 
         builder.Property(role => role.Name)
             .HasMaxLength(256)

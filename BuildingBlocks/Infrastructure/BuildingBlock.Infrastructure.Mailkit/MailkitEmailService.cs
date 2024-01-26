@@ -1,4 +1,4 @@
-﻿using BuildingBlock.Core.Application.Email;
+﻿using BuildingBlock.Core.Application.Services.EmailService;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using MimeKit;
@@ -46,23 +46,23 @@ public class MailkitEmailService : IEmailService
         try
         {
             await client.ConnectAsync(_emailConfiguration.Host, _emailConfiguration.Port, true);
-            
+
             await client.AuthenticateAsync(_emailConfiguration.Username, _emailConfiguration.Password);
-            
+
             await client.SendAsync(mimeMessage);
-         
+
             _logger.LogInformation($"Email sent to {mimeMessage.To} susseccfully.");
         }
         catch (Exception exception)
         {
             _logger.LogError(exception.ToString());
-            
+
             throw;
         }
         finally
         {
             await client.DisconnectAsync(true);
-            
+
             client.Dispose();
         }
     }

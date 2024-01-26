@@ -1,6 +1,6 @@
 using BuildingBlock.Core.Domain.ValueObject.Implementation;
 
-namespace BuildingBlock.Core.Application.Email;
+namespace BuildingBlock.Core.Application.Services.EmailService;
 
 public class EmailMessage
 {

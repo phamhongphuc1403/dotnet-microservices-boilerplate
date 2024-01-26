@@ -14,6 +14,7 @@ COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.EntityFramewor
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.RabbitMQ/BuildingBlock.Infrastructure.RabbitMQ.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.RabbitMQ/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Redis/BuildingBlock.Infrastructure.Redis.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Redis/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Identity/BuildingBlock.Infrastructure.Identity.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Identity/"]
+COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Mailkit/BuildingBlock.Infrastructure.Mailkit.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Mailkit/"]
 COPY ["Services/Identity/Core/IdentityManagement.Core.Application/IdentityManagement.Core.Application.csproj", "Services/Identity/Core/IdentityManagement.Core.Application/"]
 COPY ["Services/Identity/Core/IdentityManagement.Core.Domain/IdentityManagement.Core.Domain.csproj", "Services/Identity/Core/IdentityManagement.Core.Domain/"]
 COPY ["Services/Identity/Infrastructure/IdentityManagement.Infrastructure.EntityFrameworkCore/IdentityManagement.Infrastructure.EntityFrameworkCore.csproj", "Services/Identity/Infrastructure/IdentityManagement.Infrastructure.EntityFrameworkCore/"]

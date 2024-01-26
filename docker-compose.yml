@@ -1,4 +1,8 @@
-version: '3.4'
+version: '3.8'
+
+networks:
+  boilerplate-network:
+    driver: bridge
 
 services:
   api-gateway:
@@ -17,9 +21,11 @@ services:
       - Routes__1__DownstreamHostAndPorts__0__Host=boilerplate.shared.api
       - Routes__1__DownstreamHostAndPorts__0__Port=80
       - SwaggerEndPoints__1__Config__0__Url=http://boilerplate.shared.api/swagger/v1/swagger.json
-    links:
-      - identity-service
-      - shared-service
+      - Routes__2__DownstreamHostAndPorts__0__Host=boilerplate.notification.api
+      - Routes__2__DownstreamHostAndPorts__0__Port=80
+      - SwaggerEndPoints__2__Config__0__Url=http://boilerplate.notification.api/swagger/v1/swagger.json
+    networks:
+      - boilerplate-network
   identity-service:
     container_name: boilerplate.identity.api
     image: boilerplate.identity
@@ -32,7 +38,6 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__Redis=boilerplate.redis
-      - ConnectionStrings__RabbitMQ=boilerplate.rabbitmq
       - Kestrel__Endpoints__Http__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Url=http://+:50051
       - Serilog__WriteTo__1__Args__serverUrl=http://boilerplate.seq:5341
@@ -59,11 +64,11 @@ services:
         condition: service_healthy
       seq:
         condition: service_started
-    links:
-      - db
+    networks:
+      - boilerplate-network
   shared-service:
     container_name: boilerplate.shared.api
-    image: boilerplate.api-gateway
+    image: boilerplate.shared
     ports:
       - "5002:80"
     build:
@@ -81,6 +86,39 @@ services:
         condition: service_healthy
       seq:
         condition: service_started
+    networks:
+      - boilerplate-network
+  notification-service:
+    container_name: boilerplate.notification.api
+    image: boilerplate.notification
+    ports:
+      - "5003:80"
+    build:
+      context: .
+      dockerfile: Services/Notification/Presentation/NotificationManagement.Presentation.API/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__Redis=boilerplate.redis
+      - GrpcUrls__Identity=http://boilerplate.identity.api:50051
+      - Serilog__WriteTo__1__Args__serverUrl=http://boilerplate.seq:5341
+      - EventBus__HostName=boilerplate.rabbitmq
+      - EventBus__UserName=guest
+      - EventBus__Password=guest
+      - EventBus__RetryCount=5
+      - EventBus__SubscriptionClientName=Identity
+      - EventBus__Port=5672
+      - Database__Host=boilerplate.db
+      - Database__Port=5432
+      - Database__Database=Identity
+      - Database__Username=postgres
+      - Database__Password=password
+    depends_on:
+      redis:
+        condition: service_healthy
+      seq:
+        condition: service_started
+    networks:
+      - boilerplate-network
   db:
     container_name: boilerplate.db
     image: postgres:latest
@@ -95,6 +133,8 @@ services:
       interval: 10s
       timeout: 0s
       retries: 5
+    networks:
+      - boilerplate-network
   redis:
     container_name: boilerplate.redis
     image: redis
@@ -105,6 +145,8 @@ services:
       interval: 10s
       timeout: 0s
       retries: 5
+    networks:
+      - boilerplate-network
   rabbitmq:
     container_name: boilerplate.rabbitmq
     image: rabbitmq:3.12-management
@@ -116,6 +158,8 @@ services:
       interval: 10s
       timeout: 0s
       retries: 5
+    networks:
+      - boilerplate-network
   seq:
     container_name: boilerplate.seq
     image: datalust/seq:latest
@@ -124,5 +168,7 @@ services:
       - "5341:5341"
     environment:
       - ACCEPT_EULA=Y
+    networks:
+      - boilerplate-network
 volumes:
   data:

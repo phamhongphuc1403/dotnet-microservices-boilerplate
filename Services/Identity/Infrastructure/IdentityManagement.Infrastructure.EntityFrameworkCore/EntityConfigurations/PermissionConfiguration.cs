@@ -16,7 +16,9 @@ public class PermissionConfiguration : IEntityTypeConfiguration<ApplicationPermi
             .HasMaxLength(256)
             .IsRequired();
 
-        builder.HasIndex(permissions => new { permissions.RoleId, permissions.ClaimType }).IsUnique();
+        builder.HasIndex(permissions => new { permissions.RoleId, permissions.ClaimType })
+            .IsUnique()
+            .HasFilter("\"DeletedAt\" IS NULL");
 
         builder.HasOne(permission => permission.Role)
             .WithMany(role => role.Permissions)
