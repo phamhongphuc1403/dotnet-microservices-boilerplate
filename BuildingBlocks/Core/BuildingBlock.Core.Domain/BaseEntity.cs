@@ -63,6 +63,12 @@ public interface IEntity : IAuditEntity<Guid>
 
 public abstract class Entity : AuditEntity<Guid>, IEntity
 {
+    public void ResetUpdatedTimeStamp()
+    {
+        UpdatedAt = null;
+        UpdatedBy = null;
+    }
+
     public void Delete(DateTime? deletedAt, string? deletedBy)
     {
         DeletedAt ??= deletedAt;

@@ -8,6 +8,10 @@ public class DeviceTokenConfiguration : IEntityTypeConfiguration<DeviceToken>
 {
     public void Configure(EntityTypeBuilder<DeviceToken> builder)
     {
+        builder.HasIndex(deviceToken => deviceToken.Token)
+            .IsUnique()
+            .HasFilter("\"DeletedAt\" IS NULL");
+
         builder.HasIndex(deviceToken => new { deviceToken.Token, deviceToken.UserId })
             .IsUnique()
             .HasFilter("\"DeletedAt\" IS NULL");

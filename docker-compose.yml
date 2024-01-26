@@ -105,13 +105,14 @@ services:
       - EventBus__UserName=guest
       - EventBus__Password=guest
       - EventBus__RetryCount=5
-      - EventBus__SubscriptionClientName=Identity
+      - EventBus__SubscriptionClientName=Notification
       - EventBus__Port=5672
       - Database__Host=boilerplate.db
       - Database__Port=5432
-      - Database__Database=Identity
+      - Database__Database=Notification
       - Database__Username=postgres
       - Database__Password=password
+      - Firebase__PrivateKeyFile=
     depends_on:
       redis:
         condition: service_healthy
