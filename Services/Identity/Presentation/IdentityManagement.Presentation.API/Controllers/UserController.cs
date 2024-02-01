@@ -30,15 +30,6 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpPost]
-    [Authorize(Policy = Permissions.User.Create)]
-    public async Task<ActionResult<UserDetailDto>> CreateUserAsync(CreateUserDto dto)
-    {
-        var user = await _mediator.Send(new CreateUserCommand(dto));
-
-        return Ok(user);
-    }
-
     [HttpGet("{id:guid}")]
     [Authorize(Policy = Permissions.User.ViewAll)]
     public async Task<ActionResult<UserDetailDto>> GetUserByIdAsync(Guid id)

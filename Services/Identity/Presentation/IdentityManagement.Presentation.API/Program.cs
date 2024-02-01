@@ -17,11 +17,11 @@ await builder.Services
 
 builder.Host.UseDefaultHosts(builder.Configuration);
 
-var jwtSetting = builder.Configuration.BindAndGetConfig<JwtConfiguration>("Jwt");
+var jwtConfiguration = builder.Configuration.BindAndGetConfig<JwtConfiguration>("Jwt");
 
-builder.Services.AddSingleton(jwtSetting);
+builder.Services.AddSingleton(jwtConfiguration);
 
-builder.Services.AddIdentityExtension(jwtSetting);
+builder.Services.AddIdentityExtension(jwtConfiguration);
 
 builder.Services.AddGrpc();
 

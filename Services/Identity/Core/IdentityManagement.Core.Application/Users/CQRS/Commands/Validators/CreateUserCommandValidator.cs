@@ -7,10 +7,15 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
     public CreateUserCommandValidator()
     {
-        RuleFor(command => command.Dto.Email)
+        RuleFor(command => command.User.Email)
             .CheckEmailValidation();
 
-        RuleFor(command => command.Dto.Password)
-            .CheckPasswordValidation(command => command.Dto.ConfirmPassword);
+        RuleFor(command => command.Password)
+            .CheckPasswordValidation()
+            .When(command => !string.IsNullOrEmpty(command.Password));
+
+        RuleFor(command => command.User.PhoneNumber)
+            .CheckPhoneNumberValidation()
+            .When(command => !string.IsNullOrEmpty(command.User.PhoneNumber));
     }
 }

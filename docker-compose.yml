@@ -57,6 +57,7 @@ services:
       - Email__Port=465
       - Email__UserName=
       - Email__Password=
+      - SingleSignOn__Google__ClientId=
     depends_on:
       db:
         condition: service_healthy

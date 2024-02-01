@@ -17,7 +17,7 @@ public class User : AggregateRoot
 
     public string Email { get; set; } = null!;
 
-    public string PasswordHash { get; set; } = null!;
+    public string? PasswordHash { get; set; } = null!;
 
     public string SecurityStamp { get; set; } = null!;
 

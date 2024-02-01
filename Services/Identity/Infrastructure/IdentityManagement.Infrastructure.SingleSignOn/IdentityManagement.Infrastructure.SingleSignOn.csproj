@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>IdentityManagement.Infrastructure.Google</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Google.Apis.Oauth2.v2" Version="1.66.0.1869"/>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.15"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Core\IdentityManagement.Core.Application\IdentityManagement.Core.Application.csproj"/>
+    </ItemGroup>
+
+
+</Project>

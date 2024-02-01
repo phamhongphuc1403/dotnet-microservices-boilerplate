@@ -43,11 +43,13 @@ public class UserOperationRepository : IUserOperationRepository
         _mapper.Map(applicationUser, user);
     }
 
-    public async Task CreateAsync(User user, string password)
+    public async Task CreateAsync(User user, string? password)
     {
         var applicationUser = _mapper.Map<ApplicationUser>(user);
 
-        var result = await _userManager.CreateAsync(applicationUser, password);
+        var result = password is null
+            ? await _userManager.CreateAsync(applicationUser)
+            : await _userManager.CreateAsync(applicationUser, password);
 
         if (!result.Succeeded) throw new IdentityException(result.Errors);
 

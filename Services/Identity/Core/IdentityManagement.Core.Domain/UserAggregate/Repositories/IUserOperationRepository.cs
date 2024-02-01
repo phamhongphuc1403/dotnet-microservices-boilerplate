@@ -8,7 +8,7 @@ public interface IUserOperationRepository
 
     Task ChangePasswordAsync(User user, string currentPassword, string newPassword);
 
-    Task CreateAsync(User user, string password);
+    Task CreateAsync(User user, string? password);
 
     Task<bool> PasswordSignInAsync(User user, string password);
 
