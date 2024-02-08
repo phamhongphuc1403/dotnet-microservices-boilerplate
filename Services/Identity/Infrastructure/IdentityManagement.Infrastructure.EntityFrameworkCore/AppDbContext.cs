@@ -52,6 +52,10 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
         auditedEntities.SetAuditProperties(_currentUser);
 
-        return await base.SaveChangesAsync(cancellationToken);
+        var result = await base.SaveChangesAsync(cancellationToken);
+
+        ChangeTracker.Clear();
+
+        return result;
     }
 }

@@ -18,9 +18,11 @@ public class UserMapper : Profile
             .ForMember(dest => dest.NormalizedUserName, opt => opt.MapFrom(src => src.Email.ToUpper()));
         CreateMap<User, UserDetailDto>();
         CreateMap<User, UserSummaryDto>();
+        CreateMap<UserCreationDto, User>();
 
         CreateMap<ApplicationUser, UserSummaryDto>();
         CreateMap<ApplicationUser, UserCreationDto>();
+        CreateMap<UserCreationDto, ApplicationUser>();
         CreateMap<ApplicationUser, UserDeletionDto>();
         CreateMap<ApplicationUser, User>();
         CreateMap<ApplicationUser, UserDetailDto>();

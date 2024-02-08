@@ -6,8 +6,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["Services/Identity/Presentation/IdentityManagement.Presentation.API/IdentityManagement.Presentation.API.csproj", "Services/Identity/Presentation/IdentityManagement.Presentation.API/"]
+COPY ["Services/Identity/Core/IdentityManagement.Core.Application/IdentityManagement.Core.Application.csproj", "Services/Identity/Core/IdentityManagement.Core.Application/"]
 COPY ["BuildingBlocks/Core/BuildingBlock.Core.Application/BuildingBlock.Core.Application.csproj", "BuildingBlocks/Core/BuildingBlock.Core.Application/"]
 COPY ["BuildingBlocks/Core/BuildingBlock.Core.Domain/BuildingBlock.Core.Domain.csproj", "BuildingBlocks/Core/BuildingBlock.Core.Domain/"]
+COPY ["Services/Identity/Core/IdentityManagement.Core.Domain/IdentityManagement.Core.Domain.csproj", "Services/Identity/Core/IdentityManagement.Core.Domain/"]
 COPY ["BuildingBlocks/Presentation/BuildingBlock.Presentation.API/BuildingBlock.Presentation.API.csproj", "BuildingBlocks/Presentation/BuildingBlock.Presentation.API/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Serilog/BuildingBlock.Infrastructure.Serilog.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Serilog/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.EntityFrameworkCore/BuildingBlock.Infrastructure.EntityFrameworkCore.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.EntityFrameworkCore/"]
@@ -15,10 +17,9 @@ COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.RabbitMQ/Build
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Redis/BuildingBlock.Infrastructure.Redis.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Redis/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Identity/BuildingBlock.Infrastructure.Identity.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Identity/"]
 COPY ["BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Mailkit/BuildingBlock.Infrastructure.Mailkit.csproj", "BuildingBlocks/Infrastructure/BuildingBlock.Infrastructure.Mailkit/"]
-COPY ["Services/Identity/Core/IdentityManagement.Core.Application/IdentityManagement.Core.Application.csproj", "Services/Identity/Core/IdentityManagement.Core.Application/"]
-COPY ["Services/Identity/Core/IdentityManagement.Core.Domain/IdentityManagement.Core.Domain.csproj", "Services/Identity/Core/IdentityManagement.Core.Domain/"]
 COPY ["Services/Identity/Infrastructure/IdentityManagement.Infrastructure.EntityFrameworkCore/IdentityManagement.Infrastructure.EntityFrameworkCore.csproj", "Services/Identity/Infrastructure/IdentityManagement.Infrastructure.EntityFrameworkCore/"]
 COPY ["Services/Identity/Infrastructure/IdentityManagement.Infrastructure.Identity/IdentityManagement.Infrastructure.Identity.csproj", "Services/Identity/Infrastructure/IdentityManagement.Infrastructure.Identity/"]
+COPY ["Services/Identity/Infrastructure/IdentityManagement.Infrastructure.SingleSignOn/IdentityManagement.Infrastructure.SingleSignOn.csproj", "Services/Identity/Infrastructure/IdentityManagement.Infrastructure.SingleSignOn/"]
 RUN dotnet restore "Services/Identity/Presentation/IdentityManagement.Presentation.API/IdentityManagement.Presentation.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Identity/Presentation/IdentityManagement.Presentation.API"

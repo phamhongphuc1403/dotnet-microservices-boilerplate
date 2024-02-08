@@ -1,6 +1,7 @@
 using BuildingBlock.Presentation.API.Extensions;
 using IdentityManagement.Core.Application.Shared;
 using IdentityManagement.Infrastructure.EntityFrameworkCore;
+using IdentityManagement.Infrastructure.Google;
 using IdentityManagement.Infrastructure.Identity;
 using IdentityManagement.Infrastructure.Identity.RoleAggregate.Entities;
 using IdentityManagement.Infrastructure.Identity.UserAggregate.Entities;
@@ -39,6 +40,8 @@ public static class IdentityExtensions
             .RegisterDefaultRepositories<IdentityDomainAssemblyReference, AppDbContext>()
             .AddIdentityAuthentication(jwtConfiguration)
             .AddIdentityAuthorization();
+
+        services.AddMapper<GoogleExternalLoginService>();
 
         return services;
     }

@@ -28,8 +28,7 @@ public class UserDomainService : IUserDomainService
         user.RefreshTokens.Add(new RefreshToken(refreshToken));
     }
 
-    public async Task<User> CreateAsync(string email, string name, string password,
-        string confirmPassword)
+    public async Task<User> CreateAsync(string email, string name)
     {
         await CheckValidOnCreate(email);
 

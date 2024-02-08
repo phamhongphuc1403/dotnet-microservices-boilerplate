@@ -24,6 +24,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\BuildingBlocks\Presentation\BuildingBlock.Presentation.API\BuildingBlock.Presentation.API.csproj"/>
         <ProjectReference Include="..\..\Infrastructure\IdentityManagement.Infrastructure.EntityFrameworkCore\IdentityManagement.Infrastructure.EntityFrameworkCore.csproj"/>
+        <ProjectReference Include="..\..\Infrastructure\IdentityManagement.Infrastructure.SingleSignOn\IdentityManagement.Infrastructure.SingleSignOn.csproj"/>
 
 
     </ItemGroup>
